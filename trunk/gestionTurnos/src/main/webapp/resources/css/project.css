@@ -1,0 +1,69 @@
+
+html {
+  height: 100%;
+  background-color: #333;
+}
+
+body {
+  min-height: 100%;	
+  background-color: #333;
+  box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+}
+
+.login { 
+  background: url('../img/background.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; 
+}
+ 
+.welcome {
+    text-align: center;
+    font-weight: bold;
+    line-height: 1;
+    color: #DBDBDB;
+    text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+.none {
+    display: none;
+}
+
+.lightBlue {
+    background-color: AliceBlue;
+}
+
+.tdRecursosCentered {
+    vertical-align: middle;
+}
+
+.width15 {
+    width: 15%;
+}
+
+.displayInLine {
+    display: inline;
+}
+
+.loading {
+    background: url("../img/ajax-loader.gif");
+    width: 220px;
+    height: 19px;
+}
+
+#loadingModal {
+    width: 250px;
+    height: 59px;
+    z-index: 9999;
+}
+
+#divLoadingIcon {
+    padding-top: 18px;
+}
+
+#buscarRecursosModal {
+    width: 500px;
+    height: 180px;
+    overflow: hidden;
+}
