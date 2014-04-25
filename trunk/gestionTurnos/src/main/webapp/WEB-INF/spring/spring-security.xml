@@ -22,7 +22,7 @@
             <security:jdbc-user-service
                     data-source-ref="dataSourceTurnos"
                     users-by-username-query="SELECT usuario, password, activo FROM usuarios WHERE usuario = ?"
-                    authorities-by-username-query="SELECT usuarios.usuario, rolesusuarios.rol FROM   usuarios, rolesusuarios WHERE  rolesusuarios.usuario = usuarios.id and usuarios.usuario = ?" />
+                    authorities-by-username-query="SELECT usuarios.usuario, rolesusuarios.rol FROM   usuarios, rolesusuarios WHERE  rolesusuarios.idusuario = usuarios.id and usuarios.usuario = ?" />
         </security:authentication-provider>
     </security:authentication-manager>
 </beans>
