@@ -1,25 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-
-<style type="text/css">
-#crearRecursoDialog .modal-dialog { 
-	  width: 900px;
-	}
-#editarRecursoDialog .modal-dialog { 
-	  width: 900px;
-	}
-#buscarRecursosDialog .modal-dialog { 
-	  width: 900px;
-	}			
-</style> 
-
 <div id="crearRecursoDialog"
      class="modal fade"
      role="dialog"
      aria-hidden="true">
     
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
    		<div class="modal-content">
     
     		<div class="modal-header">
@@ -29,8 +16,8 @@
     		</div>
     
     		<div class="modal-body">
-        		<form name="crearRecursoForm" novalidate class="form-horizontal">             		
-                	<div class="form-group">
+        		<form name="crearRecursoForm" novalidate class="well form-horizontal">             		
+                	<div class="form-group" ng-class="{'has-error': mostrarErrorValidacion && crearRecursoForm.descripcion.$error.required}">
 						<label for="txtDescripcion" class="col-lg-3 control-label"><spring:message code="recursos.descripcion"/>:</label>
 						<div class="col-lg-7">
 							<input type="text"
@@ -43,13 +30,11 @@
                                	placeholder="<spring:message code='recursos.descripcion'/>"/>         
 						</div>
 						<div class="col-lg-2">
-							<label>
-                            	<span class="alert alert-danger"
+							<span class="alert alert-danger help-block"
                                       ng-show="mostrarErrorValidacion && crearRecursoForm.descripcion.$error.required">
                                         <spring:message code="required"/>
                                 </span>
-                        	</label>
-						</div>
+                        </div>
     				</div>
                 </form>
             	<span class="alert alert-danger"
@@ -81,7 +66,7 @@
      class="modal fade"
      role="dialog"
      aria-hidden="true">
-	 <div class="modal-dialog">
+	 <div class="modal-dialog modal-lg">
    		<div class="modal-content">     
 		    <div class="modal-header">
 		        <h3 id="editarRecursoModalLabel" class="displayInLine">
@@ -89,14 +74,14 @@
 		        </h3>
 		    </div>
 		    <div class="modal-body">
-		        <form name="editarRecursoForm" novalidate class="form-horizontal">
+		        <form name="editarRecursoForm" novalidate class="well form-horizontal">
 		            <input type="hidden"
 		                   required
 		                   ng-model="recurso.id"
 		                   name="id"
 		                   value="{{recurso.id}}"/>
 					
-					<div class="form-group">
+					<div class="form-group" ng-class="{'has-error': mostrarErrorValidacion && editarRecursoForm.descripcion.$error.required}">
 						<label for="txtDescripcion" class="col-lg-3 control-label"><spring:message code="recursos.descripcion"/>:</label>
 						<div class="col-lg-7">
 							<input type="text"
@@ -110,7 +95,7 @@
 						</div>
 						<div class="col-lg-2">
 							<label>
-                            	<span class="alert alert-danger"
+                            	<span class="alert alert-danger help-block"
                                       ng-show="mostrarErrorValidacion && editarRecursoForm.descripcion.$error.required">
                                         <spring:message code="required"/>
                                 </span>
@@ -192,7 +177,7 @@
      role="dialog"
      aria-hidden="true">
     
-    <div class="modal-dialog">
+    <div class="modal-dialog  modal-lg">
    		<div class="modal-content"> 
 			<div class="modal-header">
         		<h3 id="buscarRecursosModalLabel" class="displayInLine">
@@ -202,7 +187,7 @@
     	
     		<div class="modal-body">
         		<form name="buscarRecursosForm" novalidate class="form-horizontal">
-        			<div class="form-group">
+        			<div class="form-group" ng-class="{'has-error': mostrarErrorValidacion && buscarRecursosForm.filtroDescripcion.$error.required}">
         				<label for="txtDescripcion" class="col-lg-3 control-label"><spring:message code="search.for"/>:</label>
             			
 	            		<div class="col-lg-7">
@@ -217,7 +202,7 @@
 	                	</div>
 	                	<div class="col-lg-2">
 	                    	<label class="displayInLine">
-	                        	<span class="alert alert-danger"
+	                        	<span class="alert alert-danger help-block"
 	                              		ng-show="mostrarErrorValidacion && buscarRecursosForm.filtroDescripcion.$error.required">
 	                            		<spring:message code="required"/>
 	                        	</span>
