@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ar.com.trivoli.gestionturnos.recursos.model;
+package ar.com.trivoli.gestionturnos.recurso.model;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ar.com.trivoli.gestionturnos.recursos.model;
+package ar.com.trivoli.gestionturnos.recurso.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
