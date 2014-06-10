@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ar.com.trivoli.gestionturnos.recursos.controller;
+package ar.com.trivoli.gestionturnos.recurso.controller;
 
 import java.util.Locale;
 
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.com.trivoli.gestionturnos.recursos.model.ListaRecursoDTO;
-import ar.com.trivoli.gestionturnos.recursos.model.Recurso;
-import ar.com.trivoli.gestionturnos.recursos.service.RecursoService;
+import ar.com.trivoli.gestionturnos.recurso.model.ListaRecursoDTO;
+import ar.com.trivoli.gestionturnos.recurso.model.Recurso;
+import ar.com.trivoli.gestionturnos.recurso.service.RecursoService;
 
 /**
  * @author posadas

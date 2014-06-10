@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ar.com.trivoli.gestionturnos.recursos.service;
+package ar.com.trivoli.gestionturnos.recurso.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,9 +10,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ar.com.trivoli.gestionturnos.recursos.model.ListaRecursoDTO;
-import ar.com.trivoli.gestionturnos.recursos.model.Recurso;
-import ar.com.trivoli.gestionturnos.recursos.repository.RecursoRepository;
+import ar.com.trivoli.gestionturnos.recurso.model.ListaRecursoDTO;
+import ar.com.trivoli.gestionturnos.recurso.model.Recurso;
+import ar.com.trivoli.gestionturnos.recurso.repository.RecursoRepository;
 
 /**
  * @author posadas
