@@ -14,7 +14,7 @@ import ar.com.trivoli.gestionturnos.recurso.model.Recurso;
  * 
  *         Repositorio de Recursos
  */
-public interface RecursoRepository extends
+public interface IRecursoRepository extends
 		PagingAndSortingRepository<Recurso, Integer> {
 	Page<Recurso> findByDescripcionLike(Pageable pageable, String descripcion);
 }

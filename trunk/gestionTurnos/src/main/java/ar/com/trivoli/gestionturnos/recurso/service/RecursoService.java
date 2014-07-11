@@ -10,9 +10,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ar.com.trivoli.gestionturnos.recurso.model.ListaRecursoDTO;
+import ar.com.trivoli.gestionturnos.common.model.ListaEntidadDTO;
 import ar.com.trivoli.gestionturnos.recurso.model.Recurso;
-import ar.com.trivoli.gestionturnos.recurso.repository.RecursoRepository;
+import ar.com.trivoli.gestionturnos.recurso.repository.IRecursoRepository;
 
 /**
  * @author posadas
@@ -24,14 +24,14 @@ import ar.com.trivoli.gestionturnos.recurso.repository.RecursoRepository;
 public class RecursoService {
 
 	@Autowired
-	private RecursoRepository recursoRepository;
+	private IRecursoRepository recursoRepository;
 
 	private Sort ordenPredeterminado() {
 		return new Sort(Sort.Direction.ASC, "descripcion");
 	}
 
 	@Transactional(readOnly = true)
-	public ListaRecursoDTO buscarRecursosPorDescripcion(int nroPagina,
+	public ListaEntidadDTO<Recurso> buscarRecursosPorDescripcion(int nroPagina,
 			int registrosPorPagina, String descripcion) {
 		PageRequest pageRequest = new PageRequest(nroPagina,
 				registrosPorPagina, ordenPredeterminado());
@@ -52,7 +52,7 @@ public class RecursoService {
 					"%" + descripcion + "%");
 		}
 
-		return new ListaRecursoDTO(resultado.getTotalPages(),
+		return new ListaEntidadDTO<Recurso>(resultado.getTotalPages(),
 				resultado.getTotalElements(), resultado.getContent());
 	}
 
@@ -65,7 +65,8 @@ public class RecursoService {
 	}
 
 	@Transactional(readOnly = true)
-	public ListaRecursoDTO recuperarTodos(int nroPagina, int registrosPorPagina) {
+	public ListaEntidadDTO<Recurso> recuperarTodos(int nroPagina,
+			int registrosPorPagina) {
 		PageRequest pageRequest = new PageRequest(nroPagina,
 				registrosPorPagina, ordenPredeterminado());
 
@@ -83,7 +84,7 @@ public class RecursoService {
 			resultado = recursoRepository.findAll(pageRequest);
 		}
 
-		return new ListaRecursoDTO(resultado.getTotalPages(),
+		return new ListaEntidadDTO<Recurso>(resultado.getTotalPages(),
 				resultado.getTotalElements(), resultado.getContent());
 	}
 

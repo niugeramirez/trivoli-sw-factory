@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.com.trivoli.gestionturnos.usuario.model.Usuario;
-import ar.com.trivoli.gestionturnos.usuario.repository.UsuarioRepository;
+import ar.com.trivoli.gestionturnos.usuario.repository.IUsuarioRepository;
 
 /**
  * @author posadas
@@ -18,7 +18,7 @@ import ar.com.trivoli.gestionturnos.usuario.repository.UsuarioRepository;
 public class UsuarioService {
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private IUsuarioRepository usuarioRepository;
 
 	public Usuario findByUsuario(String usuario) {
 		return usuarioRepository.findByUsuario(usuario);

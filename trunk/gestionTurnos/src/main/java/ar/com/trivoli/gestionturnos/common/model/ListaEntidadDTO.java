@@ -1,32 +1,33 @@
 /**
  * 
  */
-package ar.com.trivoli.gestionturnos.recurso.model;
+package ar.com.trivoli.gestionturnos.common.model;
 
 import java.util.List;
 
 /**
  * @author posadas
  * 
- *         DTO que representa una Lista de Recurso con informacion de Paginado y
- *         Mensajes al Usuario Final
+ *         DTO que permite transferir lista de Objetos entre las capas de la
+ *         Aplicacion, con informacion de Paginado, etc.
+ * 
  */
-public class ListaRecursoDTO {
+public class ListaEntidadDTO<tipoId> {
 	private int cantPaginas;
 	private long totalRegistros;
 
 	private String mensajeAccion;
 	private String mensajeBusqueda;
 
-	private List<Recurso> registros;
+	private List<tipoId> registros;
 
-	public ListaRecursoDTO() {
+	public ListaEntidadDTO() {
 	}
 
-	public ListaRecursoDTO(int cantPaginas, long totalRegistros,
-			List<Recurso> recursos) {
+	public ListaEntidadDTO(int cantPaginas, long totalRegistros,
+			List<tipoId> registros) {
 		this.cantPaginas = cantPaginas;
-		this.registros = recursos;
+		this.registros = registros;
 		this.totalRegistros = totalRegistros;
 	}
 
@@ -42,7 +43,7 @@ public class ListaRecursoDTO {
 		return mensajeBusqueda;
 	}
 
-	public List<Recurso> getRegistros() {
+	public List<tipoId> getRegistros() {
 		return registros;
 	}
 
@@ -62,7 +63,7 @@ public class ListaRecursoDTO {
 		this.mensajeBusqueda = mensajeBusqueda;
 	}
 
-	public void setRegistros(List<Recurso> registros) {
+	public void setRegistros(List<tipoId> registros) {
 		this.registros = registros;
 	}
 

@@ -7,8 +7,6 @@ import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -21,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.com.trivoli.gestionturnos.recurso.model.ListaRecursoDTO;
+import ar.com.trivoli.gestionturnos.common.controller.ControllerBase;
+import ar.com.trivoli.gestionturnos.common.model.ListaEntidadDTO;
 import ar.com.trivoli.gestionturnos.recurso.model.Recurso;
 import ar.com.trivoli.gestionturnos.recurso.service.RecursoService;
 
@@ -32,50 +31,20 @@ import ar.com.trivoli.gestionturnos.recurso.service.RecursoService;
  */
 @Controller
 @RequestMapping(value = "/protected/recursos")
-public class RecursoController {
-
-	private static final String DEFAULT_PAGE_DISPLAYED_TO_USER = "0";
+public class RecursoController extends ControllerBase<Recurso> {
 
 	@Autowired
 	private RecursoService recursoService;
 
-	@Autowired
-	private MessageSource messageSource;
-
 	/**
 	 * Maxima Cantidad de Registros por Pagina
 	 */
-	@Value("5")
-	private int registrosPorPagina;
-
-	private ListaRecursoDTO addMensajeBusqueda(ListaRecursoDTO listaRecursos,
-			Locale locale, String claveMensaje, Object[] args) {
-		if (StringUtils.isEmpty(claveMensaje)) {
-			return listaRecursos;
-		}
-
-		listaRecursos.setMensajeBusqueda(messageSource.getMessage(claveMensaje,
-				args, null, locale));
-
-		return listaRecursos;
-	}
-
-	private ListaRecursoDTO agregarMensajeAccion(ListaRecursoDTO listaRecursos,
-			Locale locale, String claveMensaje, Object[] args) {
-		if (StringUtils.isEmpty(claveMensaje)) {
-			return listaRecursos;
-		}
-
-		listaRecursos.setMensajeAccion(messageSource.getMessage(claveMensaje,
-				args, null, locale));
-
-		return listaRecursos;
-	}
 
 	private ResponseEntity<?> buscarRecursos(String filtroDescripcion,
 			int nroPagina, Locale locale, String actionMessageKey) {
-		ListaRecursoDTO listaRecursos = recursoService.buscarRecursosPorDescripcion(
-				nroPagina, registrosPorPagina, filtroDescripcion);
+		ListaEntidadDTO<Recurso> listaRecursos = recursoService
+				.buscarRecursosPorDescripcion(nroPagina, registrosPorPagina,
+						filtroDescripcion);
 
 		if (!StringUtils.isEmpty(actionMessageKey)) {
 			agregarMensajeAccion(listaRecursos, locale, actionMessageKey, null);
@@ -83,14 +52,11 @@ public class RecursoController {
 
 		Object[] args = { filtroDescripcion };
 
-		addMensajeBusqueda(listaRecursos, locale, "message.search.for.active",
-				args);
+		agregarMensajeBusqueda(listaRecursos, locale,
+				"message.search.for.active", args);
 
-		return new ResponseEntity<ListaRecursoDTO>(listaRecursos, HttpStatus.OK);
-	}
-
-	private boolean existeBusquedaActiva(String filtroDescripcion) {
-		return !StringUtils.isEmpty(filtroDescripcion);
+		return new ResponseEntity<ListaEntidadDTO<Recurso>>(listaRecursos,
+				HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
@@ -107,13 +73,14 @@ public class RecursoController {
 		}
 
 		// Se recuperan todos los Recursos
-		ListaRecursoDTO listaRecursos = recursoService.recuperarTodos(
+		ListaEntidadDTO<Recurso> listaRecursos = recursoService.recuperarTodos(
 				nroPagina, registrosPorPagina);
 
 		agregarMensajeAccion(listaRecursos, locale, "message.create.success",
 				null);
 
-		return new ResponseEntity<ListaRecursoDTO>(listaRecursos, HttpStatus.OK);
+		return new ResponseEntity<ListaEntidadDTO<Recurso>>(listaRecursos,
+				HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{recursoId}", method = RequestMethod.DELETE, produces = "application/json")
@@ -135,13 +102,14 @@ public class RecursoController {
 		}
 
 		// Se recuperan todos los Recursos
-		ListaRecursoDTO listaRecursos = recursoService.recuperarTodos(
+		ListaEntidadDTO<Recurso> listaRecursos = recursoService.recuperarTodos(
 				nroPagina, registrosPorPagina);
 
 		agregarMensajeAccion(listaRecursos, locale, "message.delete.success",
 				null);
 
-		return new ResponseEntity<ListaRecursoDTO>(listaRecursos, HttpStatus.OK);
+		return new ResponseEntity<ListaEntidadDTO<Recurso>>(listaRecursos,
+				HttpStatus.OK);
 	}
 
 	/**
@@ -157,11 +125,12 @@ public class RecursoController {
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> listAll(@RequestParam int nroPagina, Locale locale) {
 		// Se recuperan todos los Recursos
-		ListaRecursoDTO listaRecursos = recursoService.recuperarTodos(
+		ListaEntidadDTO<Recurso> listaRecursos = recursoService.recuperarTodos(
 				nroPagina, registrosPorPagina);
 
 		// Se arma la Respuesta HTTP
-		return new ResponseEntity<ListaRecursoDTO>(listaRecursos, HttpStatus.OK);
+		return new ResponseEntity<ListaEntidadDTO<Recurso>>(listaRecursos,
+				HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{filtroDescripcion}", method = RequestMethod.GET, produces = "application/json")
@@ -192,13 +161,14 @@ public class RecursoController {
 		}
 
 		// Se recuperan todos los Recursos
-		ListaRecursoDTO listaRecursos = recursoService.recuperarTodos(
+		ListaEntidadDTO<Recurso> listaRecursos = recursoService.recuperarTodos(
 				nroPagina, registrosPorPagina);
 
 		agregarMensajeAccion(listaRecursos, locale, "message.update.success",
 				null);
 
-		return new ResponseEntity<ListaRecursoDTO>(listaRecursos, HttpStatus.OK);
+		return new ResponseEntity<ListaEntidadDTO<Recurso>>(listaRecursos,
+				HttpStatus.OK);
 	}
 
 	/**

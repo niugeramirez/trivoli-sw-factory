@@ -4,9 +4,9 @@
 package ar.com.trivoli.gestionturnos.recurso.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
+
+import ar.com.trivoli.gestionturnos.common.model.EntidadBase;
 
 /**
  * @author posadas
@@ -17,11 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "recursosReservables")
-public class Recurso {
-
-	@Id
-	@GeneratedValue
-	private int id;
+public class Recurso extends EntidadBase<Long> {
 
 	private String descripcion;
 
@@ -29,16 +25,7 @@ public class Recurso {
 		return descripcion;
 	}
 
-	public int getId() {
-		return id;
-	}
-
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 }

@@ -4,9 +4,9 @@
 package ar.com.trivoli.gestionturnos.usuario.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
+
+import ar.com.trivoli.gestionturnos.common.model.EntidadBase;
 
 /**
  * @author posadas
@@ -16,11 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
-	@Id
-	@GeneratedValue
-	private int id;
-
+public class Usuario extends EntidadBase<Long> {
 	private String usuario;
 
 	private String nombre;
@@ -29,10 +25,6 @@ public class Usuario {
 
 	public String getApellido() {
 		return apellido;
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	public String getNombre() {
@@ -49,10 +41,6 @@ public class Usuario {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public void setNombre(String nombre) {
