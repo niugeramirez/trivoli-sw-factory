@@ -32,6 +32,11 @@
 		            	<p><spring:message code="header.modelos"/></p>
 		            </a>
 		        </li>
+		        <li ng-class="{'active': activeURL == 'obrasSociales', '': activeURL != 'obrasSociales'}">
+		        	<a title='<spring:message code="header.obrasSociales"/>' href="<c:url value='/protected/obrasSociales'/>">
+		            	<p><spring:message code="header.obrasSociales"/></p>
+		            </a>
+		        </li>		        
 		        <li>
 		        	<a href="<c:url value='/logout' />" title='<spring:message code="header.logout"/>'>
 		            	<p><spring:message code="header.logout"/>&nbsp;(${usuarioActual.nombreCompleto})</p>

@@ -27,4 +27,8 @@
      <definition name="admModelos" extends="master.page">
         <put-attribute name="body" value="/protected/modelos/modelos.jsp"/>
     </definition>
+    
+    <definition name="admObrasSociales" extends="master.page">
+        <put-attribute name="body" value="/protected/obrasSociales/obrasSociales.jsp"/>
+    </definition>
 </tiles-definitions>
