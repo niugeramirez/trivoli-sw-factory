@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "obrasSociales")
-public class ObraSocial extends EntidadBase<Long> {
+public class ObraSocial extends EntidadBase<Integer> {
 
 	/**
 	 * 
