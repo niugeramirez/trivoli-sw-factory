@@ -17,7 +17,7 @@ import ar.com.trivoli.gestionturnos.common.model.EntidadBase;
  */
 @Entity
 @Table(name = "templateReservas")
-public class ModeloTurno extends EntidadBase<Long> {
+public class ModeloTurno extends EntidadBase<Integer> {
 	private String descripcion;
 
 	@Column(name = "titulo")

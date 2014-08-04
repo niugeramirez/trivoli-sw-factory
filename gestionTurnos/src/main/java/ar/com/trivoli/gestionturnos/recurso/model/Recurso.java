@@ -17,7 +17,7 @@ import ar.com.trivoli.gestionturnos.common.model.EntidadBase;
 
 @Entity
 @Table(name = "recursosReservables")
-public class Recurso extends EntidadBase<Long> {
+public class Recurso extends EntidadBase<Integer> {
 
 	private String descripcion;
 

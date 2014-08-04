@@ -16,7 +16,7 @@ import ar.com.trivoli.gestionturnos.common.model.EntidadBase;
  */
 @Entity
 @Table(name = "usuarios")
-public class Usuario extends EntidadBase<Long> {
+public class Usuario extends EntidadBase<Integer> {
 	private String usuario;
 
 	private String nombre;
