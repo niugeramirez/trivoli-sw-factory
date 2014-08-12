@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="row-fluid" ng-controller="recursosController">
+	<!-- 	Titulo y Boton de busqueda -->
 	<h2>
         <p class="text-center">
             <spring:message code='recursos.header'/>
@@ -15,6 +16,7 @@
             </a>
         </p>
     </h2>
+	<!--     Cantidad de registros encontrados -->
     <h4>
         <div ng-class="{'': estado == 'list', 'none': estado != 'list'}">
             <p class="text-center">
@@ -24,6 +26,7 @@
     </h4>
 	
 	<div>
+		<!-- 		DIV del  diálogo para el AJAX request -->	
 		<div id="loadingModal" class="modal hide fade in centering" role="dialog" aria-hidden="true">
             <div id="divLoadingIcon" class="text-center">
                 <div class="glyphicon glyphicon-align-center loading"></div>
@@ -65,7 +68,7 @@
             <p><spring:message code="recursos.emptyData.text"/></p>
         </div>
         
-                
+		<!-- 		DIV con la grilla de datos -->                      
 		<div id="gridContainer" ng-class="{'': estado == 'list', 'none': estado != 'list'}">
 			<div class="table-responsive">
             <table class="table table-bordered table-hover table-condensed">
@@ -101,7 +104,7 @@
                 </tbody>
             </table>
     	    </div>    
-	
+			<!-- 		DIV de paginado		 -->      
 			<div class="text-center">
 	        	<button href="#" class="btn btn-primary"
 	                    ng-class="{'btn-primary': pagina.paginaActual != 0, 'disabled': pagina.paginaActual == 0}"

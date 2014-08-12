@@ -2,9 +2,29 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="row-fluid" ng-controller="obrasSocialesController">
-probando 
-ya agregue el JS
-ya corregi tiles xml
+empezando con las busquedas
+	<!-- 	Titulo y Boton de busqueda -->
+	<h2>
+        <p class="text-center">
+            <spring:message code='obrasSociales.header'/>
+            <a href="#buscarObrasSocialesDialog"
+               id="obrasSocialesHeaderButton"
+               role="button"
+               ng-class="{'': mostrarBotonBuscar == true, 'none': mostrarBotonBuscar == false}"
+               title="<spring:message code="search"/>&nbsp;<spring:message code="recurso"/>"
+               class="btn btn-primary" data-toggle="modal">
+               <span class="glyphicon glyphicon-search"></span> 
+            </a>
+        </p>
+    </h2>
+	<!--     Cantidad de registros encontrados -->
+    <h4>
+        <div ng-class="{'': estado == 'list', 'none': estado != 'list'}">
+            <p class="text-center">
+                <spring:message code="message.total.records.found"/>:&nbsp;{{pagina.totalRegistros}}
+            </p>
+        </div>
+    </h4>
 
 		<!-- 		DIV del  diálogo para el AJAX request -->
 		<div id="loadingModal" class="modal hide fade in centering" role="dialog" aria-hidden="true">
@@ -12,7 +32,22 @@ ya corregi tiles xml
                 <div class="glyphicon glyphicon-align-center loading"></div>
             </div>
         </div>
-
+	
+		<!-- 	DIV con el mensaje de busqueda         -->
+        <div ng-class="{'alert bg-success': mostrarMensajeBusqueda == true, 'none': mostrarMensajeBusqueda == false}">
+            <h4>
+                <p><span class="glyphicon glyphicon-info-sign"></span>&nbsp;{{pagina.mensajeBusqueda}}</p>
+            </h4>
+            <a href="#"
+               role="button"
+               ng-click="resetearBusqueda();"
+               ng-class="{'': mostrarMensajeBusqueda == true, 'none': mostrarMensajeBusqueda == false}"
+               title="<spring:message code='search.reset'/>"
+               class="btn btn-primary" data-toggle="modal">
+                <span class="glyphicon glyphicon-remove"></span> <spring:message code="search.reset"/>
+            </a>
+        </div>
+        
 		<!-- 		DIV con la grilla de datos -->           
 		<div id="gridContainer" ng-class="{'': estado == 'list', 'none': estado != 'list'}">
 			<div class="table-responsive">
@@ -50,7 +85,42 @@ ya corregi tiles xml
             </table>
     	    </div>    
 		</div>
-			
-    
+
+			<!-- 		DIV de paginado		 -->      
+			<div class="text-center">
+	        	<button href="#" class="btn btn-primary"
+	                    ng-class="{'btn-primary': pagina.paginaActual != 0, 'disabled': pagina.paginaActual == 0}"
+	                        ng-disabled="pagina.paginaActual == 0" ng-click="cambiarPagina(0)"
+	                        title='<spring:message code="pagination.first"/>'
+	                        >
+	                    <spring:message code="pagination.first"/>
+	            </button>
+	            <button href="#"
+	                        class="btn btn-primary"
+	                        ng-class="{'btn-primary': pagina.paginaActual != 0, 'disabled': pagina.paginaActual == 0}"
+	                        ng-disabled="pagina.paginaActual == 0" class="btn btn-primary"
+	                        ng-click="cambiarPagina(pagina.paginaActual - 1)"
+	                        title='<spring:message code="pagination.back"/>'
+	                        >&lt;</button>
+	            <span>{{pagina.paginaActual + 1}} <spring:message code="pagination.of"/> {{pagina.cantPaginas}}</span>
+	            <button href="#"
+	                        class="btn btn-primary"
+	                        ng-class="{'btn-primary': pagina.cantPaginas - 1 != pagina.paginaActual, 'disabled': pagina.cantPaginas - 1 == pagina.paginaActual}"
+	                        ng-click="cambiarPagina(pagina.paginaActual + 1)"
+	                        ng-disabled="pagina.cantPaginas - 1 == pagina.paginaActual"
+	                        title='<spring:message code="pagination.next"/>'
+	                        >&gt;</button>
+	            <button href="#"
+	                        class="btn btn-primary"
+	                        ng-class="{'btn-primary': pagina.cantPaginas - 1 != pagina.paginaActual, 'disabled': pagina.cantPaginas - 1 == pagina.paginaActual}"
+	                        ng-disabled="pagina.cantPaginas - 1 == pagina.paginaActual"
+	                        ng-click="cambiarPagina(pagina.cantPaginas - 1)"
+	                        title='<spring:message code="pagination.last"/>'
+	                        >
+	                    <spring:message code="pagination.last"/>
+	            </button>
+	        </div>
+		
+		<jsp:include page="modal/obrasSocialesDialogs.jsp"/>    
 </div>
 <script src="<c:url value="/resources/js/pages/obrasSociales.js" />"></script>
