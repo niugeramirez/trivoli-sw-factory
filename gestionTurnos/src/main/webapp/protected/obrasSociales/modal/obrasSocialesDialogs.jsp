@@ -14,9 +14,12 @@
             		<spring:message code="search"/>
         		</h3>
     		</div>
-    	
+			
+			<!--     	DIV contenedor de los parametros de busqueda y los mensajes de error correspondientes -->
     		<div class="modal-body">
         		<form name="buscarObrasSocialesForm" novalidate class="form-horizontal">
+					
+					<!--         			DIV con la parte de busqueda -->
         			<div class="form-group" ng-class="{'has-error': mostrarErrorValidacion && buscarObrasSocialesForm.filtroNombre.$error.required}">
         				<label for="txtNombre" class="col-lg-3 control-label"><spring:message code="search.for"/>:</label>
             			
@@ -30,26 +33,27 @@
 		                           	name="filtroNombre"
 		                           	placeholder="<spring:message code='obrasSociales.nombre'/> "/>
 	                	</div>
-<!-- 	                	<div class="col-lg-2"> -->
-<!-- 	                    	<label class="displayInLine"> -->
-<!-- 	                        	<span class="alert alert-danger help-block" -->
-<!-- 	                              		ng-show="mostrarErrorValidacion && buscarObrasSocialesForm.filtroNombre.$error.required"> -->
-<%-- 	                            		<spring:message code="required"/> --%>
-<!-- 	                        	</span> -->
-<!-- 	                    	</label> -->
-<!-- 	                	</div> -->
+	                	<div class="col-lg-2">
+	                    	<label class="displayInLine">
+	                        	<span class="alert alert-danger help-block"
+	                              		ng-show="mostrarErrorValidacion && buscarObrasSocialesForm.filtroNombre.$error.required">
+	                            		<spring:message code="required"/>
+	                        	</span>
+	                    	</label>
+	                	</div>
 	            	</div>
             	</form>
-<!--         		<span class="alert alert-danger" -->
-<!-- 		          ng-show="errorSubmit"> -->
-<%-- 		        	<spring:message code="request.error"/> --%>
-<!-- 			    </span> -->
-<!-- 	    		<span class="alert alert-danger" -->
-<!-- 	          		ng-show="errorAccesoIlegal"> -->
-<%-- 	        		<spring:message code="request.illegal.access"/> --%>
-<!-- 	    		</span> -->
+        		<span class="alert alert-danger"
+		          ng-show="errorSubmit">
+		        	<spring:message code="request.error"/>
+			    </span>
+	    		<span class="alert alert-danger"
+	          		ng-show="errorAccesoIlegal">
+	        		<spring:message code="request.illegal.access"/>
+	    		</span>
     		</div>
     		
+			<!--     		DIV con los botones de buscar y cancelar -->
     		<div class="modal-footer">
     			<input type="submit"
                    		class="btn btn-primary"

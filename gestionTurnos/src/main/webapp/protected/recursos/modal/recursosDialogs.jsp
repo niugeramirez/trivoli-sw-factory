@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+
 <div id="crearRecursoDialog"
      class="modal fade"
      role="dialog"
@@ -17,6 +18,8 @@
     
     		<div class="modal-body">
         		<form name="crearRecursoForm" novalidate class="well form-horizontal">             		
+                	
+                	<!--         			DIV con la parte de busqueda -->
                 	<div class="form-group" ng-class="{'has-error': mostrarErrorValidacion && crearRecursoForm.descripcion.$error.required}">
 						<label for="txtDescripcion" class="col-lg-3 control-label"><spring:message code="recursos.descripcion"/>:</label>
 						<div class="col-lg-7">
@@ -37,6 +40,7 @@
                         </div>
     				</div>
                 </form>
+                
             	<span class="alert alert-danger"
 		          ng-show="errorSubmit">
 		        	<spring:message code="request.error"/>
@@ -46,6 +50,8 @@
 	        		<spring:message code="request.illegal.access"/>
 	    		</span>
     		</div>
+    		
+    		<!--     		DIV con los botones de buscar y cancelar -->
     		<div class="modal-footer">
     			 <input type="submit"
                        		class="btn btn-primary"
@@ -172,6 +178,7 @@
     </div>
 </div>
 
+<!-- DIV con el dialogo de busqueda -->
 <div id="buscarRecursosDialog"
      class="modal fade"
      role="dialog"
@@ -185,8 +192,10 @@
         		</h3>
     		</div>
     	
+    	    <!--     	DIV contenedor de los parametros de busqueda y los mensajes de error correspondientes -->
     		<div class="modal-body">
         		<form name="buscarRecursosForm" novalidate class="form-horizontal">
+        			<!--         			DIV con la parte de busqueda -->
         			<div class="form-group" ng-class="{'has-error': mostrarErrorValidacion && buscarRecursosForm.filtroDescripcion.$error.required}">
         				<label for="txtDescripcion" class="col-lg-3 control-label"><spring:message code="search.for"/>:</label>
             			
@@ -220,6 +229,7 @@
 	    		</span>
     		</div>
     		
+    		<!--     		DIV con los botones de buscar y cancelar -->
     		<div class="modal-footer">
     			<input type="submit"
                    		class="btn btn-primary"

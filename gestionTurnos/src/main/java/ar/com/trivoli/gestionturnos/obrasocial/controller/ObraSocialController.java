@@ -5,10 +5,12 @@ package ar.com.trivoli.gestionturnos.obrasocial.controller;
 
 import java.util.Locale;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,6 +49,32 @@ public class ObraSocialController extends ControllerBase<ObraSocial> {
 	 *            Informacion de Localizacion
 	 * @return HTTP Response
 	 */
+	
+	private ResponseEntity<?> buscarObrasSociales(	String filtroDescripcion,
+													int nroPagina, 
+													Locale locale, 
+													String actionMessageKey) {
+	
+				ListaEntidadDTO<ObraSocial> listaObrasSociales = obraSocialService.buscarObrasSocialesPorNombre(	nroPagina, 
+																					registrosPorPagina,
+																					filtroDescripcion);
+				
+				if (!StringUtils.isEmpty(actionMessageKey)) {
+				agregarMensajeAccion(listaObrasSociales, locale, actionMessageKey, null);
+				}
+				
+				Object[] args = { filtroDescripcion };
+				
+				agregarMensajeBusqueda(listaObrasSociales, locale,"message.search.for.active", args);
+				
+				return new ResponseEntity<ListaEntidadDTO<ObraSocial>>(listaObrasSociales,HttpStatus.OK);
+	}	
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView welcome() {
+		return new ModelAndView("admObrasSociales");
+	}	
+	
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> listAll(@RequestParam int nroPagina, Locale locale) {
 		// Se recuperan todas las Obras Sociales
@@ -58,9 +86,12 @@ public class ObraSocialController extends ControllerBase<ObraSocial> {
 				HttpStatus.OK);
 	}
 	
-	
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView welcome() {
-		return new ModelAndView("admObrasSociales");
+	@RequestMapping(value = "/{filtroNombre}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> search(
+			@PathVariable("filtroNombre") String filtroNombre,
+			@RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int nroPagina,
+			Locale locale) {
+		
+		return buscarObrasSociales(filtroNombre, nroPagina, locale, null);
 	}	
 }

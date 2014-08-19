@@ -14,12 +14,12 @@ function obrasSocialesController($scope, $http) {
     $scope.url = "/gestionTurnos/protected/obrasSociales/";
 
     // Flags diversos que manejan la interacción del Usuario con la Vista
-//    $scope.errorSubmit = false;
-//    $scope.errorAccesoIlegal = false;
+    $scope.errorSubmit = false;
+    $scope.errorAccesoIlegal = false;
 //    $scope.mostrarMensajesUsuario = false;
       $scope.mostrarErrorValidacion = false;
       $scope.mostrarMensajeBusqueda = false;
-//    $scope.mostrarBotonBuscar = false;
+    $scope.mostrarBotonBuscar = false;
 //    $scope.mostrarBotonCrear = false;
 
     // Objeto JSON que almacena la obra social actual
@@ -32,7 +32,7 @@ function obrasSocialesController($scope, $http) {
    
     
     // Definición de Funciones del Controlador de la Página de Administración de Obras Sociales
-    
+/************************************************************************************************************************************************************************/    
     // Funcion que recupera del backend todos los Recursos
     $scope.listarTodasLasObrasSociales = function () {
     	// Se obtiene la URL actual
@@ -58,7 +58,8 @@ function obrasSocialesController($scope, $http) {
 //                $scope.mostrarBotonCrear = false;
             });
     };
-
+/************************************************************************************************************************************************************************/
+    
   /*  
     // Funcion que elimina un Recurso del backend
     $scope.eliminarRecurso = function () {
@@ -71,7 +72,7 @@ function obrasSocialesController($scope, $http) {
         // Se abre el dialogo Loading .....
         $scope.startDialogAjaxRequest();
 
-        var params = {filtroDescripcion: $scope.filtroDescripcion, nroPagina: $scope.nroPagina};
+        var params = {filtroNombre: $scope.filtroNombre, nroPagina: $scope.nroPagina};
 
         $http({
             method: 'DELETE',
@@ -140,6 +141,7 @@ function obrasSocialesController($scope, $http) {
     };
     
 */    
+/************************************************************************************************************************************************************************/    
     // Funcion que Busca Recursos segun un Filtro de Busqueda en el Backend
     $scope.buscarObrasSociales = function (buscarObrasSocialesForm, isPagination) {
         if (!($scope.filtroNombre) && (!buscarObrasSocialesForm.$valid)) {
@@ -162,14 +164,14 @@ function obrasSocialesController($scope, $http) {
         $http.get(url, config)
             .success(function (data) {
             	$scope.mostrarMensajeBusqueda = true;
-                $scope.finishAjaxCallOnSuccess(data, "#buscarRecursosDialog", isPagination);
+                $scope.finishAjaxCallOnSuccess(data, "#buscarObrasSocialesDialog", isPagination);
             })
             .error(function(data, status, headers, config) {
                 $scope.handleErrorInDialogs(status);
             });
     };
     
-    
+/************************************************************************************************************************************************************************/    
     $scope.agregarFiltroBusqueda = function(config) {
         if(!config.params){
             config.params = {};
@@ -181,7 +183,7 @@ function obrasSocialesController($scope, $http) {
             config.params.filtroNombre = $scope.filtroNombre;
         }
     };
-
+/************************************************************************************************************************************************************************/
     
     $scope.startDialogAjaxRequest = function () {
         $scope.mostrarErrorValidacion = false;
@@ -190,7 +192,8 @@ function obrasSocialesController($scope, $http) {
         $scope.estado = 'busy';
     };
     
-    
+/************************************************************************************************************************************************************************/    
+
     $scope.handleErrorInDialogs = function (status) {
         $("#loadingModal").modal('hide');
         
@@ -206,7 +209,7 @@ function obrasSocialesController($scope, $http) {
         $scope.ultimaAccion = '';
     };
     
-
+/************************************************************************************************************************************************************************/
     
     $scope.finishAjaxCallOnSuccess = function (data, modalId, isPagination) {
     	// Se muestran los datos en la Grilla de Recursos
@@ -223,7 +226,7 @@ function obrasSocialesController($scope, $http) {
         $scope.ultimaAccion = '';
     };
     
-    
+/************************************************************************************************************************************************************************/    
     $scope.populateTable = function (data) {
     	// Se diferencian los casos de Respuesta con datos vs. Respuesta vacía
         if (data.cantPaginas > 0) {
@@ -238,14 +241,14 @@ function obrasSocialesController($scope, $http) {
             }
 
 //            $scope.mostrarBotonCrear = true;
-//            $scope.mostrarBotonBuscar = true;
+            $scope.mostrarBotonBuscar = true;
         } else {
             $scope.estado = 'noresult';
 //            $scope.mostrarBotonCrear = true;
 
-//            if(!$scope.filtroDescripcion){
-//                $scope.mostrarBotonBuscar = false;
-//            }
+            if(!$scope.filtroNombre){
+                $scope.mostrarBotonBuscar = false;
+            }
         }
 
 //        if (data.mensajeAccion || data.mensajeBusqueda) {
@@ -257,7 +260,7 @@ function obrasSocialesController($scope, $http) {
 //            $scope.mostrarMensajesUsuario = false;
 //        }
     };
-    
+/************************************************************************************************************************************************************************/    
 
 /*
     $scope.recursoSeleccionado = function (recurso) {
@@ -272,36 +275,39 @@ function obrasSocialesController($scope, $http) {
         $scope.recurso = {};
     };
 */    
-    
+
+/************************************************************************************************************************************************************************/
     $scope.exit = function (modalId) {
         $(modalId).modal('hide');
         
 //        $scope.resetRecurso();
-//        
-//        $scope.errorSubmit = false;
-//        $scope.errorAccesoIlegal = false;
+        
+        $scope.errorSubmit = false;
+        $scope.errorAccesoIlegal = false;
         $scope.mostrarErrorValidacion = false;
     };
+
+/************************************************************************************************************************************************************************/
     
-/*    
     $scope.resetearBusqueda = function(){
-        $scope.filtroDescripcion = "";
+        $scope.filtroNombre = "";
         $scope.nroPagina = 0;
-        $scope.listarTodosLosRecursos();
+        $scope.listarTodasLasObrasSociales();
         $scope.mostrarMensajeBusqueda = false;
     };
-*/    
     
+
+/************************************************************************************************************************************************************************/    
     $scope.cambiarPagina = function (pagina) {
         $scope.nroPagina = pagina;
 
-//        if($scope.filtroDescripcion){
-//            $scope.buscarRecursos($scope.filtroDescripcion, true);
-//        } else{
-            $scope.listarTodosLosRecursos();
-//        }
+        if($scope.filtroNombre){
+            $scope.buscarObrasSociales($scope.filtroNombre, true);
+        } else{
+            $scope.listarTodasLasObrasSociales();
+        }
     };
-    
+/************************************************************************************************************************************************************************/    
     // Codigo de Inicializacion del Controlador de la Página de Administración de Obras Sociales
     $scope.listarTodasLasObrasSociales();
 }
