@@ -60,14 +60,14 @@ function obrasSocialesController($scope, $http) {
     };
 /************************************************************************************************************************************************************************/
     
-  /*  
+ 
     // Funcion que elimina un Recurso del backend
-    $scope.eliminarRecurso = function () {
+    $scope.eliminarObraSocial = function () {
     	// Se fija la Ultima Accion Solicitada por el Usuario
         $scope.ultimaAccion = 'delete';
 
-     // Se obtiene la URL actual, parametrizandola con el ID del Recurso a Eliminar
-        var url = $scope.url + $scope.recurso.id;
+        // Se obtiene la URL actual, parametrizandola con el ID del Recurso a Eliminar
+        var url = $scope.url + $scope.obraSocial.id;
 
         // Se abre el dialogo Loading .....
         $scope.startDialogAjaxRequest();
@@ -79,14 +79,16 @@ function obrasSocialesController($scope, $http) {
             url: url,
             params: params
         }).success(function (data) {
-                $scope.resetRecurso();
-                $scope.finishAjaxCallOnSuccess(data, "#eliminarRecursoDialog", false);
+                $scope.resetObraSocial();
+                $scope.finishAjaxCallOnSuccess(data, "#eliminarObrasSocialesDialog", false);
             }).error(function(data, status, headers, config) {
                 $scope.handleErrorInDialogs(status);
             });
     };
-    
-    
+
+/************************************************************************************************************************************************************************/
+ 
+/*    
     // Funcion que crea un Recurso en el backend
     $scope.crearRecurso = function (crearRecursoForm) {
         if (!crearRecursoForm.$valid) {
@@ -261,26 +263,27 @@ function obrasSocialesController($scope, $http) {
 //        }
     };
 /************************************************************************************************************************************************************************/    
-
-/*
-    $scope.recursoSeleccionado = function (recurso) {
-        var recursoSeleccionado = angular.copy(recurso);
+ 
+    $scope.obraSocialSeleccionado = function (obraSocial) {
+        var obraSocialSeleccionado = angular.copy(obraSocial);
         
-        // Se copia el objeto JSON seleccionado en la grilla al Recurso actual
-        $scope.recurso = recursoSeleccionado;
+        // Se copia el objeto JSON seleccionado en la grilla al registro actual
+        $scope.obraSocial = obraSocialSeleccionado;
+    };    
+    
+
+/************************************************************************************************************************************************************************/    
+
+    $scope.resetObraSocial = function(){
+        $scope.obraSocial = {};
     };
     
-    
-    $scope.resetRecurso = function(){
-        $scope.recurso = {};
-    };
-*/    
 
 /************************************************************************************************************************************************************************/
     $scope.exit = function (modalId) {
         $(modalId).modal('hide');
         
-//        $scope.resetRecurso();
+        $scope.resetObraSocial();
         
         $scope.errorSubmit = false;
         $scope.errorAccesoIlegal = false;

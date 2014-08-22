@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ar.com.trivoli.gestionturnos.common.model.ListaEntidadDTO;
 import ar.com.trivoli.gestionturnos.obrasocial.model.ObraSocial;
 import ar.com.trivoli.gestionturnos.obrasocial.repository.IObraSocialRepository;
-import ar.com.trivoli.gestionturnos.recurso.model.Recurso;
+
 
 
 /**
@@ -32,10 +32,16 @@ public class ObraSocialService {
 	
 	@Autowired
 	private IObraSocialRepository obrasocialRepository;
+
+	/************************************************************************************************************************************************************************/
 	private Sort ordenPredeterminado() {
 		return new Sort(Sort.Direction.ASC, "nombre");
 	}	
-
+	/************************************************************************************************************************************************************************/
+	public void delete(int obraSocialId) {
+		obrasocialRepository.delete(obraSocialId);
+	}
+	/************************************************************************************************************************************************************************/
 	@Transactional(readOnly = true)
 	public ListaEntidadDTO<ObraSocial> buscarObrasSocialesPorNombre(	int nroPagina,
 																		int registrosPorPagina, 
@@ -65,6 +71,7 @@ public class ObraSocialService {
 												resultado.getContent());
 	}	
 	
+	/************************************************************************************************************************************************************************/
 	@Transactional(readOnly = true)
 	public ListaEntidadDTO<ObraSocial> recuperarTodos(int nroPagina,
 			int registrosPorPagina) {
@@ -88,6 +95,6 @@ public class ObraSocialService {
 		return new ListaEntidadDTO<ObraSocial>(resultado.getTotalPages(),
 				resultado.getTotalElements(), resultado.getContent());
 	}
-
+	/************************************************************************************************************************************************************************/
 
 }

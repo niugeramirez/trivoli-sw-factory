@@ -61,9 +61,10 @@
                 <tbody>
                 <tr ng-repeat="obraSocial in pagina.registros">
                     <td class="tdRecursosCentered">{{obraSocial.nombre}}</td>
-<!--                     <td class="width15"> -->
-<!--                         <div class="text-center"> -->
+                    <td class="width15">
+                        <div class="text-center">
 <!--                             <input type="hidden" value="{{recurso.id}}"/> -->
+<!-- 							Editar Registros 	------------------------------------------------ -->
 <!--                             <a href="#editarRecursoDialog" -->
 <!--                                ng-click="recursoSeleccionado(recurso);" -->
 <!--                                role="button" -->
@@ -71,15 +72,16 @@
 <!--                                class="btn btn-primary" data-toggle="modal"> -->
 <!--                                 <span class="glyphicon glyphicon-pencil"></span> -->
 <!--                             </a> -->
-<!--                             <a href="#eliminarRecursoDialog" -->
-<!--                                ng-click="recursoSeleccionado(recurso);" -->
-<!--                                role="button" -->
-<%--                                title="<spring:message code="delete"/>&nbsp;<spring:message code="recurso"/>" --%>
-<!--                                class="btn btn-primary" data-toggle="modal"> -->
-<!--                                 <span class="glyphicon glyphicon-minus"></span> -->
-<!--                             </a> -->
-<!--                         </div> -->
-<!--                     </td> -->
+                            <!--Eliminar Registros 	-------------------------------------------------->
+                            <a href="#eliminarObrasSocialesDialog"
+                               ng-click="obraSocialSeleccionado(obraSocial);" 
+                               role="button"
+                               title="<spring:message code="delete"/>&nbsp;<spring:message code="obraSocial"/>"
+                               class="btn btn-primary" data-toggle="modal">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
                 </tbody>
             </table>
