@@ -42,6 +42,10 @@ public class ObraSocialService {
 		obrasocialRepository.delete(obraSocialId);
 	}
 	/************************************************************************************************************************************************************************/
+	public void guardar(ObraSocial obraSocial) {
+		obrasocialRepository.save(obraSocial);
+	}
+	/************************************************************************************************************************************************************************/	
 	@Transactional(readOnly = true)
 	public ListaEntidadDTO<ObraSocial> buscarObrasSocialesPorNombre(	int nroPagina,
 																		int registrosPorPagina, 
@@ -96,5 +100,4 @@ public class ObraSocialService {
 				resultado.getTotalElements(), resultado.getContent());
 	}
 	/************************************************************************************************************************************************************************/
-
 }

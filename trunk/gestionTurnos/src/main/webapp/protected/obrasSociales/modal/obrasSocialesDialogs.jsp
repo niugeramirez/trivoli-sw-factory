@@ -3,3 +3,4 @@
 
 <jsp:include page="obrasSocialesSearch.jsp"/>
 <jsp:include page="obrasSocialesDelete.jsp"/>
+<jsp:include page="obrasSocialesEdit.jsp"/>

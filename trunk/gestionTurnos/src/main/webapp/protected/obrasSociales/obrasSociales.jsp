@@ -64,14 +64,14 @@
                     <td class="width15">
                         <div class="text-center">
 <!--                             <input type="hidden" value="{{recurso.id}}"/> -->
-<!-- 							Editar Registros 	------------------------------------------------ -->
-<!--                             <a href="#editarRecursoDialog" -->
-<!--                                ng-click="recursoSeleccionado(recurso);" -->
-<!--                                role="button" -->
-<%--                                title="<spring:message code="update"/>&nbsp;<spring:message code="recurso"/>" --%>
-<!--                                class="btn btn-primary" data-toggle="modal"> -->
-<!--                                 <span class="glyphicon glyphicon-pencil"></span> -->
-<!--                             </a> -->
+							<!--Editar Registros 	------------------------------------------------ -->
+                            <a href="#editarObrasSocialesDialog"
+                               ng-click="obraSocialSeleccionado(obraSocial);"
+                               role="button"
+                               title="<spring:message code="update"/>&nbsp;<spring:message code="obraSocial"/>"
+                               class="btn btn-primary" data-toggle="modal">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
                             <!--Eliminar Registros 	-------------------------------------------------->
                             <a href="#eliminarObrasSocialesDialog"
                                ng-click="obraSocialSeleccionado(obraSocial);" 

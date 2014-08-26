@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -103,9 +104,7 @@ public class ObraSocialController extends ControllerBase<ObraSocial> {
 			@PathVariable("obraSocialId") int obraSocialId,
 			@RequestParam(required = false) String filtroNombre,
 			@RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int nroPagina,
-			Locale locale) {
-		
-		System.out.println("entra en el delete CON obraSocial id como "+obraSocialId+" filtroNombre "+filtroNombre);
+			Locale locale) {				
 		
 		//borro el registro a traves del servicio
 		try {
@@ -132,5 +131,36 @@ public class ObraSocialController extends ControllerBase<ObraSocial> {
 		return new ResponseEntity<ListaEntidadDTO<ObraSocial>>(listaObrasSociales,
 				HttpStatus.OK);
 	}
-	/************************************************************************************************************************************************************************/	
+	/************************************************************************************************************************************************************************/
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
+	public ResponseEntity<?> update(
+			@PathVariable("id") int obraSocialId,
+			@RequestBody ObraSocial obraSocial,
+			@RequestParam(required = false) String filtroNombre,
+			@RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int nroPagina,
+			Locale locale) {		
+		
+		if (obraSocialId != obraSocial.getId()) {
+			return new ResponseEntity<String>("Solicitud Incorrecta",
+					HttpStatus.BAD_REQUEST);
+		}
+
+		obraSocialService.guardar(obraSocial);
+
+		if (existeBusquedaActiva(filtroNombre)) {
+			return buscarObrasSociales(filtroNombre, nroPagina, locale,
+					"message.update.success");
+		}
+
+		// Se recuperan todos los Recursos
+		ListaEntidadDTO<ObraSocial> listaObrasSociales = obraSocialService.recuperarTodos(
+				nroPagina, registrosPorPagina);
+
+		agregarMensajeAccion(listaObrasSociales, locale, "message.update.success",
+				null);
+
+		return new ResponseEntity<ListaEntidadDTO<ObraSocial>>(listaObrasSociales,
+				HttpStatus.OK);
+	}	
+	/************************************************************************************************************************************************************************/
 }
