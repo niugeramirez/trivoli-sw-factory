@@ -115,17 +115,19 @@ function obrasSocialesController($scope, $http) {
                 $scope.handleErrorInDialogs(status);
             });
     };
+*/
+/************************************************************************************************************************************************************************/    
     
     // Funcion que Actualiza un Recurso en el Backend
-    $scope.updateRecurso = function (updateRecursoForm) {
-        if (!updateRecursoForm.$valid) {
+    $scope.updateObraSocial = function (updateObrasocialForm) {
+        if (!updateObrasocialForm.$valid) {
             $scope.mostrarErrorValidacion = true;
             return;
         }
 
         $scope.ultimaAccion = 'update';
 
-        var url = $scope.url + $scope.recurso.id;
+        var url = $scope.url + $scope.obraSocial.id;
 
         $scope.startDialogAjaxRequest();
 
@@ -133,16 +135,16 @@ function obrasSocialesController($scope, $http) {
 
         $scope.agregarFiltroBusqueda(config);
 
-        $http.put(url, $scope.recurso, config)
+        $http.put(url, $scope.obraSocial, config)
             .success(function (data) {
-                $scope.finishAjaxCallOnSuccess(data, "#editarRecursoDialog", false);
+                $scope.finishAjaxCallOnSuccess(data, "#editarObrasSocialesDialog", false);
             })
             .error(function(data, status, headers, config) {
                 $scope.handleErrorInDialogs(status);
             });
     };
     
-*/    
+    
 /************************************************************************************************************************************************************************/    
     // Funcion que Busca Recursos segun un Filtro de Busqueda en el Backend
     $scope.buscarObrasSociales = function (buscarObrasSocialesForm, isPagination) {

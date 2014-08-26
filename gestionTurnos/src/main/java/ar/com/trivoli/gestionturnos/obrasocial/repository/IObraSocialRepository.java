@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import ar.com.trivoli.gestionturnos.obrasocial.model.ObraSocial;
-import ar.com.trivoli.gestionturnos.recurso.model.Recurso;
 
 
 /**
