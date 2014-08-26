@@ -74,6 +74,23 @@ public class ObraSocialController extends ControllerBase<ObraSocial> {
 				return new ResponseEntity<ListaEntidadDTO<ObraSocial>>(listaObrasSociales,HttpStatus.OK);
 	}	
 	/************************************************************************************************************************************************************************/	
+	private ResponseEntity<?> devolverListaActualObrasSociales(
+			String filtroNombre, int nroPagina, Locale locale
+			,String mensaje) {
+		//Si hay una búsqueda activa la vuelvo a repetir
+		if (existeBusquedaActiva(filtroNombre)) {
+			return buscarObrasSociales(filtroNombre, nroPagina, locale,mensaje);
+		}
+
+
+		// Se recuperan todos los Recursos
+		ListaEntidadDTO<ObraSocial> listaObrasSociales = obraSocialService.recuperarTodos(nroPagina, registrosPorPagina);
+
+		agregarMensajeAccion(listaObrasSociales, locale, mensaje,null);
+
+		return new ResponseEntity<ListaEntidadDTO<ObraSocial>>(listaObrasSociales,HttpStatus.OK);
+	}
+	/************************************************************************************************************************************************************************/
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView welcome() {
 		return new ModelAndView("admObrasSociales");
@@ -114,22 +131,7 @@ public class ObraSocialController extends ControllerBase<ObraSocial> {
 		}
 
 		
-		//Si hay una búsqueda activa la vuelvo a repetir
-		if (existeBusquedaActiva(filtroNombre)) {
-			return buscarObrasSociales(filtroNombre, nroPagina, locale,
-					"message.delete.success");
-		}
-
-
-		// Se recuperan todos los Recursos
-		ListaEntidadDTO<ObraSocial> listaObrasSociales = obraSocialService.recuperarTodos(
-				nroPagina, registrosPorPagina);
-
-		agregarMensajeAccion(listaObrasSociales, locale, "message.delete.success",
-				null);
-
-		return new ResponseEntity<ListaEntidadDTO<ObraSocial>>(listaObrasSociales,
-				HttpStatus.OK);
+		return devolverListaActualObrasSociales(filtroNombre, nroPagina, locale,"message.delete.success");
 	}
 	/************************************************************************************************************************************************************************/
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
@@ -147,20 +149,7 @@ public class ObraSocialController extends ControllerBase<ObraSocial> {
 
 		obraSocialService.guardar(obraSocial);
 
-		if (existeBusquedaActiva(filtroNombre)) {
-			return buscarObrasSociales(filtroNombre, nroPagina, locale,
-					"message.update.success");
-		}
-
-		// Se recuperan todos los Recursos
-		ListaEntidadDTO<ObraSocial> listaObrasSociales = obraSocialService.recuperarTodos(
-				nroPagina, registrosPorPagina);
-
-		agregarMensajeAccion(listaObrasSociales, locale, "message.update.success",
-				null);
-
-		return new ResponseEntity<ListaEntidadDTO<ObraSocial>>(listaObrasSociales,
-				HttpStatus.OK);
+		return devolverListaActualObrasSociales(filtroNombre, nroPagina, locale,"message.update.success");
 	}	
 	/************************************************************************************************************************************************************************/
 }
