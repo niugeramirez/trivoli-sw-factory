@@ -19,7 +19,6 @@
     		<div class="modal-body">
         		<form name="crearRecursoForm" novalidate class="well form-horizontal">             		
                 	
-                	<!--         			DIV con la parte de busqueda -->
                 	<div class="form-group" ng-class="{'has-error': mostrarErrorValidacion && crearRecursoForm.descripcion.$error.required}">
 						<label for="txtDescripcion" class="col-lg-3 control-label"><spring:message code="recursos.descripcion"/>:</label>
 						<div class="col-lg-7">
@@ -51,7 +50,7 @@
 	    		</span>
     		</div>
     		
-    		<!--     		DIV con los botones de buscar y cancelar -->
+    		<!--     		DIV con los botones de crear  y cancelar -->
     		<div class="modal-footer">
     			 <input type="submit"
                        		class="btn btn-primary"
