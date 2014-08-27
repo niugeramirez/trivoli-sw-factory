@@ -26,6 +26,7 @@
         </div>
     </h4>
 
+	<div>
 		<!-- 		DIV del  diálogo para el AJAX request -->
 		<div id="loadingModal" class="modal hide fade in centering" role="dialog" aria-hidden="true">
             <div id="divLoadingIcon" class="text-center">
@@ -122,7 +123,22 @@
 	                    <spring:message code="pagination.last"/>
 	            </button>
 	        </div>
-		
-		<jsp:include page="modal/obrasSocialesDialogs.jsp"/>    
+
+		<!--     	Botn de creacion -->    	
+    	<div ng-class="{'text-center': mostrarBotonCrear == true, 'none': mostrarBotonCrear == false}">
+            <br/>
+            <a href="#crearObrasSocialesDialog"
+               role="button"
+               ng-click="resetObraSocial();"
+               title="<spring:message code='create'/>&nbsp;<spring:message code='obraSocial'/>"
+               class="btn btn-primary"
+               data-toggle="modal">
+               <span class="glyphicon glyphicon-plus"></span>
+               &nbsp;&nbsp;<spring:message code="create"/>&nbsp;<spring:message code="obraSocial"/>
+            </a>
+        </div>
+        	
+		<jsp:include page="modal/obrasSocialesDialogs.jsp"/> 
+	</div>
 </div>
 <script src="<c:url value="/resources/js/pages/obrasSociales.js" />"></script>

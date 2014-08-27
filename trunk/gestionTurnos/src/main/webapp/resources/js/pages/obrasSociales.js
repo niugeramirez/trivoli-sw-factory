@@ -88,10 +88,10 @@ function obrasSocialesController($scope, $http) {
 
 /************************************************************************************************************************************************************************/
  
-/*    
+    
     // Funcion que crea un Recurso en el backend
-    $scope.crearRecurso = function (crearRecursoForm) {
-        if (!crearRecursoForm.$valid) {
+    $scope.crearObraSocial = function (crearObraSocialForm) {
+        if (!crearObraSocialForm.$valid) {
             $scope.mostrarErrorValidacion = true;
             return;
         }
@@ -107,15 +107,15 @@ function obrasSocialesController($scope, $http) {
         $scope.startDialogAjaxRequest();
 
         // Se envía el Recurso actual serializado (via funcion $.param de jquery)
-        $http.post(url, $.param($scope.recurso), config)
+        $http.post(url, $.param($scope.obraSocial), config)
             .success(function (data) {
-                $scope.finishAjaxCallOnSuccess(data, "#crearRecursoDialog", false);
+                $scope.finishAjaxCallOnSuccess(data, "#crearObrasSocialesDialog", false);
             })
             .error(function(data, status, headers, config) {
                 $scope.handleErrorInDialogs(status);
             });
     };
-*/
+
 /************************************************************************************************************************************************************************/    
     
     // Funcion que Actualiza un Recurso en el Backend

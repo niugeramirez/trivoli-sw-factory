@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -152,4 +153,16 @@ public class ObraSocialController extends ControllerBase<ObraSocial> {
 		return devolverListaActualObrasSociales(filtroNombre, nroPagina, locale,"message.update.success");
 	}	
 	/************************************************************************************************************************************************************************/
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<?> create(
+			@ModelAttribute("obraSocial") ObraSocial obraSocial,
+			@RequestParam(required = false) String filtroNombre,
+			@RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int nroPagina,
+			Locale locale) {
+
+		obraSocialService.guardar(obraSocial);
+
+		return devolverListaActualObrasSociales(filtroNombre, nroPagina, locale,"message.create.success");		
+	}
+	/************************************************************************************************************************************************************************/	
 }

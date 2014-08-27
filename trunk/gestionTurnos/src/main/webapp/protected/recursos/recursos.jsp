@@ -140,6 +140,7 @@
 	        </div>
     	</div>
     	
+		<!--     	Botn de creacion -->
     	<div ng-class="{'text-center': mostrarBotonCrear == true, 'none': mostrarBotonCrear == false}">
             <br/>
             <a href="#crearRecursoDialog"
