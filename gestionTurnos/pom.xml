@@ -158,5 +158,12 @@
             <version>${commonslogging.version}</version>
             <scope>runtime</scope>
         </dependency>
-  	</dependencies>
+        
+        <dependency>
+        	<artifactId>commons-beanutils</artifactId>
+        	<groupId>commons-beanutils</groupId>
+        	<version>1.8.0</version>
+        	<scope>runtime</scope>
+        </dependency>
+	</dependencies>
 </project>
