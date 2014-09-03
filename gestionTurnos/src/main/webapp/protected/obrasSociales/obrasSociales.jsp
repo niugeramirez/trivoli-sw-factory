@@ -48,7 +48,26 @@
                 <span class="glyphicon glyphicon-remove"></span> <spring:message code="search.reset"/>
             </a>
         </div>
-        
+		<!-- 		DIV con algunos mensajes de error como empty data -->
+        <div ng-class="{'alert bg-success': mostrarMensajesUsuario == true, 'none': mostrarMensajesUsuario == false}">
+        	<h4 class="displayInLine">
+                <p class="displayInLine"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;{{pagina.mensajeAccion}}</p>
+            </h4>
+        </div>
+
+        <div ng-class="{'alert bg-danger': state == 'error', 'none': state != 'error'}">
+        	<h4>
+            	<span class="glyphicon glyphicon-info-sign"></span> <spring:message code="error.generic.header"/>
+            </h4>
+            <br/>
+            <p><spring:message code="error.generic.text"/></p>
+        </div>
+
+        <div ng-class="{'alert bg-info': estado == 'noresult', 'none': estado != 'noresult'}">
+            <h4><span class="glyphicon glyphicon-info-sign"></span> <spring:message code="obrasSociales.emptyData"/></h4><br/>
+
+            <p><spring:message code="obrasSociales.emptyData.text"/></p>
+        </div>
 		<!-- 		DIV con la grilla de datos -->           
 		<div id="gridContainer" ng-class="{'': estado == 'list', 'none': estado != 'list'}">
 			<div class="table-responsive">
@@ -87,7 +106,7 @@
                 </tbody>
             </table>
     	    </div>    
-		</div>
+
 
 			<!-- 		DIV de paginado		 -->      
 			<div class="text-center">
@@ -123,7 +142,8 @@
 	                    <spring:message code="pagination.last"/>
 	            </button>
 	        </div>
-
+		</div>
+		
 		<!--     	Botn de creacion -->    	
     	<div ng-class="{'text-center': mostrarBotonCrear == true, 'none': mostrarBotonCrear == false}">
             <br/>
