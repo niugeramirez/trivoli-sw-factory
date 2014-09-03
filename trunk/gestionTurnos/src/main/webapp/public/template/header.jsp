@@ -37,11 +37,13 @@
 		            	<p><spring:message code="header.obrasSociales"/></p>
 		            </a>
 		        </li>		        
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
 		        <li>
 		        	<a href="<c:url value='/logout' />" title='<spring:message code="header.logout"/>'>
 		            	<p><spring:message code="header.logout"/>&nbsp;(${usuarioActual.nombreCompleto})</p>
 		            </a>
-		        </li>
+		        </li>			
 			</ul>
 		  </div>
 		</div>
