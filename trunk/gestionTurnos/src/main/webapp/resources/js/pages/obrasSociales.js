@@ -16,11 +16,11 @@ function obrasSocialesController($scope, $http) {
     // Flags diversos que manejan la interacción del Usuario con la Vista
     $scope.errorSubmit = false;
     $scope.errorAccesoIlegal = false;
-//    $scope.mostrarMensajesUsuario = false;
-      $scope.mostrarErrorValidacion = false;
-      $scope.mostrarMensajeBusqueda = false;
+    $scope.mostrarMensajesUsuario = false;
+    $scope.mostrarErrorValidacion = false;
+    $scope.mostrarMensajeBusqueda = false;
     $scope.mostrarBotonBuscar = false;
-//    $scope.mostrarBotonCrear = false;
+    $scope.mostrarBotonCrear = false;
 
     // Objeto JSON que almacena la obra social actual
     $scope.obraSocial = {};
@@ -55,7 +55,7 @@ function obrasSocialesController($scope, $http) {
             })
             .error(function () {
                 $scope.estado = 'error';
-//                $scope.mostrarBotonCrear = false;
+                $scope.mostrarBotonCrear = false;
             });
     };
 /************************************************************************************************************************************************************************/
@@ -244,25 +244,25 @@ function obrasSocialesController($scope, $http) {
                 $scope.pagina.paginaActual = $scope.pagina.cantPaginas - 1;
             }
 
-//            $scope.mostrarBotonCrear = true;
+            $scope.mostrarBotonCrear = true;
             $scope.mostrarBotonBuscar = true;
         } else {
             $scope.estado = 'noresult';
-//            $scope.mostrarBotonCrear = true;
+            $scope.mostrarBotonCrear = true;
 
             if(!$scope.filtroNombre){
                 $scope.mostrarBotonBuscar = false;
             }
         }
 
-//        if (data.mensajeAccion || data.mensajeBusqueda) {
-//            $scope.mostrarMensajesUsuario = $scope.ultimaAccion != 'search';
-//
-//            $scope.pagina.mensajeAccion = data.mensajeAccion;
-//            $scope.pagina.mensajeBusqueda = data.mensajeBusqueda;
-//        } else {
-//            $scope.mostrarMensajesUsuario = false;
-//        }
+        if (data.mensajeAccion || data.mensajeBusqueda) {
+            $scope.mostrarMensajesUsuario = $scope.ultimaAccion != 'search';
+
+            $scope.pagina.mensajeAccion = data.mensajeAccion;
+            $scope.pagina.mensajeBusqueda = data.mensajeBusqueda;
+        } else {
+            $scope.mostrarMensajesUsuario = false;
+        }
     };
 /************************************************************************************************************************************************************************/    
  
