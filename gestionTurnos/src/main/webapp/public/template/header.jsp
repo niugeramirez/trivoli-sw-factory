@@ -36,7 +36,12 @@
 		        	<a title='<spring:message code="header.obrasSociales"/>' href="<c:url value='/protected/obrasSociales'/>">
 		            	<p><spring:message code="header.obrasSociales"/></p>
 		            </a>
-		        </li>		        
+		        </li>
+		        <li ng-class="{'active': activeURL == 'calendarios', '': activeURL != 'calendarios'}">
+		        	<a title='<spring:message code="header.turnos"/>' href="<c:url value='/protected/calendarios'/>">
+		            	<p><spring:message code="header.turnos"/></p>
+		            </a>
+		        </li>			        		        
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 		        <li>

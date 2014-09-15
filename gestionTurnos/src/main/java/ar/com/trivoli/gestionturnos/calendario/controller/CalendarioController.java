@@ -30,7 +30,7 @@ import ar.com.trivoli.gestionturnos.common.model.ListaEntidadDTO;
 
 @Controller
 
-@RequestMapping(value = "/protected/calendario")
+@RequestMapping(value = "/protected/calendarios")
 public class CalendarioController extends ControllerBase<Calendario> {
 
 	@Autowired
@@ -38,7 +38,7 @@ public class CalendarioController extends ControllerBase<Calendario> {
 	/************************************************************************************************************************************************************************/
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView welcome() {
-		return new ModelAndView("admCalendario");
+		return new ModelAndView("admCalendarios");
 	}	
 	/************************************************************************************************************************************************************************/
 	/**
