@@ -31,4 +31,8 @@
     <definition name="admObrasSociales" extends="master.page">
         <put-attribute name="body" value="/protected/obrasSociales/obrasSociales.jsp"/>
     </definition>
+
+    <definition name="admCalendarios" extends="master.page">
+        <put-attribute name="body" value="/protected/calendarios/calendarios.jsp"/>
+    </definition>    
 </tiles-definitions>
