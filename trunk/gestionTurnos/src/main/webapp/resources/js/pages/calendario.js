@@ -22,16 +22,18 @@ function controller($scope, $http) {
     $scope.mostrarBotonBuscar = false;
     $scope.mostrarBotonCrear = false;
 
-    // Objeto JSON que almacena la obra social actual
-    $scope.calendarioActual = {};
-    
-    //Objeto JSON que almacena la lista de turnos del calendario actual
+    // Objetos JSON
+    $scope.calendarioActual = {};   
     $scope.turnosActuales = {};
+    $scope.recursosActuales = {};
+    $scope.recursoActual = {};    
     
-    // Filtro de Busqueda
-    $scope.filtroNombre = "";
+    // Filtro de Busqueda   
+//    $scope.fechaActual = 	new Date().getDate().toString() + '/'+
+//    						(new Date().getMonth()+1)  + '/'+
+//    						new Date().getFullYear().toString();
+    $scope.fechaActual = '23/09/2014';
 
-    
    
     
     // Definición de Funciones del Controlador de la Página de Administración de Obras Sociales
@@ -45,25 +47,159 @@ function controller($scope, $http) {
         $scope.ultimaAccion = 'list';
 
         // Se abre el dialogo Loading .....
-        $scope.startDialogAjaxRequest();
+        $scope.startDialogAjaxRequest("#loadingModalRecursos");
 
         // Se fijan los parámetros de la llamada al servicio Rest (Página Solicitada por el Usuario)
-        var config = {params: {nroPagina: $scope.nroPagina}};
+        var config = {params: {nroPagina: $scope.nroPagina}};        
 
         // Se realiza un requerimiento HTTP a través de un método GET esperando 2 posibles resultados (callbacks invocados
         // asincronicamente) 
         $http.get(url, config)
             .success(function (data) {
-                $scope.finishAjaxCallOnSuccess(data, null, false);                
+                $scope.finishAjaxRecursos(data, null, false);    
+                $scope.listarCalendario();
             })
             .error(function () {
                 $scope.estado = 'error';
                 $scope.mostrarBotonCrear = false;
             });
+        
+    };
+/************************************************************************************************************************************************************************/    
+    // Funcion que recupera del backend todos los Recursos
+    $scope.listarCalendario = function () {
+    	// Se obtiene la URL actual
+        var url = $scope.url +  $scope.recursoActual.id;
+        
+        // Se fija la Ultima Accion Solicitada por el Usuario
+        $scope.ultimaAccion = 'list';
+
+        // Se abre el dialogo Loading .....
+        $scope.startDialogAjaxRequest("#loadingModal");
+
+        // Se fijan los parámetros de la llamada al servicio Rest (Página Solicitada por el Usuario)
+        var config = {params: {nroPagina: $scope.nroPagina}};
+        config.params.idRecurso = $scope.recursoActual.id;
+        config.params.fechaTurnos = new Date();
+        //config.params.fechaTurnos = $scope.fechaActual;
+
+        // Se realiza un requerimiento HTTP a través de un método GET esperando 2 posibles resultados (callbacks invocados
+        // asincronicamente) 
+        $http.get(url, config)
+            .success(function (data) {
+                $scope.finishAjaxCallOnSuccess(data, null, false);    
+                $scope.buscarTurnos();
+            })
+            .error(function () {
+                $scope.estado = 'error';
+                $scope.mostrarBotonCrear = false;
+            });
+        
     };
 /************************************************************************************************************************************************************************/
+
+    // Funcion que recupera del backend todos los Recursos
+    $scope.buscarTurnos = function () {    
+	    
+		if	($scope.calendarioActual) {
+	    	var url = $scope.url + $scope.calendarioActual.recurso.id +'/'+ $scope.calendarioActual.id;
+			
+			$scope.ultimaAccion = 'list';
+			
+			$scope.startDialogAjaxRequest("#loadingModalTurno");
+			
+			var config = {};		
+			config.params = {};
+			config.params.nroPagina = 0;
+			config.params.idCalendario = $scope.calendarioActual.id;
+			config.params.idRecurso = $scope.calendarioActual.recurso.id;
+	  
+			
+			$http.get(url, config)
+			    .success(function (data) {
+			    	$scope.mostrarMensajeBusqueda = true;
+			    	finishAjaxTurnos(data, null, false); 
+			    })
+			    .error(function(data, status, headers, config) {
+	                $scope.estado = 'error';
+	                $scope.mostrarBotonCrear = false;
+			    });    		   
+		}
+	};
+/************************************************************************************************************************************************************************/
     
- 
+    finishAjaxTurnos = function (data, modalId, isPagination) {
+    	// Se muestran los datos en la Grilla de horarios        
+        if (data.cantPaginas > 0) {
+            $scope.estado = 'list';               
+
+        }         
+        $scope.turnosActuales   = data.registros;
+        
+        $("#loadingModalTurno").modal('hide');
+
+        if(!isPagination){
+            if(modalId){
+                $scope.exit(modalId);
+            }
+        }
+
+        $scope.ultimaAccion = '';
+    };
+/************************************************************************************************************************************************************************/
+     
+    $scope.finishAjaxRecursos = function (data, modalId, isPagination) {
+    	// Se muestran los datos en la Grilla de turnos    	
+    	
+        $scope.recursosActuales = data.registros;//$scope.pagina.registros;
+        $scope.recursoActual =data.registros[3];// $scope.pagina.registros[0];        
+        
+        $("#loadingModalRecursos").modal('hide');
+
+        if(!isPagination){
+            if(modalId){
+                $scope.exit(modalId);
+            }
+        }
+
+        $scope.ultimaAccion = '';
+    };    
+/************************************************************************************************************************************************************************/
+    function pad(str, len, pad, dir) {
+    	var STR_PAD_LEFT = 1;
+    	var STR_PAD_RIGHT = 2;
+    	var STR_PAD_BOTH = 3;    	
+
+        if (typeof(len) == "undefined") { var len = 0; }
+        if (typeof(pad) == "undefined") { var pad = ' '; }
+        if (typeof(dir) == "undefined") { var dir = STR_PAD_RIGHT; }
+
+        if (len + 1 >= str.length) {
+
+            switch (dir){
+
+                case STR_PAD_LEFT:
+                    str = Array(len + 1 - str.length).join(pad) + str;
+                break;
+
+                case STR_PAD_BOTH:
+                    var right = Math.ceil((padlen = len - str.length) / 2);
+                    var left = padlen - right;
+                    str = Array(left+1).join(pad) + str + Array(right+1).join(pad);
+                break;
+
+                default:
+                    str = str + Array(len + 1 - str.length).join(pad);
+                break;
+
+            } // switch
+
+        }
+
+        return str;
+
+    }  
+/************************************************************************************************************************************************************************/    
 //    // Funcion que elimina un Recurso del backend
 //    $scope.eliminarObraSocial = function () {
 //    	// Se fija la Ultima Accion Solicitada por el Usuario
@@ -192,35 +328,42 @@ function controller($scope, $http) {
 //    };
 /************************************************************************************************************************************************************************/
     
-    $scope.startDialogAjaxRequest = function () {
-        $scope.mostrarErrorValidacion = false;
-        $("#loadingModal").modal('show');
+    $scope.startDialogAjaxRequest = function (modalId) {
+        //TODO ver la posibilidad que quede el modal de ajax unificado para todas las llamadas
+    	//TODO ver la posibilidad de usar distinto Scopes para los distintos niveles de llamadas AJAX
+    	//TODO ver la unificacion de codigo javascript
+    	$scope.mostrarErrorValidacion = false;
+        $(modalId).modal('show');
         $scope.estadoAnterior = $scope.estado;
         $scope.estado = 'busy';
     };
     
 /************************************************************************************************************************************************************************/    
 
-    $scope.handleErrorInDialogs = function (status) {
-        $("#loadingModal").modal('hide');
-        
-        $scope.estado = $scope.estadoAnterior;
-
-        // Acceso No Permitido
-        if(status == 403){
-            $scope.errorAccesoIlegal = true;
-            return;
-        }
-
-        $scope.errorSubmit = true;
-        $scope.ultimaAccion = '';
-    };
+//    $scope.handleErrorInDialogs = function (status) {
+//        $("#loadingModal").modal('hide');
+//        
+//        $scope.estado = $scope.estadoAnterior;
+//
+//        // Acceso No Permitido
+//        if(status == 403){
+//            $scope.errorAccesoIlegal = true;
+//            return;
+//        }
+//
+//        $scope.errorSubmit = true;
+//        $scope.ultimaAccion = '';
+//    };
     
 /************************************************************************************************************************************************************************/
     
     $scope.finishAjaxCallOnSuccess = function (data, modalId, isPagination) {
-    	// Se muestran los datos en la Grilla de Recursos
-        $scope.populateTable(data);
+    	// Se muestran los datos en la Grilla de turnos    	
+        $scope.populateTable(data);    	     
+        
+        if (data.totalRegistros > 0) {            
+            $scope.calendarioActual = $scope.pagina.registros[0].calendario;             
+        }         
         
         $("#loadingModal").modal('hide');
 
@@ -240,54 +383,16 @@ function controller($scope, $http) {
             $scope.estado = 'list';
 
             // Se define la Pagina de Datos a mostrar
-            $scope.pagina = {registros: data.registros, paginaActual: $scope.nroPagina, cantPaginas: data.cantPaginas, totalRegistros : data.totalRegistros};
-            
-            //Defino como calendrio actual el primero de la lista y su
-            $scope.calendarioActual = $scope.pagina.registros[0].calendario;
-            $scope.turnosActuales   = $scope.pagina.registros[0].turnos;
+            $scope.pagina = {registros: data.registros, paginaActual: $scope.nroPagina, cantPaginas: data.cantPaginas, totalRegistros : data.totalRegistros};                
 
-            if($scope.pagina.cantPaginas <= $scope.pagina.paginaActual){
-                $scope.nroPagina = $scope.pagina.cantPaginas - 1;
-                $scope.pagina.paginaActual = $scope.pagina.cantPaginas - 1;
-            }
-
-            $scope.mostrarBotonCrear = true;
-            $scope.mostrarBotonBuscar = true;
-        } else {
-            $scope.estado = 'noresult';
-            $scope.mostrarBotonCrear = true;
-
-            if(!$scope.filtroNombre){
-                $scope.mostrarBotonBuscar = false;
-            }
-        }
-
-        if (data.mensajeAccion || data.mensajeBusqueda) {
-            $scope.mostrarMensajesUsuario = $scope.ultimaAccion != 'search';
-
-            $scope.pagina.mensajeAccion = data.mensajeAccion;
-            $scope.pagina.mensajeBusqueda = data.mensajeBusqueda;
-        } else {
-            $scope.mostrarMensajesUsuario = false;
-        }
+        } 
     };
-/************************************************************************************************************************************************************************/    
- 
-//    $scope.obraSocialSeleccionado = function (obraSocial) {
-//        var obraSocialSeleccionado = angular.copy(obraSocial);
-//        
-//        // Se copia el objeto JSON seleccionado en la grilla al registro actual
-//        $scope.obraSocial = obraSocialSeleccionado;
-//    };    
-//    
-
+/************************************************************************************************************************************************************************/     
     $scope.seleccionarCalendario = function (registroActual) {
      
         // Se copia el objeto JSON seleccionado en la grilla al registro actual
-        $scope.calendarioActual = angular.copy(registroActual.calendario);        
-                      
-        // Se copia el objeto JSON seleccionado en la grilla al registro actual
-        $scope.turnosActuales = angular.copy(registroActual.turnos);
+        $scope.calendarioActual = angular.copy(registroActual.calendario);                              
+        $scope.buscarTurnos();
         
     };
 /************************************************************************************************************************************************************************/    
@@ -298,15 +403,15 @@ function controller($scope, $http) {
     
 
 /************************************************************************************************************************************************************************/
-    $scope.exit = function (modalId) {
-        $(modalId).modal('hide');
-        
-        $scope.resetObraSocial();
-        
-        $scope.errorSubmit = false;
-        $scope.errorAccesoIlegal = false;
-        $scope.mostrarErrorValidacion = false;
-    };
+//    $scope.exit = function (modalId) {
+//        $(modalId).modal('hide');
+//        
+//        $scope.resetObraSocial();
+//        
+//        $scope.errorSubmit = false;
+//        $scope.errorAccesoIlegal = false;
+//        $scope.mostrarErrorValidacion = false;
+//    };
 
 /************************************************************************************************************************************************************************/
     
@@ -330,5 +435,5 @@ function controller($scope, $http) {
 //    };
 /************************************************************************************************************************************************************************/    
     // Codigo de Inicializacion del Controlador de la Página de Administración de Obras Sociales
-    $scope.listarTodo();
+    $scope.listarTodo();    
 }

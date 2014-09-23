@@ -26,6 +26,7 @@ public class TurnoService {
 	private ITurnoRepository turnoRepository;
 	
 	public List<Turno> buscarTurnosPorCalendario (Calendario calendario) {
+		//TODO ver si es viable un metodo que busque por id de calendario en lugar de objeto calendario
 		
 		return turnoRepository.findByCalendario(calendario);
 	}

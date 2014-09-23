@@ -3,6 +3,8 @@
  */
 package ar.com.trivoli.gestionturnos.recurso.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,10 +28,12 @@ public class RecursoService {
 	@Autowired
 	private IRecursoRepository recursoRepository;
 
+	/************************************************************************************************************************************************************************/
 	private Sort ordenPredeterminado() {
 		return new Sort(Sort.Direction.ASC, "descripcion");
 	}
 
+	/************************************************************************************************************************************************************************/
 	@Transactional(readOnly = true)
 	public ListaEntidadDTO<Recurso> buscarRecursosPorDescripcion(int nroPagina,
 			int registrosPorPagina, String descripcion) {
@@ -56,14 +60,16 @@ public class RecursoService {
 				resultado.getTotalElements(), resultado.getContent());
 	}
 
+	/************************************************************************************************************************************************************************/
 	public void delete(int recursoId) {
 		recursoRepository.delete(recursoId);
 	}
 
+	/************************************************************************************************************************************************************************/
 	public void guardar(Recurso recurso) {
 		recursoRepository.save(recurso);
 	}
-
+	/************************************************************************************************************************************************************************/
 	@Transactional(readOnly = true)
 	public ListaEntidadDTO<Recurso> recuperarTodos(int nroPagina,
 			int registrosPorPagina) {
@@ -87,5 +93,11 @@ public class RecursoService {
 		return new ListaEntidadDTO<Recurso>(resultado.getTotalPages(),
 				resultado.getTotalElements(), resultado.getContent());
 	}
+	/************************************************************************************************************************************************************************/
+	@Transactional(readOnly = true)
+	public List<Recurso> recuperarTodos() {
 
+		return (List<Recurso>) recursoRepository.findAll();
+	}
+	/************************************************************************************************************************************************************************/	
 }
