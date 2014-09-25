@@ -4,6 +4,7 @@
 package ar.com.trivoli.gestionturnos.calendario.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import ar.com.trivoli.gestionturnos.calendario.model.Calendario;
 import ar.com.trivoli.gestionturnos.calendario.model.CalendarioDTO;
 import ar.com.trivoli.gestionturnos.calendario.repository.ICalendarioRepository;
 import ar.com.trivoli.gestionturnos.common.model.ListaEntidadDTO;
+import ar.com.trivoli.gestionturnos.common.util.CalendarUtils;
 import ar.com.trivoli.gestionturnos.recurso.repository.IRecursoRepository;
 import ar.com.trivoli.gestionturnos.turno.model.Turno;
 import ar.com.trivoli.gestionturnos.turno.service.TurnoService;
@@ -84,6 +86,29 @@ public class CalendarioService {
 													,resultadoDTO.size()
 													,resultadoDTO);
 	}	
+	/************************************************************************************************************************************************************************/
+	@Transactional(readOnly = true)
+	public ListaEntidadDTO<CalendarioDTO> recuperarCalendariosPorRecursoYFecha(int idRecurso
+																				,Date	fechaTurnos) {						
+		
+		//traigo los calendarios del repositorio
+		List<Calendario> resultado = (List<Calendario>) calendarioRepository.findByRecursoAndFechaHoraInicioBetween(recursoRepository.findOne(idRecurso)
+																														,fechaTurnos
+																														,CalendarUtils.getFechaLimiteSuperior(fechaTurnos));
+		
+		//recorro los calendarios y armo la lista de calendarios DTO con sus turnos	
+		List<CalendarioDTO> resultadoDTO = new ArrayList<CalendarioDTO>(); 
+				
+		for (Calendario cal :resultado) {
+			
+			resultadoDTO.add(new CalendarioDTO(cal, turnoService.buscarTurnosPorCalendario(cal)));
+		}
+
+		
+		return new ListaEntidadDTO<CalendarioDTO>(	1
+													,resultadoDTO.size()
+													,resultadoDTO);
+	}
 	/************************************************************************************************************************************************************************/
 	@Transactional(readOnly = true)
 	public ListaEntidadDTO<Turno> recuperarTurnos(int idCalendario) {

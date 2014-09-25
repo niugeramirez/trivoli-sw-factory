@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="row-fluid" ng-controller="controller">
 
-
-
 	<!-- 	Titulo y Boton de busqueda -->
 	<h2>
         <p class="text-center">
@@ -32,7 +30,7 @@
             </div>
         </div>	
         
-		<!-- 		DIV con algunos mensajes de error como empty data -->
+		<!-- 		DIV con algunos mensajes de error  -->
         <div ng-class="{'alert bg-success': mostrarMensajesUsuario == true, 'none': mostrarMensajesUsuario == false}">
         	<h4 class="displayInLine">
                 <p class="displayInLine"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;{{pagina.mensajeAccion}}</p>
@@ -47,32 +45,28 @@
             <p><spring:message code="error.generic.text"/></p>
         </div>
 
-        <div ng-class="{'alert bg-info': estado == 'noresult', 'none': estado != 'noresult'}">
-            <h4><span class="glyphicon glyphicon-info-sign"></span> <spring:message code="obrasSociales.emptyData"/></h4><br/>
 
-            <p><spring:message code="obrasSociales.emptyData.text"/></p>
-        </div>
 		<!--         Selector de medicos y fecha -->
- 		<form name="filtroRecursoFecha" novalidate class="well form-horizontal">
- 			<select class="form-control" ng-model="recursoActual" ng-options="recurso.descripcion for recurso in recursosActuales"></select>
-			<input type="date"
-		    	class="form-control"
-		    	id="txtDescripcion"
-               	required
-                autofocus
-                ng-model="fechaActual"
-                name="Fecha"
-                data-date-format="dd-mm-yyyy"
-                placeholder="Fecha Turnos"/>  			
- 		</form>
-		
+ 		<div class="col-md-12">
+ 			<div class="col-lg-5"> 
+ 				<select class="form-control" ng-model="recursoActual" ng-options="recurso.descripcion for recurso in recursosActuales" ng-change="listarCalendario()"></select>
+			</div>
+			<div class="col-lg-3"> 
+				<input type="text" datepicker ng-model="fechaActual" ng-change="listarCalendario()"/>
+			</div>
+ 		</div>
 
-		<!-- 		DIV con la grilla de datos -->           
+		<!-- 		DIV con la grilla de datos -->     
+		<div ng-class="{'alert bg-info': estado == 'noresult', 'none': estado != 'noresult'}">
+            <h4><span class="glyphicon glyphicon-info-sign"></span> <spring:message code="turnos.calendario.emptyData"/></h4><br/>
+
+            <p><spring:message code="turnos.calendario.emptyData.text"/></p>
+        </div>      
 		<div id="gridContainer" ng-class="{'': estado == 'list', 'none': estado != 'list'}">
 			<div class="row show-grid">
 			  <div class="col-md-1">
 				  <div class="btn-group-vertical" >
-					  <div ng-repeat="registroActual in pagina.registros">
+					  <div ng-repeat="registroActual in calendariosActuales">
 					  	<button type="button" class="btn btn-default" ng-click="seleccionarCalendario(registroActual);">{{registroActual.calendario.fechaHoraInicio | date:'hh:mm'}}</button>
 					  </div>
 				</div>

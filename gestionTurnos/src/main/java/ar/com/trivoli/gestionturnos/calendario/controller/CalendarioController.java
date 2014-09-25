@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -67,7 +68,7 @@ public class CalendarioController extends ControllerBase<Calendario> {
 	/************************************************************************************************************************************************************************/
 	@RequestMapping(value = "/{idRecurso}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> listAllPorRecurso(	@PathVariable("idRecurso") int idRecurso
-												,@RequestParam Date fechaTurnos
+												,@RequestParam @DateTimeFormat(pattern="dd-MM-yyyy") Date  fechaTurnos
 												,@RequestParam int nroPagina,Locale locale) {
 
 		System.out.println("entro el list all por recurso");
@@ -79,7 +80,7 @@ public class CalendarioController extends ControllerBase<Calendario> {
 		System.out.println(fecha1.toString());
 		
 		// Se recuperan todos los registros
-		ListaEntidadDTO<CalendarioDTO> listaCalendarios = calendarioService.recuperarCalendariosPorRecusro(idRecurso);
+		ListaEntidadDTO<CalendarioDTO> listaCalendarios = calendarioService.recuperarCalendariosPorRecursoYFecha(idRecurso,fechaTurnos);
 
 		// Se arma la Respuesta HTTP
 		return new ResponseEntity<ListaEntidadDTO<CalendarioDTO>>(listaCalendarios,HttpStatus.OK);
