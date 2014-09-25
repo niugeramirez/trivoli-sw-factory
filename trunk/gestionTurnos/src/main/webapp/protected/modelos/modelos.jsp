@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="row-fluid" ng-controller="modelosController">
-	<div>
-  		<input type="text" datepicker ng-model="startDate" />
-	</div>
 	<h2>
         <p class="text-center">
             <spring:message code='modelos.header'/>
