@@ -18,14 +18,16 @@ function controller($scope, $http) {
     $scope.errorAccesoIlegal = false;
     $scope.mostrarMensajesUsuario = false;
     $scope.mostrarErrorValidacion = false;
-    $scope.mostrarMensajeBusqueda = false;
-    $scope.mostrarBotonBuscar = false;
-    $scope.mostrarBotonCrear = false;
+    
+    
+    $scope.pagina={};
+    $scope.pagina.mensajeAccion = "";
+    $scope.pagina.mensajeBusqueda = '';       
 
     // Objetos JSON
-    $scope.calendariosActuales = {}; 
+    $scope.calendariosActuales = []; 
     $scope.calendarioActual = null;   
-    $scope.turnosActuales = {};
+    $scope.turnosActuales = [];
     $scope.recursosActuales = {};
     $scope.recursoActual = {};    
     
@@ -35,32 +37,36 @@ function controller($scope, $http) {
     						new Date().getFullYear().toString();
    
     
-    // Definición de Funciones del Controlador de la Página de Administración de Obras Sociales
+    // Definición de Funciones del Controlador de la Página de Administración de Turnos
 /************************************************************************************************************************************************************************/    
     // Funcion que recupera del backend todos los Recursos
-    $scope.listarTodo = function () {
+    $scope.Inicializar = function () {
     	// Se obtiene la URL actual
         var url = $scope.url;
+        //Se setea el modal de carga AJAX
+		loadingId = "#loadingModalRecursos";
         
         // Se fija la Ultima Accion Solicitada por el Usuario
         $scope.ultimaAccion = 'list';
 
         // Se abre el dialogo Loading .....
-        $scope.startDialogAjaxRequest("#loadingModalRecursos");
+		$scope.startDialogAjaxRequest(loadingId);           
+        
+		var config = {};		
+		config.params = {};
+		config.params.nroPagina = 0;
+		
+		//Parametros propios de esta llamada AJAX    
+		//NO HAY PARAMETROS PROPIOS EN ESTA LLAMADA
 
-        // Se fijan los parámetros de la llamada al servicio Rest (Página Solicitada por el Usuario)
-        var config = {params: {nroPagina: $scope.nroPagina}};        
-
-        // Se realiza un requerimiento HTTP a través de un método GET esperando 2 posibles resultados (callbacks invocados
-        // asincronicamente) 
+        // Se realiza un requerimiento HTTP a través de un método GET esperando 2 posibles resultados (callbacks invocados asincronicamente) 
         $http.get(url, config)
             .success(function (data) {
-                $scope.finishAjaxRecursos(data, null, false);    
+                $scope.finishAjaxRecursos(data,loadingId);    
                 $scope.listarCalendario();
             })
             .error(function () {
-                $scope.estado = 'error';
-                $scope.mostrarBotonCrear = false;
+            	$scope.errorAjax();
             });
         
     };
@@ -69,31 +75,33 @@ function controller($scope, $http) {
     $scope.listarCalendario = function () {
     	// Se obtiene la URL actual
         var url = $scope.url +  $scope.recursoActual.id;
+        //Se setea el modal de carga AJAX
+		loadingId = "#loadingModalCalendario";
         
         // Se fija la Ultima Accion Solicitada por el Usuario
         $scope.ultimaAccion = 'list';
 
         // Se abre el dialogo Loading .....
-        $scope.startDialogAjaxRequest("#loadingModal");
+		$scope.startDialogAjaxRequest(loadingId);        
 
-        // Se fijan los parámetros de la llamada al servicio Rest (Página Solicitada por el Usuario)
-        var config = {params: {nroPagina: $scope.nroPagina}};
+        // Se fijan los parámetros de la llamada al servicio Rest 
+		var config = {};		
+		config.params = {};
+		config.params.nroPagina = 0;
+		
+		//Parametros propios de esta llamada AJAX        
         config.params.idRecurso = $scope.recursoActual.id;
         config.params.fechaTurnos = $scope.fechaActual;
         
-        //Reseteo los turnos actuales
-        $scope.turnosActuales = {};
 
-        // Se realiza un requerimiento HTTP a través de un método GET esperando 2 posibles resultados (callbacks invocados
-        // asincronicamente) 
+        // Se realiza un requerimiento HTTP a través de un método GET esperando 2 posibles resultados (callbacks invocados asincronicamente) 
         $http.get(url, config)
             .success(function (data) {
-                $scope.finishAjaxCallOnSuccess(data, null, false);    
+                $scope.finishAjaxCalendario(data,loadingId);    
                 $scope.buscarTurnos();
             })
             .error(function () {
-                $scope.estado = 'error';
-                $scope.mostrarBotonCrear = false;
+            	$scope.errorAjax();
             });
         
     };
@@ -103,266 +111,90 @@ function controller($scope, $http) {
     $scope.buscarTurnos = function () {    
 	    
 		if	($scope.calendarioActual!=null) {
-	    	var url = $scope.url + $scope.calendarioActual.recurso.id +'/'+ $scope.calendarioActual.id;
+			// Se obtiene la URL actual
+			var url = $scope.url + $scope.calendarioActual.recurso.id +'/'+ $scope.calendarioActual.id;
+			//Se setea el modal de carga AJAX
+			loadingId = "#loadingModalTurno";
 			
-			$scope.ultimaAccion = 'list';
-			
-			$scope.startDialogAjaxRequest("#loadingModalTurno");
-			
+	        // Se fija la Ultima Accion Solicitada por el Usuario
+	        $scope.ultimaAccion = 'list';
+
+	        // Se abre el dialogo Loading .....
+			$scope.startDialogAjaxRequest(loadingId);        
+
+	        // Se fijan los parámetros de la llamada al servicio Rest 			
 			var config = {};		
 			config.params = {};
 			config.params.nroPagina = 0;
+			
+			//Parametros propios de esta llamada AJAX
 			config.params.idCalendario = $scope.calendarioActual.id;
 			config.params.idRecurso = $scope.calendarioActual.recurso.id;
 	  
-			
+	        // Se realiza un requerimiento HTTP a través de un método GET esperando 2 posibles resultados (callbacks invocados asincronicamente) 			
 			$http.get(url, config)
-			    .success(function (data) {
-			    	$scope.mostrarMensajeBusqueda = true;
-			    	finishAjaxTurnos(data, null, false); 
+			    .success(function (data) {			    	
+			    	 $scope.finishAjaxTurnos(data,loadingId); 
 			    })
-			    .error(function(data, status, headers, config) {
-	                $scope.estado = 'error';
-	                $scope.mostrarBotonCrear = false;
+			    .error(function() {
+			    	$scope.errorAjax();
 			    });    		   
 		}
 	};
 /************************************************************************************************************************************************************************/
     
-    finishAjaxTurnos = function (data, modalId, isPagination) {
-    	// Se muestran los datos en la Grilla de horarios        
-        if (data.cantPaginas > 0) {
-            $scope.estado = 'list';               
-
-        }         
+	 $scope.finishAjaxTurnos = function (data,loadingId) {  
+    	
         $scope.turnosActuales   = data.registros;
-        
-        $("#loadingModalTurno").modal('hide');
 
-        if(!isPagination){
-            if(modalId){
-                $scope.exit(modalId);
-            }
-        }
-
-        $scope.ultimaAccion = '';
+        $scope.finishAjaxGral(loadingId,data);
     };
 /************************************************************************************************************************************************************************/
      
-    $scope.finishAjaxRecursos = function (data, modalId, isPagination) {
-    	// Se muestran los datos en la Grilla de turnos    	
-    	
-        $scope.recursosActuales = data.registros;
+    $scope.finishAjaxRecursos = function (data,loadingId) {   	
+        
+    	$scope.recursosActuales = data.registros;
         $scope.recursoActual =data.registros[0];        
         
-        $("#loadingModalRecursos").modal('hide');
-
-        if(!isPagination){
-            if(modalId){
-                $scope.exit(modalId);
-            }
-        }
-
-        $scope.ultimaAccion = '';
+        $scope.finishAjaxGral(loadingId,data);
     };    
 
-/************************************************************************************************************************************************************************/    
-//    // Funcion que elimina un Recurso del backend
-//    $scope.eliminarObraSocial = function () {
-//    	// Se fija la Ultima Accion Solicitada por el Usuario
-//        $scope.ultimaAccion = 'delete';
-//
-//        // Se obtiene la URL actual, parametrizandola con el ID del Recurso a Eliminar
-//        var url = $scope.url + $scope.obraSocial.id;
-//
-//        // Se abre el dialogo Loading .....
-//        $scope.startDialogAjaxRequest();
-//
-//        var params = {filtroNombre: $scope.filtroNombre, nroPagina: $scope.nroPagina};
-//
-//        $http({
-//            method: 'DELETE',
-//            url: url,
-//            params: params
-//        }).success(function (data) {
-//                $scope.resetObraSocial();
-//                $scope.finishAjaxCallOnSuccess(data, "#eliminarObrasSocialesDialog", false);
-//            }).error(function(data, status, headers, config) {
-//                $scope.handleErrorInDialogs(status);
-//            });
-//    };
-
-/************************************************************************************************************************************************************************/
- 
-    
-//    // Funcion que crea un Recurso en el backend
-//    $scope.crearObraSocial = function (crearObraSocialForm) {
-//        if (!crearObraSocialForm.$valid) {
-//            $scope.mostrarErrorValidacion = true;
-//            return;
-//        }
-//
-//        $scope.ultimaAccion = 'create';
-//
-//        var url = $scope.url;
-//
-//        var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
-//
-//        $scope.agregarFiltroBusqueda(config);
-//
-//        $scope.startDialogAjaxRequest();
-//
-//        // Se envía el Recurso actual serializado (via funcion $.param de jquery)
-//        $http.post(url, $.param($scope.obraSocial), config)
-//            .success(function (data) {
-//                $scope.finishAjaxCallOnSuccess(data, "#crearObrasSocialesDialog", false);
-//            })
-//            .error(function(data, status, headers, config) {
-//                $scope.handleErrorInDialogs(status);
-//            });
-//    };
-
-/************************************************************************************************************************************************************************/    
-    
-//    // Funcion que Actualiza un Recurso en el Backend
-//    $scope.updateObraSocial = function (updateObrasocialForm) {
-//        if (!updateObrasocialForm.$valid) {
-//            $scope.mostrarErrorValidacion = true;
-//            return;
-//        }
-//
-//        $scope.ultimaAccion = 'update';
-//
-//        var url = $scope.url + $scope.obraSocial.id;
-//
-//        $scope.startDialogAjaxRequest();
-//
-//        var config = {};
-//
-//        $scope.agregarFiltroBusqueda(config);
-//
-//        $http.put(url, $scope.obraSocial, config)
-//            .success(function (data) {
-//                $scope.finishAjaxCallOnSuccess(data, "#editarObrasSocialesDialog", false);
-//            })
-//            .error(function(data, status, headers, config) {
-//                $scope.handleErrorInDialogs(status);
-//            });
-//    };
-    
-    
-/************************************************************************************************************************************************************************/    
-//    // Funcion que Busca Recursos segun un Filtro de Busqueda en el Backend
-//    $scope.buscarObrasSociales = function (buscarObrasSocialesForm, isPagination) {
-//        if (!($scope.filtroNombre) && (!buscarObrasSocialesForm.$valid)) {
-//            $scope.mostrarErrorValidacion = true;
-//            return;
-//        }
-//
-//        $scope.ultimaAccion = 'search';
-//
-//        var url = $scope.url +  $scope.filtroNombre;
-//
-//        $scope.startDialogAjaxRequest();
-//
-//        var config = {};
-//
-//        if($scope.filtroNombre){
-//            $scope.agregarFiltroBusqueda(config);
-//        }
-//
-//        $http.get(url, config)
-//            .success(function (data) {
-//            	$scope.mostrarMensajeBusqueda = true;
-//                $scope.finishAjaxCallOnSuccess(data, "#buscarObrasSocialesDialog", isPagination);
-//            })
-//            .error(function(data, status, headers, config) {
-//                $scope.handleErrorInDialogs(status);
-//            });
-//    };
-    
-/************************************************************************************************************************************************************************/    
-//    $scope.agregarFiltroBusqueda = function(config) {
-//        if(!config.params){
-//            config.params = {};
-//        }
-//
-//        config.params.nroPagina = $scope.nroPagina;
-//
-//        if($scope.filtroNombre){
-//            config.params.filtroNombre = $scope.filtroNombre;
-//        }
-//    };
 /************************************************************************************************************************************************************************/
     
-    $scope.startDialogAjaxRequest = function (modalId) {
+    $scope.finishAjaxCalendario = function (data,loadingId) { 	     
+        
+        if (data.totalRegistros > 0) {            
+        	$scope.calendarioActual = data.registros[0].calendario;   
+        }    
+        else	{
+        	$scope.calendarioActual = null;     
+        }
+        $scope.calendariosActuales = data.registros;
+        
+        $scope.finishAjaxGral(loadingId,data);
+    };   
+/************************************************************************************************************************************************************************/
+    
+    $scope.finishAjaxGral = function (loadingId,data) { 	             
+        
+        $scope.estado = $scope.estadoAnterior;
+        $(loadingId).modal('hide');      
+        $scope.ultimaAccion = '';
+        $scope.pagina.mensajeAccion = data.mensajeAccion;
+        $scope.pagina.mensajeBusqueda = data.mensajeBusqueda;           
+    };      
+/************************************************************************************************************************************************************************/
+    
+    $scope.startDialogAjaxRequest = function (loadingId) {
         //TODO ver la posibilidad que quede el modal de ajax unificado para todas las llamadas
     	//TODO ver la posibilidad de usar distinto Scopes para los distintos niveles de llamadas AJAX
     	//TODO ver la unificacion de codigo javascript
     	$scope.mostrarErrorValidacion = false;
-        $(modalId).modal('show');
+        $(loadingId).modal('show');
         $scope.estadoAnterior = $scope.estado;
         $scope.estado = 'busy';
     };
-    
-/************************************************************************************************************************************************************************/    
-
-//    $scope.handleErrorInDialogs = function (status) {
-//        $("#loadingModal").modal('hide');
-//        
-//        $scope.estado = $scope.estadoAnterior;
-//
-//        // Acceso No Permitido
-//        if(status == 403){
-//            $scope.errorAccesoIlegal = true;
-//            return;
-//        }
-//
-//        $scope.errorSubmit = true;
-//        $scope.ultimaAccion = '';
-//    };
-    
-/************************************************************************************************************************************************************************/
-    
-    $scope.finishAjaxCallOnSuccess = function (data, modalId, isPagination) {
-    	// Se muestran los datos en la Grilla de turnos    	
-        //$scope.populateTable(data);    	     
-        
-        if (data.totalRegistros > 0) {            
-            //$scope.calendarioActual = $scope.pagina.registros[0].calendario;
-        	$scope.estado = 'list';
-        	$scope.calendarioActual = data.registros[0].calendario;   
-        	$scope.pagina = {/*registros: data.registros,*/ paginaActual: $scope.nroPagina, cantPaginas: data.cantPaginas, totalRegistros : data.totalRegistros};    
-        	$scope.calendariosActuales = data.registros;
-        }    
-        else	{
-        	$scope.estado = 'noresult';
-        	$scope.calendarioActual = null;     
-        	$scope.calendariosActuales = null;
-        }
-        
-        $("#loadingModal").modal('hide');
-
-        if(!isPagination){
-            if(modalId){
-                $scope.exit(modalId);
-            }
-        }
-
-        $scope.ultimaAccion = '';
-    };
-    
-/************************************************************************************************************************************************************************/    
-//    $scope.populateTable = function (data) {
-//    	// Se diferencian los casos de Respuesta con datos vs. Respuesta vacía
-//        if (data.cantPaginas > 0) {
-//            $scope.estado = 'list';
-//
-//            // Se define la Pagina de Datos a mostrar
-//            $scope.pagina = {registros: data.registros, paginaActual: $scope.nroPagina, cantPaginas: data.cantPaginas, totalRegistros : data.totalRegistros};                
-//
-//        } 
-//    };
+       
 /************************************************************************************************************************************************************************/     
     $scope.seleccionarCalendario = function (registroActual) {
      
@@ -371,45 +203,13 @@ function controller($scope, $http) {
         $scope.buscarTurnos();
         
     };
-/************************************************************************************************************************************************************************/    
-
-//    $scope.resetObraSocial = function(){
-//        $scope.obraSocial = {};
-//    };
-    
-
-/************************************************************************************************************************************************************************/
-//    $scope.exit = function (modalId) {
-//        $(modalId).modal('hide');
-//        
-//        $scope.resetObraSocial();
-//        
-//        $scope.errorSubmit = false;
-//        $scope.errorAccesoIlegal = false;
-//        $scope.mostrarErrorValidacion = false;
-//    };
-
 /************************************************************************************************************************************************************************/
     
-//    $scope.resetearBusqueda = function(){
-//        $scope.filtroNombre = "";
-//        $scope.nroPagina = 0;
-//        $scope.listarTodasLasObrasSociales();
-//        $scope.mostrarMensajeBusqueda = false;
-//    };
-    
-
-/************************************************************************************************************************************************************************/    
-//    $scope.cambiarPagina = function (pagina) {
-//        $scope.nroPagina = pagina;
-//
-//        if($scope.filtroNombre){
-//            $scope.buscarObrasSociales($scope.filtroNombre, true);
-//        } else{
-//            $scope.listarTodasLasObrasSociales();
-//        }
-//    };
+	$scope.errorAjax = function () {  
+        $scope.estado = 'error';     
+   };    
+   
 /************************************************************************************************************************************************************************/    
     // Codigo de Inicializacion del Controlador de la Página de Administración de Obras Sociales
-    $scope.listarTodo();    
+    $scope.Inicializar();    
 }
