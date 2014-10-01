@@ -12,7 +12,7 @@
 
 
 		<!-- 		DIV del  diálogo para el AJAX request -->
-		<div id="loadingModal" class="modal hide fade in centering" role="dialog" aria-hidden="true">
+		<div id="loadingModalCalendario" class="modal hide fade in centering" role="dialog" aria-hidden="true">
             <div id="divLoadingIcon" class="text-center">
                 <div class="glyphicon glyphicon-align-center loading"></div>
             </div>
@@ -57,12 +57,12 @@
  		</div>
 
 		<!-- 		DIV con la grilla de datos -->     
-		<div ng-class="{'alert bg-info': estado == 'noresult', 'none': estado != 'noresult'}">
+		<div ng-class="{'alert bg-info': calendariosActuales.length == '0', 'none': calendariosActuales.length != '0'}">
             <h4><span class="glyphicon glyphicon-info-sign"></span> <spring:message code="turnos.calendario.emptyData"/></h4><br/>
 
             <p><spring:message code="turnos.calendario.emptyData.text"/></p>
         </div>      
-		<div id="gridContainer" ng-class="{'': estado == 'list', 'none': estado != 'list'}">
+		<div id="gridContainer" ng-class="{'': calendariosActuales.length != '0', 'none': calendariosActuales.length == '0'}">
 			<div class="row show-grid">
 			  <div class="col-md-1">
 				  <div class="btn-group-vertical" >
@@ -79,7 +79,7 @@
 			            <p><spring:message code="turnos.emptyData.text"/></p>
 			        </div>
 			        
-					<div id="gridContainer" ng-class="{'': estado == 'list', 'none': estado != 'list'}">
+					<div id="gridContainer" ng-class="{'': turnosActuales.length != '0', 'none': turnosActuales.length == '0'}">
 						<div class="table-responsive">
 			            <table class="table table-bordered table-hover table-condensed">
 			                <tbody>
