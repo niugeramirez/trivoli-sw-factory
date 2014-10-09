@@ -64,13 +64,12 @@
         </div>      
 		<div id="gridContainer" ng-class="{'': calendariosActuales.length != '0', 'none': calendariosActuales.length == '0'}">
 			<div class="row show-grid">
-			  <div class="col-md-1">
-				  <div class="btn-group-vertical" >
-					  <div ng-repeat="registroActual in calendariosActuales">
-					  	<button type="button" class="btn btn-default" ng-click="seleccionarCalendario(registroActual);">{{registroActual.calendario.fechaHoraInicio | date:'hh:mm'}}</button>
-					  </div>
-				</div>
-			  </div>
+				<div class="col-md-1">		
+					<div ng-repeat="registroActual in calendariosActuales" class="btn-group-vertical">			  	
+						<a href="javascript:void(0)"  class="btn btn-default"  ng-click="seleccionarCalendario(registroActual);"  ng-class="{ 'active' : calendarioActual.id == registroActual.calendario.id }">{{registroActual.calendario.fechaHoraInicio | date:'hh:mm'}}</a>				 
+					</div>
+			  	</div>
+		  
 			  <div class="col-md-4">
 					<!-- 		DIV con la grilla de turnos -->           			        
 			        <div ng-class="{'alert bg-info': turnosActuales.length == '0', 'none': turnosActuales.length != '0'}">

@@ -1,6 +1,6 @@
 function controller($scope, $http) {
 	// Se define el Modelo de la Página de Administración de Obras Sociales
-	
+$scope.button = 'red';	
 	// Pagina solicitada al Backend
     $scope.nroPagina = 0;
 
