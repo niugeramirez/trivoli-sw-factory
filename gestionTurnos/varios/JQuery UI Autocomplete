@@ -1,0 +1,95 @@
+//autocomplete basico
+
+/************************************************************************************************************************************************************************/   
+ 
+  <div class="ui-widget">
+  <label for="tags">Tags: </label>
+  <input id="tags">
+	</div>
+    var availableTags = [
+                         "ActionScript",
+                         "AppleScript",
+                         "Asp",
+                         "BASIC",
+                         "C",
+                         "C++",
+                         "Clojure",
+                         "COBOL",
+                         "ColdFusion",
+                         "Erlang",
+                         "Fortran",
+                         "Groovy",
+                         "Haskell",
+                         "Java",
+                         "JavaScript",
+                         "Lisp",
+                         "Perl",
+                         "PHP",
+                         "Python",
+                         "Ruby",
+                         "Scala",
+                         "Scheme"
+                       ];    
+   
+   $(autocompletePacientes =  function() {
+
+	      $( "#tags" ).autocomplete({
+	        source: availableTags
+	      });
+	    });
+
+	    
+
+//auto complete con AJAX
+
+<div id="formWrap">
+    <form id="messageForm" action="#">
+        <fieldset>
+            <legend>New message form</legend>
+            <span>New Message</span>
+            <label id="toLabel">To:</label>
+            <div id="friends" class="ui-helper-clearfix">
+                <input id="to" type="text">
+            </div>
+            <label>Subject:</label>
+            <input id="subject" name="subject" type="text">
+            <label>Message:</label>
+            <textarea id="message" name="message" rows="5" cols="50"></textarea>
+            <button type="button" id="cancel">Cancel</button>
+            <button type="submit" id="send">Send</button>
+        </fieldset>
+    </form>
+</div>	
+
+    //attach autocomplete
+    $("#to").autocomplete({
+                 
+        //define callback to format results
+        source: function(req, add){
+                 
+
+			var config = {};		
+			config.params = {};
+			config.params.nroPagina = 0;
+			
+			//Parametros propios de esta llamada AJAX    
+			//NO HAY PARAMETROS PROPIOS EN ESTA LLAMADA
+	
+	        // Se realiza un requerimiento HTTP a través de un método GET esperando 2 posibles resultados (callbacks invocados asincronicamente) 
+	        $http.get($scope.url, config)
+	            .success(function (data) {
+	                   var suggestions = [];
+	                             
+	                    //process response
+	                    $.each(data.registros, function(i, val){                              
+	                    suggestions.push(val.descripcion);
+	            })
+	            ;                
+                         
+            //pass array to callback
+            add(suggestions);
+        });
+    }
+                 
+
+    });

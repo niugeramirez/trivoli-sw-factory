@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,8 @@ import ar.com.trivoli.gestionturnos.calendario.model.CalendarioDTO;
 import ar.com.trivoli.gestionturnos.calendario.service.CalendarioService;
 import ar.com.trivoli.gestionturnos.common.controller.ControllerBase;
 import ar.com.trivoli.gestionturnos.common.model.ListaEntidadDTO;
+import ar.com.trivoli.gestionturnos.paciente.model.Paciente;
+import ar.com.trivoli.gestionturnos.paciente.service.PacienteService;
 import ar.com.trivoli.gestionturnos.recurso.model.Recurso;
 import ar.com.trivoli.gestionturnos.recurso.service.RecursoService;
 import ar.com.trivoli.gestionturnos.turno.model.Turno;
@@ -46,6 +50,9 @@ public class CalendarioController extends ControllerBase<Calendario> {
 	@Autowired
 	private RecursoService recursoService;
 	
+	@Autowired
+	private PacienteService	pacienteService;
+	
 	//TODO configurar motor de testing
 	
 	/************************************************************************************************************************************************************************/
@@ -57,7 +64,7 @@ public class CalendarioController extends ControllerBase<Calendario> {
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> listarTodosLosRecursos(@RequestParam int nroPagina,Locale locale) {
 
-		System.out.println("listando todos los recursos");
+		
 		// Se recuperan todos los registros
 		List<Recurso> listaRecursos = recursoService.recuperarTodos();
 		ListaEntidadDTO<Recurso> listaRecursosDTO = new ListaEntidadDTO<Recurso>(1,listaRecursos.size(),listaRecursos);
@@ -70,15 +77,7 @@ public class CalendarioController extends ControllerBase<Calendario> {
 	public ResponseEntity<?> listAllPorRecurso(	@PathVariable("idRecurso") int idRecurso
 												,@RequestParam @DateTimeFormat(pattern="dd-MM-yyyy") Date  fechaTurnos
 												,@RequestParam int nroPagina,Locale locale) {
-
-		System.out.println("entro el list all por recurso");
-		System.out.println("idRecurso "+idRecurso);
-		System.out.println("fechaTurnos "+fechaTurnos);
-		System.out.println("fechaTurnos to string "+fechaTurnos.toString() );
-
-		Date fecha1 = new Date ();		   
-		System.out.println(fecha1.toString());
-		
+			
 		// Se recuperan todos los registros
 		ListaEntidadDTO<CalendarioDTO> listaCalendarios = calendarioService.recuperarCalendariosPorRecursoYFecha(idRecurso,fechaTurnos);
 
@@ -90,17 +89,38 @@ public class CalendarioController extends ControllerBase<Calendario> {
 	public ResponseEntity<?> buscarTurnos(
 			@PathVariable("idCalendario") int idCalendario,
 			@RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int nroPagina,
-			Locale locale) {
-		System.out.println("entro el search");
-		System.out.println("idCalendario "+ idCalendario);
-		Date fecha1 = new Date ();
-		System.out.println(fecha1.toString());
+			Locale locale) {		
 
 		ListaEntidadDTO<Turno> listaTurnos =  calendarioService.recuperarTurnos(idCalendario);
 
 		return new ResponseEntity<ListaEntidadDTO<Turno>>(listaTurnos
 															,HttpStatus.OK);
 	}
+
 	/************************************************************************************************************************************************************************/
-	
+	//TODO unificar las distintas URLs en todos los controles por algo más prolijo y consistente
+	@RequestMapping(value = "/pacientes", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> buscarPacientes(	@RequestParam(required = false) String filtroDNI,
+												@RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int nroPagina,
+												Locale locale) 
+	{
+		Date fecha1 = new Date ();
+		System.out.println("entro a buscar pacientes "+fecha1.toString());		
+		
+		ListaEntidadDTO<Paciente> listaPacientes = pacienteService.recuperarPorComienzoDni(	nroPagina 
+																					,registrosPorPagina
+																					,filtroDNI
+																					);
+		
+//		String actionMessageKey;
+//		if (!StringUtils.isEmpty(actionMessageKey)) {
+//			agregarMensajeAccion(listaPacientes, locale, actionMessageKey, null);
+//		}
+
+		//Object[] args = { filtroNombre };
+
+		//agregarMensajeBusqueda(listaPacientes, locale,"message.search.for.active", args);
+
+		return new ResponseEntity<ListaEntidadDTO<Paciente>>(listaPacientes,HttpStatus.OK);
+	}
 }
