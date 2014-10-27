@@ -3,12 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="row-fluid" ng-controller="controller">
 
-	<!-- 	Titulo y Boton de busqueda -->
+	<!-- 	Titulo -->
 	<h2>
         <p class="text-center">
             <spring:message code='turnos.header'/>
         </p>
     </h2>
+
 
 
 		<!-- 		DIV del  diálogo para el AJAX request -->
@@ -71,6 +72,18 @@
 			  	</div>
 		  
 			  <div class="col-md-4">
+			  		<!--     	Botn de creacion -->    	
+			    	<div ng-class="text-center">
+			            <br/>
+			            <a href="#pacienteAsign"
+			               role="button"
+			               title="<spring:message code='create'/>&nbsp;<spring:message code='turno'/>"
+			               class="btn btn-primary"
+			               data-toggle="modal">
+			               <span class="glyphicon glyphicon-plus"></span>
+			               &nbsp;&nbsp;<spring:message code="create"/>&nbsp;<spring:message code="turno"/>
+			            </a>
+			        </div>
 					<!-- 		DIV con la grilla de turnos -->           			        
 			        <div ng-class="{'alert bg-info': turnosActuales.length == '0', 'none': turnosActuales.length != '0'}">
 			            <h4><span class="glyphicon glyphicon-info-sign"></span> <spring:message code="turnos.emptyData"/></h4><br/>
@@ -115,6 +128,6 @@
 			  </div>
 			</div>			
 		</div>
-	</div>
+	<jsp:include page="modal/pacienteAsign.jsp"/>
 </div>	
 <script src="<c:url value="/resources/js/pages/calendario.js" />"></script>

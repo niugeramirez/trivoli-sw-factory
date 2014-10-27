@@ -4,9 +4,13 @@
 package ar.com.trivoli.gestionturnos.paciente.model;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import ar.com.trivoli.gestionturnos.common.model.EntidadBase;
+import ar.com.trivoli.gestionturnos.obrasocial.model.ObraSocial;
+
 
 
 
@@ -25,7 +29,19 @@ public class Paciente extends EntidadBase<Integer> {
 	private	String nombre;
 	private	String apellido;
 	private	String nroHistoriaClinica;
+
+	@ManyToOne
+	@JoinColumn(name = "idObraSocial")
+	private ObraSocial obraSocial;
 	
+	public ObraSocial getObraSocial() {
+		return obraSocial;
+	}
+
+	public void setObraSocial(ObraSocial obraSocial) {
+		this.obraSocial = obraSocial;
+	}
+
 	public String getDni() {
 		return dni;
 	}
