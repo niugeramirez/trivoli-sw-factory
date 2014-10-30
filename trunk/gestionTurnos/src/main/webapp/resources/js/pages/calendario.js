@@ -172,7 +172,9 @@ $scope.button = 'red';
 	       config.params = {};
 	       config.params.nroPagina = $scope.nroPaginaPacientes;
 	        if($scope.filtroPaciente){
-	            config.params.filtroDNI = $scope.filtroPaciente.DNI;
+	            config.params.filtroDNI = $scope.filtroPaciente.DNI;	            
+	            config.params.filtroNombre = $scope.filtroPaciente.nombre;
+	            config.params.filtroApellido = $scope.filtroPaciente.apellido;            
 	        }
 	       
 
@@ -197,14 +199,21 @@ $scope.button = 'red';
     
 	 $scope.finishAjaxPacientes = function (data,loadingId) {  
    	
-       $scope.pacientes   = data.registros;
+       //lleno la tabla que se va a mostrar
+	   $scope.pacientes   = data.registros;
        
+	   //seteos generales para mostrar controles
        if (data.cantPaginas > 0) {
            $scope.estadoPacientes = 'list'; 
        }
        else {
     	   $scope.estadoPacientes = 'noresult';
        }       
+       
+       //Seteo de visualizacion de filtros (uso variables donde repito el valor del modelo para que no se actualizen con la edicion)
+       $scope.mostrarFiltroDNI = $scope.filtroPaciente.DNI;  
+       $scope.mostrarFiltroApellido = $scope.filtroPaciente.apellido;
+       $scope.mostrarFiltroNombre = $scope.filtroPaciente.nombre;
        
        $scope.paginaPacientes = {paginaActual: $scope.nroPaginaPacientes, cantPaginas: data.cantPaginas, totalRegistros : data.totalRegistros};
        
@@ -277,7 +286,44 @@ $scope.button = 'red';
        $scope.buscarPacientes();
        
    };   
-/************************************************************************************************************************************************************************/    
+/************************************************************************************************************************************************************************/
+   
+   $scope.resetearBusqueda = function(filtro){
+       if (filtro = 'dni') {
+    	   $scope.mostrarFiltroDNI = '';
+    	   $scope.filtroPaciente.DNI = '';
+       }
+
+       if (filtro = 'apellido') {
+	       $scope.mostrarFiltroApellido = '';
+	       $scope.filtroPaciente.apellido= '';
+       }
+       
+       if (filtro = 'nombre') {
+	       $scope.mostrarFiltroNombre= '';
+	       $scope.filtroPaciente.nombre= '';     
+       }
+       
+       $scope.nroPaginaPacientes=0;
+       $scope.buscarPacientes();
+       
+   };
+   /************************************************************************************************************************************************************************/
+   $scope.exit = function (modalId) {
+       $(modalId).modal('hide');
+       
+       $scope.pacientes = [];
+       $scope.paginaPacientes = {};
+       
+	   $scope.mostrarFiltroDNI = '';
+	   $scope.filtroPaciente.DNI = '';
+	   $scope.mostrarFiltroApellido = '';
+	   $scope.filtroPaciente.apellido= '';
+	   $scope.mostrarFiltroNombre= '';
+	   $scope.filtroPaciente.nombre= '';     
+	   $scope.nroPaginaPacientes=0;
+   };   
+   /************************************************************************************************************************************************************************/    
    // Codigo de Inicializacion del Controlador de la Página de Administración de Obras Sociales
     $scope.Inicializar();    
     

@@ -15,5 +15,8 @@
     </div>
 	                
 	<jsp:include page="subPacienteSearch.jsp"/>
-	<jsp:include page="subPacienteSearchResult.jsp"/>				
+	<jsp:include page="subPacienteSearchResult.jsp"/>	
+	
+	<jsp:include page="pacienteQuickEditCreate.jsp"/>
+				
  </div>

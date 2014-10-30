@@ -15,8 +15,7 @@
 					
 					<!--         			DIV con la parte de busqueda -->
         			<div class="form-group" ng-class="{'has-error': mostrarErrorValidacion }">
-        				<label for="txtNombre" class="col-lg-3 control-label"><spring:message code="search.for"/>:</label>
-            			
+        				<label for="txtNombre" class="col-lg-3 control-label"><spring:message code="pacientes.DNI"/>:</label>            			
 	            		<div class="col-lg-7">
 		                    	<input type="text"
 		                    		class="form-control"
@@ -26,9 +25,30 @@
 		                           	name="filtroPaciente.DNI"
 		                           	placeholder="<spring:message code='pacientes.DNI'/> "/>
 	                	</div>
+	                	        			
+        				<label class="col-lg-3 control-label"><spring:message code="pacientes.apellido"/>:</label>            			
+	            		<div class="col-lg-7">
+		                    	<input type="text"
+		                    		class="form-control"						    			
+		                           	autofocus		                           	
+		                           	ng-model="filtroPaciente.apellido"
+		                           	name="filtroPaciente.apellido"
+		                           	placeholder="<spring:message code='pacientes.apellido'/> "/>
+	                	</div>    
+
+        				<label class="col-lg-3 control-label"><spring:message code="pacientes.nombre"/>:</label>            			
+	            		<div class="col-lg-7">
+		                    	<input type="text"
+		                    		class="form-control"						    			
+		                           	autofocus		                           	
+		                           	ng-model="filtroPaciente.nombre"
+		                           	name="filtroPaciente.nombre"
+		                           	placeholder="<spring:message code='pacientes.nombre'/> "/>
+	                	</div>  	                	            	
 
 	            	</div>
             	</form>
+            	
         		<span class="alert alert-danger"
 		          ng-show="errorSubmit">
 		        	<spring:message code="request.error"/>
@@ -48,7 +68,7 @@
                     	/>
             		<button class="btn btn-default"
                     	data-dismiss="modal"
-                    	ng-click="exit('');"
+                    	ng-click="exit('#pacienteAsign');"
                     	aria-hidden="true">
                 		<spring:message code="cancel"/>
             		</button>

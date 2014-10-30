@@ -101,25 +101,21 @@ public class CalendarioController extends ControllerBase<Calendario> {
 	//TODO unificar las distintas URLs en todos los controles por algo más prolijo y consistente
 	@RequestMapping(value = "/pacientes", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> buscarPacientes(	@RequestParam(required = false) String filtroDNI,
+												@RequestParam(required = false) String filtroApellido,
+												@RequestParam(required = false) String filtroNombre,
 												@RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int nroPagina,
 												Locale locale) 
 	{
 		Date fecha1 = new Date ();
 		System.out.println("entro a buscar pacientes "+fecha1.toString());		
 		
-		ListaEntidadDTO<Paciente> listaPacientes = pacienteService.recuperarPorComienzoDni(	nroPagina 
-																					,registrosPorPagina
-																					,filtroDNI
-																					);
+		ListaEntidadDTO<Paciente> listaPacientes = pacienteService.recuperarPorComienzoDniApellidoNombreLike(nroPagina 
+																											,registrosPorPagina
+																											,filtroDNI
+																											,filtroApellido
+																											,filtroNombre
+																											);
 		
-//		String actionMessageKey;
-//		if (!StringUtils.isEmpty(actionMessageKey)) {
-//			agregarMensajeAccion(listaPacientes, locale, actionMessageKey, null);
-//		}
-
-		//Object[] args = { filtroNombre };
-
-		//agregarMensajeBusqueda(listaPacientes, locale,"message.search.for.active", args);
 
 		return new ResponseEntity<ListaEntidadDTO<Paciente>>(listaPacientes,HttpStatus.OK);
 	}

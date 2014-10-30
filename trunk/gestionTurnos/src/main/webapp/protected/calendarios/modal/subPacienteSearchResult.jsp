@@ -1,7 +1,50 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-     <div class="modal-dialog  modal-lg modal-content">
+    
+	<!-- 	DIV con los filtros         -->    
+    <div class="modal-dialog  modal-lg modal-content">
+	    <div class="col-md-4">
+	    	<div ng-class="{'':  mostrarFiltroDNI , 'none': !mostrarFiltroDNI}">
+		    <a href="#"
+		        role="button"
+		        ng-click="resetearBusqueda('dni');"               
+		        title="probando"
+		        class="btn btn-primary" data-toggle="modal">
+		         <span class="glyphicon glyphicon-remove"></span>DNI {{mostrarFiltroDNI}}*
+		    </a>
+		    </div>
+	    </div>
+
+	    <div class="col-md-4">
+	    	<div ng-class="{'':  mostrarFiltroApellido , 'none': !mostrarFiltroApellido}">
+		    <a href="#"
+		        role="button"
+		        ng-click="resetearBusqueda('apellido');"               
+		        title="probando"
+		        class="btn btn-primary" data-toggle="modal">
+		         <span class="glyphicon glyphicon-remove"></span>Apellido *{{mostrarFiltroApellido}}*
+		    </a>
+		    </div>
+	    </div>	  
+
+	    <div class="col-md-4">
+	    	<div ng-class="{'':  mostrarFiltroNombre , 'none': !mostrarFiltroNombre}">
+		    <a href="#"
+		        role="button"
+		        ng-click="resetearBusqueda('nombre');"               
+		        title="probando"
+		        class="btn btn-primary" data-toggle="modal">
+		         <span class="glyphicon glyphicon-remove"></span>Nombre *{{mostrarFiltroNombre}}*
+		    </a>
+		    </div>
+	    </div>
+	    	      
+    </div>
+    
+                
+	<!--      DIV de emty data    -->
+    <div class="modal-dialog  modal-lg modal-content">
 	     <div  ng-class="{'alert bg-info': estadoPacientes == 'noresult', 'none': estadoPacientes != 'noresult'}">
 	         <h4><span class="glyphicon glyphicon-info-sign"></span> <spring:message code="pacientes.emptyData"/></h4><br/>
 	
@@ -9,9 +52,14 @@
 	     </div>
     </div>    
     
-	<div class="modal-dialog  modal-lg modal-content" ng-class="{'': pacientes.length != '0', 'none': pacientes.length == '0'}">
-	
-		<!-- 		DIV con la grilla de datos -->           
+    <!-- 		DIV con la grilla de datos -->
+	<div class="modal-dialog  modal-lg modal-content" ng-class="{'': pacientes.length != '0', 'none': pacientes.length == '0'}">	
+		<h4>
+			<p class="text-center">
+	        	<spring:message code="message.total.records.found"/>:&nbsp;{{paginaPacientes.totalRegistros}}
+	        </p>
+        </h4>
+        
 		<div class="table-responsive" >
 		         <table class="table table-bordered table-hover table-condensed">
 		             <thead>
@@ -33,21 +81,13 @@
 		                 <td class="tdRecursosCentered">{{registro.obraSocial.nombre}}</td>		                 
 		                 <td class="width15">
 		                     <div class="text-center">
-						<!--Editar Registros 	------------------------------------------------ -->
-		                         <a href="#editarObrasSocialesDialog"
+								<!--Editar Registros 	------------------------------------------------ -->
+		                         <a href="#pacienteQuickEditCreate"
 		                            ng-click="obraSocialSeleccionado(obraSocial);"
 		                            role="button"
 		                            title="<spring:message code="update"/>&nbsp;<spring:message code="obraSocial"/>"
 		                            class="btn btn-primary" data-toggle="modal">
 		                             <span class="glyphicon glyphicon-pencil"></span>
-		                         </a>
-		                         <!--Eliminar Registros 	-------------------------------------------------->
-		                         <a href="#eliminarObrasSocialesDialog"
-		                            ng-click="obraSocialSeleccionado(obraSocial);" 
-		                            role="button"
-		                            title="<spring:message code="delete"/>&nbsp;<spring:message code="obraSocial"/>"
-		                            class="btn btn-primary" data-toggle="modal">
-		                             <span class="glyphicon glyphicon-minus"></span>
 		                         </a>
 		                     </div>
 		                 </td>
