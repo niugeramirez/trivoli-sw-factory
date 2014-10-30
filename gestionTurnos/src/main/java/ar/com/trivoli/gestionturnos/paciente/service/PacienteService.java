@@ -81,5 +81,32 @@ public class PacienteService {
 												resultado.getContent());
 	}
 	/************************************************************************************************************************************************************************/
+	@Transactional(readOnly = true)
+	public ListaEntidadDTO<Paciente> recuperarPorComienzoDniApellidoNombreLike(	int nroPagina
+																,int registrosPorPagina
+																,String dni
+																,String apellido
+																,String nombre																
+															) 
+		{
+		
+		PageRequest pageRequest = new PageRequest(nroPagina,registrosPorPagina, ordenPredeterminado());
 
+		Page<Paciente> resultado = pacienteRepository.findByDniStartingWithAndApellidoLikeAndNombreLike(pageRequest,dni,"%" +apellido+"%" ,"%" +nombre+"%" );
+
+		// Se determina si la pagina requerida es posterior a la Ultima pagina disponible
+		if (resultado.getTotalElements() > 0	&& nroPagina > (resultado.getTotalPages() - 1))
+		{
+			int ultimaPagina = resultado.getTotalPages() - 1;
+
+			pageRequest = new PageRequest(ultimaPagina, registrosPorPagina,	ordenPredeterminado());
+
+			resultado = pacienteRepository.findByDniStartingWithAndApellidoLikeAndNombreLike(pageRequest,dni,apellido,nombre);
+		}
+
+		return new ListaEntidadDTO<Paciente>(	resultado.getTotalPages(),
+												resultado.getTotalElements(),
+												resultado.getContent());
+	}	
+	/************************************************************************************************************************************************************************/
 }

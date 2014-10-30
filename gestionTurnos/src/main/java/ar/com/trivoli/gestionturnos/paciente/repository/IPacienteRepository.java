@@ -19,6 +19,33 @@ import ar.com.trivoli.gestionturnos.paciente.model.Paciente;
 public interface IPacienteRepository extends 
 		PagingAndSortingRepository<Paciente, Integer>{
 
-	Page<Paciente> findByDniStartingWith(Pageable pageable, String dni);	
+	Page<Paciente> findByDniStartingWith(Pageable pageable, String dni);
+	
+	Page<Paciente> findByDniStartingWithAndApellidoLikeAndNombreLike	(	Pageable pageable
+																			, String dni
+																			, String apellido
+																			, String nombre
+																		);	
 
+	Page<Paciente> findByDniStartingWithAndApellidoLike	(	Pageable pageable
+															, String dni
+															, String apellido
+														);	
+
+	Page<Paciente> findByDniStartingWithAndNombreLike	(	Pageable pageable
+															, String dni
+															, String nombre
+														);
+
+	Page<Paciente> findByNombreLike	(	Pageable pageable
+										, String nombre
+		);
+
+	Page<Paciente> findByApellidoLike	(	Pageable pageable
+											, String apellido
+										);
+
+	Page<Paciente> findByApellido		(	Pageable pageable
+											, String apellido
+		);
 }
