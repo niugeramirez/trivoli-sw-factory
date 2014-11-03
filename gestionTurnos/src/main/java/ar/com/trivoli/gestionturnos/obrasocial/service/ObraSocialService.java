@@ -3,6 +3,8 @@
  */
 package ar.com.trivoli.gestionturnos.obrasocial.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ar.com.trivoli.gestionturnos.common.model.ListaEntidadDTO;
 import ar.com.trivoli.gestionturnos.obrasocial.model.ObraSocial;
 import ar.com.trivoli.gestionturnos.obrasocial.repository.IObraSocialRepository;
+
 
 
 
@@ -98,6 +101,13 @@ public class ObraSocialService {
 
 		return new ListaEntidadDTO<ObraSocial>(resultado.getTotalPages(),
 				resultado.getTotalElements(), resultado.getContent());
+	}
+	/************************************************************************************************************************************************************************/
+	
+	@Transactional(readOnly = true)
+	public List<ObraSocial> recuperarTodos() {
+
+		return (List<ObraSocial>) obrasocialRepository.findAll();
 	}
 	/************************************************************************************************************************************************************************/
 }

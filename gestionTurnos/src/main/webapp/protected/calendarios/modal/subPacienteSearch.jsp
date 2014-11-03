@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-    <div class="modal-dialog  modal-lg">	    
+    <div id="pacienteSearchParameters"  class="modal-dialog  modal-lg">	    
    		<div class="modal-content"> 
 			<div class="modal-header">
         		<h3 class="displayInLine">

@@ -1,6 +1,5 @@
 function controller($scope, $http) {
-	// Se define el Modelo de la Página de Administración de Obras Sociales
-$scope.button = 'red';	
+	
 	// Pagina solicitada al Backend
     $scope.nroPaginaPacientes = 0;
 
@@ -36,6 +35,7 @@ $scope.button = 'red';
     $scope.recursosActuales 	= 	{};
     $scope.recursoActual		= 	{};    
     $scope.pacientes			=	[];
+    $scope.obrasSociales 		= 	{};
     
     // Filtro de Busqueda   
     fecha = 	new Date(2014,8,9);
@@ -154,38 +154,65 @@ $scope.button = 'red';
 	};
 
 /************************************************************************************************************************************************************************/    
-	   $scope.buscarPacientes = function () {
-		   //TODO ver la posibilidad de definir la pagina de busqueda de paciente como una pagina aparte con su JS separado y que "devuelva" el paciente seleccionado de modo de re usar por ejemplo en el ABM de pacientes		   
-
-	       $scope.ultimaAccion = 'search';
-
-	       var url = $scope.url +  'pacientes';
-	       //Se setea el modal de carga AJAX
-	       //TODO hacer que el loading ajax funcione para los dialogos modales
-	       loadingId = "#loadingModalPacientes";
-			
-	        // Se abre el dialogo Loading .....
-			$scope.startDialogAjaxRequest(loadingId);    
-
+    $scope.buscarPacientes = function () {
+	    //TODO ver la posibilidad de definir la pagina de busqueda de paciente como una pagina aparte con su JS separado y que "devuelva" el paciente seleccionado de modo de re usar por ejemplo en el ABM de pacientes                
+	
+	    $scope.ultimaAccion = 'search';
+	
+	    var url = $scope.url +  'pacientes';
+	    //Se setea el modal de carga AJAX
+	    //TODO hacer que el loading ajax funcione para los dialogos modales
+	    loadingId = "#loadingModalPacientes";
+	             
+	     // Se abre el dialogo Loading .....
+	             $scope.startDialogAjaxRequest(loadingId);    
+	
+	             //Parametros propios de esta llamada AJAX
+	    var config = {};
+	    config.params = {};
+	    config.params.nroPagina = $scope.nroPaginaPacientes;
+	     if($scope.filtroPaciente){
+	         config.params.filtroDNI = $scope.filtroPaciente.DNI;                    
+	         config.params.filtroNombre = $scope.filtroPaciente.nombre;
+	         config.params.filtroApellido = $scope.filtroPaciente.apellido;            
+	     }
+	    
+	
+	    $http.get(url, config)
+	        .success(function (data) {
+	                     $scope.finishAjaxPacientes(data,loadingId);
+	        })
+	        .error(function() {
+	                $scope.errorAjax();
+	        });
+    };
+/************************************************************************************************************************************************************************/    
+	    // Funcion que recupera del backend todos los Recursos
+	    $scope.buscarObrasSociales = function () {
+		   
+	    	$scope.ultimaAccion = 'search';
+		
+		   var url = $scope.url +  'obrasSociales';
+		   //Se setea el modal de carga AJAX
+		   //TODO hacer que el loading ajax funcione para los dialogos modales
+		   loadingId = "#loadingModalObrasSociales";
+		
+		   // Se abre el dialogo Loading .....
+		   $scope.startDialogAjaxRequest(loadingId);    
+		
 			//Parametros propios de esta llamada AJAX
-	       var config = {};
-	       config.params = {};
-	       config.params.nroPagina = $scope.nroPaginaPacientes;
-	        if($scope.filtroPaciente){
-	            config.params.filtroDNI = $scope.filtroPaciente.DNI;	            
-	            config.params.filtroNombre = $scope.filtroPaciente.nombre;
-	            config.params.filtroApellido = $scope.filtroPaciente.apellido;            
-	        }
-	       
-
-	       $http.get(url, config)
-	           .success(function (data) {
-	           		$scope.finishAjaxPacientes(data,loadingId);
-	           })
-	           .error(function() {
-	        	   $scope.errorAjax();
-	           });
-	   };
+		   var config = {};
+		   config.params = {};
+		   config.params.nroPagina = 0;	       
+		
+		   $http.get(url, config)
+		       .success(function (data) {
+		       		$scope.finishAjaxObrasSociales(data,loadingId);
+		       })
+		       .error(function() {
+		    	   $scope.errorAjax();
+		       });	        
+	    };	   
 	
 /************************************************************************************************************************************************************************/
     
@@ -195,6 +222,27 @@ $scope.button = 'red';
 
         $scope.finishAjaxGral(loadingId,data);
     };
+    
+/************************************************************************************************************************************************************************/
+    
+	 $scope.finishAjaxObrasSociales = function (data,loadingId) {  
+  	
+		$scope.obrasSociales = data.registros;		     
+		
+		//El binding con el modelo en el selct donde se usan estos datos funciona correctamente, salvo que no inicializa correctamente el selct con el modelo actual
+		//esto es porque las referencias del array son distintas a pesar de que apunta a objetos iguales (con las mismas propiedades)
+		//Por tal motivo hago este bucle donde modifico el modelo de modo que apunte al objeto del array correcto
+		//TODO buscar una manera gral de bindear con el modelo siempre que se utilicen objetos y arrays
+		for (i in $scope.obrasSociales) {
+			
+			if ($scope.obrasSociales[i].id == $scope.pacienteActual.obraSocial.id){
+				$scope.pacienteActual.obraSocial = $scope.obrasSociales[i];
+			}
+		}  		
+		
+		$scope.finishAjaxGral(loadingId,data);
+	 };
+    
 /************************************************************************************************************************************************************************/
     
 	 $scope.finishAjaxPacientes = function (data,loadingId) {  
@@ -308,7 +356,7 @@ $scope.button = 'red';
        $scope.buscarPacientes();
        
    };
-   /************************************************************************************************************************************************************************/
+/************************************************************************************************************************************************************************/
    $scope.exit = function (modalId) {
        $(modalId).modal('hide');
        
@@ -322,12 +370,23 @@ $scope.button = 'red';
 	   $scope.mostrarFiltroNombre= '';
 	   $scope.filtroPaciente.nombre= '';     
 	   $scope.nroPaginaPacientes=0;
-   };   
+   };
+   /************************************************************************************************************************************************************************/
+   
+       $scope.quickEditCreatePaciente = function (paciente) {
+        
+        // Se copia el objeto JSON seleccionado en la grilla al registro actual
+        $scope.pacienteActual = angular.copy(paciente);
+        
+        //TODO hacer que se oculten los modal de busqueda y que solo quede activo el de edicion/creacion
+        $("#pacienteSearchParameters").modal('hide');
+        $("#subPacienteSearchResult").modal('hide');
+        $("#busquedaGral").modal('hide');
+        
+        $scope.buscarObrasSociales();
+    };    
    /************************************************************************************************************************************************************************/    
    // Codigo de Inicializacion del Controlador de la Página de Administración de Obras Sociales
-    $scope.Inicializar();    
-    
-
-
+    $scope.Inicializar();        
        
 }
