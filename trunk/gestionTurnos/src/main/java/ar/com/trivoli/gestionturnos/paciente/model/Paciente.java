@@ -29,6 +29,7 @@ public class Paciente extends EntidadBase<Integer> {
 	private	String nombre;
 	private	String apellido;
 	private	String nroHistoriaClinica;
+	private String telefono;
 
 	@ManyToOne
 	@JoinColumn(name = "idObraSocial")
@@ -72,6 +73,14 @@ public class Paciente extends EntidadBase<Integer> {
 	
 	public void setNroHistoriaClinica(String nroHistoriaClinica) {
 		this.nroHistoriaClinica = nroHistoriaClinica;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 	
 	

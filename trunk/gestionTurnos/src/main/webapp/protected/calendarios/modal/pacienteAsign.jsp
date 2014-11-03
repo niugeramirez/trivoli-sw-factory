@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<!-- DIV con el dialogo de busqueda -->
+
 <div id="pacienteAsign"
      class="modal fade"
      role="dialog"
@@ -14,8 +14,10 @@
            </div>
     </div>
 	                
+	<div id="busquedaGral">
 	<jsp:include page="subPacienteSearch.jsp"/>
 	<jsp:include page="subPacienteSearchResult.jsp"/>	
+	</div>
 	
 	<jsp:include page="pacienteQuickEditCreate.jsp"/>
 				

@@ -9,6 +9,8 @@ import java.util.Locale;
 
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,8 @@ import ar.com.trivoli.gestionturnos.calendario.model.CalendarioDTO;
 import ar.com.trivoli.gestionturnos.calendario.service.CalendarioService;
 import ar.com.trivoli.gestionturnos.common.controller.ControllerBase;
 import ar.com.trivoli.gestionturnos.common.model.ListaEntidadDTO;
+import ar.com.trivoli.gestionturnos.obrasocial.model.ObraSocial;
+import ar.com.trivoli.gestionturnos.obrasocial.service.ObraSocialService;
 import ar.com.trivoli.gestionturnos.paciente.model.Paciente;
 import ar.com.trivoli.gestionturnos.paciente.service.PacienteService;
 import ar.com.trivoli.gestionturnos.recurso.model.Recurso;
@@ -52,6 +56,9 @@ public class CalendarioController extends ControllerBase<Calendario> {
 	
 	@Autowired
 	private PacienteService	pacienteService;
+	
+	@Autowired
+	private ObraSocialService obraSocialService;
 	
 	//TODO configurar motor de testing
 	
@@ -105,9 +112,7 @@ public class CalendarioController extends ControllerBase<Calendario> {
 												@RequestParam(required = false) String filtroNombre,
 												@RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int nroPagina,
 												Locale locale) 
-	{
-		Date fecha1 = new Date ();
-		System.out.println("entro a buscar pacientes "+fecha1.toString());		
+	{	
 		
 		ListaEntidadDTO<Paciente> listaPacientes = pacienteService.recuperarPorComienzoDniApellidoNombreLike(nroPagina 
 																											,registrosPorPagina
@@ -119,4 +124,17 @@ public class CalendarioController extends ControllerBase<Calendario> {
 
 		return new ResponseEntity<ListaEntidadDTO<Paciente>>(listaPacientes,HttpStatus.OK);
 	}
+	/************************************************************************************************************************************************************************/
+	@RequestMapping(value = "/obrasSociales", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> buscarObrasSociales(@RequestParam int nroPagina,Locale locale) {
+
+		
+		// Se recuperan todos los registros
+		List<ObraSocial> listaObraSocial = obraSocialService.recuperarTodos();
+		ListaEntidadDTO<ObraSocial> listaRecursosDTO = new ListaEntidadDTO<ObraSocial>(1,listaObraSocial.size(),listaObraSocial);
+
+		// Se arma la Respuesta HTTP
+		return new ResponseEntity<ListaEntidadDTO<ObraSocial>>(listaRecursosDTO,HttpStatus.OK);
+	}	
+	/************************************************************************************************************************************************************************/
 }

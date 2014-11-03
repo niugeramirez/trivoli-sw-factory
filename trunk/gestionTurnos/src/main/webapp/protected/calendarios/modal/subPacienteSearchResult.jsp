@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-    
+<div id="subPacienteSearchResult">    
 	<!-- 	DIV con los filtros         -->    
     <div class="modal-dialog  modal-lg modal-content">
 	    <div class="col-md-4">
@@ -68,7 +68,8 @@
 		                 <th scope="col"><spring:message code="pacientes.apellido"/></th>
 		                 <th scope="col"><spring:message code="pacientes.nombre"/></th>
 		                 <th scope="col"><spring:message code="pacientes.nroHistoriaClinica"/></th>
-		                 <th scope="col"><spring:message code="pacientes.obraSocial"/></th>		                 
+		                 <th scope="col"><spring:message code="pacientes.obraSocial"/></th>
+		                 <th scope="col"><spring:message code="pacientes.telefono"/></th>			                 
 		                 <th scope="col"></th>
 		             </tr>
 		             </thead>
@@ -78,12 +79,13 @@
 		                 <td class="tdRecursosCentered">{{registro.apellido}}</td>
 		                 <td class="tdRecursosCentered">{{registro.nombre}}</td>
 		                 <td class="tdRecursosCentered">{{registro.nroHistoriaClinica}}</td>
-		                 <td class="tdRecursosCentered">{{registro.obraSocial.nombre}}</td>		                 
+		                 <td class="tdRecursosCentered">{{registro.obraSocial.nombre}}</td>
+		                 <td class="tdRecursosCentered">{{registro.telefono}}</td>			                 
 		                 <td class="width15">
 		                     <div class="text-center">
 								<!--Editar Registros 	------------------------------------------------ -->
 		                         <a href="#pacienteQuickEditCreate"
-		                            ng-click="obraSocialSeleccionado(obraSocial);"
+		                            ng-click="quickEditCreatePaciente(registro);"
 		                            role="button"
 		                            title="<spring:message code="update"/>&nbsp;<spring:message code="obraSocial"/>"
 		                            class="btn btn-primary" data-toggle="modal">
@@ -131,4 +133,5 @@
 	                  <spring:message code="pagination.last"/>
 	          </button>
 	        </div>
+	</div>
 	</div>
