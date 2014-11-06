@@ -17,18 +17,19 @@
     <div  class="modal-dialog  modal-lg">	    
    		<div class="modal-content"> 
 			<div class="modal-header">
-        		<h3 class="displayInLine">
-            		<spring:message code="search"/>
-        		</h3>
+        		<h3 class="displayInLine" >
+            		<div ng-show="modoEditCreate=='edit'"><spring:message code="update"/></div>            		
+        			<div ng-show="modoEditCreate=='create'"><spring:message code="create"/></div>            		
+        		</h3>        		
     		</div> 
-			
+	
 			<!--     	DIV contenedor de los parametros de busqueda y los mensajes de error correspondientes -->
     		<div class="modal-body">
         		<form name="busquedaForm" novalidate class="form-horizontal">
 					
 					<!--         			DIV con la parte de datos del registro actual -->
         			<div class="form-group" ng-class="{'has-error': mostrarErrorValidacion }">
-		<div class="table-responsive" >
+			<div class="table-responsive" >
 		         <table class="table table-bordered table-hover table-condensed">
 		             <thead>
 		             <tr>
@@ -94,7 +95,8 @@
             	
         		<span class="alert alert-danger"
 		          ng-show="errorSubmit">
-		        	<spring:message code="request.error"/>
+					<%-- 		        	<spring:message code="request.error"/> --%>
+		        	{{mensajeError}}
 			    </span>
 	    		<span class="alert alert-danger"
 	          		ng-show="errorAccesoIlegal">
@@ -106,12 +108,12 @@
     		<div class="modal-footer">
     			<input type="submit"
                    		class="btn btn-primary"
-                   		ng-click="buscarPacientes();"
+                   		ng-click="actualizarPaciente();"
                    		value='<spring:message code="accept"/>'
                     	/>
             		<button class="btn btn-default"
                     	data-dismiss="modal"
-                    	ng-click="exit('#pacienteQuickEditCreate');"
+                    	ng-click="exitQuickEditCreate();"
                     	aria-hidden="true">
                 		<spring:message code="cancel"/>
             		</button>

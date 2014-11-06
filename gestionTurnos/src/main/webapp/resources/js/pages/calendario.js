@@ -165,9 +165,9 @@ function controller($scope, $http) {
 	    loadingId = "#loadingModalPacientes";
 	             
 	     // Se abre el dialogo Loading .....
-	             $scope.startDialogAjaxRequest(loadingId);    
+	     $scope.startDialogAjaxRequest(loadingId);    
 	
-	             //Parametros propios de esta llamada AJAX
+	    //Parametros propios de esta llamada AJAX
 	    var config = {};
 	    config.params = {};
 	    config.params.nroPagina = $scope.nroPaginaPacientes;
@@ -186,6 +186,38 @@ function controller($scope, $http) {
 	                $scope.errorAjax();
 	        });
     };
+
+    /************************************************************************************************************************************************************************/
+    $scope.actualizarPaciente = function () {
+
+        $scope.ultimaAccion = 'update';
+
+        var url = $scope.url +  'pacientes';
+	    //TODO hacer que el loading ajax funcione para los dialogos modales
+	    loadingId = "#loadingModalPacientes";
+	             
+	     // Se abre el dialogo Loading .....
+	     $scope.startDialogAjaxRequest(loadingId);    
+	
+	    //Parametros propios de esta llamada AJAX
+	    var config = {};
+	    config.params = {};
+	    config.params.nroPagina = $scope.nroPaginaPacientes;
+	     if($scope.filtroPaciente){
+	         config.params.filtroDNI = $scope.filtroPaciente.DNI;                    
+	         config.params.filtroNombre = $scope.filtroPaciente.nombre;
+	         config.params.filtroApellido = $scope.filtroPaciente.apellido;            
+	     }
+	    
+	
+	    $http.put(url,$scope.pacienteActual, config)
+	        .success(function (data) {
+	                     $scope.finishAjaxUpdatePacientes(data,loadingId);
+	        })
+	        .error(function(data, status, headers, config) {
+	                $scope.errorAjaxQuickEditCreate(status,data);	                
+	        });
+    };    
 /************************************************************************************************************************************************************************/    
 	    // Funcion que recupera del backend todos los Recursos
 	    $scope.buscarObrasSociales = function () {
@@ -242,8 +274,16 @@ function controller($scope, $http) {
 		
 		$scope.finishAjaxGral(loadingId,data);
 	 };
-    
-/************************************************************************************************************************************************************************/
+	 /************************************************************************************************************************************************************************/
+	    
+	 $scope.finishAjaxUpdatePacientes = function (data,loadingId) {  
+
+		$("#pacienteQuickEditCreate").modal('hide');
+		 $scope.errorSubmit = false;
+		 
+		$scope.finishAjaxPacientes(data,loadingId);
+   };
+   /************************************************************************************************************************************************************************/
     
 	 $scope.finishAjaxPacientes = function (data,loadingId) {  
    	
@@ -301,7 +341,7 @@ function controller($scope, $http) {
         $scope.pagina.mensajeAccion = data.mensajeAccion;
         $scope.pagina.mensajeBusqueda = data.mensajeBusqueda;           
     };      
-/************************************************************************************************************************************************************************/
+    /************************************************************************************************************************************************************************/
     
     $scope.startDialogAjaxRequest = function (loadingId) {
         //TODO ver la posibilidad que quede el modal de ajax unificado para todas las llamadas
@@ -313,7 +353,7 @@ function controller($scope, $http) {
         $scope.estado = 'busy';
     };
        
-/************************************************************************************************************************************************************************/     
+    /************************************************************************************************************************************************************************/     
     $scope.seleccionarCalendario = function (registroActual) {
      
         // Se copia el objeto JSON seleccionado en la grilla al registro actual
@@ -321,7 +361,19 @@ function controller($scope, $http) {
         $scope.buscarTurnos();
         
     };
-/************************************************************************************************************************************************************************/
+    /************************************************************************************************************************************************************************/    
+
+    $scope.errorAjaxQuickEditCreate = function (status,data) {
+        
+    	//TODO Crear una manera de mostrar los mensajes de error uniforme para toda la pagina 
+        $scope.estado = $scope.estadoAnterior;
+
+        $scope.errorSubmit = true;
+        $scope.ultimaAccion = '';
+        $scope.mensajeError = data;
+    };
+    
+    /************************************************************************************************************************************************************************/
     
 	$scope.errorAjax = function () {  
         $scope.estado = 'error';     
@@ -356,7 +408,14 @@ function controller($scope, $http) {
        $scope.buscarPacientes();
        
    };
-/************************************************************************************************************************************************************************/
+   /************************************************************************************************************************************************************************/
+   $scope.exitQuickEditCreate = function (modalId) {
+       
+       $scope.pacienteActual = {};
+       $scope.errorSubmit = false;
+       $("#pacienteQuickEditCreate").modal('hide');
+   };   
+   /************************************************************************************************************************************************************************/
    $scope.exit = function (modalId) {
        $(modalId).modal('hide');
        
@@ -370,11 +429,15 @@ function controller($scope, $http) {
 	   $scope.mostrarFiltroNombre= '';
 	   $scope.filtroPaciente.nombre= '';     
 	   $scope.nroPaginaPacientes=0;
+	   
+	   $scope.errorSubmit = false;
    };
    /************************************************************************************************************************************************************************/
    
-       $scope.quickEditCreatePaciente = function (paciente) {
+       $scope.quickEditCreatePaciente = function (paciente,modo) {
         
+    	$scope.modoEditCreate = modo;
+    	
         // Se copia el objeto JSON seleccionado en la grilla al registro actual
         $scope.pacienteActual = angular.copy(paciente);
         
