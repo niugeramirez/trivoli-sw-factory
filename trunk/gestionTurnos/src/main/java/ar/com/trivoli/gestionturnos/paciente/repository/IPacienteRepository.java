@@ -5,6 +5,8 @@ package ar.com.trivoli.gestionturnos.paciente.repository;
 
 
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -20,6 +22,8 @@ public interface IPacienteRepository extends
 		PagingAndSortingRepository<Paciente, Integer>{
 
 	Page<Paciente> findByDniStartingWith(Pageable pageable, String dni);
+	
+	List<Paciente> findByDni(String dni);
 	
 	Page<Paciente> findByDniStartingWithAndApellidoLikeAndNombreLike	(	Pageable pageable
 																			, String dni

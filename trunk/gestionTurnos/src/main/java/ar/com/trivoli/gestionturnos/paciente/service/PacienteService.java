@@ -3,6 +3,8 @@
  */
 package ar.com.trivoli.gestionturnos.paciente.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +30,21 @@ public class PacienteService {
 	/************************************************************************************************************************************************************************/
 	private Sort ordenPredeterminado() {
 		return new Sort(Sort.Direction.ASC, "nombre");
+	}
+	/**
+	 * @throws Exception **********************************************************************************************************************************************************************/
+	public void guardar(Paciente paciente) throws Exception{
+		//TODO implementar un esquema de excepciones para toda la aplicación
+		List<Paciente> listaPacientes = pacienteRepository.findByDni(paciente.getDni());
+		
+		for (Paciente p: listaPacientes) {
+			if (p.getId() != paciente.getId()){
+				//TODO parametrizar los mensajes de excepcion de modo de incluir idioma
+				throw new Exception ("Ya existe otro paciente con el DNI "+paciente.getDni()+" ("+p.getApellido()+", "+p.getNombre()+")"); 
+			}
+		}
+
+		pacienteRepository.save(paciente);
 	}
 	/************************************************************************************************************************************************************************/
 	@Transactional(readOnly = true)

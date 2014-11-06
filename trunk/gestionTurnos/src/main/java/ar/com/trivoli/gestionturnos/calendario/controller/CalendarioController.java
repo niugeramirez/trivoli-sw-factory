@@ -11,12 +11,15 @@ import java.util.Locale;
 
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -124,6 +127,33 @@ public class CalendarioController extends ControllerBase<Calendario> {
 
 		return new ResponseEntity<ListaEntidadDTO<Paciente>>(listaPacientes,HttpStatus.OK);
 	}
+	/************************************************************************************************************************************************************************/
+	@RequestMapping(value = "/pacientes", method = RequestMethod.PUT, produces = "application/json")
+	public ResponseEntity<?> updatePaciente(
+			@RequestBody Paciente paciente,
+			@RequestParam(required = false) String filtroDNI,
+			@RequestParam(required = false) String filtroApellido,
+			@RequestParam(required = false) String filtroNombre,
+			@RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int nroPagina,
+			Locale locale)  
+	{				
+
+		try {
+			pacienteService.guardar(paciente);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+
+		ListaEntidadDTO<Paciente> listaPacientes = pacienteService.recuperarPorComienzoDniApellidoNombreLike(nroPagina 
+				,registrosPorPagina
+				,filtroDNI
+				,filtroApellido
+				,filtroNombre
+				);
+
+
+		return new ResponseEntity<ListaEntidadDTO<Paciente>>(listaPacientes,HttpStatus.OK);
+	}	
 	/************************************************************************************************************************************************************************/
 	@RequestMapping(value = "/obrasSociales", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> buscarObrasSociales(@RequestParam int nroPagina,Locale locale) {

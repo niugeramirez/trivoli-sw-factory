@@ -85,7 +85,7 @@
 		                     <div class="text-center">
 								<!--Editar Registros 	------------------------------------------------ -->
 		                         <a href="#pacienteQuickEditCreate"
-		                            ng-click="quickEditCreatePaciente(registro);"
+		                            ng-click="quickEditCreatePaciente(registro,'edit');"
 		                            role="button"
 		                            title="<spring:message code="update"/>&nbsp;<spring:message code="obraSocial"/>"
 		                            class="btn btn-primary" data-toggle="modal">
