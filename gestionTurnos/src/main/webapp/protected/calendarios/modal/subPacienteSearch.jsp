@@ -21,8 +21,8 @@
 		                    		class="form-control"
 						    		id="txtNombre"	
 		                           	autofocus		                           	
-		                           	ng-model="filtroPaciente.DNI"
-		                           	name="filtroPaciente.DNI"
+		                           	ng-model="filtroPaciente.dni"
+		                           	name="filtroPaciente.dni"
 		                           	placeholder="<spring:message code='pacientes.DNI'/> "/>
 	                	</div>
 	                	        			
@@ -61,9 +61,17 @@
     		
 			<!--     		DIV con los botones de buscar y cancelar -->
     		<div class="modal-footer">
+                 <a href="#pacienteQuickEditCreate"
+                    ng-click="quickEditCreatePaciente(registro,'create');"
+                    role="button"
+                    title="<spring:message code="create"/>&nbsp;<spring:message code="paciente"/>"
+                    class="btn btn-primary" data-toggle="modal">
+                     <span class="glyphicon glyphicon-plus"></span>
+                 </a>                
     			<input type="submit"
                    		class="btn btn-primary"
                    		ng-click="buscarPacientes();"
+                   		title="<spring:message code="search"/>&nbsp;<spring:message code="paciente"/>"
                    		value='<spring:message code="search"/>'
                     	/>
             		<button class="btn btn-default"

@@ -87,7 +87,7 @@
 		                         <a href="#pacienteQuickEditCreate"
 		                            ng-click="quickEditCreatePaciente(registro,'edit');"
 		                            role="button"
-		                            title="<spring:message code="update"/>&nbsp;<spring:message code="obraSocial"/>"
+		                            title="<spring:message code="update"/>&nbsp;<spring:message code="paciente"/>"
 		                            class="btn btn-primary" data-toggle="modal">
 		                             <span class="glyphicon glyphicon-pencil"></span>
 		                         </a>

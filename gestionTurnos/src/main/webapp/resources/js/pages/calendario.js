@@ -17,16 +17,22 @@ function controller($scope, $http) {
     $scope.errorAccesoIlegal = false;
     $scope.mostrarMensajesUsuario = false;
     $scope.mostrarErrorValidacion = false;
+    $scope.mostrarErrorValidacionOS = false;
     
     
     $scope.pagina={};
     $scope.pagina.mensajeAccion = "";
     $scope.pagina.mensajeBusqueda = '';
     
+    //filtros
     $scope.filtroPaciente={};
-    $scope.filtroPaciente.DNI='';
-    $scope.filtroPaciente.nombre='';
-    $scope.filtroPaciente.apellido='';
+    $scope.filtroPaciente.dni					=	'';
+    $scope.filtroPaciente.nombre				=	'';
+    $scope.filtroPaciente.apellido				=	'';
+    //estos campos no son filtros pero se usan para inicializacion en la creacion
+    $scope.filtroPaciente.nroHistoriaClinica	=	'';
+    $scope.filtroPaciente.obraSocial			=	{};
+    $scope.filtroPaciente.telefono				=	'';
 
     // Objetos JSON
     $scope.calendariosActuales 	= 	[]; 
@@ -172,7 +178,7 @@ function controller($scope, $http) {
 	    config.params = {};
 	    config.params.nroPagina = $scope.nroPaginaPacientes;
 	     if($scope.filtroPaciente){
-	         config.params.filtroDNI = $scope.filtroPaciente.DNI;                    
+	         config.params.filtroDNI = $scope.filtroPaciente.dni;                    
 	         config.params.filtroNombre = $scope.filtroPaciente.nombre;
 	         config.params.filtroApellido = $scope.filtroPaciente.apellido;            
 	     }
@@ -186,10 +192,35 @@ function controller($scope, $http) {
 	                $scope.errorAjax();
 	        });
     };
-
+   
     /************************************************************************************************************************************************************************/
-    $scope.actualizarPaciente = function () {
-
+    $scope.guardarPaciente = function (form) {
+        
+    	//TODO la primitiva required no funciona para el tag <SELECT>, con el chequeo del objeto bindeado zafamos pero el span connel mensaje de requerida para la OS no
+    	//queda dinamico (es decir, no desaparece ni bien se completa el select). el todo es buscar una solucion mas general y elegante
+    	if (!form.$valid || !$scope.pacienteActual.obraSocial.id) {
+            $scope.mostrarErrorValidacion = true;
+            
+            if (!$scope.pacienteActual.obraSocial.id){
+            	$scope.mostrarErrorValidacionOS = true;
+            }
+            else{
+            	$scope.mostrarErrorValidacionOS = false;	
+            }
+            
+            return;
+        }    	
+    
+    	//Para mejorar la seleccion de un paciente cuando el mismo es recien creado, chequeo si hay filtros seteadod, si no hay nada fuerzo el filtro dni de modo que
+    	//luego d ela creacion solo se muestre este resultado de busqueda y el usuario lo pueda seleccionar facilmente
+    	if ($scope.modoEditCreate=='create'
+    			&& !$scope.filtroPaciente.dni
+    			&& !$scope.filtroPaciente.nombre
+    			&& !$scope.filtroPaciente.apellido
+    		){
+    		$scope.filtroPaciente.dni=$scope.pacienteActual.dni;
+    	}
+    	
         $scope.ultimaAccion = 'update';
 
         var url = $scope.url +  'pacientes';
@@ -204,13 +235,12 @@ function controller($scope, $http) {
 	    config.params = {};
 	    config.params.nroPagina = $scope.nroPaginaPacientes;
 	     if($scope.filtroPaciente){
-	         config.params.filtroDNI = $scope.filtroPaciente.DNI;                    
+	         config.params.filtroDNI = $scope.filtroPaciente.dni;                    
 	         config.params.filtroNombre = $scope.filtroPaciente.nombre;
 	         config.params.filtroApellido = $scope.filtroPaciente.apellido;            
 	     }
-	    
 	
-	    $http.put(url,$scope.pacienteActual, config)
+	      $http.put(url,$scope.pacienteActual, config)
 	        .success(function (data) {
 	                     $scope.finishAjaxUpdatePacientes(data,loadingId);
 	        })
@@ -299,7 +329,7 @@ function controller($scope, $http) {
        }       
        
        //Seteo de visualizacion de filtros (uso variables donde repito el valor del modelo para que no se actualizen con la edicion)
-       $scope.mostrarFiltroDNI = $scope.filtroPaciente.DNI;  
+       $scope.mostrarFiltroDNI = $scope.filtroPaciente.dni;  
        $scope.mostrarFiltroApellido = $scope.filtroPaciente.apellido;
        $scope.mostrarFiltroNombre = $scope.filtroPaciente.nombre;
        
@@ -347,7 +377,8 @@ function controller($scope, $http) {
         //TODO ver la posibilidad que quede el modal de ajax unificado para todas las llamadas
     	//TODO ver la posibilidad de usar distinto Scopes para los distintos niveles de llamadas AJAX
     	//TODO ver la unificacion de codigo javascript a nivel general (una libreria q se llame desde todos los JS)
-    	$scope.mostrarErrorValidacion = false;
+
+    	//$scope.mostrarErrorValidacion = false; //esto no se si va
         $(loadingId).modal('show');
         $scope.estadoAnterior = $scope.estado;
         $scope.estado = 'busy';
@@ -389,17 +420,17 @@ function controller($scope, $http) {
 /************************************************************************************************************************************************************************/
    
    $scope.resetearBusqueda = function(filtro){
-       if (filtro = 'dni') {
+       if (filtro == 'dni') {
     	   $scope.mostrarFiltroDNI = '';
-    	   $scope.filtroPaciente.DNI = '';
+    	   $scope.filtroPaciente.dni = '';
        }
 
-       if (filtro = 'apellido') {
+       if (filtro == 'apellido') {
 	       $scope.mostrarFiltroApellido = '';
 	       $scope.filtroPaciente.apellido= '';
        }
        
-       if (filtro = 'nombre') {
+       if (filtro == 'nombre') {
 	       $scope.mostrarFiltroNombre= '';
 	       $scope.filtroPaciente.nombre= '';     
        }
@@ -413,6 +444,8 @@ function controller($scope, $http) {
        
        $scope.pacienteActual = {};
        $scope.errorSubmit = false;
+       $scope.mostrarErrorValidacion = false;
+       $scope.mostrarErrorValidacionOS = false;
        $("#pacienteQuickEditCreate").modal('hide');
    };   
    /************************************************************************************************************************************************************************/
@@ -423,7 +456,7 @@ function controller($scope, $http) {
        $scope.paginaPacientes = {};
        
 	   $scope.mostrarFiltroDNI = '';
-	   $scope.filtroPaciente.DNI = '';
+	   $scope.filtroPaciente.dni = '';
 	   $scope.mostrarFiltroApellido = '';
 	   $scope.filtroPaciente.apellido= '';
 	   $scope.mostrarFiltroNombre= '';
@@ -439,7 +472,12 @@ function controller($scope, $http) {
     	$scope.modoEditCreate = modo;
     	
         // Se copia el objeto JSON seleccionado en la grilla al registro actual
-        $scope.pacienteActual = angular.copy(paciente);
+        if (modo=='create'){
+        	$scope.pacienteActual = angular.copy($scope.filtroPaciente);
+        } else {
+        	$scope.pacienteActual = angular.copy(paciente);
+        }
+        	
         
         //TODO hacer que se oculten los modal de busqueda y que solo quede activo el de edicion/creacion
         $("#pacienteSearchParameters").modal('hide');

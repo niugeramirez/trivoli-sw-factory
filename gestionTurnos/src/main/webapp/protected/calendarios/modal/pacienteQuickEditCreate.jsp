@@ -25,7 +25,7 @@
 	
 			<!--     	DIV contenedor de los parametros de busqueda y los mensajes de error correspondientes -->
     		<div class="modal-body">
-        		<form name="busquedaForm" novalidate class="form-horizontal">
+        		<form name="pacienteQuickEditCreateForm" novalidate class="well form-horizontal">
 					
 					<!--         			DIV con la parte de datos del registro actual -->
         			<div class="form-group" ng-class="{'has-error': mostrarErrorValidacion }">
@@ -48,16 +48,26 @@
 						    	class="form-control"
                                	required
                                	autofocus
+                               	name="dni"
                                	ng-model="pacienteActual.dni"
-                               	placeholder="<spring:message code='pacienteActual.dni'/>"/>   		                 
+                               	placeholder="<spring:message code='pacientes.DNI'/>"/>   
+                            	<span class="alert alert-danger help-block"
+                                      ng-show="mostrarErrorValidacion && pacienteQuickEditCreateForm.dni.$error.required">
+                                        <spring:message code="required"/>   
+								</span> 
 		                 </td>
 		                 <td class="tdRecursosCentered">
 							<input type="text"
 						    	class="form-control"
                                	required
                                	autofocus
+                               	name="apellido"
                                	ng-model="pacienteActual.apellido"
-                               	placeholder="<spring:message code='pacienteActual.apellido'/>"/>  		                 
+                               	placeholder="<spring:message code='pacientes.apellido'/>"/>  
+                            	<span class="alert alert-danger help-block"
+                                      ng-show="mostrarErrorValidacion && pacienteQuickEditCreateForm.apellido.$error.required">
+                                        <spring:message code="required"/>
+                                </span>                               			                 
 		                 </td>
 		                 <td class="tdRecursosCentered">
 							<input type="text"
@@ -65,26 +75,46 @@
                                	required
                                	autofocus
                                	ng-model="pacienteActual.nombre"
-                               	placeholder="<spring:message code='pacienteActual.nombre'/>"/>  			                 
+                               	name="nombre"
+                               	placeholder="<spring:message code='pacientes.nombre'/>"/>  	
+                               	<span class="alert alert-danger help-block"
+                                      ng-show="mostrarErrorValidacion && pacienteQuickEditCreateForm.nombre.$error.required">
+                                        <spring:message code="required"/>   
+								</span> 
 		                 </td>
 		                 <td class="tdRecursosCentered">
 							<input type="text"
-						    	class="form-control"
-                               	required
+						    	class="form-control"                               	
                                	autofocus
                                	ng-model="pacienteActual.nroHistoriaClinica"
-                               	placeholder="<spring:message code='pacienteActual.nroHistoriaClinica'/>"/>  		                 
+                               	placeholder="<spring:message code='pacientes.nroHistoriaClinica'/>"/>  		                 
 		                 </td>
 		                 <td class="tdRecursosCentered">
-		                 	<select class="form-control" ng-model="pacienteActual.obraSocial" ng-options="obraSocial.nombre  for obraSocial in obrasSociales"></select>
+		                 	<select class="form-control" 
+		                 			ng-model="pacienteActual.obraSocial" 
+		                 			ng-options="obraSocial.nombre  for obraSocial in obrasSociales" 
+		                 			required 
+		                 			name="obraSocial"
+		                 			ng-change="mostrarErrorValidacionOS = false"
+		                 			>
+		                 	</select>
+                            <span class="alert alert-danger help-block"
+                                     ng-show="mostrarErrorValidacion && mostrarErrorValidacionOS">
+                                       <spring:message code="required"/>   
+							</span> 		                 	
 		                 </td>	
 		                 <td class="tdRecursosCentered">
 							<input type="text"
 						    	class="form-control"
                                	required
                                	autofocus
+                               	name="telefono"
                                	ng-model="pacienteActual.telefono"
-                               	placeholder="<spring:message code='pacienteActual.telefono'/>"/>  		                 
+                               	placeholder="<spring:message code='pacientes.telefono'/>"/>  	
+                               	<span class="alert alert-danger help-block"
+                                      ng-show="mostrarErrorValidacion && pacienteQuickEditCreateForm.telefono.$error.required">
+                                        <spring:message code="required"/>   
+								</span>                               		                 
 		                 </td>
 		             </tr>
 		             </tbody>
@@ -108,7 +138,7 @@
     		<div class="modal-footer">
     			<input type="submit"
                    		class="btn btn-primary"
-                   		ng-click="actualizarPaciente();"
+                   		ng-click="guardarPaciente(pacienteQuickEditCreateForm);"
                    		value='<spring:message code="accept"/>'
                     	/>
             		<button class="btn btn-default"
