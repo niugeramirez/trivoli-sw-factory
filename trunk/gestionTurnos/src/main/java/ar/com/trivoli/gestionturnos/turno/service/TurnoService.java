@@ -30,4 +30,8 @@ public class TurnoService {
 		
 		return turnoRepository.findByCalendario(calendario);
 	}
+	
+	public void guardar(Turno turno) {
+		turnoRepository.save(turno);
+	}
 }

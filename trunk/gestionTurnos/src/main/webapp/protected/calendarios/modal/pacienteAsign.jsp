@@ -20,5 +20,7 @@
 	</div>
 	
 	<jsp:include page="pacienteQuickEditCreate.jsp"/>
+	
+	<jsp:include page="subTurnoAlta.jsp"/>
 				
  </div>

@@ -14,12 +14,14 @@ import java.util.Locale;
 
 
 
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,9 +38,12 @@ import ar.com.trivoli.gestionturnos.obrasocial.model.ObraSocial;
 import ar.com.trivoli.gestionturnos.obrasocial.service.ObraSocialService;
 import ar.com.trivoli.gestionturnos.paciente.model.Paciente;
 import ar.com.trivoli.gestionturnos.paciente.service.PacienteService;
+import ar.com.trivoli.gestionturnos.practica.model.Practica;
+import ar.com.trivoli.gestionturnos.practica.service.PracticaService;
 import ar.com.trivoli.gestionturnos.recurso.model.Recurso;
 import ar.com.trivoli.gestionturnos.recurso.service.RecursoService;
 import ar.com.trivoli.gestionturnos.turno.model.Turno;
+import ar.com.trivoli.gestionturnos.turno.service.TurnoService;
 
 
 
@@ -64,6 +69,13 @@ public class CalendarioController extends ControllerBase<Calendario> {
 	
 	@Autowired
 	private ObraSocialService obraSocialService;
+
+	@Autowired
+	private PracticaService practicaService;
+	
+	@Autowired
+	private TurnoService turnoService;
+	
 	
 	//TODO configurar motor de testing
 	
@@ -109,6 +121,22 @@ public class CalendarioController extends ControllerBase<Calendario> {
 															,HttpStatus.OK);
 	}
 
+	/************************************************************************************************************************************************************************/
+	@RequestMapping(value = "/turno", method = RequestMethod.PUT, produces = "application/json")
+	public ResponseEntity<?> updateTurno(
+
+			@RequestBody Turno turno,			
+			@RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int nroPagina,
+			Locale locale) {		
+
+		turnoService.guardar(turno);
+		
+		ListaEntidadDTO<Turno> listaTurnos =  calendarioService.recuperarTurnos(turno.getCalendario().getId());
+
+		return new ResponseEntity<ListaEntidadDTO<Turno>>(listaTurnos
+															,HttpStatus.OK);
+	}
+	
 	/************************************************************************************************************************************************************************/
 	//TODO unificar las distintas URLs en todos los controles por algo más prolijo y consistente
 	@RequestMapping(value = "/pacientes", method = RequestMethod.GET, produces = "application/json")
@@ -156,33 +184,6 @@ public class CalendarioController extends ControllerBase<Calendario> {
 
 		return new ResponseEntity<ListaEntidadDTO<Paciente>>(listaPacientes,HttpStatus.OK);
 	}	
-	/************************************************************************************************************************************************************************/
-	@RequestMapping(value = "/pacientes", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> createPaciente(
-			@ModelAttribute("paciente") Paciente paciente,
-			@RequestParam(required = false) String filtroDNI,
-			@RequestParam(required = false) String filtroApellido,
-			@RequestParam(required = false) String filtroNombre,
-			@RequestParam(required = false, defaultValue = DEFAULT_PAGE_DISPLAYED_TO_USER) int nroPagina,
-			Locale locale)  
-	{				
-
-		try {
-			pacienteService.guardar(paciente);
-		} catch (Exception e) {
-			return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
-		}
-
-		ListaEntidadDTO<Paciente> listaPacientes = pacienteService.recuperarPorComienzoDniApellidoNombreLike(nroPagina 
-				,registrosPorPagina
-				,filtroDNI
-				,filtroApellido
-				,filtroNombre
-				);
-
-
-		return new ResponseEntity<ListaEntidadDTO<Paciente>>(listaPacientes,HttpStatus.OK);
-	}	
 	
 	/************************************************************************************************************************************************************************/
 	@RequestMapping(value = "/obrasSociales", method = RequestMethod.GET, produces = "application/json")
@@ -197,4 +198,17 @@ public class CalendarioController extends ControllerBase<Calendario> {
 		return new ResponseEntity<ListaEntidadDTO<ObraSocial>>(listaRecursosDTO,HttpStatus.OK);
 	}	
 	/************************************************************************************************************************************************************************/
+	@RequestMapping(value = "/practicas", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> buscarPracticas(@RequestParam int nroPagina,Locale locale) {
+
+		
+		// Se recuperan todos los registros
+		List<Practica> listaPractica = practicaService.recuperarTodos();
+		ListaEntidadDTO<Practica> listaRecursosDTO = new ListaEntidadDTO<Practica>(1,listaPractica.size(),listaPractica);
+
+		// Se arma la Respuesta HTTP
+		return new ResponseEntity<ListaEntidadDTO<Practica>>(listaRecursosDTO,HttpStatus.OK);
+	}	
+	/************************************************************************************************************************************************************************/
+
 }

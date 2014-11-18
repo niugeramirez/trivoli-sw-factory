@@ -107,7 +107,7 @@ public class ObraSocialService {
 	@Transactional(readOnly = true)
 	public List<ObraSocial> recuperarTodos() {
 
-		return (List<ObraSocial>) obrasocialRepository.findAll();
+		return (List<ObraSocial>) obrasocialRepository.findAll(ordenPredeterminado());
 	}
 	/************************************************************************************************************************************************************************/
 }
