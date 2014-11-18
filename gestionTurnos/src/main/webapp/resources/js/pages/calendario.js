@@ -42,6 +42,8 @@ function controller($scope, $http) {
     $scope.recursoActual		= 	{};    
     $scope.pacientes			=	[];
     $scope.obrasSociales 		= 	{};
+    $scope.practicas			=	{};
+    $scope.practicaActual		= 	{};
     
     // Filtro de Busqueda   
     fecha = 	new Date(2014,8,9);
@@ -248,44 +250,119 @@ function controller($scope, $http) {
 	                $scope.errorAjaxQuickEditCreate(status,data);	                
 	        });
     };    
-/************************************************************************************************************************************************************************/    
-	    // Funcion que recupera del backend todos los Recursos
-	    $scope.buscarObrasSociales = function () {
-		   
-	    	$scope.ultimaAccion = 'search';
-		
-		   var url = $scope.url +  'obrasSociales';
-		   //Se setea el modal de carga AJAX
-		   //TODO hacer que el loading ajax funcione para los dialogos modales
-		   loadingId = "#loadingModalObrasSociales";
-		
-		   // Se abre el dialogo Loading .....
-		   $scope.startDialogAjaxRequest(loadingId);    
-		
-			//Parametros propios de esta llamada AJAX
-		   var config = {};
-		   config.params = {};
-		   config.params.nroPagina = 0;	       
-		
-		   $http.get(url, config)
-		       .success(function (data) {
-		       		$scope.finishAjaxObrasSociales(data,loadingId);
-		       })
-		       .error(function() {
-		    	   $scope.errorAjax();
-		       });	        
-	    };	   
+    /************************************************************************************************************************************************************************/    
+    $scope.buscarPracticas = function () {
+	   
+    	$scope.ultimaAccion = 'search';
 	
-/************************************************************************************************************************************************************************/
+	   var url = $scope.url +  'practicas';
+	   //Se setea el modal de carga AJAX
+	   //TODO hacer que el loading ajax funcione para los dialogos modales
+	   loadingId = "#loadingModalPracticas";
+	
+	   // Se abre el dialogo Loading .....
+	   $scope.startDialogAjaxRequest(loadingId);    
+	
+		//Parametros propios de esta llamada AJAX
+	   var config = {};
+	   config.params = {};
+	   config.params.nroPagina = 0;	       
+	
+	   $http.get(url, config)
+	       .success(function (data) {
+	       		$scope.finishAjaxPracticas(data,loadingId);
+	       })
+	       .error(function() {
+	    	   $scope.errorAjax();
+	       });	        
+    };	 
+    /************************************************************************************************************************************************************************/    
+    $scope.buscarObrasSociales = function () {
+	   
+    	$scope.ultimaAccion = 'search';
+	
+	   var url = $scope.url +  'obrasSociales';
+	   //Se setea el modal de carga AJAX
+	   //TODO hacer que el loading ajax funcione para los dialogos modales
+	   loadingId = "#loadingModalObrasSociales";
+	
+	   // Se abre el dialogo Loading .....
+	   $scope.startDialogAjaxRequest(loadingId);    
+	
+		//Parametros propios de esta llamada AJAX
+	   var config = {};
+	   config.params = {};
+	   config.params.nroPagina = 0;	       
+	
+	   $http.get(url, config)
+	       .success(function (data) {
+	       		$scope.finishAjaxObrasSociales(data,loadingId);
+	       })
+	       .error(function() {
+	    	   $scope.errorAjax();
+	       });	        
+    };
+    
+    /************************************************************************************************************************************************************************/
+	    $scope.altaTurno = function (form) {   		    
+    	
+        $scope.ultimaAccion = 'update';
+
+        var url = $scope.url +  'turno';
+	    //TODO hacer que el loading ajax funcione para los dialogos modales
+	    loadingId = "#loadingModalPacientes";
+	             
+	     // Se abre el dialogo Loading .....
+	     $scope.startDialogAjaxRequest(loadingId);    
+	
+	    //Parametros propios de esta llamada AJAX
+	    var config = {};
+	    config.params = {};
+
+	    
+	      turno = {};
+	      turno.calendario = $scope.calendarioActual;
+	      turno.paciente = $scope.pacienteActual;
+	      turno.practica = $scope.practicaActual;
+
+	      $http.put(url,turno, config)	    
+	        .success(function (data) {
+	                     $scope.finishAjaxAltaTurno(data,loadingId);
+	        })
+	        .error(function(data, status, headers, config) {
+	                $scope.errorAjaxQuickEditCreate(status,data);	                
+	        });
+    };	    
+    	 
+    /************************************************************************************************************************************************************************/     
+    $scope.finishAjaxAltaTurno = function (data,loadingId) {   	
+        
+    	$scope.finishAjaxTurnos(loadingId,data);
+        
+    	$("#confirmTurnoAlta").modal('hide');
+		$scope.exitQuickEditCreate();
+		$scope.exit("#pacienteAsign");    	        
+        
+    }; 	     
+    /************************************************************************************************************************************************************************/     
+	    $scope.finishAjaxPracticas = function (data,loadingId) {   	
+	        
+	    	$scope.practicas = data.registros;  
+	        $scope.practicaActual	=$scope.practicas[0];	    	
+	        
+	        $scope.finishAjaxGral(loadingId,data);
+	    }; 	    
+	
+	/************************************************************************************************************************************************************************/
     
 	 $scope.finishAjaxTurnos = function (data,loadingId) {  
     	
-        $scope.turnosActuales   = data.registros;
+        $scope.turnosActuales   = data.registros;        
 
         $scope.finishAjaxGral(loadingId,data);
     };
     
-/************************************************************************************************************************************************************************/
+    /************************************************************************************************************************************************************************/
     
 	 $scope.finishAjaxObrasSociales = function (data,loadingId) {  
   	
@@ -308,8 +385,6 @@ function controller($scope, $http) {
 	    
 	 $scope.finishAjaxUpdatePacientes = function (data,loadingId) {  
 
-		$("#pacienteQuickEditCreate").modal('hide');
-		 $scope.errorSubmit = false;
 		 
 		$scope.finishAjaxPacientes(data,loadingId);
    };
@@ -447,6 +522,12 @@ function controller($scope, $http) {
        $scope.mostrarErrorValidacion = false;
        $scope.mostrarErrorValidacionOS = false;
        $("#pacienteQuickEditCreate").modal('hide');
+       
+       //dialog de confirmar turno
+       $("#confirmTurnoAlta").modal('hide');
+       $scope.practicas 		= 	{};
+       $scope.practicaActual	=	{};       
+       
    };   
    /************************************************************************************************************************************************************************/
    $scope.exit = function (modalId) {
@@ -487,7 +568,16 @@ function controller($scope, $http) {
         $scope.buscarObrasSociales();
     };    
    /************************************************************************************************************************************************************************/    
-   // Codigo de Inicializacion del Controlador de la Página de Administración de Obras Sociales
+    $scope.asignarTurnoConfirm = function (paciente) {
+    	$scope.pacienteActual = angular.copy(paciente);
+    	
+    	$("#confirmTurnoAlta").modal('show');
+    	
+    	$scope.buscarPracticas();
+    };
+   /************************************************************************************************************************************************************************/
+    
+    // Codigo de Inicializacion del Controlador de la Página de Administración de Obras Sociales
     $scope.Inicializar();        
        
 }

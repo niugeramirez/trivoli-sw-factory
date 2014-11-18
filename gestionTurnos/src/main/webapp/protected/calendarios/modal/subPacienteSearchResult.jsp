@@ -74,13 +74,13 @@
 		             </tr>
 		             </thead>
 		             <tbody>
-		             <tr ng-repeat="registro in pacientes"  title="Asignar Turno a {{registro.apellido}}, {{registro.nombre}}">					
-		                 <td class="tdRecursosCentered">{{registro.dni}}</td>
-		                 <td class="tdRecursosCentered">{{registro.apellido}}</td>
-		                 <td class="tdRecursosCentered">{{registro.nombre}}</td>
-		                 <td class="tdRecursosCentered">{{registro.nroHistoriaClinica}}</td>
-		                 <td class="tdRecursosCentered">{{registro.obraSocial.nombre}}</td>
-		                 <td class="tdRecursosCentered">{{registro.telefono}}</td>			                 
+		             <tr ng-repeat="registro in pacientes"  title="Asignar Turno a {{registro.apellido}}, {{registro.nombre}}" >					
+		                 <td class="tdRecursosCentered" ng-click="asignarTurnoConfirm(registro);">{{registro.dni}}</td>
+		                 <td class="tdRecursosCentered" ng-click="asignarTurnoConfirm(registro);">{{registro.apellido}}</td>
+		                 <td class="tdRecursosCentered" ng-click="asignarTurnoConfirm(registro);">{{registro.nombre}}</td>
+		                 <td class="tdRecursosCentered" ng-click="asignarTurnoConfirm(registro);">{{registro.nroHistoriaClinica}}</td>
+		                 <td class="tdRecursosCentered" ng-click="asignarTurnoConfirm(registro);">{{registro.obraSocial.nombre}}</td>
+		                 <td class="tdRecursosCentered" ng-click="asignarTurnoConfirm(registro);">{{registro.telefono}}</td>			                 
 		                 <td class="width15">
 		                     <div class="text-center">
 								<!--Editar Registros 	------------------------------------------------ -->
