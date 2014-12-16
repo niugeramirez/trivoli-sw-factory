@@ -1,4 +1,4 @@
-<!--#include virtual="/serviciolocal/shared/inc/encrypt.inc"-->
+<!--#include virtual="/turnos/shared/inc/encrypt.inc"-->
 <% 
 Sub cmExecute_(ByRef cm, ByVal sql, ByVal nivel)
 	Dim Buffer

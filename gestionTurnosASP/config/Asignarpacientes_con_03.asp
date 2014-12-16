@@ -21,6 +21,8 @@ dim l_domicilio
 dim l_tel
 dim l_idobrasocial
 dim l_idpractica
+dim l_comentario
+dim l_idrecursoreservable
 
 
 l_tipo 		     = request.querystring("tipo")
@@ -32,8 +34,9 @@ l_dni            = request.Form("dni")
 l_domicilio      = request.Form("domicilio")
 l_tel            = request.Form("tel")
 l_idobrasocial   = request.Form("osid")
-l_idpractica   = request.Form("practicaid")
-'l_idobrasocial      = request.Form("legape")
+l_idpractica     = request.Form("practicaid")
+l_comentario     = request.Form("comentario")
+l_idrecursoreservable = request.Form("idrecursoreservable")
 
 
 
@@ -54,14 +57,14 @@ set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
     if l_pacienteid = -1 then
 	l_sql = "INSERT INTO turnos "
-	l_sql = l_sql & " (idcalendario, idclientepaciente, idos, idpractica, apellido, nombre, dni, domicilio, telefono)"
-	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idobrasocial & "," & l_idpractica & ",'" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel  & "')"	
+	l_sql = l_sql & " (idcalendario, idclientepaciente, idos, idpractica, apellido, nombre, dni, domicilio, telefono, comentario, idrecursoreservable)"
+	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idobrasocial & "," & l_idpractica & ",'" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel & "','" & l_comentario  & "'," & l_idrecursoreservable & ")"	
 	
 	else
 	
 	l_sql = "INSERT INTO turnos "
-	l_sql = l_sql & " (idcalendario, idclientepaciente, idos, idpractica)"
-	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idobrasocial & "," & l_idpractica &  ")"
+	l_sql = l_sql & " (idcalendario, idclientepaciente, idos, idpractica, comentario , idrecursoreservable)"
+	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idobrasocial & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ")"
 	end if
 'else
 '	l_sql = "UPDATE clientespacientes "
