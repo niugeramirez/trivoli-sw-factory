@@ -1,6 +1,6 @@
 
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 
 on error goto 0
@@ -11,6 +11,7 @@ dim l_id
 dim l_apellido
 dim l_nombre  
 dim l_dni     
+dim l_tel
 dim l_domicilio
 dim l_idobrasocial
 'ADO
@@ -26,16 +27,16 @@ l_id = request.querystring("cabnro")
 %>
 <html>
 <head>
-<link href="/serviciolocal/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
-<!--<link href="/serviciolocal/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<!--<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Asignar Pacientes</title>
 </head>
-<script src="/serviciolocal/shared/js/fn_valida.js"></script>
-<script src="/serviciolocal/shared/js/fn_fechas.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_numeros.js"></script>
+<script src="/turnos/shared/js/fn_valida.js"></script>
+<script src="/turnos/shared/js/fn_fechas.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_numeros.js"></script>
 <script>
 function Validar_Formulario(){
 
@@ -63,6 +64,11 @@ if (document.datos.dni.value == ""){
 if (document.datos.domicilio.value == ""){
 	alert("Debe ingresar el Domicilio del Paciente.");
 	document.datos.domicilio.focus();
+	return;
+}
+if (document.datos.tel.value == ""){
+	alert("Debe ingresar el Telefono del Paciente.");
+	document.datos.tel.focus();
 	return;
 }
 
@@ -126,24 +132,16 @@ function invalido(texto){
 }
 
 
-function EncontrePaciente(id, apellido, nombre, dni, domicilio){
+function EncontrePaciente(id, apellido, nombre, dni, domicilio, tel){
 	document.datos.pacienteid.value = id;
 	document.datos.apellido.value = apellido;
 	document.datos.nombre.value = nombre;
 	document.datos.dni.value = dni;
 	document.datos.domicilio.value = domicilio;
+	document.datos.tel.value = tel;
 	//document.datos.coudes.focus();
 }
 
-function actualizaBerth(valor){
-
-   document.datos.bernro.value = 0 ;    
-
-  if ((document.datos.pornro.value == "")||(document.datos.pornro.value == "0"))   	 
- 	 document.ifrmBerth.location = "contracts_berth_con_00.asp?pornro=0&disabled=disabled";
-  else 
-     document.ifrmberth.location = "contracts_berth_con_00.asp?pornro="+valor+"&bernro=0";  
-}
 
 function Nuevo_Dialogo(w_in, pagina, ancho, alto)
 {
@@ -151,7 +149,7 @@ function Nuevo_Dialogo(w_in, pagina, ancho, alto)
 }
 function Ayuda_Fecha(txt)
 {
- var jsFecha = Nuevo_Dialogo(window, '/serviciolocal/shared/js/calendar.html', 16, 15);
+ var jsFecha = Nuevo_Dialogo(window, '/turnos/shared/js/calendar.html', 16, 15);
 
  if (jsFecha == null) txt.value = ''
  else txt.value = jsFecha;
@@ -165,6 +163,7 @@ select Case l_tipo
 	    	l_nombre        = ""
 	    	l_dni           = ""
 	    	l_domicilio     = ""
+			l_tel           = ""
 			l_idobrasocial  = ""
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
@@ -179,6 +178,7 @@ select Case l_tipo
 	    	l_nombre        = l_rs("nombre")
 	    	l_dni           = l_rs("dni")
 	    	l_domicilio     = l_rs("domicilio")
+			l_tel           = l_rs("telefono")
 			l_idobrasocial  = l_rs("idobrasocial")
 			
 		end if
@@ -223,12 +223,12 @@ end select
 					    <td align="right" ><b>Fecha Ingreso:</b></td>
 						<td align="left" colspan="3"  >
 						    <input type="text" name="legfecing" size="10" maxlength="10" value="<%'= l_legfecing %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecing)"><img src="/serviciolocal/shared/images/cal.gif" border="0"></a>
+							<a href="Javascript:Ayuda_Fecha(document.datos.legfecing)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
 						</td>																	
 					</tr>	-->	
 					<tr>	
 					<td colspan="4" align="center">
-					<a href="Javascript:abrirVentana('Buscarpacientes_con_00.asp?Tipo=A','',600,250);"><img src="/serviciolocal/shared/images/BuscarPaciente.png" border="0" alt="Buscar Paciente"></a>								
+					<a href="Javascript:abrirVentana('Buscarpacientes_con_00.asp?Tipo=A','',600,250);"><img src="/turnos/shared/images/BuscarPaciente.png" border="0" alt="Buscar Paciente"></a>								
 
 					</td>
 					</tr>	
@@ -252,12 +252,23 @@ end select
 							<input type="text" name="domicilio" size="20" maxlength="20" value="<%= l_domicilio %>">
 						</td>						
 					</tr>
+					<tr>
+					    <td align="right"><b>Tel&eacute;fono:</b></td>
+						<td>
+							<input type="text" name="tel" size="20" maxlength="20" value="<%= l_tel %>">
+						</td>
+					    <td align="right">&nbsp;</td>
+						<td>
+							&nbsp;
+						</td>						
+					</tr>
+					
 					<!--
 					<tr>
 					    <td align="right" ><b>Fec. Nac.:</b></td>
 						<td align="left"  >
 						    <input type="text" name="legfecnac" size="10" maxlength="10" value="<%'= l_legfecnac %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecnac)"><img src="/serviciolocal/shared/images/cal.gif" border="0"></a>
+							<a href="Javascript:Ayuda_Fecha(document.datos.legfecnac)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
 						</td>
 						<td align="right"><b>Teléfono:</b></td>
 						<td>

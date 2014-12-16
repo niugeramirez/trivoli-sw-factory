@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <!--
 -----------------------------------------------------------------------------
 Archivo        : gen_select_emp_01.asp
@@ -28,13 +28,13 @@ on error goto 0
 <html>
 
 <head>
-<link href="/serviciolocal/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 
 <meta http-equiv="Content-Type" http-equiv="refresh" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%></title>
 </head>
-<script src="/serviciolocal/shared/js/fn_sel_multiple.js"></script>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_sel_multiple.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
 <script>
 
 function SeleccionarFila(fila,selnro)

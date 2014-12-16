@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 'Archivo: contracts_con_01.asp
 'Descripción: ABM de Contracts
@@ -21,7 +21,7 @@ l_filtro = request("filtro")
 l_orden  = request("orden")
 
 if l_orden = "" then
-  l_orden = " ORDER BY descripcion "
+  l_orden = " ORDER BY recursosreservables.descripcion "
 end if
 
 
@@ -30,11 +30,11 @@ end if
 %>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_confirm.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_confirm.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
 <head>
-<link href="/serviciolocal/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Medicos</title>
 </head>
@@ -63,8 +63,9 @@ function Seleccionar(fila,cabnro){
         <th>Legajo</th>	
         <th>Fec. Ingreso</th>  -->	
         <th>Apellido</th>
+        <th>Modelo</th>	
         <th>Cant. Turnos Simultaneos</th>		
-        <th>Casnt. Sobreturno</th>		
+        <th>Cant. Sobreturno</th>		
 		<!--<th align="left">Domicilio</th>	
 		 <th>Derecho Vulnerado</th>  -->			
     </tr>
@@ -72,9 +73,9 @@ function Seleccionar(fila,cabnro){
 l_filtro = replace (l_filtro, "*", "%")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
-l_sql = "SELECT    * "
+l_sql = "SELECT    recursosreservables.* , templatereservas.titulo"
 l_sql = l_sql & " FROM recursosreservables "
-'l_sql = l_sql & " LEFT JOIN ser_problematica ON ser_legajo.pronro = ser_problematica.pronro "
+l_sql = l_sql & " LEFT JOIN templatereservas ON templatereservas.id = recursosreservables.idtemplatereserva "
 'l_sql = l_sql & " LEFT JOIN ser_medida       ON ser_legajo.mednro = ser_medida.mednro "
 
 if l_filtro <> "" then
@@ -102,6 +103,7 @@ if l_rs.eof then
 	        <td width="10%" nowrap><%'= l_rs("legpar1")%>-<%'= l_rs("legpar2")%>/<%'= l_rs("legpar3")%></td>			
 	        <td width="10%" nowrap><%'= l_rs("legfecing")%></td>  -->
 	        <td width="10%" nowrap><%= l_rs("descripcion")%></td>
+			<td width="10%" nowrap><%= l_rs("titulo")%></td>
 	        <td width="10%" nowrap><%= l_rs("cantturnossimult")%></td>						
 	        <td width="10%" nowrap><%= l_rs("cantsobreturnos")%></td>			
 	         <!--<td width="10%" nowrap><%'= l_rs("prodes")%></td>  -->			

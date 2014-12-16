@@ -1,18 +1,18 @@
 <%@ Language=VBScript %>
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/inc/sec.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/const.inc"-->
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/sec.inc"-->
+<!--#include virtual="/turnos/shared/inc/const.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 
 
 
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_confirm.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
-<script src="/serviciolocal/shared/js/fn_fechas.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_confirm.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_fechas.js"></script>
 </head>
 
 
@@ -235,11 +235,19 @@ Dim l_sql
 Dim Fec
 Dim CantCalendarios
 Dim CantCalendariosLibres
+Dim p_Monthcom
+
+'response.write p_Month
 
 if cint(p_date) < 10 then
  	p_date = "0" & p_date
 end if  
-Fec = cstr(p_Month) & "/" & cstr(p_date) & "/" & cstr(p_Year)
+if cint(p_Month) < 10 then
+ 	p_Monthcom = "0" & p_Month
+else
+	p_Monthcom = p_Month	
+end if  
+Fec = cstr(p_Monthcom) & "/" & cstr(p_date) & "/" & cstr(p_Year)
 
 'response.write p_date & " " & p_Month & " " & p_Year
 'response.write cambiafecha( "10/25/2014",true,1)
@@ -248,8 +256,9 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 l_sql = "SELECT  count(*) "
 l_sql  = l_sql  & " FROM calendarios  "
 l_sql  = l_sql  & " WHERE CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  = '" & Fec & "'"
-l_sql  = l_sql  & " AND calendarios.idrecursoreservable = " & l_id
+l_sql  = l_sql  & " AND calendarios.estado = 'ACTIVO' AND calendarios.idrecursoreservable = " & l_id
 
+'response.write l_sql
 rsOpen l_rs, cn, l_sql, 0
 CantCalendarios = l_rs(0)
 l_rs.Close 
@@ -259,7 +268,7 @@ l_sql = "SELECT  count(*) "
 l_sql  = l_sql  & " FROM calendarios  "
 l_sql  = l_sql  & " WHERE CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  = '" & Fec & "'"
 l_sql  = l_sql  & " AND calendarios.id not in (SELECT idcalendario FROM turnos ) "
-l_sql  = l_sql  & " AND calendarios.idrecursoreservable = " & l_id
+l_sql  = l_sql  & " AND calendarios.estado = 'ACTIVO' AND calendarios.idrecursoreservable = " & l_id
 rsOpen l_rs, cn, l_sql, 0
 CantCalendariosLibres = l_rs(0)
 l_rs.Close 

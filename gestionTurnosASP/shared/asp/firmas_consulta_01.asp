@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <%
 'Archivo	: firmas_consulta_01.asp
 'Descripción: Consulta de Firmas
@@ -34,7 +34,7 @@ end if
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
 <head>
-<link href="/serviciolocal/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" http-equiv="refresh" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Consulta de Firmas - RHPro &reg;</title>
 </head>

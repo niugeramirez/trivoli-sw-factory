@@ -27,7 +27,7 @@ end if
 <head>
 <title> Sistema  Turnos </title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="/serviciolocal/shared/css/tables4.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables4.css" rel="StyleSheet" type="text/css">
 <style type="text/css">
 <!--
 a {
@@ -68,7 +68,7 @@ a {
 -->
 </style>
 </head>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
 <script>
 var usertmp;
 var loguser;
@@ -91,8 +91,6 @@ function ok(){
 }
 
 function ok2(){
-
-
 
 	<% If l_tipo <> "pass" then %>
 
@@ -122,7 +120,7 @@ function ok2(){
 	<% End If %>
 		document.FormVar.target = "ifrmx";
 		document.FormVar.method = "POST";
-		alert(document.FormVar.usr.value +"="+ document.FormVar.pass.value +"="+ document.FormVar.base.value +"="+ document.FormVar.seg_nt.value+"="+ document.FormVar.menu.value+"="+ document.FormVar.debug.value);
+		//alert(document.FormVar.usr.value +"="+ document.FormVar.pass.value +"="+ document.FormVar.base.value +"="+ document.FormVar.seg_nt.value+"="+ document.FormVar.menu.value+"="+ document.FormVar.debug.value);
 		document.FormVar.submit();
 }
 

@@ -1,6 +1,6 @@
 <% Option Explicit %>
 <% Response.AddHeader "Content-Disposition", "attachment;filename=Usuarios.xls" %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <%
 'Archivo: usuarios_seg_excel.asp
 'Descripción: ABM de usuarios 

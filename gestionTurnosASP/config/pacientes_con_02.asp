@@ -1,6 +1,6 @@
 
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 
 on error goto 0
@@ -12,6 +12,7 @@ dim l_apellido
 dim l_nombre  
 dim l_dni     
 dim l_domicilio
+dim l_telefono
 dim l_idobrasocial
 'ADO
 Dim l_tipo
@@ -25,16 +26,16 @@ l_tipo = request.querystring("tipo")
 %>
 <html>
 <head>
-<link href="/serviciolocal/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
-<!--<link href="/serviciolocal/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<!--<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Pacientes</title>
 </head>
-<script src="/serviciolocal/shared/js/fn_valida.js"></script>
-<script src="/serviciolocal/shared/js/fn_fechas.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_numeros.js"></script>
+<script src="/turnos/shared/js/fn_valida.js"></script>
+<script src="/turnos/shared/js/fn_fechas.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_numeros.js"></script>
 <script>
 function Validar_Formulario(){
 
@@ -59,6 +60,12 @@ if (document.datos.dni.value == ""){
 if (document.datos.domicilio.value == ""){
 	alert("Debe ingresar el Domicilio del Paciente.");
 	document.datos.domicilio.focus();
+	return;
+}
+
+if (document.datos.telefono.value == ""){
+	alert("Debe ingresar el Tel&eacute;fono del Paciente.");
+	document.datos.telefono.focus();
 	return;
 }
 
@@ -131,7 +138,7 @@ function Nuevo_Dialogo(w_in, pagina, ancho, alto)
 }
 function Ayuda_Fecha(txt)
 {
- var jsFecha = Nuevo_Dialogo(window, '/serviciolocal/shared/js/calendar.html', 16, 15);
+ var jsFecha = Nuevo_Dialogo(window, '/turnos/shared/js/calendar.html', 16, 15);
 
  if (jsFecha == null) txt.value = ''
  else txt.value = jsFecha;
@@ -145,6 +152,7 @@ select Case l_tipo
 	    	l_nombre        = ""
 	    	l_dni           = ""
 	    	l_domicilio     = ""
+			l_telefono      = ""
 			l_idobrasocial  = ""
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
@@ -159,6 +167,7 @@ select Case l_tipo
 	    	l_nombre        = l_rs("nombre")
 	    	l_dni           = l_rs("dni")
 	    	l_domicilio     = l_rs("domicilio")
+			l_telefono      = l_rs("telefono")
 			l_idobrasocial  = l_rs("idobrasocial")
 			
 		end if
@@ -202,7 +211,7 @@ end select
 					    <td align="right" ><b>Fecha Ingreso:</b></td>
 						<td align="left" colspan="3"  >
 						    <input type="text" name="legfecing" size="10" maxlength="10" value="<%'= l_legfecing %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecing)"><img src="/serviciolocal/shared/images/cal.gif" border="0"></a>
+							<a href="Javascript:Ayuda_Fecha(document.datos.legfecing)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
 						</td>																	
 					</tr>	-->										
 					<tr>
@@ -225,12 +234,22 @@ end select
 							<input type="text" name="domicilio" size="20" maxlength="20" value="<%= l_domicilio %>">
 						</td>						
 					</tr>
+					<tr>
+					    <td align="right"><b>Tel&eacute;fono:</b></td>
+						<td>
+							<input type="text" name="telefono" size="20" maxlength="20" value="<%= l_telefono %>">
+						</td>
+					    <td align="right">&nbsp;</td>
+						<td>
+							&nbsp;
+						</td>						
+					</tr>					
 					<!--
 					<tr>
 					    <td align="right" ><b>Fec. Nac.:</b></td>
 						<td align="left"  >
 						    <input type="text" name="legfecnac" size="10" maxlength="10" value="<%'= l_legfecnac %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecnac)"><img src="/serviciolocal/shared/images/cal.gif" border="0"></a>
+							<a href="Javascript:Ayuda_Fecha(document.datos.legfecnac)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
 						</td>
 						<td align="right"><b>Teléfono:</b></td>
 						<td>

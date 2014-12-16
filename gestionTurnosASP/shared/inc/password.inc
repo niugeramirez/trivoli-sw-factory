@@ -1,6 +1,6 @@
-<!--#include virtual="/serviciolocal/shared/inc/fecha.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/adovbs.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/encrypt.inc"-->
+<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
+<!--#include virtual="/turnos/shared/inc/adovbs.inc"-->
+<!--#include virtual="/turnos/shared/inc/encrypt.inc"-->
 <%
 
 on error goto 0

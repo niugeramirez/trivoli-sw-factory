@@ -1,7 +1,7 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/inc/sec.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/const.inc"-->
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/sec.inc"-->
+<!--#include virtual="/turnos/shared/inc/const.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <!--
 Archivo: wizzard_00.asp
 Descripción: wizzard
@@ -58,13 +58,13 @@ Modificado: lisandro moro - 03/02/2004 - redireccion de imagenes y estilos al ub
 <head>
 <link href="../css/tables4.css" rel="StyleSheet" type="text/css">
 <title><%'= Session("Titulo")%> Servicio Local de Promoción y Protección de Derechos del Niño , Niña y Adolescente</title>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_confirm.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_confirm.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script>
 function ActPasos(codigo, clabel, nombre){
 	//alert(codigo);
-	document.pasos.location = "/serviciolocal/shared/asp/asistente_01.asp?wiznro=<%=l_wiznro%>&codigo="+codigo+"&label="+clabel+"&nombre="+nombre;
+	document.pasos.location = "/turnos/shared/asp/asistente_01.asp?wiznro=<%=l_wiznro%>&codigo="+codigo+"&label="+clabel+"&nombre="+nombre;
 }
 
 function RefrescarPasos() {

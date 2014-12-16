@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <%
 'Archivo	: rep_filtro_auditoria_sup.asp
 'Descripción: Filtra datos. 

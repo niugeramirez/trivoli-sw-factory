@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 Dim l_mulnro
 Dim l_mulnom
@@ -13,7 +13,7 @@ tipo = request("tipo")
 %>
 <html>
 <head>
-<link href="/serviciolocal/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Configuración Multiempresa - Ticket</title>
 </head>
@@ -34,7 +34,7 @@ function Nuevo_Dialogo(w_in, pagina, ancho, alto)
 }
 function Ayuda_Fecha(txt)
 {
- var jsFecha = Nuevo_Dialogo(window, '/serviciolocal/shared/js/calendar.html', 16, 15);
+ var jsFecha = Nuevo_Dialogo(window, '/turnos/shared/js/calendar.html', 16, 15);
 
  if (jsFecha == null) txt.value = ''
  else txt.value = jsFecha;

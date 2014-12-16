@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 
 on error goto 0
@@ -25,13 +25,13 @@ l_tipo = request.querystring("tipo")
 %>
 <html>
 <head>
-<link href="/serviciolocal/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Practicas</title>
 </head>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_valida.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_valida.js"></script>
 <script>
 function Validar_Formulario(){
 if (Trim(document.datos.descripcion.value) == ""){

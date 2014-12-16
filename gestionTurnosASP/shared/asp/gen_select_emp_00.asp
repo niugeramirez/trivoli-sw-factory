@@ -1,6 +1,6 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/gengrup.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/gengrup.inc"-->
 <!--
 -----------------------------------------------------------------------------
 Archivo        : gen_select_emp_00.asp
@@ -55,9 +55,9 @@ if l_titulo = "" then
 end if
 
 %>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<SCRIPT SRC="/serviciolocal/shared/js/menu_def.js"></SCRIPT>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<SCRIPT SRC="/turnos/shared/js/menu_def.js"></SCRIPT>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script>
 
 HM_Array1 = [
@@ -345,7 +345,7 @@ function cerrar(){
 </script>
 <html>
 <head>
-<link href="/serviciolocal/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%><%= l_titulo%></title>
 </head>
@@ -453,7 +453,7 @@ function cerrar(){
   document.datos.submit();  
 </script>
 
-<SCRIPT SRC="/serviciolocal/shared/js/menu_op.js"></SCRIPT>
+<SCRIPT SRC="/turnos/shared/js/menu_op.js"></SCRIPT>
 
 </html>
 

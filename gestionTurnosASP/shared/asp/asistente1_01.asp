@@ -1,7 +1,7 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/inc/sec.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/const.inc"-->
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/sec.inc"-->
+<!--#include virtual="/turnos/shared/inc/const.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <!--
 Archivo: pasos_00.asp
 Descripción: wizzard
@@ -13,11 +13,11 @@ Modificado:
 -->
 <html>
 <head>
-<link href="/serviciolocal/shared/css/tables4.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables4.css" rel="StyleSheet" type="text/css">
 <title><%= Session("Titulo")%>Menu - Asistente de Conceptos - RHPro &reg;</title>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_confirm.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_confirm.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script>
 var jsSelRow = null;
 var pintado = "Navy";

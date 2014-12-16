@@ -1,15 +1,15 @@
-<!--#include virtual="/serviciolocal/shared/inc/sec.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/const.inc"-->
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/sec.inc"-->
+<!--#include virtual="/turnos/shared/inc/const.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <html>
 <head>
 	<title><%= Session("Titulo")%>Principal</title>
 </head>
-<link href="/serviciolocal/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <body topmargin="0" leftmargin="0">
- <!--background="/serviciolocal/shared/images/pi_gti.jpg"-->
+ <!--background="/turnos/shared/images/pi_gti.jpg"-->
  <table width="100%" height="100%" cellpadding="0" cellspacing="0">
  	<tr>
 		<td width="100%" height="100%" bgcolor="#c0c0c0"></td>
@@ -24,7 +24,7 @@
 'rs.Close
 'Set rs = Nothing
  %>
-<iframe src="/serviciolocal/shared/asp/timer.asp" width="90" height="30" scrolling="no" frameborder="0" style="visibility:hidden;"></iframe>
+<iframe src="/turnos/shared/asp/timer.asp" width="90" height="30" scrolling="no" frameborder="0" style="visibility:hidden;"></iframe>
 </div>
 <div align="right"><b><font color="#800000" size="-2" face="Arial"><%'= l_sistema %></font></b>&nbsp;&nbsp;</div>
 </body>

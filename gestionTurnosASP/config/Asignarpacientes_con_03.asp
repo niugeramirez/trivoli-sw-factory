@@ -1,8 +1,8 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/inc/sec.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/const.inc"-->
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/fecha.inc"-->
+<!--#include virtual="/turnos/shared/inc/sec.inc"-->
+<!--#include virtual="/turnos/shared/inc/const.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
 <% 
 
 
@@ -18,6 +18,7 @@ dim l_apellido
 dim l_nombre  
 dim l_dni     
 dim l_domicilio
+dim l_tel
 dim l_idobrasocial
 dim l_idpractica
 
@@ -29,6 +30,7 @@ l_apellido       = request.Form("apellido")
 l_nombre         = request.Form("nombre")
 l_dni            = request.Form("dni")
 l_domicilio      = request.Form("domicilio")
+l_tel            = request.Form("tel")
 l_idobrasocial   = request.Form("osid")
 l_idpractica   = request.Form("practicaid")
 'l_idobrasocial      = request.Form("legape")
@@ -52,8 +54,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
     if l_pacienteid = -1 then
 	l_sql = "INSERT INTO turnos "
-	l_sql = l_sql & " (idcalendario, idclientepaciente, idos, idpractica, apellido, nombre, dni, domicilio)"
-	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idobrasocial & "," & l_idpractica & ",'" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio &  "')"	
+	l_sql = l_sql & " (idcalendario, idclientepaciente, idos, idpractica, apellido, nombre, dni, domicilio, telefono)"
+	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idobrasocial & "," & l_idpractica & ",'" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel  & "')"	
 	
 	else
 	

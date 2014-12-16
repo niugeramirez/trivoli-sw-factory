@@ -85,8 +85,8 @@ end sub
 '------------------------------------------------------------------------------------------------- 
  
 %>
- <!--#include virtual="/serviciolocal/shared/inc/encrypt.inc"-->
- <!--#include virtual="/serviciolocal/shared/db/conn.inc"-->
+ <!--#include virtual="/turnos/shared/inc/encrypt.inc"-->
+ <!--#include virtual="/turnos/shared/db/conn.inc"-->
 <%
 
  Session("UserName") = "sa" ' l_iduser'
@@ -103,7 +103,7 @@ end sub
  Session("Time") = now
  
 %>
- <!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+ <!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <%
   
  l_seguir = true
@@ -132,7 +132,7 @@ ON ERROR resume next
 	
 	if l_seg_NT = 0 then
 		%>
-		<!--#include virtual="/serviciolocal/shared/inc/password.inc"-->
+		<!--#include virtual="/turnos/shared/inc/password.inc"-->
 		<%
 		
 	 	if not usuariovalido(l_iduser) then

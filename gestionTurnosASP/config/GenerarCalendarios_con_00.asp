@@ -1,7 +1,7 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/inc/sec.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/const.inc"-->
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/sec.inc"-->
+<!--#include virtual="/turnos/shared/inc/const.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 'Archivo: contracts_con_00.asp
 'Descripción: ABM de Contracts
@@ -57,13 +57,13 @@ end if
 %>
 <html>
 <head>
-<link href="/serviciolocal/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
-<!--<link href="/serviciolocal/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<!--<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
 <title>Generar Calendarios</title>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_confirm.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
-<script src="/serviciolocal/shared/js/fn_fechas.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_confirm.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_fechas.js"></script>
 <script>
 
 function orden(pag){
@@ -198,7 +198,7 @@ function Nuevo_Dialogo(w_in, pagina, ancho, alto)
 }
 function Ayuda_Fecha(txt)
 {
- var jsFecha = Nuevo_Dialogo(window, '/serviciolocal/shared/js/calendar.html', 16, 15);
+ var jsFecha = Nuevo_Dialogo(window, '/turnos/shared/js/calendar.html', 16, 15);
 
  if (jsFecha == null) txt.value = ''
  else txt.value = jsFecha;
@@ -285,23 +285,23 @@ function TotalVolumen(valor){
 					<tr>
 						<td align="right"><b>Fec. Desde: </b></td>
 						<td><input  type="text" name="fechadesde" size="10" maxlength="10" value="<%'= Date() - 1 %>" >
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechadesde);"><img src="/serviciolocal/shared/images/cal.gif" border="0"></a>
+							<a href="Javascript:Ayuda_Fecha(document.datos.fechadesde);"><img src="/turnos/shared/images/cal.gif" border="0"></a>
 						</td>
 						<td align="right"><b>Fec. Hasta: </b></td>
 						<td><input  type="text" name="fechahasta" size="10" maxlength="10" value="<%'= Date() %>" >
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechahasta);"><img src="/serviciolocal/shared/images/cal.gif" border="0"></a>
+							<a href="Javascript:Ayuda_Fecha(document.datos.fechahasta);"><img src="/turnos/shared/images/cal.gif" border="0"></a>
 						</td>
 					</tr>
 					-->
 					<tr>
 						<td align="right"><b>Fecha Desde: </b></td>
 						<td><input  type="text" name="fechadesde" size="10" maxlength="10" value="<%= l_fecha%>" >
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechadesde);"><img src="/serviciolocal/shared/images/calendar1.png" border="0"></a>
+							<a href="Javascript:Ayuda_Fecha(document.datos.fechadesde);"><img src="/turnos/shared/images/calendar1.png" border="0"></a>
 						</td>
 						
 						<td align="right"><b>Fec. Hasta: </b></td>
 						<td><input  type="text" name="fechahasta" size="10" maxlength="10" value="<%= l_fecha %>" >
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechahasta);"><img src="/serviciolocal/shared/images/cal.gif" border="0"></a>
+							<a href="Javascript:Ayuda_Fecha(document.datos.fechahasta);"><img src="/turnos/shared/images/cal.gif" border="0"></a>
 						</td>					
 						
 						<td  align="right" nowrap><b>M&eacute;dico: </b></td>
@@ -323,9 +323,9 @@ function TotalVolumen(valor){
 						</td>			
 						
 
-										<td ><a class="sidebtnABM" href="Javascript:Buscar(1);" ><img  src="/serviciolocal/shared/images/generar.png" border="0" alt="Generar Calendarios"></a></td>
+										<td ><a class="sidebtnABM" href="Javascript:Buscar(1);" ><img  src="/turnos/shared/images/generar.png" border="0" alt="Generar Calendarios"></a></td>
 										
-										<td ><a class="sidebtnABM" href="Javascript:Buscar(0);"><img  src="/serviciolocal/shared/images/photo_48.png" border="0" alt="Visualizar Calendarios"></a></td>
+										<td ><a class="sidebtnABM" href="Javascript:Buscar(0);"><img  src="/turnos/shared/images/photo_48.png" border="0" alt="Visualizar Calendarios"></a></td>
 										<!--<td ><img src="../shared/images/gen_rep/boton_06.gif"></td>-->						
 								
 					</tr>

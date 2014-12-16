@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <!--
 -----------------------------------------------------------------------------
 Archivo: columnas_reporte_01.asp
@@ -40,7 +40,7 @@ l_repnro = request("repnro")
 <html>
 
 <head>
-<link href="/serviciolocal/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" http-equiv="refresh" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Configuraci&oacute;n de Reportes - Ticket</title>
 </head>

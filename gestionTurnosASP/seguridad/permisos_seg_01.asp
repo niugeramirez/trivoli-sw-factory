@@ -1,6 +1,6 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/adovbs.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/adovbs.inc"-->
 <% 
 'Archivo: permisos_seg_01.asp
 'Descripción: Asignacion de modelos de liquidacion para un concepto

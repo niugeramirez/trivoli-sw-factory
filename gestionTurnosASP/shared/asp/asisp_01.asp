@@ -3,9 +3,9 @@
 <head>
 <link href="../css/tablesraul.css" rel="StyleSheet" type="text/css">
 <title><%= Session("Titulo")%>Menu - Asistente de Conceptos - RHPro &reg;</title>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_confirm.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_confirm.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script>
 var jsSelRow = null;
 var pintado = "#000000" //"Navy";

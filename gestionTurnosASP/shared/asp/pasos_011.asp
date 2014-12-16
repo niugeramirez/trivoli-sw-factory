@@ -25,7 +25,7 @@ end if
 <html>
 
 <head>
-<link href="/serviciolocal/shared/css/tables_grayraul.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables_grayraul.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>buques - Oleaginosa Moreno Hnos. S.A.</title>
 </head>

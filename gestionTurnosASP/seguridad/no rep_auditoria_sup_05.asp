@@ -1,5 +1,5 @@
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/adovbs.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/adovbs.inc"-->
 <!-----------------------------------------------------------------------------
 Archivo		: rep_auditoria_sup_05.asp
 Autor		: JMH

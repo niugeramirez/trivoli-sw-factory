@@ -10,7 +10,7 @@ Modificacion   :
 -->
 <%
 'Ejemplo de uso:
-'http://127.0.0.1/serviciolocal/shared/asp/ver_00.asp?user=sa&pass=&base=8&url=http://127.0.0.1/serviciolocal/liq/rep_recibo_liq_03.asp?bpronro=1734
+'http://127.0.0.1/turnos/shared/asp/ver_00.asp?user=sa&pass=&base=8&url=http://127.0.0.1/turnos/liq/rep_recibo_liq_03.asp?bpronro=1734
 
   if request("user") = "" OR request("base") = "" then
      response.end
@@ -21,7 +21,7 @@ Modificacion   :
   Session("base") = request("base")
   Session("Time") = now
 %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <%
 on error goto 0
 

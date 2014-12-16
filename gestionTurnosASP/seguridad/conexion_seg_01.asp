@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 'Archivo: conexion_seg_00.asp
 'Descripción: 
@@ -27,7 +27,7 @@ end if
 <html>
 
 <head>
-<link href="/serviciolocal/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Mantenimiento Conexiones - Supervisor - RHPro &reg;</title>
 </head>

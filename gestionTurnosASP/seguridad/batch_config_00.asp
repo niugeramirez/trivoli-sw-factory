@@ -1,7 +1,7 @@
 <%Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/inc/sec.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/const.inc"-->
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/sec.inc"-->
+<!--#include virtual="/turnos/shared/inc/const.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 ' Variables
 Dim l_btc_tmp_esp_no_resp
@@ -60,17 +60,17 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
 <html>
 <head>
-<link href="/serviciolocal/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Configuraci&oacute;n de Batch Proceso</title>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_confirm.js"></script>
-<script src="/serviciolocal/shared/js/fn_hora.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
-<script src="/serviciolocal/shared/js/fn_numeros.js"></script>
-<script src="/serviciolocal/shared/js/fn_fechas.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
-<script src="/serviciolocal/shared/js/fn_fechas.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_confirm.js"></script>
+<script src="/turnos/shared/js/fn_hora.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_numeros.js"></script>
+<script src="/turnos/shared/js/fn_fechas.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_fechas.js"></script>
 <script>
 function Validar_Formulario()
 {
@@ -145,7 +145,7 @@ else
 }
 
 function Ayuda_Fecha(txt){
- var jsFecha = Nuevo_Dialogo(window, '/serviciolocal/shared/js/calendar.html', 16, 15);
+ var jsFecha = Nuevo_Dialogo(window, '/turnos/shared/js/calendar.html', 16, 15);
 
  if (jsFecha == null) txt.value = ''
  else txt.value = jsFecha;
