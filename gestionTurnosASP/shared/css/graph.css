@@ -1,0 +1,36 @@
+.tabledef
+{
+	border : thick solid 1;
+	width : 100%;
+}
+.tddef
+{
+	COLOR: black;
+	FONT-FAMILY: Verdana;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: #EDEDED;
+	padding : 2;
+	padding-left : 5;
+}
+.tdgraf
+{
+	COLOR: black;
+	FONT-FAMILY: Verdana;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: #FFF5EE;
+	padding : 2;
+	padding-left : 5;
+}
+DIV{
+	font : xx-small Arial, Helvetica, sans-serif;
+	vertical-align : text-bottom;
+}
+.th2
+{
+	background-color: Navy;
+	COLOR: #ffffff;
+	FONT-FAMILY: "Arial";
+	FONT-SIZE: 9pt;
+	FONT-WEIGHT: bold;
+	padding : 2 2 2 5;
+}
