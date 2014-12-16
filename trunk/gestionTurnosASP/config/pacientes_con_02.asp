@@ -10,6 +10,7 @@ on error goto 0
 dim l_id
 dim l_apellido
 dim l_nombre  
+dim l_nrohistoriaclinica
 dim l_dni     
 dim l_domicilio
 dim l_telefono
@@ -27,7 +28,6 @@ l_tipo = request.querystring("tipo")
 <html>
 <head>
 <link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
-<!--<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Pacientes</title>
 </head>
@@ -51,6 +51,12 @@ if (document.datos.nombre.value == ""){
 	return;
 }
 
+if (document.datos.nrohistoriaclinica.value == ""){
+	alert("Debe ingresar el Nro. de Historia Clinica.");
+	document.datos.nrohistoriaclinica.focus();
+	return;
+}
+
 if (document.datos.dni.value == ""){
 	alert("Debe ingresar el DNI del Paciente.");
 	document.datos.dni.focus();
@@ -70,43 +76,6 @@ if (document.datos.telefono.value == ""){
 }
 
 /*
-if (document.datos.tipopenro.value == 0){
-	alert("Debe ingresar el Tipo de Operación.");
-	document.datos.tipopenro.focus();
-	return;
-}
-if (document.datos.tipbuqnro.value == 0){
-	alert("Debe ingresar el Tipo de Buque.");
-	document.datos.tipbuqnro.focus();
-	return;
-}
-if (document.datos.agenro.value == 0){
-	alert("Debe ingresar la Agencia.");
-	document.datos.agenro.focus();
-	return;
-}
-
-if ((document.datos.buqfecdes.value != "")&&(!validarfecha(document.datos.buqfecdes))){
-	 document.datos.buqfecdes.focus();
-	 return;
-}
-
-if ((document.datos.buqfechas.value != "")&&(!validarfecha(document.datos.buqfechas))){
-	 document.datos.buqfechas.focus();
-	 return;
-}
-
-if ((document.datos.buqfecdes.value != "")&&(document.datos.buqfechas.value != "") ){
-
-	if (!(menorque(document.datos.buqfecdes.value,document.datos.buqfechas.value))) {
-			alert("La Fecha de Comienzo debe ser menor o igual que la Fecha de Termino.");
-			document.datos.buqfecdes.focus();
-		    return;			
-	}		
-}	
-*/
-
-/*
 var d=document.datos;
 document.valida.location = "pacientes_con_06.asp?tipo=<%= l_tipo%>&counro="+document.datos.counro.value + "&coudes="+document.datos.coudes.value;
 */
@@ -120,16 +89,6 @@ function valido(){
 function invalido(texto){
 	alert(texto);
 	document.datos.coudes.focus();
-}
-
-function actualizaBerth(valor){
-
-   document.datos.bernro.value = 0 ;    
-
-  if ((document.datos.pornro.value == "")||(document.datos.pornro.value == "0"))   	 
- 	 document.ifrmBerth.location = "contracts_berth_con_00.asp?pornro=0&disabled=disabled";
-  else 
-     document.ifrmberth.location = "contracts_berth_con_00.asp?pornro="+valor+"&bernro=0";  
 }
 
 function Nuevo_Dialogo(w_in, pagina, ancho, alto)
@@ -150,6 +109,7 @@ select Case l_tipo
 	Case "A":
  	    	l_apellido      = ""
 	    	l_nombre        = ""
+			l_nrohistoriaclinica = ""
 	    	l_dni           = ""
 	    	l_domicilio     = ""
 			l_telefono      = ""
@@ -159,12 +119,12 @@ select Case l_tipo
 		l_id = request.querystring("cabnro")
 		l_sql = "SELECT  * "
 		l_sql = l_sql & " FROM clientespacientes "
-		'l_sql = l_sql & " INNER JOIN ser_servicio ON ser_servicio.sercod = ser_legajo.legpar1 "
 		l_sql  = l_sql  & " WHERE id = " & l_id
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
 	    	l_apellido      = l_rs("apellido")
 	    	l_nombre        = l_rs("nombre")
+			l_nrohistoriaclinica = l_rs("nrohistoriaclinica")
 	    	l_dni           = l_rs("dni")
 	    	l_domicilio     = l_rs("domicilio")
 			l_telefono      = l_rs("telefono")
@@ -192,28 +152,7 @@ end select
 			<tr>
 				<td>
 					<table cellspacing="0" cellpadding="0" border="0">
-					<!-- 
-					<tr>
-						<td align="left" colspan="4" style="font-size:20"  >
-							Servicio Local: <b><%'= l_serdes %><b>				
-						</td>																	
-					</tr>  -->						
-					<!-- 	
-					<tr>
-					    <td align="right" ><b>Legajo:</b></td>
-						<td align="left" colspan="3"  >
-						    <input type="text" name="legpar1" size="2" maxlength="2" value="<%'= l_legpar1 %>">
-						    <input type="text" name="legpar2" size="10" maxlength="10" value="<%'= l_legpar2 %>">
-						    <input type="text" name="legpar3" size="2" maxlength="2" value="<%'= l_legpar3 %>">							
-						</td>																	
-					</tr>  																
-					<tr>
-					    <td align="right" ><b>Fecha Ingreso:</b></td>
-						<td align="left" colspan="3"  >
-						    <input type="text" name="legfecing" size="10" maxlength="10" value="<%'= l_legfecing %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecing)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
-						</td>																	
-					</tr>	-->										
+									
 					<tr>
 					    <td align="right"><b>Apellido:</b></td>
 						<td>
@@ -229,9 +168,9 @@ end select
 						<td>
 							<input type="text" name="dni" size="20" maxlength="20" value="<%= l_dni %>">
 						</td>
-					    <td align="right"><b>Domicilio:</b></td>
+					    <td align="right"><b>Nro. Historia Cl&iacute;nica:</b></td>
 						<td>
-							<input type="text" name="domicilio" size="20" maxlength="20" value="<%= l_domicilio %>">
+							<input type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%= l_nrohistoriaclinica %>">
 						</td>						
 					</tr>
 					<tr>
@@ -239,10 +178,10 @@ end select
 						<td>
 							<input type="text" name="telefono" size="20" maxlength="20" value="<%= l_telefono %>">
 						</td>
-					    <td align="right">&nbsp;</td>
+					    <td align="right"><b>Domicilio:</b></td>
 						<td>
-							&nbsp;
-						</td>						
+							<input type="text" name="domicilio" size="20" maxlength="20" value="<%= l_domicilio %>">
+						</td>					
 					</tr>					
 					<!--
 					<tr>

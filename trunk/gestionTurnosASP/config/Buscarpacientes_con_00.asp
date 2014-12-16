@@ -38,7 +38,6 @@ on error goto 0
 <html>
 <head>
 <link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
-<!--<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
 <title>Buscar Pacientes</title>
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_confirm.js"></script>
@@ -126,6 +125,15 @@ function Buscar(){
 			document.datos.filtro.value += " AND clientespacientes.apellido like '*" + document.datos.legape.value + "*'";
 		}else{
 			document.datos.filtro.value += " clientespacientes.apellido like '*" + document.datos.legape.value + "*'";
+		}
+		tieneotro = "si";
+	}		
+	// Nro. Historia Clinica
+	if (document.datos.nrohistoriaclinica.value != 0){
+		if (tieneotro == "si"){
+			document.datos.filtro.value += " AND clientespacientes.nrohistoriaclinica = '" + document.datos.nrohistoriaclinica.value + "'";
+		}else{
+			document.datos.filtro.value += " clientespacientes.nrohistoriaclinica = '" + document.datos.nrohistoriaclinica.value + "'";
 		}
 		tieneotro = "si";
 	}				
@@ -306,33 +314,19 @@ function TotalVolumen(valor){
 						<td align="right"><b>Apellido: </b></td>
 						<td><input  type="text" name="legape" size="21" maxlength="21" value="" >
 						</td>
-						<td align="right"><b>D.N.I.: </b></td>
-						<td><input  type="text" name="legdni" size="21" maxlength="21" value="" >
-						</td>
+					    <td align="right"><b>Nro. Historia Cl&iacute;nica:</b></td>
+						<td>
+							<input type="text" name="nrohistoriaclinica" size="21" value="">
+						</td>	
 					</tr>
 					<tr>
 						<td align="right"><b>Domicilio: </b></td>
-						<td colspan="3"><input  type="text" name="legdom" size="21" maxlength="21" value="" >
+						<td ><input  type="text" name="legdom" size="21" maxlength="21" value="" >
 						</td>
-						<!-- 
-						<td align="right"><b>Medidas Protección:</b></td>
-						<td ><select name="mednro" size="1" style="width:150;">
-								<option value=0 selected>Todos</option>
-								<%'Set l_rs = Server.CreateObject("ADODB.RecordSet")
-								'l_sql = "SELECT  * "
-								'l_sql  = l_sql  & " FROM ser_medida "
-								'l_sql  = l_sql  & " ORDER BY meddes "
-								'rsOpen l_rs, cn, l_sql, 0
-								'do until l_rs.eof		%>	
-								<option value= <%'= l_rs("mednro") %> > 
-								<%'= l_rs("meddes") %> (<%'=l_rs("mednro")%>) </option>
-								<%'	l_rs.Movenext
-								'loop
-								'l_rs.Close %>
-							</select>
-							<script>document.datos.mednro.value= "0"</script>
-																
-						</td>  -->
+						<td align="right"><b>D.N.I.: </b></td>
+						<td><input  type="text" name="legdni" size="21" maxlength="21" value="" >
+						</td>						
+
 					</tr>					
 
 

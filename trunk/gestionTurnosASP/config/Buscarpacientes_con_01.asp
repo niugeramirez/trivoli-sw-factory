@@ -36,7 +36,7 @@ end if
 <head>
 <link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title><%= Session("Titulo")%> Buques - Buques</title>
+<title>Buscar Pacientes</title>
 </head>
 
 <script>
@@ -56,9 +56,9 @@ function Seleccionar(fila,cabnro){
 }
 
 
-function AsignarPaciente(id, apellido, nombre, dni, domicilio, telefono){
+function AsignarPaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, telefono){
 //alert(apellido);
- parent.opener.EncontrePaciente(id, apellido, nombre, dni, domicilio, telefono);
+ parent.opener.EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, telefono);
 	//opener.parent.document.datos.apellido = 'ra';
 	window.parent.close();
 }
@@ -73,6 +73,7 @@ function AsignarPaciente(id, apellido, nombre, dni, domicilio, telefono){
         <th>Fec. Ingreso</th>  -->	
         <th>Apellido</th>
         <th>Nombre</th>		
+        <th>Nro. Hist. Cl&iacute;nica</th>		
         <th>DNI</th>		
 		<th align="left">Domicilio</th>	
 		<th align="left">Tel&eacute;fono</th>	
@@ -106,13 +107,14 @@ if l_rs.eof then
 	do until l_rs.eof
 		l_cant = l_cant + 1
 	%>
-	    <tr ondblclick="Javascript:AsignarPaciente('<%= l_rs("id")%>','<%= l_rs("apellido")%>','<%= l_rs("nombre")%>', '<%= l_rs("dni")%>', '<%= l_rs("domicilio")%>' , '<%= l_rs("telefono")%>')" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
+	    <tr ondblclick="Javascript:AsignarPaciente('<%= l_rs("id")%>','<%= l_rs("apellido")%>','<%= l_rs("nombre")%>', '<%= l_rs("nrohistoriaclinica")%>', '<%= l_rs("dni")%>', '<%= l_rs("domicilio")%>' , '<%= l_rs("telefono")%>')" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
 	        <!--<td width="10%" nowrap><%'= l_rs("buqnro")%></td>		-->
 			<!-- <td width="2%" nowrap><%'= l_cant %></td>
 	        <td width="10%" nowrap><%'= l_rs("legpar1")%>-<%'= l_rs("legpar2")%>/<%'= l_rs("legpar3")%></td>			
 	        <td width="10%" nowrap><%'= l_rs("legfecing")%></td>  -->
 	        <td width="10%" nowrap><%= l_rs("apellido")%></td>
-	        <td width="10%" nowrap><%= l_rs("nombre")%></td>						
+	        <td width="10%" nowrap><%= l_rs("nombre")%></td>		
+	        <td width="10%" align="center"><%= l_rs("nrohistoriaclinica")%></td>								
 	        <td width="10%" nowrap><%= l_rs("dni")%></td>			
 	        <td width="10%" nowrap><%= l_rs("domicilio")%></td>		
 			<td width="10%" nowrap><%= l_rs("telefono")%></td>				

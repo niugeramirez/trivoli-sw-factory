@@ -179,7 +179,7 @@ do while i <= 100%>
 if (cdbl(l_porcentajep) >= (100-i)) and (cdbl(l_porcentajep) > (100-i-5)) and ((cdbl(l_porcentajep)-100 + i ) < 5) then
 if  cdbl(l_porcentajed) >= j and (cdbl(l_porcentajed) < (j+5)) then%>
 								<td width="2">
-									<img align="absmiddle" src="/serviciolocal/shared/images/icon10.gif" border="0">
+									<img align="absmiddle" src="/turnos/shared/images/icon10.gif" border="0">
 								</td>
 				<%else%>
 					<td width="2" class="grilla">&nbsp;</td>

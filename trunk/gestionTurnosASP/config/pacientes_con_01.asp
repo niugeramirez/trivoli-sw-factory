@@ -1,10 +1,10 @@
 <% Option Explicit %>
 <!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
-'Archivo: contracts_con_01.asp
-'Descripción: ABM de Contracts
+'Archivo: pacientes_con_01.asp
+'Descripción: ABM de Pacientes
 'Autor : Raul Chinestra
-'Fecha: 28/11/2007
+'Fecha: 09/10/2014
 
 Dim l_rs
 Dim l_sql
@@ -12,7 +12,6 @@ Dim l_filtro
 Dim l_orden
 Dim l_sqlfiltro
 Dim l_sqlorden
-Dim l_totvol
 Dim l_cant
 
 Dim l_primero
@@ -25,8 +24,6 @@ if l_orden = "" then
 end if
 
 
-'l_ternro  = request("ternro")
-
 %>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
@@ -36,7 +33,7 @@ end if
 <head>
 <link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title><%= Session("Titulo")%> Buques - Buques</title>
+<title>Pacientes</title>
 </head>
 
 <script>
@@ -64,6 +61,7 @@ function Seleccionar(fila,cabnro){
         <th>Fec. Ingreso</th>  -->	
         <th>Apellido</th>
         <th>Nombre</th>		
+		<th>Nro. Hist. Cl&iacute;nica</th>
         <th>DNI</th>		
 		<th align="left">Domicilio</th>	
 		<th align="left">Tel&eacute;fono</th>	
@@ -75,8 +73,6 @@ l_filtro = replace (l_filtro, "*", "%")
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 l_sql = "SELECT    * "
 l_sql = l_sql & " FROM clientespacientes "
-'l_sql = l_sql & " LEFT JOIN ser_problematica ON ser_legajo.pronro = ser_problematica.pronro "
-'l_sql = l_sql & " LEFT JOIN ser_medida       ON ser_legajo.mednro = ser_medida.mednro "
 
 if l_filtro <> "" then
   l_sql = l_sql & " WHERE " & l_filtro & " "
@@ -98,16 +94,12 @@ if l_rs.eof then
 		l_cant = l_cant + 1
 	%>
 	    <tr ondblclick="Javascript:parent.abrirVentana('pacientes_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',600,250)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
-	        <!--<td width="10%" nowrap><%'= l_rs("buqnro")%></td>		-->
-			<!-- <td width="2%" nowrap><%'= l_cant %></td>
-	        <td width="10%" nowrap><%'= l_rs("legpar1")%>-<%'= l_rs("legpar2")%>/<%'= l_rs("legpar3")%></td>			
-	        <td width="10%" nowrap><%'= l_rs("legfecing")%></td>  -->
-	        <td width="10%" nowrap><%= l_rs("apellido")%></td>
-	        <td width="10%" nowrap><%= l_rs("nombre")%></td>						
+	        <td width="10%" nowrap><%= l_rs("apellido")%></td>				
+	        <td width="10%" nowrap><%= l_rs("nombre")%></td>		
+	        <td width="10%" align="center"><%= l_rs("nrohistoriaclinica")%></td>							
 	        <td width="10%" nowrap><%= l_rs("dni")%></td>			
 	        <td width="10%" nowrap><%= l_rs("domicilio")%></td>		
 			<td width="10%" nowrap><%= l_rs("telefono")%></td>				
-	         <!--<td width="10%" nowrap><%'= l_rs("prodes")%></td>  -->			
 	    </tr>
 	<%
 		l_rs.MoveNext
@@ -119,12 +111,7 @@ set l_rs = Nothing
 cn.Close
 set cn = Nothing
 %>
-<!--
-<script>    
-	parent.parent.ActPasos(<%'= l_primero %>,"","MENU");
-    parent.parent.datos.pasonro.value = <%'= l_primero %>;
-</script>
--->
+
 </table>
 <form name="datos" method="post">
 <input type="hidden" name="cabnro" value="0">

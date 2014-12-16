@@ -10,10 +10,13 @@ on error goto 0
 dim l_id
 dim l_apellido
 dim l_nombre  
+dim l_nrohistoriaclinica
 dim l_dni     
 dim l_tel
 dim l_domicilio
 dim l_idobrasocial
+dim l_comentario
+dim idrecursoreservable
 'ADO
 Dim l_tipo
 Dim l_sql
@@ -132,10 +135,11 @@ function invalido(texto){
 }
 
 
-function EncontrePaciente(id, apellido, nombre, dni, domicilio, tel){
+function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, tel){
 	document.datos.pacienteid.value = id;
 	document.datos.apellido.value = apellido;
 	document.datos.nombre.value = nombre;
+	document.datos.nrohistoriaclinica.value = nrohistoriaclinica;
 	document.datos.dni.value = dni;
 	document.datos.domicilio.value = domicilio;
 	document.datos.tel.value = tel;
@@ -165,6 +169,7 @@ select Case l_tipo
 	    	l_domicilio     = ""
 			l_tel           = ""
 			l_idobrasocial  = ""
+			idrecursoreservable = ""
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
@@ -176,10 +181,12 @@ select Case l_tipo
 		if not l_rs.eof then
 	    	l_apellido      = l_rs("apellido")
 	    	l_nombre        = l_rs("nombre")
+			l_nrohistoriaclinica = l_rs("nrohistoriaclinica")
 	    	l_dni           = l_rs("dni")
 	    	l_domicilio     = l_rs("domicilio")
 			l_tel           = l_rs("telefono")
 			l_idobrasocial  = l_rs("idobrasocial")
+			l_idrecursoreservable = l_rs("idrecursoreservable")
 			
 		end if
 		l_rs.Close
@@ -247,9 +254,9 @@ end select
 						<td>
 							<input type="text" name="dni" size="20" maxlength="20" value="<%= l_dni %>">
 						</td>
-					    <td align="right"><b>Domicilio:</b></td>
+					    <td align="right"><b>Nro. Historia Cl&iacute;nica:</b></td>
 						<td>
-							<input type="text" name="domicilio" size="20" maxlength="20" value="<%= l_domicilio %>">
+							<input type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%= l_nrohistoriaclinica %>">
 						</td>						
 					</tr>
 					<tr>
@@ -257,11 +264,18 @@ end select
 						<td>
 							<input type="text" name="tel" size="20" maxlength="20" value="<%= l_tel %>">
 						</td>
-					    <td align="right">&nbsp;</td>
+					    <td align="right"><b>Domicilio:</b></td>
 						<td>
-							&nbsp;
+							<input type="text" name="domicilio" size="20" maxlength="20" value="<%= l_domicilio %>">
 						</td>						
 					</tr>
+					<tr>
+					    <td align="right"><b>Comentario:</b></td>
+						<td colspan="3">
+							<input type="text" name="comentario" size="72" maxlength="100" value="<%= l_comentario %>">
+						</td>
+					   				
+					</tr>					
 					
 					<!--
 					<tr>
@@ -279,7 +293,7 @@ end select
 					
 					<tr>
 						<td  align="right" nowrap><b>Obra Social: </b></td>
-						<td colspan="3"><select name="osid" size="1" style="width:150;">
+						<td colspan="3"><select name="osid" size="1" style="width:200;">
 								<option value=0 selected>Seleccione una OS</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
@@ -298,7 +312,7 @@ end select
 					</tr>
 					<tr>
 						<td  align="right" nowrap><b>Practica: </b></td>
-						<td colspan="3"><select name="practicaid" size="1" style="width:150;">
+						<td colspan="3"><select name="practicaid" size="1" style="width:200;">
 								<option value=0 selected>Seleccione una Practica</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
@@ -314,7 +328,28 @@ end select
 							</select>
 							<script>document.datos.practicaid.value=0 "<%'= l_pronro %>"</script>
 						</td>					
-					</tr>					<!-- 
+					</tr>	
+					<tr>
+						<td  align="right" nowrap><b>Solicitado por : </b></td>
+						<td colspan="3"><select name="idrecursoreservable" size="1" style="width:200;">
+								<option value=0 selected>Seleccione un Recurso</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT  * "
+								l_sql  = l_sql  & " FROM recursosreservables "
+								l_sql  = l_sql  & " ORDER BY descripcion "
+								rsOpen l_rs, cn, l_sql, 0
+								do until l_rs.eof		%>	
+								<option value= <%= l_rs("id") %> > 
+								<%= l_rs("descripcion") %> </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>
+							</select>
+							<script>document.datos.solpor.value=0 "<%'= l_pronro %>"</script>
+						</td>					
+					</tr>					
+					
+									<!-- 
 					<tr>
 					    <td align="right"><b>Madre - Apellido y Nombre:</b></td>
 						<td>

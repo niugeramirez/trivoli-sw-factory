@@ -1,4 +1,4 @@
-<!--#include virtual="/serviciolocal/shared/inc/antigfec.inc"-->
+<!--#include virtual="/turnos/shared/inc/antigfec.inc"-->
 <% 
 '-----------------------------------------------------------------------------------
 'Archivo	: campcalc.inc

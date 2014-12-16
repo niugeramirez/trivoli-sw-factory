@@ -1,4 +1,4 @@
-<!--#include virtual="/serviciolocal/shared/inc/users_sql.inc"-->
+<!--#include virtual="/turnos/shared/inc/users_sql.inc"-->
 <%
 function usuario(tipo, id, clave)
 '	response.write "<script>alert('" & tipo & " - " & id & " - " & clave & "')</script>"
