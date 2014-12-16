@@ -1,6 +1,6 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/gengrup.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/gengrup.inc"-->
 <!--
 -----------------------------------------------------------------------------
 Archivo        : gen_select_emp_00.asp
@@ -57,10 +57,10 @@ if l_titulo = "" then
 end if
 
 %>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<SCRIPT SRC="/serviciolocal/shared/js/menu_def.js"></SCRIPT>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
-<script src="/serviciolocal/shared/js/fn_numeros.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<SCRIPT SRC="/turnos/shared/js/menu_def.js"></SCRIPT>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_numeros.js"></script>
 <script>
 
 HM_Array1 = [
@@ -523,7 +523,7 @@ function obtenerTerceros(){
 </script>
 <html>
 <head>
-<link href="/serviciolocal/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <style>
 .hidden2
 {
@@ -620,11 +620,11 @@ function obtenerTerceros(){
   <td valign="top" align="center">
     <iframe align="center" name="nselfil" width="<%= l_selancho%>" height="<%= l_selalto%>" src="" scroll=no></iframe>   
 	<br>
-	<a href="javascript:antPagNoSel();"><img align="absmiddle" src="/serviciolocal/shared/images/prev.jpg" alt="Anterior" border="0"></a>	
+	<a href="javascript:antPagNoSel();"><img align="absmiddle" src="/turnos/shared/images/prev.jpg" alt="Anterior" border="0"></a>	
 	<input type="Text" name="paginaizq" size="3" class="hidden" value="1" readonly style="text-align: right; vertical-align: top;">
 	<input type="Text" size="2" class="hidden" value="de" readonly style="text-align: center; vertical-align: top;">
 	<input type="Text" name="totpaginaizq" size="3" class="hidden" value="1" readonly style="text-align: left; vertical-align: top;">	
-	<a href="javascript:sigPagNoSel();"><img align="absmiddle" src="/serviciolocal/shared/images/next.jpg" alt="Siguiente" border="0"></a>
+	<a href="javascript:sigPagNoSel();"><img align="absmiddle" src="/turnos/shared/images/next.jpg" alt="Siguiente" border="0"></a>
   </td>
   <td valign="middle" align="center" width="10%" nowrap>
 	<a name="TodosAgr" class=sidebtnSHW href="javascript:Todos(nselfil.registro.nselfil, selfil.registro.selfil,document.datos.totalizq, document.datos.totalder);">>></a><br>
@@ -646,11 +646,11 @@ function obtenerTerceros(){
   <td valign="top" align="center">
     <iframe align="center" name="selfil" width="<%= l_selancho%>" height="<%= l_selalto%>" src=""></iframe>   
 	<br>
-	<a href="javascript:antPagSel();"><img align="absmiddle" src="/serviciolocal/shared/images/prev.jpg" alt="Anterior" border="0"></a>	
+	<a href="javascript:antPagSel();"><img align="absmiddle" src="/turnos/shared/images/prev.jpg" alt="Anterior" border="0"></a>	
 	<input type="Text" name="paginader" size="3" class="hidden" value="1" readonly style="text-align: right; vertical-align: top;">
 	<input type="Text" size="2" class="hidden" value="de" readonly style="text-align: center; vertical-align: top;">
 	<input type="Text" name="totpaginader" size="3" class="hidden" value="1" readonly style="text-align: left; vertical-align: top;">	
-	<a href="javascript:sigPagSel();"><img align="absmiddle" src="/serviciolocal/shared/images/next.jpg" alt="Siguiente" border="0"></a>
+	<a href="javascript:sigPagSel();"><img align="absmiddle" src="/turnos/shared/images/next.jpg" alt="Siguiente" border="0"></a>
   </td>
 </tr>    
 
@@ -680,7 +680,7 @@ function obtenerTerceros(){
   document.datos.submit();  
 </script>
 
-<SCRIPT SRC="/serviciolocal/shared/js/menu_op.js"></SCRIPT>
+<SCRIPT SRC="/turnos/shared/js/menu_op.js"></SCRIPT>
 
 </html>
 

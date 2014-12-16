@@ -1,10 +1,10 @@
 <% Option Explicit
 response.buffer = true
  %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/fecha.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/a_texto.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/fnticket.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
+<!--#include virtual="/turnos/shared/inc/a_texto.inc"-->
+<!--#include virtual="/turnos/shared/inc/fnticket.inc"-->
 <!--
 -----------------------------------------------------------------------------
 Archivo: rep_log_seg_01.asp
@@ -230,7 +230,7 @@ l_det         = request.querystring("qdet")
 <html>
 
 <head>
-<link href="/serviciolocal/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 

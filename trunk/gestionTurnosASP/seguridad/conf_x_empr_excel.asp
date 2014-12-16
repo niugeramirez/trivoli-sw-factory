@@ -2,7 +2,7 @@
 <%
 Response.AddHeader "Content-Disposition", "attachment;filename=confempr.xls" 
 Response.ContentType = "application/vnd.ms-excel" %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <!--
 -----------------------------------------------------------------------------
 Archivo        : conf_x_empr_excel.asp

@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 'Archivo: companies_con_01.asp
 'Descripción: ABM de Companies
@@ -23,17 +23,17 @@ l_idrecursoreservable = request("id")
 'response.write l_idtemplatereserva
 
 if l_orden = "" then
-  'l_orden = " ORDER BY titulo "
+  l_orden = " ORDER BY fechahorainicio "
 end if
 
 %>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_confirm.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_confirm.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
 <head>
-<link href="/serviciolocal/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Calendarios</title>
 </head>
@@ -75,7 +75,7 @@ l_sql = l_sql & " " & l_orden
 rsOpen l_rs, cn, l_sql, 0 
 if l_rs.eof then%>
 <tr>
-	 <td colspan="2" >No existen Calendarios para el Recurso Seleccionado.</td>
+	 <td colspan="3" >No existen Calendarios para el Recurso Seleccionado.</td>
 </tr>
 <%else
 	do until l_rs.eof

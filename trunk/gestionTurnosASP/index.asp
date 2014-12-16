@@ -1,17 +1,11 @@
 <% Option Explicit %>
-
-<%
-'Response.Redirect "http://bb-omh-pc009/oracle/"
-'response.end
-%> 
-
 <html>
 <head>
-<link href="/intranet/shared/css/tables3.css" rel="StyleSheet" type="text/css">
-<title><%= Session("Titulo")%>Intranet - Oleaginosa Moreno S.A.</title>
-<script src="/intranet/shared/js/fn_windows.js"></script>
-<script src="/intranet/shared/js/fn_confirm.js"></script>
-<script src="/intranet/shared/js/fn_ayuda.js"></script>
+<link href="/serviciolocal/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<title>Sistema  Turnos</title>
+<script src="/serviciolocal/shared/js/fn_windows.js"></script>
+<script src="/serviciolocal/shared/js/fn_confirm.js"></script>
+<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
 <script>
 function inicio(){
 	var opc;
@@ -41,9 +35,15 @@ function inicio(){
 	if (opc != null)
 	   str += opc;
 	var auxi;
-	window.open(url, name, str);
-	window.opener = 'm';
-	window.self.close()
+
+
+    window.open(url, name, str); 
+    window.opener = 'm'; 
+//        window.self.close() 
+    window.open("","_parent",""); 
+    window.close(); 	
+	
+	
 }
 </script>
 </head>

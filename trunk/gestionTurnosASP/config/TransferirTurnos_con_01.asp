@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 'Archivo: contracts_con_01.asp
 'Descripción: ABM de Contracts
@@ -34,11 +34,11 @@ l_orden  = request("orden")
 %>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_confirm.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_confirm.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
 <head>
-<link href="/serviciolocal/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Transferir Turnos</title>
 </head>
@@ -107,7 +107,7 @@ if l_rs.eof then
 	        <!--<td width="10%" nowrap><%'= l_rs("buqnro")%></td>		-->
 			
 	        <td width="10%" nowrap><%= l_rs("descripcion")%></td>		
-			  <td width="10%" nowrap><%= l_rs("Cantidad")%></td>			
+			  <td width="10%" nowrap align="center"><%= l_rs("Cantidad")%></td>			
 			    <td width="10%" nowrap>
 				<% 
 				l_sql2 = "SELECT id,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio "

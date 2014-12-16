@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 'Archivo: contracts_con_01.asp
 'Descripción: ABM de Contracts
@@ -30,11 +30,11 @@ end if
 %>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_confirm.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_confirm.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
 <head>
-<link href="/serviciolocal/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%> Buques - Buques</title>
 </head>
@@ -56,9 +56,9 @@ function Seleccionar(fila,cabnro){
 }
 
 
-function AsignarPaciente(id, apellido, nombre, dni, domicilio){
-alert(apellido);
- parent.opener.EncontrePaciente(id, apellido, nombre, dni, domicilio);
+function AsignarPaciente(id, apellido, nombre, dni, domicilio, telefono){
+//alert(apellido);
+ parent.opener.EncontrePaciente(id, apellido, nombre, dni, domicilio, telefono);
 	//opener.parent.document.datos.apellido = 'ra';
 	window.parent.close();
 }
@@ -75,7 +75,8 @@ alert(apellido);
         <th>Nombre</th>		
         <th>DNI</th>		
 		<th align="left">Domicilio</th>	
-		<!-- <th>Derecho Vulnerado</th>  -->			
+		<th align="left">Tel&eacute;fono</th>	
+			
     </tr>
 <%
 l_filtro = replace (l_filtro, "*", "%")
@@ -105,7 +106,7 @@ if l_rs.eof then
 	do until l_rs.eof
 		l_cant = l_cant + 1
 	%>
-	    <tr ondblclick="Javascript:AsignarPaciente('<%= l_rs("id")%>','<%= l_rs("apellido")%>','<%= l_rs("nombre")%>', '<%= l_rs("dni")%>', '<%= l_rs("domicilio")%>' )" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
+	    <tr ondblclick="Javascript:AsignarPaciente('<%= l_rs("id")%>','<%= l_rs("apellido")%>','<%= l_rs("nombre")%>', '<%= l_rs("dni")%>', '<%= l_rs("domicilio")%>' , '<%= l_rs("telefono")%>')" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
 	        <!--<td width="10%" nowrap><%'= l_rs("buqnro")%></td>		-->
 			<!-- <td width="2%" nowrap><%'= l_cant %></td>
 	        <td width="10%" nowrap><%'= l_rs("legpar1")%>-<%'= l_rs("legpar2")%>/<%'= l_rs("legpar3")%></td>			
@@ -113,7 +114,8 @@ if l_rs.eof then
 	        <td width="10%" nowrap><%= l_rs("apellido")%></td>
 	        <td width="10%" nowrap><%= l_rs("nombre")%></td>						
 	        <td width="10%" nowrap><%= l_rs("dni")%></td>			
-	        <td width="10%" nowrap><%= l_rs("domicilio")%></td>					
+	        <td width="10%" nowrap><%= l_rs("domicilio")%></td>		
+			<td width="10%" nowrap><%= l_rs("telefono")%></td>				
 	         <!--<td width="10%" nowrap><%'= l_rs("prodes")%></td>  -->			
 	    </tr>
 	<%

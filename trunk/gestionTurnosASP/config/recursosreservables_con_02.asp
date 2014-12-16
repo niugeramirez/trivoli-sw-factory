@@ -1,6 +1,6 @@
 
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 
 on error goto 0
@@ -9,6 +9,7 @@ on error goto 0
 
 dim l_id
 dim l_descripcion
+dim l_idtemplatereserva
 dim l_cantturnossimult  
 dim l_cantsobreturnos     
 
@@ -24,16 +25,16 @@ l_tipo = request.querystring("tipo")
 %>
 <html>
 <head>
-<link href="/serviciolocal/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
-<!--<link href="/serviciolocal/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<!--<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Medicos</title>
 </head>
-<script src="/serviciolocal/shared/js/fn_valida.js"></script>
-<script src="/serviciolocal/shared/js/fn_fechas.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_numeros.js"></script>
+<script src="/turnos/shared/js/fn_valida.js"></script>
+<script src="/turnos/shared/js/fn_fechas.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_numeros.js"></script>
 <script>
 function Validar_Formulario(){
 
@@ -142,7 +143,7 @@ function Nuevo_Dialogo(w_in, pagina, ancho, alto)
 }
 function Ayuda_Fecha(txt)
 {
- var jsFecha = Nuevo_Dialogo(window, '/serviciolocal/shared/js/calendar.html', 16, 15);
+ var jsFecha = Nuevo_Dialogo(window, '/turnos/shared/js/calendar.html', 16, 15);
 
  if (jsFecha == null) txt.value = ''
  else txt.value = jsFecha;
@@ -153,6 +154,7 @@ function Ayuda_Fecha(txt)
 select Case l_tipo
 	Case "A":
  	    	l_descripcion      = ""
+			l_idtemplatereserva = "0"
 	    	l_cantturnossimult = ""
 	    	l_cantsobreturnos  = ""
 
@@ -166,8 +168,10 @@ select Case l_tipo
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
  	    	l_descripcion      = l_rs("descripcion")
+			l_idtemplatereserva = l_rs("idtemplatereserva")
 	    	l_cantturnossimult = l_rs("cantturnossimult")
 	    	l_cantsobreturnos  = l_rs("cantsobreturnos")
+			
 		end if
 		l_rs.Close
 end select
@@ -209,20 +213,39 @@ end select
 					    <td align="right" ><b>Fecha Ingreso:</b></td>
 						<td align="left" colspan="3"  >
 						    <input type="text" name="legfecing" size="10" maxlength="10" value="<%'= l_legfecing %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecing)"><img src="/serviciolocal/shared/images/cal.gif" border="0"></a>
+							<a href="Javascript:Ayuda_Fecha(document.datos.legfecing)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
 						</td>																	
 					</tr>	-->										
 					<tr>
 					    <td align="right"><b>Apellido:</b></td>
 						<td colspan="3">
-							<input type="text" name="descripcion" size="20" maxlength="20" value="<%= l_descripcion %>">							
+							<input type="text" name="descripcion" size="37" maxlength="20" value="<%= l_descripcion %>">							
 						</td>
 						<!--
 					    <td align="right"><b>Nombre:</b></td>						
 						<td>
 							<input type="text" name="nombre" size="20" maxlength="20" value="<%'= l_nombre %>">
 						</td>	-->					
-					</tr>					
+					</tr>	
+					<tr>
+						<td align="right"><b>Modelo:</b></td>
+						<td colspan="3"><select name="idtemplatereserva" size="1" style="width:250;">
+								<option value="0" selected>&nbsp;Seleccione un Modelo</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT  * "
+								l_sql  = l_sql  & " FROM templatereservas "
+								l_sql  = l_sql  & " ORDER BY titulo "
+								rsOpen l_rs, cn, l_sql, 0
+								do until l_rs.eof		%>	
+								<option value= <%= l_rs("id") %> > 
+								<%= l_rs("titulo") %> </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>
+							</select>
+							<script>document.datos.idtemplatereserva.value= "<%= l_idtemplatereserva %>"</script>
+						</td>					
+					</tr>											
 					<tr>
 					    <td align="right"><b>Cant. Turnos Simultaneos:</b></td>
 						<td>
@@ -238,7 +261,7 @@ end select
 					    <td align="right" ><b>Fec. Nac.:</b></td>
 						<td align="left"  >
 						    <input type="text" name="legfecnac" size="10" maxlength="10" value="<%'= l_legfecnac %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecnac)"><img src="/serviciolocal/shared/images/cal.gif" border="0"></a>
+							<a href="Javascript:Ayuda_Fecha(document.datos.legfecnac)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
 						</td>
 						<td align="right"><b>Teléfono:</b></td>
 						<td>

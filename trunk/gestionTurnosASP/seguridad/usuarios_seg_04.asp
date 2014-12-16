@@ -1,8 +1,8 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/const.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/sqls.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/password.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/const.inc"-->
+<!--#include virtual="/turnos/shared/inc/sqls.inc"-->
+<!--#include virtual="/turnos/shared/inc/password.inc"-->
 <% 
 
 'Archivo: usuarios_seg_04.asp

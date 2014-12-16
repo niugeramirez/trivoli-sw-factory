@@ -1,6 +1,6 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/fecha.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
 <!--
 '-----------------------------------------------------------------------------------
 Archivo	    : barra_proceso_01.asp
@@ -33,7 +33,7 @@ Modificado	:
  l_parametros = Request.QueryString("parametros")
  
 %>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
 <html>
 <head>
 <title><%= Session("Titulo")%>Estado Proceso</title>

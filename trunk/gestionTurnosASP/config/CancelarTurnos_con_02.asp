@@ -1,6 +1,6 @@
 
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 
 on error goto 0
@@ -25,16 +25,16 @@ l_id = request("cabnro")
 %>
 <html>
 <head>
-<link href="/serviciolocal/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
-<!--<link href="/serviciolocal/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<!--<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Eliminar Turnos</title>
 </head>
-<script src="/serviciolocal/shared/js/fn_valida.js"></script>
-<script src="/serviciolocal/shared/js/fn_fechas.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_numeros.js"></script>
+<script src="/turnos/shared/js/fn_valida.js"></script>
+<script src="/turnos/shared/js/fn_fechas.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_numeros.js"></script>
 <script>
 function Validar_Formulario(){
 /*
@@ -113,7 +113,7 @@ function Nuevo_Dialogo(w_in, pagina, ancho, alto)
 }
 function Ayuda_Fecha(txt)
 {
- var jsFecha = Nuevo_Dialogo(window, '/serviciolocal/shared/js/calendar.html', 16, 15);
+ var jsFecha = Nuevo_Dialogo(window, '/turnos/shared/js/calendar.html', 16, 15);
 
  if (jsFecha == null) txt.value = ''
  else txt.value = jsFecha;
@@ -174,7 +174,7 @@ function Ayuda_Fecha(txt)
 					    <td align="right" ><b>Fecha Ingreso:</b></td>
 						<td align="left" colspan="3"  >
 						    <input type="text" name="legfecing" size="10" maxlength="10" value="<%'= l_legfecing %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecing)"><img src="/serviciolocal/shared/images/cal.gif" border="0"></a>
+							<a href="Javascript:Ayuda_Fecha(document.datos.legfecing)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
 						</td>																	
 					</tr>	-->										
 					<tr>
@@ -188,7 +188,7 @@ function Ayuda_Fecha(txt)
 					    <td align="right" ><b>Fec. Nac.:</b></td>
 						<td align="left"  >
 						    <input type="text" name="legfecnac" size="10" maxlength="10" value="<%'= l_legfecnac %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecnac)"><img src="/serviciolocal/shared/images/cal.gif" border="0"></a>
+							<a href="Javascript:Ayuda_Fecha(document.datos.legfecnac)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
 						</td>
 						<td align="right"><b>Teléfono:</b></td>
 						<td>

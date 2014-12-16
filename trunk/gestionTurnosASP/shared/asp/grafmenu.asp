@@ -26,7 +26,7 @@ else
 	l_estilo = "tables4.css"
 end if
 %>
-<link href="/serviciolocal/shared/css/tables4.css" rel="StyleSheet" type="text/css" id="csss">
+<link href="/turnos/shared/css/tables4.css" rel="StyleSheet" type="text/css" id="csss">
 <style type="text/css">
 img{border:none;}
 td{}

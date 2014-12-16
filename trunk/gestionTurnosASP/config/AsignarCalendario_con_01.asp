@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 'Archivo: contracts_con_01.asp
 'Descripción: ABM de Contracts
@@ -30,11 +30,11 @@ end if
 %>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
-<script src="/serviciolocal/shared/js/fn_confirm.js"></script>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_confirm.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
 <head>
-<link href="/serviciolocal/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%> Buques - Buques</title>
 </head>
@@ -107,7 +107,7 @@ if l_rs.eof then
 			<% if l_rs("estado") = "ANULADO" then ' si esta bloquado: solo desbloquear &acirc; %>
 				<td bgcolor="#FFFF80" colspan="3" align="center" width="10%" nowrap>Anulado:&nbsp;<%= l_rs("motivo")%></td>	
 				<td align="center" width="10%" nowrap>
-							<a href="Javascript:parent.abrirVentana('AnularTurno_con_02.asp?Tipo=D&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/serviciolocal/shared/images/candadoabierto.jpg" border="0" alt="Desbloquear Turno"></a>			
+							<a href="Javascript:parent.abrirVentana('AnularTurno_con_02.asp?Tipo=D&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/turnos/shared/images/candadoabierto.jpg" border="0" alt="Desbloquear Turno"></a>			
     			</td>					
 			<% End If %> 
 			<% if l_rs("estado") = "ACTIVO" then  ' puede cancelar, transferir y borra el turno %>
@@ -119,9 +119,9 @@ if l_rs.eof then
 
 				
 		        <td align="center" width="10%" nowrap>
-				                       <a href="Javascript:parent.abrirVentana('Asignarpacientes_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value ,'',600,300);"><img src="/serviciolocal/shared/images/AsignarTurno.png" border="0" alt="Asignar Turno"></a>
-									   <a href="Javascript:parent.abrirVentana('AnularTurno_con_02.asp?Tipo=B&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/serviciolocal/shared/images/candado.jpg" border="0" alt="Bloquear Turno"></a>			
-	                                   <a href="Javascript:parent.abrirVentana('EliminarTurnos_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/serviciolocal/shared/images/eliminarturno.png" border="0" alt="Eliminar Turno"></a>											   
+				                       <a href="Javascript:parent.abrirVentana('Asignarpacientes_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value ,'',600,300);"><img src="/turnos/shared/images/AsignarTurno.png" border="0" alt="Asignar Turno"></a>
+									   <a href="Javascript:parent.abrirVentana('AnularTurno_con_02.asp?Tipo=B&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/turnos/shared/images/candado.jpg" border="0" alt="Bloquear Turno"></a>			
+	                                   <a href="Javascript:parent.abrirVentana('EliminarTurnos_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/turnos/shared/images/eliminarturno.png" border="0" alt="Eliminar Turno"></a>											   
 									   </td>				
 			
 			<% Else  %>
@@ -131,14 +131,14 @@ if l_rs.eof then
 				<td width="10%" nowrap><%= l_rs("practicanombre")%></td>					
 				<td width="10%" nowrap><%= l_rs("osnombre")%></td>		
 				<% Else  ' si esta asignado a un paciente Externo (pedir info): cancelar el paciente , transferir  %>
-			    <td width="10%" nowrap valign="middle"><img src="/serviciolocal/shared/images/mas.png" border="0" alt="Nuevo Paciente"><%= l_rs("turnoapellido")%>,&nbsp;<%= l_rs("turnonombre")%></td>	
+			    <td width="10%" nowrap valign="middle"><img src="/turnos/shared/images/mas.png" border="0" alt="Nuevo Paciente"><%= l_rs("turnoapellido")%>,&nbsp;<%= l_rs("turnonombre")%></td>	
 				<td width="10%" nowrap><%= l_rs("practicanombre")%></td>					
 				<td width="10%" nowrap><%= l_rs("osnombre")%></td>					
 				<% End If %>
 				
 		        <td align="center" width="10%" nowrap>
-				                       <a href="Javascript:parent.abrirVentana('CancelarTurnos_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value ,'',600,300);"><img src="/serviciolocal/shared/images/cancelarturno.png" border="0" alt="Cancelar Turno"></a>
-	                                   <a href="Javascript:parent.abrirVentana('TransferirTurnos_con_00.asp?Tipo=A&cabnro=<%= l_rs("turnoid")%>' ,'',800,600);"><img src="/serviciolocal/shared/images/transferirturno.png" border="0" alt="Transferir Turno"></a>											   
+				                       <a href="Javascript:parent.abrirVentana('CancelarTurnos_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value ,'',600,300);"><img src="/turnos/shared/images/cancelarturno.png" border="0" alt="Cancelar Turno"></a>
+	                                   <a href="Javascript:parent.abrirVentana('TransferirTurnos_con_00.asp?Tipo=A&cabnro=<%= l_rs("turnoid")%>' ,'',800,600);"><img src="/turnos/shared/images/transferirturno.png" border="0" alt="Transferir Turno"></a>											   
 									   </td>	
 			<% End If %>		
 			<% End If %>							   

@@ -16,11 +16,11 @@ Modificado:
 %>
 <html>
 <head>
-<link href="/serviciolocal/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Filtrar - RHPro &reg;</title>
 </head>
-<script src="/serviciolocal/shared/js/fn_valida.js"></script>
+<script src="/turnos/shared/js/fn_valida.js"></script>
 <script>
 function filtrar(){
  var filtro;

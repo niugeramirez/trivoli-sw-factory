@@ -1,4 +1,4 @@
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <!------------------------------------------------------------------------------
 Archivo       : menu.asp
 Descripcion   : Armado del menu
@@ -34,7 +34,7 @@ l_rs = nothing
 %>
 <html>
 <head>
-<script src="/serviciolocal/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script>
 function about(){
 	ayuda('<%= Request.ServerVariables("SCRIPT_NAME")%>');
@@ -64,8 +64,8 @@ function Cerrar(){
 	.cswmPopupBox {cursor:default; position:absolute; left:-500; display:none; z-index:1999}
 	.cswmDisabled {color:#a5a6a6}
 </style>
-<LINK href="/serviciolocal/shared/css/ie4.css" rel=stylesheet>
-<script src="/serviciolocal/shared/js/fn_windows.js"></script>
+<LINK href="/turnos/shared/css/ie4.css" rel=stylesheet>
+<script src="/turnos/shared/js/fn_windows.js"></script>
 <script language="javascript" type="text/javascript">
 
 <!--
@@ -100,9 +100,9 @@ var cswmAB=0;
 var cswmSLA=0;
 var cswmSTA=0;
 var cswmExIS=new Image();
-cswmExIS.src="/serviciolocal/shared/images/Popup.gif";
+cswmExIS.src="/turnos/shared/images/Popup.gif";
 var cswmExdIS=new Image();
-cswmExdIS.src="/serviciolocal/shared/images/Popup.gif";
+cswmExdIS.src="/turnos/shared/images/Popup.gif";
 var cswmCTH=true;
 var cswmXOff=0;
 var cswmYOff=0;
@@ -1037,18 +1037,18 @@ function Habilitado(perfil,perfilmenu)
 end function
 
 function habilitadoPermiso(menu, usuario)
-	l_planta = 1
-	habilitadoPermiso = false
+	'l_planta = 1
+	'habilitadoPermiso = false
 	'Busco el menú, usuario y planta
-	sql = "SELECT menunro FROM tkt_usu_men_pla "
-	sql = sql & " WHERE iduser = '" & usuario & "'"
-	sql = sql & " AND menunro = " & menu
-	sql = sql & " AND planro = " & l_planta
-	rsOpen mirs, cn, sql, 0
-	If Not mirs.EOF Then
+	'sql = "SELECT menunro FROM tkt_usu_men_pla "
+	'sql = sql & " WHERE iduser = '" & usuario & "'"
+	'sql = sql & " AND menunro = " & menu
+	'sql = sql & " AND planro = " & l_planta
+	'rsOpen mirs, cn, sql, 0
+	'If Not mirs.EOF Then
 	    habilitadoPermiso = True
-	End If
-	mirs.close
+	'End If
+	'mirs.close
 end function
 
 
@@ -1089,9 +1089,9 @@ for i = 0 to Ubound(menumstr,2)
 	menumstr(3,i) = Left(menumstr(3,i),len(menumstr(3,i))-3)
 
 	if isnull(menumstr(7,i)) or trim(menumstr(7,i)) = "" then
-	  menumstr(7,i) = "/serviciolocal/shared/images/blank.gif"
+	  menumstr(7,i) = "/turnos/shared/images/blank.gif"
 	else
-		menumstr(7,i) = "/serviciolocal/shared/images/" & menumstr(7,i)
+		menumstr(7,i) = "/turnos/shared/images/" & menumstr(7,i)
 	end if
 	
 	if menumstr(5,i) = "" then
@@ -1150,7 +1150,7 @@ while i <= Ubound(menumstr,2)
     padre = trim(menumstr(3,i))
 %>					
 	<div id="cswmPopup<%= padre %>" class="cswmPopupBox" onselectstart="return false;">
-		<table background="/serviciolocal/shared/images/background.gif" border="0" cellpadding="0" cellspacing="0">
+		<table background="/turnos/shared/images/background.gif" border="0" cellpadding="0" cellspacing="0">
 			<tr>
 				<td>
 					<div style="border-style:solid; border-width: 1px; border-color:#666666 #666666 #666666 #666666">
@@ -1164,7 +1164,7 @@ while i <= Ubound(menumstr,2)
   	  id = padre & "_" & menumstr(1,i)
       if trim(menumstr(0,i)) = "rule" then
 %>	  
-								<tr onMouseOver="cswmT('off');cswmNHM('space',1);" onMouseOut="cswmT(350);"><td align="Left" bgcolor="#a5a6a6" colspan="2" height="1"><img border="0" alt="" src="/serviciolocal/shared/images/divider.gif"></td>
+								<tr onMouseOver="cswmT('off');cswmNHM('space',1);" onMouseOut="cswmT(350);"><td align="Left" bgcolor="#a5a6a6" colspan="2" height="1"><img border="0" alt="" src="/turnos/shared/images/divider.gif"></td>
 								</tr>
 <%
 	  else
@@ -1176,7 +1176,7 @@ while i <= Ubound(menumstr,2)
 %>
 								<tr onMouseOver="cswmT('off');cswmNHM('<%= id %>',1);cswmST(1);" onMouseOut="cswmT(350);cswmST();" onClick="cswmHP(0);">
 									<td nowrap bgcolor="" id="cswmItem<%= id %>" class="cswmItem">
-									    <span><img align="absmiddle" id="cswmIco<%= id %>" src="<%= menumstr(7,i) %>" alt="" border="0" height="16" width="16"><img align="absmiddle" alt="" border="0" height="1" width="12" src="/serviciolocal/shared/images/ClearPixel.gif"></span>
+									    <span><img align="absmiddle" id="cswmIco<%= id %>" src="<%= menumstr(7,i) %>" alt="" border="0" height="16" width="16"><img align="absmiddle" alt="" border="0" height="1" width="12" src="/turnos/shared/images/ClearPixel.gif"></span>
 									    <span class="cswmDisabled">
 										<%= menumstr(0,i) %>
 									    </span>
@@ -1188,7 +1188,7 @@ while i <= Ubound(menumstr,2)
 %>									
 								<tr onMouseOver="cswmT('off');cswmHiI('<%= id %>',1);cswmST(1);" onMouseOut="cswmT(350);cswmST();" onClick="cswmHP(0);location.href='<%= Replace(menumstr(5,i), "'", "\'") %>';">
 									<td nowrap bgcolor="" id="cswmItem<%= id %>" class="cswmItem">
-									    <span><img align="absmiddle" id="cswmIco<%= id %>" src="<%= menumstr(7,i) %>" alt="" border="0" height="16" width="16"><img align="absmiddle" alt="" border="0" height="1" width="12" src="/serviciolocal/shared/images/ClearPixel.gif"></span>
+									    <span><img align="absmiddle" id="cswmIco<%= id %>" src="<%= menumstr(7,i) %>" alt="" border="0" height="16" width="16"><img align="absmiddle" alt="" border="0" height="1" width="12" src="/turnos/shared/images/ClearPixel.gif"></span>
 										<%= menumstr(0,i) %>
 									</td>
 									<td bgcolor="" id="cswmExpand<%= id %>" class="cswmExpand">
@@ -1197,10 +1197,10 @@ while i <= Ubound(menumstr,2)
 %>									
 								<tr onMouseOver="cswmT('off');cswmHiI('<%= id %>',1);cswmST(1,<%= menumstr(1,i) %>,'<%= id %>');" onMouseOut="cswmT(350);cswmST();" onClick="//cswmHP(0);location.href='<%= Replace(menumstr(5,i), "'", "\'") %>';">
 									<td nowrap bgcolor="" id="cswmItem<%= id %>" class="cswmItem">
-									    <span><img align="absmiddle" id="cswmIco<%= id %>" src="<%= menumstr(7,i) %>" alt="" border="0" height="16" width="16"><img align="absmiddle" alt="" border="0" height="1" width="12" src="/serviciolocal/shared/images/ClearPixel.gif"></span>
+									    <span><img align="absmiddle" id="cswmIco<%= id %>" src="<%= menumstr(7,i) %>" alt="" border="0" height="16" width="16"><img align="absmiddle" alt="" border="0" height="1" width="12" src="/turnos/shared/images/ClearPixel.gif"></span>
 										<%= menumstr(0,i) %>
 									</td>
-									<td bgcolor="" id="cswmExpand<%= id %>" class="cswmExpand" style="padding-right:5"><img id="cswmExpandIcFile_1" src="/serviciolocal/shared/images/Popup.gif" width="10" height="10" alt="" border="0">
+									<td bgcolor="" id="cswmExpand<%= id %>" class="cswmExpand" style="padding-right:5"><img id="cswmExpandIcFile_1" src="/turnos/shared/images/Popup.gif" width="10" height="10" alt="" border="0">
 <%
         end if
         end if
@@ -1236,7 +1236,7 @@ while i <= Ubound(menumstr,2)
     padre = trim(menumstr(3,i))
 %>					
 	<div id="cswmPopup<%= padre %>" class="cswmPopupBox" onselectstart="return false;" onMouseOver="cswmHiI('<%= padre %>',<%= menumstr(2,i) %>);">
-		<table background="/serviciolocal/shared/images/background.gif" border="0" cellpadding="0" cellspacing="0">
+		<table background="/turnos/shared/images/background.gif" border="0" cellpadding="0" cellspacing="0">
 			<tr>
 				<td>
 					<div style="border-style:solid; border-width: 1px; border-color:#666666 #666666 #666666 #666666">
@@ -1250,7 +1250,7 @@ while i <= Ubound(menumstr,2)
  	  id = padre & "_" & menumstr(1,i)
       if trim(menumstr(0,i)) = "rule" then
 %>	  
-								<tr onMouseOver="cswmT('off');cswmNHM('space',1);" onMouseOut="cswmT(350);"><td align="Left" bgcolor="#a5a6a6" colspan="2" height="1"><img border="0" alt="" src="/serviciolocal/shared/images/divider.gif"></td>
+								<tr onMouseOver="cswmT('off');cswmNHM('space',1);" onMouseOut="cswmT(350);"><td align="Left" bgcolor="#a5a6a6" colspan="2" height="1"><img border="0" alt="" src="/turnos/shared/images/divider.gif"></td>
 								</tr>
 <%
 	  else
@@ -1258,7 +1258,7 @@ while i <= Ubound(menumstr,2)
 %>
 								<tr onMouseOver="cswmT('off');cswmNHM('<%= id %>',<%= menumstr(2,i) %>);cswmST(<%= menumstr(2,i) %>);" onMouseOut="cswmT(350);cswmST();" onClick="cswmHP(0);">
 									<td nowrap bgcolor="" id="cswmItem<%= id %>" class="cswmItem">
-									    <span><img align="absmiddle" id="cswmIco<%= id %>" src="<%= menumstr(7,i) %>" alt="" border="0" height="16" width="16"><img align="absmiddle" alt="" border="0" height="1" width="12" src="/serviciolocal/shared/images/ClearPixel.gif"></span>
+									    <span><img align="absmiddle" id="cswmIco<%= id %>" src="<%= menumstr(7,i) %>" alt="" border="0" height="16" width="16"><img align="absmiddle" alt="" border="0" height="1" width="12" src="/turnos/shared/images/ClearPixel.gif"></span>
 									    <span class="cswmDisabled">
 										<%= menumstr(0,i) %>
 									    </span>
@@ -1270,7 +1270,7 @@ while i <= Ubound(menumstr,2)
 %>									
 								<tr onMouseOver="cswmT('off');cswmHiI('<%= id %>',<%= menumstr(2,i) %>);cswmST(<%= menumstr(2,i) %>);" onMouseOut="cswmT(350);cswmST();" onClick="cswmHP(0);location.href='<%= Replace(menumstr(5,i), "'", "\'") %>';">
 									<td nowrap bgcolor="" id="cswmItem<%= id %>" class="cswmItem">
-									    <span><img align="absmiddle" id="cswmIco<%= id %>" src="<%= menumstr(7,i) %>" alt="" border="0" height="16" width="16"><img align="absmiddle" alt="" border="0" height="1" width="12" src="/serviciolocal/shared/images/ClearPixel.gif"></span>
+									    <span><img align="absmiddle" id="cswmIco<%= id %>" src="<%= menumstr(7,i) %>" alt="" border="0" height="16" width="16"><img align="absmiddle" alt="" border="0" height="1" width="12" src="/turnos/shared/images/ClearPixel.gif"></span>
 										<%= menumstr(0,i) %>
 									</td>
 									<td bgcolor="" id="cswmExpand<%= id %>" class="cswmExpand">
@@ -1281,10 +1281,10 @@ while i <= Ubound(menumstr,2)
 %>									
 								<tr onMouseOver="cswmT('off');cswmHiI('<%= id %>',<%= menumstr(2,i) %>);cswmST(<%= menumstr(2,i) %>,<%= menumstr(1,i) %>,'<%= id %>');" onMouseOut="cswmT(350);cswmST();" onClick="cswmHP(0);location.href='<%= Replace(menumstr(5,i), "'", "\'") %>';">
 									<td nowrap bgcolor="" id="cswmItem<%= id %>" class="cswmItem">
-									    <span><img align="absmiddle" id="cswmIco<%= id %>" src="<%= menumstr(7,i) %>" alt="" border="0" height="16" width="16"><img align="absmiddle" alt="" border="0" height="1" width="12" src="/serviciolocal/shared/images/ClearPixel.gif"></span>
+									    <span><img align="absmiddle" id="cswmIco<%= id %>" src="<%= menumstr(7,i) %>" alt="" border="0" height="16" width="16"><img align="absmiddle" alt="" border="0" height="1" width="12" src="/turnos/shared/images/ClearPixel.gif"></span>
 										<%= menumstr(0,i) %>
 									</td>
-									<td bgcolor="" id="cswmExpand<%= id %>" class="cswmExpand" style="padding-right:5"><img id="cswmExpandIc<%= id %>" src="/serviciolocal/shared/images/Popup.gif" width="10" height="10" alt="" border="0">
+									<td bgcolor="" id="cswmExpand<%= id %>" class="cswmExpand" style="padding-right:5"><img id="cswmExpandIc<%= id %>" src="/turnos/shared/images/Popup.gif" width="10" height="10" alt="" border="0">
 									</td>
 								</tr>
 <%
@@ -1306,7 +1306,7 @@ while i <= Ubound(menumstr,2)
 Wend
 %>
 	<div class="cswmDock" id="cswmDock">
-	    <span id="cswmInrDck" style="border:dotted #ffffff 1px; width:100%;"><img src="/serviciolocal/shared/images/ClearPixel.gif" width="1" height="1"></span>
+	    <span id="cswmInrDck" style="border:dotted #ffffff 1px; width:100%;"><img src="/turnos/shared/images/ClearPixel.gif" width="1" height="1"></span>
 	</div>
 	<div class="cswmButtons" style="width:1px" id="cswmButtons" onselectstart="return false;">
 		<div class="cswmInnerBorder">

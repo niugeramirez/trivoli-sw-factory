@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% Response.AddHeader "Content-Disposition", "attachment;filename=consulta_firmas.xls" %> 
 <%
 'Archivo	: firmas_consulta_01.asp

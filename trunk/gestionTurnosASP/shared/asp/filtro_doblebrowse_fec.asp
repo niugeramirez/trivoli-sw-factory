@@ -19,11 +19,11 @@ Modificado:
 %>
 <html>
 <head>
-<link href="/serviciolocal/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Filtrar - RHPro &reg;</title>
 </head>
-<script src="/serviciolocal/shared/js/fn_fechas.js"></script>
+<script src="/turnos/shared/js/fn_fechas.js"></script>
 <script>
 function cambia(){
 	for (i=0;i<=2;i++){
@@ -110,7 +110,7 @@ function Nuevo_Dialogo(w_in, pagina, ancho, alto){
 }
 
 function Ayuda_Fecha(txt){
-	var jsFecha = Nuevo_Dialogo(window, '/serviciolocal/shared/js/calendar.html', 16, 15);
+	var jsFecha = Nuevo_Dialogo(window, '/turnos/shared/js/calendar.html', 16, 15);
 
 	if (jsFecha == null) txt.value = ''
 	else txt.value = jsFecha;
@@ -139,7 +139,7 @@ window.resizeTo(300,190)
 	<td><input type="Radio" name="orden" value="3" onclick="Javascript:cambia();"></td>
 	<td>
 		<input type="Text" name="entre" value="" disabled="true" class="deshabinp" size="10" maxlength="10">
-		<a name="entreFechas" href="#"><img src="/serviciolocal/shared/images/cal.gif" border="0"></a></td>
+		<a name="entreFechas" href="#"><img src="/turnos/shared/images/cal.gif" border="0"></a></td>
 	</td>
  </tr>
  <tr>
@@ -147,7 +147,7 @@ window.resizeTo(300,190)
 	<td></td>
 	<td>
 		<input type="Text" name="texto" value="" size="10" maxlength="10">
-		<a href="Javascript:Ayuda_Fecha(document.datos.texto)"><img src="/serviciolocal/shared/images/cal.gif" border="0"></a></td>
+		<a href="Javascript:Ayuda_Fecha(document.datos.texto)"><img src="/turnos/shared/images/cal.gif" border="0"></a></td>
 	</td>
  </tr>
  <tr>

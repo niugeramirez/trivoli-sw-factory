@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <!-------------------------------------------------------------------------------------------
 Archivo		: filtro_campos_01.asp
 Descripción : Permite realizar un filtrado 
@@ -77,7 +77,7 @@ loop
 %>
 <html>	
 <head>
-<link href="/serviciolocal/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Filtro - RHPro &reg;</title>
 </head>

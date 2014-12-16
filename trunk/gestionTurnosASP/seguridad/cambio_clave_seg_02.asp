@@ -1,7 +1,7 @@
  <% Option Explicit %>
-<!--#include virtual="/serviciolocal/shared/inc/encrypt.inc"-->
-<!--#include virtual="/serviciolocal/shared/db/conn_db.inc"-->
-<!--#include virtual="/serviciolocal/shared/inc/password.inc"-->
+<!--#include virtual="/turnos/shared/inc/encrypt.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/password.inc"-->
 <!--------------------------------------------------------------------------------------------
 Archivo     : cambio_clave_seg_02.asp
 Descripcion : Valida datos.
