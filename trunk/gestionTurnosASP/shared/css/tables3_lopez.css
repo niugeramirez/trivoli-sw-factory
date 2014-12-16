@@ -1,0 +1,330 @@
+TABLE
+{
+	border : 0px;
+	width : 100%;
+	background-color : #DFDFDF;
+}
+.table2
+{
+	border : 0px;
+}
+.tablebot
+{
+	background-color: Yellow;
+}
+TH
+{
+	background-color: #4682B4;
+	COLOR: #ffffff;
+	FONT-FAMILY: "Arial";
+	FONT-SIZE: 9pt;
+	FONT-WEIGHT: bold;
+	padding : 2 2 2 5;
+	width : auto;
+}
+.thon
+{
+	background-color: #483D8B;
+	COLOR: #ffffff;
+	FONT-FAMILY: "Arial";
+	FONT-SIZE: 9pt;
+	FONT-WEIGHT: bold;
+	padding : 2 2 2 5;
+}
+.th2
+{
+	background-color: #969696;
+	COLOR: Black;
+	FONT-FAMILY: "Arial";
+	FONT-SIZE: 9pt;
+	FONT-WEIGHT: bold;
+	/*padding : 2 2 2 5;
+	*/
+}
+TD
+{
+	COLOR: black;
+	FONT-FAMILY: Verdana;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: transparent;
+	padding : 2;
+	padding-left : 5;
+}
+.tddef
+{
+	COLOR: Black;
+	FONT-FAMILY: Verdana;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: #CDCDCD;
+	padding : 2;
+	padding-left : 5;
+}
+.td2
+{
+	background-color: Navy;
+	COLOR: #ffffff;
+	FONT-FAMILY: "Arial";
+	FONT-SIZE: 9pt;
+	FONT-WEIGHT: bold;
+}
+H1
+{
+	background: #D0D0D0;
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 12pt;
+	text-align : left;
+}
+H2
+{
+	font-family : "MS Sans Serif", Geneva, sans-serif;
+	font-size : 10pt;
+	text-align : left;
+}
+H3
+{
+	font-family : "MS Sans Serif", Geneva, sans-serif;
+	font-size : 08pt;
+	text-align : left;
+}
+H4
+{
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 8pt;
+	text-align : right;
+	border-bottom : 1 solid;
+	font-style : normal;
+}
+H5
+{
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 8pt;
+	text-align : right;
+	border-top : 1 solid;
+	font-style : normal;
+}
+.logo
+{
+	text-align : right;
+	background-color: #FFF5EE;
+}
+.lll
+{
+	COLOR: Navy;
+	FONT-WEIGHT: bold;
+	TEXT-DECORATION: none;
+}
+TEXTAREA
+{
+	background : White;
+}
+.hidden
+{
+	background : transparent;
+	border : none;
+	readonly;
+}
+
+/* Aqui */
+A.sidebtnABM:hover {
+	BACKGROUND-COLOR: #48A8C8;
+	BORDER-LEFT: 1px solid Black;
+	BORDER-RIGHT: 1px solid white;
+	COLOR: White;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	FONT-SIZE: 8pt;
+	HEIGHT: 12px;
+	LETTER-SPACING: -1;
+	LINE-HEIGHT: 8pt;
+	PADDING-LEFT: 2px;
+	PADDING-RIGHT: 2px;
+	PADDING-TOP: 2px;
+	PADDING-BOTTOM: 2px;
+	TEXT-ALIGN: center;
+	TEXT-DECORATION: none;
+	WIDTH: 60px;
+	font-weight : normal;
+	border-bottom : 1px solid white;
+	border-top : 1px solid Black;
+}
+A.sidebtnABM {
+	BACKGROUND-COLOR: transparent;
+	COLOR: Black;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	FONT-SIZE: 8pt;
+	HEIGHT: 12px;
+	LETTER-SPACING: -1;
+	LINE-HEIGHT: 8pt;
+	PADDING-LEFT: 2px;
+	PADDING-RIGHT: 2px;
+	PADDING-TOP: 2px;
+	PADDING-BOTTOM: 2px;
+	TEXT-ALIGN: center;
+	TEXT-DECORATION: none;
+	WIDTH: 60px;
+	white-space : nowrap;
+	font-weight : normal;
+	border-right : 1px solid black;
+	border-bottom : 1px solid black;
+	border-left : 1px solid white;
+	border-top : 1px solid white;
+	vertical-align : middle;
+}
+A.sidebtnSHW:hover {
+	BACKGROUND-COLOR: #FFA07A;
+	BORDER-BOTTOM: #ffffff 1px solid;
+	BORDER-LEFT: black 1px solid;
+	BORDER-RIGHT: white 1px solid;
+	BORDER-TOP: black 1px solid;
+	COLOR: White;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	FONT-SIZE: 8pt;
+	HEIGHT: 12px;
+	LETTER-SPACING: -1;
+	LINE-HEIGHT: 8pt;
+	PADDING-LEFT: 2px;
+	PADDING-RIGHT: 2px;
+	PADDING-TOP: 2px;
+	PADDING-BOTTOM: 2px;
+	TEXT-ALIGN: center;
+	TEXT-DECORATION: none;
+	WIDTH: 60px;
+	font-weight : normal;
+}
+A.sidebtnSHW
+{
+	BACKGROUND-COLOR: transparent;
+	BORDER-BOTTOM: 1px solid black;
+	BORDER-LEFT: #ffffff 1px solid;
+	BORDER-RIGHT: 1px solid black;
+	BORDER-TOP: #ffffff 1px solid;
+	COLOR: black;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	FONT-SIZE: 8pt;
+	HEIGHT: 12px;
+	LETTER-SPACING: -1;
+	LINE-HEIGHT: 8pt;
+	PADDING-LEFT: 2px;
+	PADDING-RIGHT: 2px;
+	PADDING-TOP: 2px;
+	PADDING-BOTTOM: 2px;
+	TEXT-ALIGN: center;
+	TEXT-DECORATION: none;
+	WIDTH: 60px;
+	white-space : nowrap;
+	font-weight : normal;
+	vertical-align : middle;
+}
+A.sidebtnHLP:hover {
+	BACKGROUND-COLOR: #FFCC99;
+	BORDER-BOTTOM: white 1px solid;
+	BORDER-LEFT: 1px solid Black;
+	BORDER-RIGHT: 1px solid White;
+	BORDER-TOP: 1px solid Black;
+	COLOR: White;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	FONT-SIZE: 8pt;
+	HEIGHT: 12px;
+	LETTER-SPACING: -1;
+	LINE-HEIGHT: 8pt;
+	PADDING-LEFT: 2px;
+	PADDING-RIGHT: 2px;
+	PADDING-TOP: 2px;
+	PADDING-BOTTOM: 2px;
+	TEXT-ALIGN: center;
+	TEXT-DECORATION: none;
+	WIDTH: 60px;
+	font-weight : normal;
+}
+A.sidebtnHLP
+{
+	BACKGROUND-COLOR: transparent;
+	BORDER-BOTTOM: 1px solid black;
+	BORDER-LEFT: #ffffff 1px solid;
+	BORDER-RIGHT: 1px solid black;
+	BORDER-TOP: #ffffff 1px solid;
+	COLOR: black;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	FONT-SIZE: 8pt;
+	HEIGHT: 12px;
+	LETTER-SPACING: -1;
+	LINE-HEIGHT: 8pt;
+	PADDING-LEFT: 2px;
+	PADDING-RIGHT: 2px;
+	PADDING-TOP: 2px;
+	PADDING-BOTTOM: 2px;
+	TEXT-ALIGN: center;
+	TEXT-DECORATION: none;
+	WIDTH: 60px;
+	white-space : nowrap;
+	font-weight : normal;
+	vertical-align : middle;
+}
+.barra
+{
+	background-color : transparent;
+	color : Navy;
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight : bold;
+}
+.doblebrowse
+{
+width:180; 
+font-family: arial, helvetica; 
+font-size: 8pt;
+}
+.gengrup
+{
+width:192; 
+font-family: arial, helvetica; 
+font-size: 8pt;
+}
+A.sidebtnDSB:hover {
+	BACKGROUND-COLOR: #e0e0de;
+	BORDER-BOTTOM: #ffffff thin solid;
+	BORDER-LEFT: #ffffff thin solid;
+	BORDER-RIGHT: #ffffff thin solid;
+	BORDER-TOP: #ffffff thin solid;
+	COLOR: Gray;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	FONT-SIZE: 8pt;
+	HEIGHT: 12px;
+	LETTER-SPACING: -1;
+	LINE-HEIGHT: 8pt;
+	PADDING-LEFT: 2px;
+	PADDING-RIGHT: 2px;
+	PADDING-TOP: 2px;
+	PADDING-BOTTOM: 2px;
+	TEXT-ALIGN: center;
+	TEXT-DECORATION: none;
+	WIDTH: 60px;
+}
+A.sidebtnDSB
+{
+	BACKGROUND-COLOR: #e0e0de;
+	BORDER-BOTTOM: thin solid Silver;
+	BORDER-LEFT: #ffffff thin solid;
+	BORDER-RIGHT: thin solid Silver;
+	BORDER-TOP: #ffffff thin solid;
+	COLOR: Gray;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	FONT-SIZE: 8pt;
+	HEIGHT: 12px;
+	LETTER-SPACING: -1;
+	LINE-HEIGHT: 8pt;
+	PADDING-LEFT: 2px;
+	PADDING-RIGHT: 2px;
+	PADDING-TOP: 2px;
+	PADDING-BOTTOM: 2px;
+	TEXT-ALIGN: center;
+	TEXT-DECORATION: none;
+	WIDTH: 60px;
+	white-space : nowrap;
+}
+.deshabinp
+{
+	background: #e0e0de;
+}
+.habinp
+{
+	background: #ffffff;
+}
