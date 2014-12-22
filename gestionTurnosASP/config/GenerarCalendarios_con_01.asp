@@ -114,7 +114,7 @@ if l_generar = 1 then
 							'response.write "SIIIIII"
 							
 							l_hora =  l_hd
-							l_horafin = DateAdd("n", 30, l_hora)
+							l_horafin = DateAdd("n", clng(l_intervaloTurnoMinutos), l_hora)
 							
 							'response.write "l_hora" & l_hora
 							'response.write "l_horafin" & l_horafin
