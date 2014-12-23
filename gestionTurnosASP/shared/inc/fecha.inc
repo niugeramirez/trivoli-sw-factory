@@ -79,7 +79,7 @@ function cambiaformato (fecha,hora )
         Case "1"
  			auxi  = "'" & mid(actual,7,4) & "/" & mid(actual,4,2) & "/" & mid(actual,1,2) & "'"
         Case "2" 
-  	 		auxi  =  "'" & mid(fecha,4,2) & "/" & mid(fecha,1,2) & "/" & mid(fecha,7,4) & " " & ucase ( replace (hora,"." ,""  ))   & "'" 
+  	 		auxi  =  "'" & mid(fecha,4,2) & "/" & mid(fecha,1,2) & "/" & mid(fecha,7,4) & " " & hora  & "'"
 			'auxi  = "'" & mid(actual,7,2) & "/" & mid(actual,4,2) & "/" & mid(actual,1,2) & "'"
 			'auxi  = "'" & mid(actual,1,2) & "/" & mid(actual,4,2) & "/" & mid(actual,7,4) &"'" 
         Case "3" 
