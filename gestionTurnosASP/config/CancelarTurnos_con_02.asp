@@ -18,8 +18,11 @@ Dim l_tipo
 Dim l_sql
 Dim l_rs
 
+Dim l_turnoid 
+
 l_tipo = request.querystring("tipo")
 l_id = request("cabnro")
+l_turnoid = request("turnoid")
 
 
 %>
@@ -141,6 +144,8 @@ function Ayuda_Fecha(txt)
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos.motivo.focus();">
 <form name="datos" action="CancelarTurnos_con_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">
 <input type="hidden" name="id" value="<%= l_id %>">
+<input type="hidden" name="turnoid" value="<%= l_turnoid %>">
+ 
 
 <table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
 <tr>
