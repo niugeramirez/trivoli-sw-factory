@@ -191,7 +191,7 @@ function Buscar(){
 	//alert(document.datos.filtro.value);
 	*/
 	if (estado == "si"){
-		window.ifrm.location = 'asignarturnos_con_01.asp?asistente=0&filtro=' + document.datos.filtro.value;
+		window.ifrm.location = 'asignarturnos_con_01.asp?idrecursoreservable=' + document.datos.id.value + '&filtro=' + document.datos.filtro.value;
 	}
 }
 

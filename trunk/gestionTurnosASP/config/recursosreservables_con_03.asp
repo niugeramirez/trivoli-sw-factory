@@ -25,7 +25,7 @@ l_id                       = request.Form("id")
 l_descripcion              = request.Form("descripcion")
 l_idtemplatereserva        = request.Form("idtemplatereserva")
 l_cantturnossimult         = request.Form("cantturnossimult")
-l_cantsobreturnos          = request.Form("cantsobreturnos")
+l_cantsobreturnos          = 0 ' request.Form("cantsobreturnos") se elimino esta campo
 ' l_domicilio      = request.Form("domicilio")
 'l_idobrasocial      = request.Form("legape")
 

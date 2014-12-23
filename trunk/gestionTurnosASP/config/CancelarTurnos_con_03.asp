@@ -16,12 +16,14 @@ dim l_id
 dim l_motivo
 dim l_cantturnossimult  
 dim l_cantsobreturnos     
+dim l_turnoid
 
 
 
 l_tipo 		               = request.querystring("tipo")
 l_id                       = request.Form("id")
 l_motivo                   = request.Form("motivo")
+l_turnoid                  = request.Form("turnoid")
 
 ' l_domicilio      = request.Form("domicilio")
 'l_idobrasocial      = request.Form("legape")
@@ -46,6 +48,7 @@ set l_cm = Server.CreateObject("ADODB.Command")
 
 l_sql = "DELETE FROM turnos "
 l_sql = l_sql & " WHERE idcalendario = " & l_id
+l_sql = l_sql & " AND id = " & l_turnoid
 
 response.write l_sql & "<br>"
 l_cm.activeconnection = Cn

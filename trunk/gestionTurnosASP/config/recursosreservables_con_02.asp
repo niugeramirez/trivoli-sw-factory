@@ -49,13 +49,13 @@ if (document.datos.cantturnossimult.value == ""){
 	document.datos.cantturnossimult.focus();
 	return;
 }
-
+/*
 if (document.datos.cantsobreturnos.value == ""){
 	alert("Debe ingresar la Cantidad de SobreTurnos.");
 	document.datos.cantsobreturnos.focus();
 	return;
 }
-/*
+
 if (document.datos.nombre.value == ""){
 	alert("Debe ingresar el Nombre del Paciente.");
 	document.datos.nombre.focus();
@@ -251,10 +251,11 @@ end select
 						<td>
 							<input type="text" name="cantturnossimult" size="20" maxlength="20" value="<%= l_cantturnossimult %>">
 						</td>
+						<!--
 					    <td align="right"><b>Cant. SobreTurnos:</b></td>
 						<td>
-							<input type="text" name="cantsobreturnos" size="20" maxlength="20" value="<%= l_cantsobreturnos %>">
-						</td>						
+							<input type="text" name="cantsobreturnos" size="20" maxlength="20" value="<%'= l_cantsobreturnos %>">
+						</td>		-->				
 					</tr>
 					<!--
 					<tr>
