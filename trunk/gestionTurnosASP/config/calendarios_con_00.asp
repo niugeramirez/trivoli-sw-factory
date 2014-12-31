@@ -69,7 +69,7 @@ function llamadaexcel(){
         <tr style="border-color :CadetBlue;">
           <td align="left" class="barra">Calendarios</td>
           <td nowrap align="right" class="barra">
-          <% 'call MostrarBoton ("sidebtnABM", "Javascript:abrirVentana('templatereservasdetalle_con_02.asp?idtemplatereserva='+document.datos.id.value +'&Tipo=A','',520,200);","Alta")%>
+          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentana('calendarios_con_02.asp?id='+document.datos.id.value +'&Tipo=A','',520,200);","Alta")%>
 		  &nbsp;
           <% 'call MostrarBoton ("sidebtnABM", "Javascript:eliminarRegistro(document.ifrm,'templatereservasdetalle_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
 		  &nbsp;
