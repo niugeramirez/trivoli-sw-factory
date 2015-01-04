@@ -44,6 +44,12 @@ if (document.datos.descripcion.value == ""){
 	return;
 }
 
+if (document.datos.idtemplatereserva.value == 0){
+	alert("Debe ingresar el Modelo.");
+	document.datos.idtemplatereserva.focus();
+	return;
+}
+
 if (document.datos.cantturnossimult.value == ""){
 	alert("Debe ingresar la Cantidad de Turnos Simultaneos.");
 	document.datos.cantturnossimult.focus();
@@ -75,7 +81,7 @@ if (document.datos.domicilio.value == ""){
 }
 */
 /*
-if (document.datos.tipopenro.value == 0){
+if (document.datos.idtemplatereserva.value == 0){
 	alert("Debe ingresar el Tipo de Operación.");
 	document.datos.tipopenro.focus();
 	return;
@@ -127,15 +133,6 @@ function invalido(texto){
 	document.datos.coudes.focus();
 }
 
-function actualizaBerth(valor){
-
-   document.datos.bernro.value = 0 ;    
-
-  if ((document.datos.pornro.value == "")||(document.datos.pornro.value == "0"))   	 
- 	 document.ifrmBerth.location = "contracts_berth_con_00.asp?pornro=0&disabled=disabled";
-  else 
-     document.ifrmberth.location = "contracts_berth_con_00.asp?pornro="+valor+"&bernro=0";  
-}
 
 function Nuevo_Dialogo(w_in, pagina, ancho, alto)
 {
@@ -194,42 +191,18 @@ end select
 			<tr>
 				<td>
 					<table cellspacing="0" cellpadding="0" border="0">
-					<!-- 
-					<tr>
-						<td align="left" colspan="4" style="font-size:20"  >
-							Servicio Local: <b><%'= l_serdes %><b>				
-						</td>																	
-					</tr>  -->						
-					<!-- 	
-					<tr>
-					    <td align="right" ><b>Legajo:</b></td>
-						<td align="left" colspan="3"  >
-						    <input type="text" name="legpar1" size="2" maxlength="2" value="<%'= l_legpar1 %>">
-						    <input type="text" name="legpar2" size="10" maxlength="10" value="<%'= l_legpar2 %>">
-						    <input type="text" name="legpar3" size="2" maxlength="2" value="<%'= l_legpar3 %>">							
-						</td>																	
-					</tr>  																
-					<tr>
-					    <td align="right" ><b>Fecha Ingreso:</b></td>
-						<td align="left" colspan="3"  >
-						    <input type="text" name="legfecing" size="10" maxlength="10" value="<%'= l_legfecing %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecing)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
-						</td>																	
-					</tr>	-->										
+		
+													
 					<tr>
 					    <td align="right"><b>Apellido:</b></td>
 						<td colspan="3">
 							<input type="text" name="descripcion" size="37" maxlength="20" value="<%= l_descripcion %>">							
 						</td>
-						<!--
-					    <td align="right"><b>Nombre:</b></td>						
-						<td>
-							<input type="text" name="nombre" size="20" maxlength="20" value="<%'= l_nombre %>">
-						</td>	-->					
+		
 					</tr>	
 					<tr>
 						<td align="right"><b>Modelo:</b></td>
-						<td colspan="3"><select name="idtemplatereserva" size="1" style="width:250;">
+						<td colspan="3"><select name="idtemplatereserva" size="1" style="width:450;">
 								<option value="0" selected>&nbsp;Seleccione un Modelo</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
@@ -238,7 +211,7 @@ end select
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	
 								<option value= <%= l_rs("id") %> > 
-								<%= l_rs("titulo") %> </option>
+								(<%= l_rs("descripcion") %> ) <%= l_rs("titulo") %>  </option>
 								<%	l_rs.Movenext
 								loop
 								l_rs.Close %>

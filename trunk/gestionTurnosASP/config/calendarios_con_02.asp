@@ -62,7 +62,7 @@ if (!stringValido(document.datos.agedes.value)){
 }
 */
 var d=document.datos;
-document.valida.location = "calendarios_con_06.asp?tipo=<%= l_tipo%>&calfec="+document.datos.calfec.value ;
+document.valida.location = "calendarios_con_06.asp?id=<%= l_id%>&calfec="+document.datos.calfec.value + "&calhordes1="+document.datos.calhordes1.value + "&calhordes2="+document.datos.calhordes2.value + "&calhorhas1="+document.datos.calhorhas1.value + "&calhorhas2="+document.datos.calhorhas2.value + "&intervaloTurnoMinutos="+document.datos.intervaloTurnoMinutos.value ; 
 
 
 //valido();
@@ -198,7 +198,7 @@ end select
 	</td>
 </tr>
 </table>
-<iframe name="valida"  src="" width="100%" height="100%"></iframe> 
+<iframe name="valida"  style="visibility=hidden;" src="" width="100%" height="100%"></iframe> 
 </form>
 <%
 set l_rs = nothing

@@ -72,7 +72,7 @@ if l_rs.eof then%>
 	do until l_rs.eof
 	%>
 	    <tr ondblclick="Javascript:parent.abrirVentana('templatereservas_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',520,200)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
-	        <td width="15%" align="center" nowrap><%= l_rs("titulo")%></td>
+	        <td width="15%" align="left" nowrap><%= l_rs("titulo")%></td>
 	        <td width="85%" nowrap><%= l_rs("descripcion")%></td>			
 	    </tr>
 	<%

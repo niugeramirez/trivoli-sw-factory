@@ -65,7 +65,7 @@ function Seleccionar(fila,cabnro){
         <th>Apellido</th>
         <th>Modelo</th>	
         <th>Cant. Turnos Simultaneos</th>		
-        <th>Cant. Sobreturno</th>		
+        <!--<th>Cant. Sobreturno</th>	-->	
 		<!--<th align="left">Domicilio</th>	
 		 <th>Derecho Vulnerado</th>  -->			
     </tr>
@@ -104,8 +104,8 @@ if l_rs.eof then
 	        <td width="10%" nowrap><%'= l_rs("legfecing")%></td>  -->
 	        <td width="10%" nowrap><%= l_rs("descripcion")%></td>
 			<td width="10%" nowrap><%= l_rs("titulo")%></td>
-	        <td width="10%" nowrap><%= l_rs("cantturnossimult")%></td>						
-	        <td width="10%" nowrap><%= l_rs("cantsobreturnos")%></td>			
+	        <td width="10%" nowrap align="center"><%= l_rs("cantturnossimult")%></td>						
+	        <!--<td width="10%" nowrap><%' = l_rs("cantsobreturnos")%></td>-->			
 	         <!--<td width="10%" nowrap><%'= l_rs("prodes")%></td>  -->			
 	    </tr>
 	<%
