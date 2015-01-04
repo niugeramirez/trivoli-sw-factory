@@ -111,13 +111,13 @@ end select
 					<tr>
 					    <td align="right"><b>T&iacute;tulo:</b></td>
 						<td>
-							<input type="text" name="titulo" size="40" maxlength="50" value="<%= l_titulo %>">
+							<input type="text" name="titulo" size="60" maxlength="100" value="<%= l_titulo %>">
 						</td>
 					</tr>						
 					<tr>
 					    <td align="right"><b>Descripción:</b></td>
 						<td>
-							<input type="text" name="descripcion" size="40" maxlength="50" value="<%= l_descripcion %>">
+							<input type="text" name="descripcion" size="60" maxlength="100" value="<%= l_descripcion %>">
 						</td>
 					</tr>			
 					</table>
