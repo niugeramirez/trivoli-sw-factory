@@ -68,10 +68,12 @@ if l_generar = 1 then
 	l_sql = l_sql & " FROM recursosreservables "
 	l_sql = l_sql & " INNER JOIN templatereservas ON templatereservas.id = recursosreservables.idtemplatereserva "
 	l_sql = l_sql & " INNER JOIN templatereservasdetalleresumido ON templatereservasdetalleresumido.idtemplatereserva = templatereservas.id "
+	'Eugenio
+	l_sql = l_sql & " WHERE recursosreservables.id = "& l_id
 	
 	l_sql = l_sql & " " & l_orden
 	
-	 'response.write l_sql
+	'response.write l_sql& "<br>"
 	rsOpen l_rs, cn, l_sql, 0 
 	do while not l_rs.eof
 	
@@ -107,6 +109,7 @@ if l_generar = 1 then
 					   (l_vi = "S" and weekday(l_fecha) = 6) or _
 					   (l_sa = "S" and weekday(l_fecha) = 7) or _
 					   (l_do = "S" and weekday(l_fecha) = 1) then
+					   
 					   		'l_caldia = DiadeSemana(l_fecha)
 							'aa = DATEDIFF("n", cdate( l_fecha & " " & l_hd ), cdate(l_fecha & " " & l_hh ))
 							'response.write "SS" & aa & "<br>"
@@ -156,6 +159,7 @@ if l_generar = 1 then
 					        'l_sql = l_sql & "VALUES (" & cambiafecha(l_fecha,"YMD",true)  & ",'" & l_caldia & "','" & l_calhordes1 & l_calhordes2 & "','" & l_calhorhas1 & l_calhorhas2 & "'," & l_lugnro & "," & l_evmonro & ")"
 	   					    'l_cm.CommandText = l_sql
 					        'cmExecute l_cm, l_sql, 0   
+
 					end if		
 	
 	  'response.write l_fecha
