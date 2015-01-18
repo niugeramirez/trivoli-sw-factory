@@ -159,6 +159,10 @@ function Ayuda_Fecha(txt)
  else txt.value = jsFecha;
 }
 
+function BuscarPaciente(){
+	abrirVentana('Buscarpacientes_con_00.asp?Tipo=A','',600,250);
+}
+
 </script>
 <% 
 select Case l_tipo
@@ -193,7 +197,7 @@ select Case l_tipo
 end select
 
 %>
-<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos.apellido.focus();">
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:BuscarPaciente();">
 <form name="datos" action="Asignarpacientes_con_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">
 <input type="hidden" name="id" value="<%= l_id %>">
 <input type="hidden" name="pacienteid" value="<%'= l_id %>">
@@ -235,7 +239,7 @@ end select
 					</tr>	-->	
 					<tr>	
 					<td colspan="4" align="center">
-					<a href="Javascript:abrirVentana('Buscarpacientes_con_00.asp?Tipo=A','',600,250);"><img src="/turnos/shared/images/BuscarPaciente.png" border="0" alt="Buscar Paciente"></a>								
+					<a href="Javascript:BuscarPaciente();"><img src="/turnos/shared/images/BuscarPaciente.png" border="0" alt="Buscar Paciente"></a>								
 
 					</td>
 					</tr>	
