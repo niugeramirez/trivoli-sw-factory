@@ -15,8 +15,10 @@ dim l_dni
 dim l_tel
 dim l_domicilio
 dim l_idobrasocial
+dim l_descripcion
 dim l_comentario
-dim idrecursoreservable
+dim l_idrecursoreservable
+Dim l_idpractica
 'ADO
 Dim l_tipo
 Dim l_sql
@@ -179,10 +181,11 @@ select Case l_tipo
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
-		l_sql = "SELECT  * "
-		l_sql = l_sql & " FROM clientespacientes "
-		'l_sql = l_sql & " INNER JOIN ser_servicio ON ser_servicio.sercod = ser_legajo.legpar1 "
-		l_sql  = l_sql  & " WHERE id = " & l_id
+		l_sql = "SELECT  turnos.*, clientespacientes.id clientepacienteid, clientespacientes.* , obrassociales.id idobrasocial , obrassociales.descripcion"
+		l_sql = l_sql & " FROM turnos "
+		l_sql = l_sql & " INNER JOIN clientespacientes ON clientespacientes.id = turnos.idclientepaciente" 
+		l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
+		l_sql  = l_sql  & " WHERE turnos.id = " & l_id
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
 	    	l_apellido      = l_rs("apellido")
@@ -192,14 +195,17 @@ select Case l_tipo
 	    	l_domicilio     = l_rs("domicilio")
 			l_tel           = l_rs("telefono")
 			l_idobrasocial  = l_rs("idobrasocial")
+			l_descripcion   = l_rs("descripcion")
+			l_idpractica    = l_rs("idpractica")
 			l_idrecursoreservable = l_rs("idrecursoreservable")
+			l_comentario = l_rs("comentario")
 			
 		end if
 		l_rs.Close
 end select
 
 %>
-<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:BuscarPaciente();">
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" <% if l_tipo <> "M" then %> onload="javascript:BuscarPaciente();" <% End If %>>
 <form name="datos" action="Asignarpacientes_con_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">
 <input type="hidden" name="id" value="<%= l_id %>">
 <input type="hidden" name="pacienteid" value="<%'= l_id %>">
@@ -221,7 +227,9 @@ end select
 					<table cellspacing="0" cellpadding="0" border="0">						
 					<tr>	
 					<td colspan="4" align="center">
-					<a href="Javascript:BuscarPaciente();"><img src="/turnos/shared/images/BuscarPaciente.png" border="0" alt="Buscar Paciente"></a>								
+					<% if l_tipo <> "M" then %>
+					<a href="Javascript:BuscarPaciente();"><img src="/turnos/shared/images/BuscarPaciente.png" border="0" alt="Buscar Paciente"></a>		
+					<% End If %>						
 
 					</td>
 					</tr>	
@@ -259,7 +267,7 @@ end select
 					<tr>
 					    <td align="right"><b>Obra Social:</b></td>
 						<td>
-							<input class="deshabinp" readonly="" type="text" name="os" size="20" maxlength="20" value="">
+							<input class="deshabinp" readonly="" type="text" name="os" size="20" maxlength="20" value="<%= l_descripcion %>">
 						</td>
 					    					
 					</tr>				
@@ -322,7 +330,7 @@ end select
 								loop
 								l_rs.Close %>
 							</select>
-							<script>document.datos.practicaid.value=0 "<%'= l_pronro %>"</script>
+							<script>document.datos.practicaid.value="<%= l_idpractica %>"</script>
 						</td>					
 					</tr>	
 					<tr>
@@ -348,7 +356,7 @@ end select
 								loop
 								l_rs.Close %>
 							</select>
-							<script>document.datos.solpor.value=0 "<%'= l_pronro %>"</script>
+							<script>document.datos.idrecursoreservable.value="<%= l_idrecursoreservable %>"</script>
 						</td>					
 					</tr>					
 					

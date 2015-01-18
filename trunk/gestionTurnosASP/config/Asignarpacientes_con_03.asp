@@ -66,13 +66,12 @@ if l_tipo = "A" then
 	l_sql = l_sql & " (idcalendario, idclientepaciente, idos, idpractica, comentario , idrecursoreservable)"
 	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idobrasocial & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ")"
 	'end if
-'else
-'	l_sql = "UPDATE clientespacientes "
-'	l_sql = l_sql & " SET apellido    = '" & l_apellido & "'"
-'	l_sql = l_sql & "    ,nombre    = '" & l_nombre & "'"
-'	l_sql = l_sql & "    ,dni    =    " & l_dni & ""
-'	l_sql = l_sql & "    ,domicilio     = '" & l_domicilio & "'"
-'	l_sql = l_sql & " WHERE id = " & l_id
+else
+	l_sql = "UPDATE turnos "
+	l_sql = l_sql & " SET idpractica    = " & l_idpractica
+	l_sql = l_sql & "    ,comentario    = '" & l_comentario & "'"
+	l_sql = l_sql & "    ,idrecursoreservable  = " & l_idrecursoreservable
+	l_sql = l_sql & " WHERE id = " & l_id
 end if
 response.write l_sql & "<br>"
 l_cm.activeconnection = Cn
