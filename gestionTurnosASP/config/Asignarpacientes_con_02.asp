@@ -214,29 +214,7 @@ end select
 		<table border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td>
-					<table cellspacing="0" cellpadding="0" border="0">
-					<!-- 
-					<tr>
-						<td align="left" colspan="4" style="font-size:20"  >
-							Servicio Local: <b><%'= l_serdes %><b>				
-						</td>																	
-					</tr>  -->						
-					<!-- 	
-					<tr>
-					    <td align="right" ><b>Legajo:</b></td>
-						<td align="left" colspan="3"  >
-						    <input type="text" name="legpar1" size="2" maxlength="2" value="<%'= l_legpar1 %>">
-						    <input type="text" name="legpar2" size="10" maxlength="10" value="<%'= l_legpar2 %>">
-						    <input type="text" name="legpar3" size="2" maxlength="2" value="<%'= l_legpar3 %>">							
-						</td>																	
-					</tr>  																
-					<tr>
-					    <td align="right" ><b>Fecha Ingreso:</b></td>
-						<td align="left" colspan="3"  >
-						    <input type="text" name="legfecing" size="10" maxlength="10" value="<%'= l_legfecing %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecing)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
-						</td>																	
-					</tr>	-->	
+					<table cellspacing="0" cellpadding="0" border="0">						
 					<tr>	
 					<td colspan="4" align="center">
 					<a href="Javascript:BuscarPaciente();"><img src="/turnos/shared/images/BuscarPaciente.png" border="0" alt="Buscar Paciente"></a>								
@@ -246,40 +224,41 @@ end select
 					<tr>
 					    <td align="right"><b>Apellido:</b></td>
 						<td>
-							<input type="text" name="apellido" size="20" maxlength="20" value="<%= l_apellido %>">							
+							<input class="deshabinp" readonly="" type="text" name="apellido" size="20" maxlength="20" value="<%= l_apellido %>">							
 						</td>
 					    <td align="right"><b>Nombre:</b></td>						
 						<td>
-							<input type="text" name="nombre" size="20" maxlength="20" value="<%= l_nombre %>">
+							<input class="deshabinp" readonly="" type="text" name="nombre" size="20" maxlength="20" value="<%= l_nombre %>">
 						</td>						
 					</tr>					
 					<tr>
 					    <td align="right"><b>D.N.I.:</b></td>
 						<td>
-							<input type="text" name="dni" size="20" maxlength="20" value="<%= l_dni %>">
+							<input class="deshabinp" readonly="" type="text" name="dni" size="20" maxlength="20" value="<%= l_dni %>">
 						</td>
 					    <td align="right"><b>Nro. Historia Cl&iacute;nica:</b></td>
 						<td>
-							<input type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%= l_nrohistoriaclinica %>">
+							<input class="deshabinp" readonly="" type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%= l_nrohistoriaclinica %>">
 						</td>						
 					</tr>
 					<tr>
 					    <td align="right"><b>Tel&eacute;fono:</b></td>
 						<td>
-							<input type="text" name="tel" size="20" maxlength="20" value="<%= l_tel %>">
+							<input class="deshabinp" readonly="" type="text" name="tel" size="20" maxlength="20" value="<%= l_tel %>">
 						</td>
 					    <td align="right"><b>Domicilio:</b></td>
 						<td>
-							<input type="text" name="domicilio" size="20" maxlength="20" value="<%= l_domicilio %>">
+							<input class="deshabinp" readonly="" type="text" name="domicilio" size="20" maxlength="20" value="<%= l_domicilio %>">
 						</td>						
 					</tr>
+				
 					<tr>
-					    <td align="right"><b>Comentario:</b></td>
-						<td colspan="3">
-							<input type="text" name="comentario" size="72" maxlength="100" value="<%= l_comentario %>">
+					    <td align="right"><b>Obra Social:</b></td>
+						<td>
+							<input class="deshabinp" readonly="" type="text" name="osid" size="20" maxlength="20" value="<%= l_tel %>">
 						</td>
-					   				
-					</tr>					
+					    					
+					</tr>				
 					
 					<!--
 					<tr>
@@ -293,27 +272,36 @@ end select
 							<input type="text" name="legtel" size="20" maxlength="20" value="<%'= l_legtel %>">
 						</td>						
 					</tr>
-					-->
+					
 					
 					<tr>
 						<td  align="right" nowrap><b>Obra Social: </b></td>
-						<td colspan="3"><select name="osid" size="1" style="width:200;">
+						<td colspan="3"><select class="deshabinp"  name="osid" size="1" style="width:200;">
 								<option value=0 selected>Seleccione una OS</option>
-								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-								l_sql = "SELECT  * "
-								l_sql  = l_sql  & " FROM obrassociales "
-								l_sql  = l_sql  & " ORDER BY descripcion "
-								rsOpen l_rs, cn, l_sql, 0
-								do until l_rs.eof		%>	
-								<option value= <%= l_rs("id") %> > 
-								<%= l_rs("descripcion") %> </option>
-								<%	l_rs.Movenext
-								loop
-								l_rs.Close %>
+								<%'Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								'l_sql = "SELECT  * "
+								'l_sql  = l_sql  & " FROM obrassociales "
+								'l_sql  = l_sql  & " ORDER BY descripcion "
+								'rsOpen l_rs, cn, l_sql, 0
+								'do until l_rs.eof		%>	
+								<option value= <%'= l_rs("id") %> > 
+								<%'= l_rs("descripcion") %> </option>
+								<%'	l_rs.Movenext
+								'loop
+								'l_rs.Close %>
 							</select>
 							<script>document.datos.osid.value=0 "<%'= l_pronro %>"</script>
 						</td>					
 					</tr>
+					-->
+					<tr>
+						<td>&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td>&nbsp;
+						</td>
+					</tr>										
 					<tr>
 						<td  align="right" nowrap><b>Practica: </b></td>
 						<td colspan="3"><select name="practicaid" size="1" style="width:200;">
@@ -333,6 +321,13 @@ end select
 							<script>document.datos.practicaid.value=0 "<%'= l_pronro %>"</script>
 						</td>					
 					</tr>	
+					<tr>
+					    <td align="right"><b>Comentario:</b></td>
+						<td colspan="3">
+							<input type="text" name="comentario" size="72" maxlength="100" value="<%= l_comentario %>">
+						</td>
+					   				
+					</tr>						
 					<tr>
 						<td  align="right" nowrap><b>Solicitado por : </b></td>
 						<td colspan="3"><select name="idrecursoreservable" size="1" style="width:200;">

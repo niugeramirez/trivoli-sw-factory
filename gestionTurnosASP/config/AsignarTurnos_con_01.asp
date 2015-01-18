@@ -136,7 +136,7 @@ if l_rs.eof then
 				  <% if l_rs("estado") = "ANULADO" then ' si esta bloquado: solo desbloquear &acirc; %>	
 				  <a href="Javascript:parent.abrirVentana('AnularTurno_con_02.asp?Tipo=D&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/turnos/shared/images/candadoabierto.jpg" border="0" alt="Desbloquear Turno"></a>						
 				  <% Else  %>
-				  	<a href="Javascript:parent.abrirVentana('Asignarpacientes_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value ,'',600,300);"><img src="/turnos/shared/images/AsignarTurno.png" border="0" alt="Asignar Turno"></a>
+				  	<a href="Javascript:parent.abrirVentana('Asignarpacientes_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value ,'',600,350);"><img src="/turnos/shared/images/AsignarTurno.png" border="0" alt="Asignar Turno"></a>
 				  	<% if l_rs("estado") = "ACTIVO" and isnull(l_rs("idclientepaciente")) then  ' puede cancelar, transferir  %>				  
 				  		<a href="Javascript:parent.abrirVentana('AnularTurno_con_02.asp?Tipo=B&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/turnos/shared/images/candado.jpg" border="0" alt="Bloquear Turno"></a>	
 				  	<% End If %>	
