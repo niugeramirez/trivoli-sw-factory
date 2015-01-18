@@ -135,7 +135,7 @@ function invalido(texto){
 }
 
 
-function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, tel){
+function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, tel, os){
 	document.datos.pacienteid.value = id;
 	document.datos.apellido.value = apellido;
 	document.datos.nombre.value = nombre;
@@ -143,6 +143,7 @@ function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicil
 	document.datos.dni.value = dni;
 	document.datos.domicilio.value = domicilio;
 	document.datos.tel.value = tel;
+	document.datos.osid.value = os;
 	//document.datos.coudes.focus();
 }
 
