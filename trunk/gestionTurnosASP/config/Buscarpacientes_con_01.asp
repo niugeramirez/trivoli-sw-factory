@@ -57,9 +57,9 @@ function Seleccionar(fila,cabnro){
 }
 
 
-function AsignarPaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, telefono, os){
+function AsignarPaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, telefono, osid,  os){
 //alert(apellido);
- parent.opener.EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, telefono, os);
+ parent.opener.EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, telefono,osid,  os);
 	//opener.parent.document.datos.apellido = 'ra';
 	window.parent.close();
 }
@@ -84,7 +84,7 @@ function AsignarPaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicili
 l_filtro = replace (l_filtro, "*", "%")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
-l_sql = "SELECT    * "
+l_sql = "SELECT    clientespacientes.id id, clientespacientes.* , obrassociales.id osid , obrassociales.descripcion "
 l_sql = l_sql & " FROM clientespacientes "
 l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
 'l_sql = l_sql & " LEFT JOIN ser_medida       ON ser_legajo.mednro = ser_medida.mednro "
@@ -108,7 +108,7 @@ if l_rs.eof then
 	do until l_rs.eof
 		l_cant = l_cant + 1
 	%>
-	    <tr ondblclick="Javascript:AsignarPaciente('<%= l_rs("id")%>','<%= l_rs("apellido")%>','<%= l_rs("nombre")%>', '<%= l_rs("nrohistoriaclinica")%>', '<%= l_rs("dni")%>', '<%= l_rs("domicilio")%>' , '<%= l_rs("telefono")%>' , '<%= l_rs("descripcion")%>' )" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
+	    <tr ondblclick="Javascript:AsignarPaciente('<%= l_rs("id")%>','<%= l_rs("apellido")%>','<%= l_rs("nombre")%>', '<%= l_rs("nrohistoriaclinica")%>', '<%= l_rs("dni")%>', '<%= l_rs("domicilio")%>' , '<%= l_rs("telefono")%>' , '<%= l_rs("osid")%>' , '<%= l_rs("descripcion")%>' )" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
 	        <!--<td width="10%" nowrap><%'= l_rs("buqnro")%></td>		-->
 			<!-- <td width="2%" nowrap><%'= l_cant %></td>
 	        <td width="10%" nowrap><%'= l_rs("legpar1")%>-<%'= l_rs("legpar2")%>/<%'= l_rs("legpar3")%></td>			-->

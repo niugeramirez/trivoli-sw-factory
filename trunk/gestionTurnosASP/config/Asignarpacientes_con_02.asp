@@ -135,7 +135,7 @@ function invalido(texto){
 }
 
 
-function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, tel, os){
+function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, tel, osid, os){
 	document.datos.pacienteid.value = id;
 	document.datos.apellido.value = apellido;
 	document.datos.nombre.value = nombre;
@@ -143,7 +143,8 @@ function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicil
 	document.datos.dni.value = dni;
 	document.datos.domicilio.value = domicilio;
 	document.datos.tel.value = tel;
-	document.datos.osid.value = os;
+	document.datos.osid.value = osid;
+	document.datos.os.value = os;
 	//document.datos.coudes.focus();
 }
 
@@ -203,6 +204,8 @@ end select
 <input type="hidden" name="id" value="<%= l_id %>">
 <input type="hidden" name="pacienteid" value="<%'= l_id %>">
 
+<input type="hidden" name="osid" value="<%= l_idobrasocial %>">
+
 <table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
 <tr>
     <td class="th2" nowrap>&nbsp;</td>
@@ -256,7 +259,7 @@ end select
 					<tr>
 					    <td align="right"><b>Obra Social:</b></td>
 						<td>
-							<input class="deshabinp" readonly="" type="text" name="osid" size="20" maxlength="20" value="<%= l_tel %>">
+							<input class="deshabinp" readonly="" type="text" name="os" size="20" maxlength="20" value="">
 						</td>
 					    					
 					</tr>				
