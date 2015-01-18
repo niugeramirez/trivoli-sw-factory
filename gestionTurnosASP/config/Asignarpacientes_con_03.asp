@@ -55,17 +55,17 @@ end if
 
 set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
-    if l_pacienteid = -1 then
-	l_sql = "INSERT INTO turnos "
-	l_sql = l_sql & " (idcalendario, idclientepaciente, idos, idpractica, apellido, nombre, dni, domicilio, telefono, comentario, idrecursoreservable)"
-	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idobrasocial & "," & l_idpractica & ",'" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel & "','" & l_comentario  & "'," & l_idrecursoreservable & ")"	
+    'if l_pacienteid = -1 then
+	'l_sql = "INSERT INTO turnos "
+	'l_sql = l_sql & " (idcalendario, idclientepaciente, idos, idpractica, apellido, nombre, dni, domicilio, telefono, comentario, idrecursoreservable)"
+	'l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idobrasocial & "," & l_idpractica & ",'" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel & "','" & l_comentario  & "'," & l_idrecursoreservable & ")"	
 	
-	else
+	'else
 	
 	l_sql = "INSERT INTO turnos "
 	l_sql = l_sql & " (idcalendario, idclientepaciente, idos, idpractica, comentario , idrecursoreservable)"
 	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idobrasocial & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ")"
-	end if
+	'end if
 'else
 '	l_sql = "UPDATE clientespacientes "
 '	l_sql = l_sql & " SET apellido    = '" & l_apellido & "'"
