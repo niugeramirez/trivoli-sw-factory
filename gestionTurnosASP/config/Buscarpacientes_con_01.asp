@@ -20,6 +20,7 @@ Dim l_primero
 l_filtro = request("filtro")
 l_orden  = request("orden")
 
+
 if l_orden = "" then
   l_orden = " ORDER BY apellido, nombre "
 end if
