@@ -57,9 +57,9 @@ function Seleccionar(fila,cabnro){
 }
 
 
-function AsignarPaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, telefono){
+function AsignarPaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, telefono, os){
 //alert(apellido);
- parent.opener.EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, telefono);
+ parent.opener.EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, telefono, os);
 	//opener.parent.document.datos.apellido = 'ra';
 	window.parent.close();
 }
@@ -70,8 +70,8 @@ function AsignarPaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicili
 <table>
     <tr>
          <!-- <th>&nbsp;</th>
-        <th>Legajo</th>	
-        <th>Fec. Ingreso</th>  -->	
+        <th>Legajo</th>	-->
+        <th>&nbsp;</th>  	
         <th>Apellido</th>
         <th>Nombre</th>		
         <th>Nro. Hist. Cl&iacute;nica</th>		
@@ -86,7 +86,7 @@ l_filtro = replace (l_filtro, "*", "%")
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 l_sql = "SELECT    * "
 l_sql = l_sql & " FROM clientespacientes "
-'l_sql = l_sql & " LEFT JOIN ser_problematica ON ser_legajo.pronro = ser_problematica.pronro "
+l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
 'l_sql = l_sql & " LEFT JOIN ser_medida       ON ser_legajo.mednro = ser_medida.mednro "
 
 if l_filtro <> "" then
@@ -108,11 +108,11 @@ if l_rs.eof then
 	do until l_rs.eof
 		l_cant = l_cant + 1
 	%>
-	    <tr ondblclick="Javascript:AsignarPaciente('<%= l_rs("id")%>','<%= l_rs("apellido")%>','<%= l_rs("nombre")%>', '<%= l_rs("nrohistoriaclinica")%>', '<%= l_rs("dni")%>', '<%= l_rs("domicilio")%>' , '<%= l_rs("telefono")%>')" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
+	    <tr ondblclick="Javascript:AsignarPaciente('<%= l_rs("id")%>','<%= l_rs("apellido")%>','<%= l_rs("nombre")%>', '<%= l_rs("nrohistoriaclinica")%>', '<%= l_rs("dni")%>', '<%= l_rs("domicilio")%>' , '<%= l_rs("telefono")%>' , '<%= l_rs("descripcion")%>' )" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
 	        <!--<td width="10%" nowrap><%'= l_rs("buqnro")%></td>		-->
 			<!-- <td width="2%" nowrap><%'= l_cant %></td>
-	        <td width="10%" nowrap><%'= l_rs("legpar1")%>-<%'= l_rs("legpar2")%>/<%'= l_rs("legpar3")%></td>			
-	        <td width="10%" nowrap><%'= l_rs("legfecing")%></td>  -->
+	        <td width="10%" nowrap><%'= l_rs("legpar1")%>-<%'= l_rs("legpar2")%>/<%'= l_rs("legpar3")%></td>			-->
+	        <td width="1%" nowrap><a href="Javascript:parent.abrirVentana('Editarpacientes_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value ,'',600,250);"><img src="/turnos/shared/images/cal.gif" border="0" alt="Editar Paciente"></a> </td>  
 	        <td width="10%" nowrap><%= l_rs("apellido")%></td>
 	        <td width="10%" nowrap><%= l_rs("nombre")%></td>		
 	        <td width="10%" align="center"><%= l_rs("nrohistoriaclinica")%></td>								

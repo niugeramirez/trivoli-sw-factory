@@ -173,6 +173,37 @@ function Buscar(){
 }
 
 
+function VolverdelAltaPaciente(ape){
+
+	var tieneotro;
+	var estado;
+	document.datos.filtro.value = "";
+	tieneotro = "no";
+	estado = "si";
+
+	
+	document.datos.legape.value = ape;
+	
+	// Apellido
+	if (document.datos.legape.value != 0){
+		if (tieneotro == "si"){
+			document.datos.filtro.value += " AND clientespacientes.apellido like '*" + document.datos.legape.value + "*'";
+		}else{
+			document.datos.filtro.value += " clientespacientes.apellido like '*" + document.datos.legape.value + "*'";
+		}
+		tieneotro = "si";
+	}		
+		
+
+	//alert(document.datos.filtro.value);
+	
+	if (estado == "si"){
+		window.ifrm.location = 'Buscarpacientes_con_01.asp?asistente=0&filtro=' + document.datos.filtro.value;
+	}
+}
+
+
+
 function Nuevo_Dialogo(w_in, pagina, ancho, alto)
 {
  return w_in.showModalDialog(pagina,'', 'center:yes;dialogWidth:' + ancho.toString() + ';dialogHeight:' + alto.toString() + ';');
@@ -183,6 +214,10 @@ function Ayuda_Fecha(txt)
 
  if (jsFecha == null) txt.value = ''
  else txt.value = jsFecha;
+}
+
+function AltaPaciente(){
+	abrirVentana('Editarpacientes_con_02.asp?Tipo=A','',600,250);
 }
 
 function Limpiar(){
@@ -203,16 +238,6 @@ function Limpiar(){
 	window.ifrm.location = 'pacientes_con_01.asp';
 }
 
-function Contenido(){ 
-	if (document.ifrm.datos.cabnro.value == 0) {
-		alert("Debe seleccionar un Buque")
-		return;
-	}		
-	else {
-		abrirVentana("contenidos_con_00.asp?buqnro=" + document.ifrm.datos.cabnro.value,'',780,580);	
-	}		
-	
-}
 
 function fnctrnum(valor){
 	if (valor == 0){
@@ -224,9 +249,6 @@ function fnctrnum(valor){
 	}
 }
 
-function TotalVolumen(valor){
-	document.datos.totvol.value =  valor;
-}
 
 
 </script>
@@ -236,6 +258,8 @@ function TotalVolumen(valor){
         <tr style="border-color :CadetBlue;">
           <td align="left" class="barra">&nbsp;</td>
           <td nowrap align="right" class="barra">
+
+			<a href="Javascript:AltaPaciente();">Alta Paciente</a>	
 		  	  
 		  <!--
 		  <a class=sidebtn href="Javascript:orden('../../config/contracts_con_01.asp');">Orden</a>
@@ -323,7 +347,18 @@ function TotalVolumen(valor){
 						<td align="right"><b>D.N.I.: </b></td>
 						<td><input  type="text" name="legdni" size="21" maxlength="21" value="" >
 						</td>						
-						<td align="right" colspan="2" >&nbsp;</td>
+						<td align="right" colspan="2" >
+						<table border="0" cellpadding="0" cellspacing="0" bgcolor="Navy">
+								<tr>
+								
+										<!--<td ><img src="../shared/images/gen_rep/boton_01.gif" width="5.9"></td>-->
+										<td ><a class="sidebtnABM" href="Javascript:Buscar();">Filtrar</a></td>
+										<!--<td  background="../shared/images/gen_rep/boton_05.gif"><img src="../shared/images/gen_rep/boton_03.gif" height="15"></td>-->
+										<td ><a class="sidebtnABM" href="Javascript:Limpiar();">Limpiar</a></td>
+										<!--<td ><img src="../shared/images/gen_rep/boton_06.gif"></td>-->
+								</tr>
+							</table>
+						</td>
 					</tr>					
 
 
@@ -340,19 +375,8 @@ function TotalVolumen(valor){
 							<script> document.datos.ctrnum.value= "0"</script>
 						</td>
 						-->
-
-						<td align="right" colspan="2">
-							<table border="0" cellpadding="0" cellspacing="0" bgcolor="Navy">
-								<tr>
-								
-										<!--<td ><img src="../shared/images/gen_rep/boton_01.gif" width="5.9"></td>-->
-										<td ><a class="sidebtnABM" href="Javascript:Buscar();">Filtrar</a></td>
-										<!--<td  background="../shared/images/gen_rep/boton_05.gif"><img src="../shared/images/gen_rep/boton_03.gif" height="15"></td>-->
-										<td ><a class="sidebtnABM" href="Javascript:Limpiar();">Limpiar</a></td>
-										<!--<td ><img src="../shared/images/gen_rep/boton_06.gif"></td>-->
-								</tr>
-							</table>
-						</td>
+						
+												
 					</tr>					
 
 				</table>
