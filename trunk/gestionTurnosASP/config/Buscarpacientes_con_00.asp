@@ -147,14 +147,14 @@ function Buscar(){
 		tieneotro = "si";
 	}					
 	// Domicilio
-	if (document.datos.legdom.value != 0){
+	/*if (document.datos.legdom.value != 0){
 		if (tieneotro == "si"){
 			document.datos.filtro.value += " AND clientespacientes.domicilio like '*" + document.datos.legdom.value + "*'";
 		}else{
 			document.datos.filtro.value += " clientespacientes.domicilio like '*" + document.datos.legdom.value + "*'";
 		}
 		tieneotro = "si";
-	}		/*
+	}		
 	// Medida de Proteccion
 	if (document.datos.mednro.value != 0){
 		if (tieneotro == "si"){
@@ -320,13 +320,10 @@ function TotalVolumen(valor){
 						</td>	
 					</tr>
 					<tr>
-						<td align="right"><b>Domicilio: </b></td>
-						<td ><input  type="text" name="legdom" size="21" maxlength="21" value="" >
-						</td>
 						<td align="right"><b>D.N.I.: </b></td>
 						<td><input  type="text" name="legdni" size="21" maxlength="21" value="" >
 						</td>						
-
+						<td align="right" colspan="2" >&nbsp;</td>
 					</tr>					
 
 
@@ -364,7 +361,7 @@ function TotalVolumen(valor){
 		
         <tr valign="top" height="100%">
           <td colspan="2" style="" width="100%">
-      	  <iframe scrolling="yes" name="ifrm" src="buscarpacientes_con_01.asp" width="100%" height="100%"></iframe> 
+      	  <iframe scrolling="yes" name="ifrm" src="" width="100%" height="100%"></iframe> 
 	      </td>
         </tr>		
 			</form>		
