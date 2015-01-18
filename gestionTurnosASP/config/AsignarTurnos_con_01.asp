@@ -124,7 +124,7 @@ if l_rs.eof then
 		l_cant = l_cant + 1
 		
 	%>
-	    <tr  onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>,<%= l_rs("turnoid")%>)">
+	    <tr ondblclick="Javascript:parent.abrirVentana('Asignarpacientes_con_02.asp?Tipo=M&cabnro=<%= l_rs("turnoid")%>' ,'',600,350);"  onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>,<%= l_rs("turnoid")%>)">
 			
 	        <td align="center" width="10%" nowrap>
 			<% if l_fechahorainicio <> l_rs("fechahorainicio") then 
