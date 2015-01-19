@@ -128,6 +128,15 @@ function Buscar(){
 		}
 		tieneotro = "si";
 	}		
+	// Nombre
+	if (document.datos.legnom.value != 0){
+		if (tieneotro == "si"){
+			document.datos.filtro.value += " AND clientespacientes.nombre like '*" + document.datos.legnom.value + "*'";
+		}else{
+			document.datos.filtro.value += " clientespacientes.nombre like '*" + document.datos.legnom.value + "*'";
+		}
+		tieneotro = "si";
+	}		
 	// Nro. Historia Clinica
 	if (document.datos.nrohistoriaclinica.value != 0){
 		if (tieneotro == "si"){
@@ -140,9 +149,9 @@ function Buscar(){
 	// DNI
 	if (document.datos.legdni.value != 0){
 		if (tieneotro == "si"){
-			document.datos.filtro.value += " AND clientespacientes.dni = '" + document.datos.legdni.value + "'";
+			document.datos.filtro.value += " AND clientespacientes.dni like '*" + document.datos.legdni.value + "*'";
 		}else{
-			document.datos.filtro.value += " clientespacientes.dni = '" + document.datos.legdni.value + "'";
+			document.datos.filtro.value += " clientespacientes.dni like '*" + document.datos.legdni.value + "*'";
 		}
 		tieneotro = "si";
 	}					
@@ -165,7 +174,12 @@ function Buscar(){
 		tieneotro = "si";
 	}		*/					
 
-	//alert(document.datos.filtro.value);
+	
+	if (Trim(document.datos.filtro.value) == ""){
+		alert("Debe ingresar el Filtro.");
+		document.datos.legape.focus();
+		return;
+	}
 	
 	if (estado == "si"){
 		window.ifrm.location = 'Buscarpacientes_con_01.asp?asistente=0&filtro=' + document.datos.filtro.value;
@@ -338,15 +352,24 @@ function fnctrnum(valor){
 						<td align="right"><b>Apellido: </b></td>
 						<td><input  type="text" name="legape" size="21" maxlength="21" value="" >
 						</td>
-					    <td align="right"><b>Nro. Historia Cl&iacute;nica:</b></td>
-						<td>
-							<input type="text" name="nrohistoriaclinica" size="21" value="">
-						</td>	
+						<td align="right"><b>Nombre: </b></td>
+						<td><input  type="text" name="legnom" size="21" maxlength="21" value="" >
+						</td>					
+
 					</tr>
 					<tr>
 						<td align="right"><b>D.N.I.: </b></td>
 						<td><input  type="text" name="legdni" size="21" maxlength="21" value="" >
-						</td>						
+						</td>		
+					    <td align="right"><b>Nro. Historia Cl&iacute;nica:</b></td>
+						<td>
+							<input type="text" name="nrohistoriaclinica" size="21" value="">
+						</td>											
+					</tr>			
+							
+
+
+					<tr>
 						<td align="right" colspan="2" >
 						<table border="0" cellpadding="0" cellspacing="0" bgcolor="Navy">
 								<tr>
@@ -359,22 +382,7 @@ function fnctrnum(valor){
 								</tr>
 							</table>
 						</td>
-					</tr>					
 
-
-					<tr>
-					<!--					
-						<td align="right"><b>Ctr. Nmbr: </b></td>
-						<td><select name="ctrnum" size="1" onchange="fnctrnum(document.datos.ctrnum.value)">
-								<option value=0 >Todos</option>
-								<option value=1 >Comienza con</option>
-								<option value=2 >Contiene</option>
-								<option value=3 >Igual a</option>
-							<input type="Text" name="txtctrnum" maxlength="20" style="width:100" disabled class="deshabinp">
-							</select>
-							<script> document.datos.ctrnum.value= "0"</script>
-						</td>
-						-->
 						
 												
 					</tr>					
