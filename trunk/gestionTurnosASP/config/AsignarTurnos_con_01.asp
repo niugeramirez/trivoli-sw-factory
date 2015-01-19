@@ -92,7 +92,7 @@ l_rs.close
 
 
 l_sql = "SELECT   calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
-l_sql = l_sql & " , clientespacientes.id clientespacientesid,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono"
+l_sql = l_sql & " , clientespacientes.id clientespacientesid,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono, clientespacientes.nrohistoriaclinica nrohistoriaclinica"
 l_sql = l_sql & " ,  obrassociales.descripcion osnombre, practicas.descripcion practicanombre"
 l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente"
 l_sql = l_sql & " FROM calendarios "
@@ -187,14 +187,14 @@ if l_rs.eof then
 			
 			
 				<% if l_rs("idclientepaciente") <> -1 then ' si esta asignado a un paciente: cancelar el paciente , transferir %>
-			    <td <%= l_fondo  %> width="10%" nowrap><%= l_rs("apellido")%>,&nbsp;<%= l_rs("nombre")%></td>	
+			    <td <%= l_fondo  %> width="10%" nowrap><% If clng(l_rs("nrohistoriaclinica")) = 0 or isnull(l_rs("nrohistoriaclinica")) then %>  <img src="/turnos/shared/images/mas.png" border="0" alt="Paciente Nuevo"> <% End If %> <%= l_rs("apellido")%>,&nbsp;<%= l_rs("nombre")%></td>	
 				<td <%= l_fondo  %> width="10%" nowrap><%= l_rs("telefono")%></td>
 				<td <%= l_fondo  %> width="10%" nowrap><%= l_rs("practicanombre")%></td>					
 				<td <%= l_fondo  %> width="10%" nowrap><%= l_rs("osnombre")%></td>		
 				<% End If %>
 				
 		        <td align="center" width="10%" nowrap>
-									   <a href="Javascript:parent.abrirVentana('Editarpacientes_con_02.asp?Tipo=M&cabnro=<%= l_rs("clientespacientesid")%>' ,'',600,250);"><img src="/turnos/shared/images/check_48.png" border="0" alt="Editar Paciente"></a>
+									   <!--<a href="Javascript:parent.abrirVentana('Editarpacientes_con_02.asp?Tipo=M&cabnro=<%'= l_rs("clientespacientesid")%>' ,'',600,250);"><img src="/turnos/shared/images/check_48.png" border="0" alt="Editar Paciente"></a> -->
 				                       <a href="Javascript:parent.abrirVentana('CancelarTurnos_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value + '&turnoid=' + datos.idturno.value,'',600,300);"><img src="/turnos/shared/images/cancelarturno.png" border="0" alt="Cancelar Turno"></a>
 	                                   <a href="Javascript:parent.abrirVentana('TransferirTurnos_con_00.asp?Tipo=A&cabnro=<%= l_rs("turnoid")%>' ,'',800,600);"><img src="/turnos/shared/images/transferirturno.png" border="0" alt="Transferir Turno"></a>											   
 									   </td>	
