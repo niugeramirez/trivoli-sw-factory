@@ -57,14 +57,14 @@ set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
     'if l_pacienteid = -1 then
 	'l_sql = "INSERT INTO turnos "
-	'l_sql = l_sql & " (idcalendario, idclientepaciente, idos, idpractica, apellido, nombre, dni, domicilio, telefono, comentario, idrecursoreservable)"
+	'l_sql = l_sql & " (idcalendario, idclientepaciente, idpractica, apellido, nombre, dni, domicilio, telefono, comentario, idrecursoreservable)"
 	'l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idobrasocial & "," & l_idpractica & ",'" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel & "','" & l_comentario  & "'," & l_idrecursoreservable & ")"	
 	
 	'else
 	
 	l_sql = "INSERT INTO turnos "
-	l_sql = l_sql & " (idcalendario, idclientepaciente, idos, idpractica, comentario , idrecursoreservable)"
-	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idobrasocial & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ")"
+	l_sql = l_sql & " (idcalendario, idclientepaciente, idpractica, comentario , idrecursoreservable)"
+	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ")"
 	'end if
 else
 	l_sql = "UPDATE turnos "

@@ -177,7 +177,7 @@ select Case l_tipo
 	    	l_domicilio     = ""
 			l_tel           = ""
 			l_idobrasocial  = ""
-			idrecursoreservable = ""
+			l_idrecursoreservable = ""
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
