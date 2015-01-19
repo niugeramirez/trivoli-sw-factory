@@ -234,7 +234,7 @@ function TotalVolumen(valor){
 		  &nbsp;&nbsp;
           <% call MostrarBoton ("opcionbtn", "Javascript:abrirVentanaVerif('recursosreservables_con_02.asp?Tipo=M&cabnro=' + document.ifrm.datos.cabnro.value,'',650,250);","Modifica")%>
 		  &nbsp;&nbsp;
-		  <% call MostrarBoton ("opcionbtn", "Javascript:abrirVentanaVerif('calendarios_con_00.asp?id=' + document.ifrm.datos.cabnro.value,'',650,250);","Calendarios")%>
+		  <% 'call MostrarBoton ("opcionbtn", "Javascript:abrirVentanaVerif('calendarios_con_00.asp?id=' + document.ifrm.datos.cabnro.value,'',650,250);","Calendarios")%>
           <%' call MostrarBoton ("sidebtnSHW", "Javascript:llamadaexcel();","Excel")%>
 		  &nbsp;&nbsp;
           <%' call MostrarBoton ("opcionbtn", "Javascript:Contenido();","Contenido")%>		  
