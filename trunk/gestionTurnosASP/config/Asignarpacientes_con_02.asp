@@ -8,6 +8,7 @@ on error goto 0
 'Datos del formulario
 
 dim l_id
+dim l_clientepacienteid
 dim l_apellido
 dim l_nombre  
 dim l_nrohistoriaclinica
@@ -59,18 +60,18 @@ if (document.datos.nombre.value == ""){
 	document.datos.nombre.focus();
 	return;
 }
-
+/*
 if (document.datos.dni.value == ""){
 	alert("Debe ingresar el DNI del Paciente.");
 	document.datos.dni.focus();
 	return;
 }
-
 if (document.datos.domicilio.value == ""){
 	alert("Debe ingresar el Domicilio del Paciente.");
 	document.datos.domicilio.focus();
 	return;
 }
+*/
 if (document.datos.tel.value == ""){
 	alert("Debe ingresar el Telefono del Paciente.");
 	document.datos.tel.focus();
@@ -179,6 +180,7 @@ select Case l_tipo
 			l_tel           = ""
 			l_idobrasocial  = ""
 			l_idrecursoreservable = "0"
+			l_clientepacienteid = "0"
 			
 			l_sql = "SELECT  * "
 			l_sql = l_sql & " FROM config "
@@ -194,13 +196,18 @@ select Case l_tipo
 	Case "M":
 		
 		l_id = request.querystring("cabnro")
-		l_sql = "SELECT  turnos.*, clientespacientes.id clientepacienteid, clientespacientes.* , obrassociales.id idobrasocial , obrassociales.descripcion"
+		l_sql = "SELECT  turnos.id id , turnos.idpractica, turnos.idrecursoreservable, turnos.comentario "
+		l_sql = l_sql & " , clientespacientes.id clientepacienteid, clientespacientes.apellido, clientespacientes.nombre , clientespacientes.nrohistoriaclinica "
+		l_sql = l_sql & " , clientespacientes.dni , clientespacientes.domicilio, clientespacientes.telefono , clientespacientes.idobrasocial "
+		l_sql = l_sql & " , obrassociales.id idobrasocial , obrassociales.descripcion "
 		l_sql = l_sql & " FROM turnos "
 		l_sql = l_sql & " INNER JOIN clientespacientes ON clientespacientes.id = turnos.idclientepaciente" 
 		l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
 		l_sql  = l_sql  & " WHERE turnos.id = " & l_id
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
+			l_id            = l_rs("id")
+			l_clientepacienteid = l_rs("clientepacienteid")
 	    	l_apellido      = l_rs("apellido")
 	    	l_nombre        = l_rs("nombre")
 			l_nrohistoriaclinica = l_rs("nrohistoriaclinica")
@@ -211,6 +218,7 @@ select Case l_tipo
 			l_descripcion   = l_rs("descripcion")
 			l_idpractica    = l_rs("idpractica")
 			l_idrecursoreservable = l_rs("idrecursoreservable")
+			'response.write l_idrecursoreservable
 			l_comentario = l_rs("comentario")
 			
 		end if
@@ -221,7 +229,7 @@ end select
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" <% if l_tipo <> "M" then %> onload="javascript:BuscarPaciente();" <% End If %>>
 <form name="datos" action="Asignarpacientes_con_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">
 <input type="hidden" name="id" value="<%= l_id %>">
-<input type="hidden" name="pacienteid" value="<%'= l_id %>">
+<input type="hidden" name="pacienteid" value="<%= l_clientepacienteid %>">
 
 <input type="hidden" name="osid" value="<%= l_idobrasocial %>">
 
@@ -283,7 +291,7 @@ end select
 							<input class="deshabinp" readonly="" type="text" name="os" size="20" maxlength="20" value="<%= l_descripcion %>">
 						</td>
 						<td colspan="2" align="left"><a href="Javascript:parent.abrirVentana('Editarpacientes_con_02.asp?Tipo=M&cabnro='+document.datos.pacienteid.value ,'',600,250);"><img src="/turnos/shared/images/AsignarTurno.png" border="0" alt="Editar Paciente"></a></td>
-						 
+				 
 					    					
 					</tr>				
 					
