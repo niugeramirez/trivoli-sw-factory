@@ -65,6 +65,7 @@ function llamadaexcel(){
           <% call MostrarBoton ("sidebtnABM", "Javascript:eliminarRegistro(document.ifrm,'obrassociales_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>&nbsp;
           <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('obrassociales_02.asp?Tipo=M&cabnro=' + document.ifrm.datos.cabnro.value,'',550,200);","Modifica")%>
 		  &nbsp;&nbsp;
+  		  <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('listadeprecios_con_00.asp?id=' + document.ifrm.datos.cabnro.value,'',520,200);","Lista de Precios")%>
           <%' call MostrarBoton ("sidebtnSHW", "Javascript:llamadaexcel();","Excel")%>
 		  <!--
 		  <a class=sidebtnSHW href="Javascript:orden('../../config/obrassociales_con_01.asp');">Orden</a>
