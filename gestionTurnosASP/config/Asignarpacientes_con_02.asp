@@ -169,6 +169,7 @@ function BuscarPaciente(){
 
 </script>
 <% 
+Set l_rs = Server.CreateObject("ADODB.RecordSet")
 select Case l_tipo
 	Case "A":
  	    	l_apellido      = ""
@@ -177,9 +178,21 @@ select Case l_tipo
 	    	l_domicilio     = ""
 			l_tel           = ""
 			l_idobrasocial  = ""
-			l_idrecursoreservable = ""
+			l_idrecursoreservable = "0"
+			
+			l_sql = "SELECT  * "
+			l_sql = l_sql & " FROM config "
+			rsOpen l_rs, cn, l_sql, 0 
+			if not l_rs.eof then
+		    	l_idpractica = l_rs("idpractica")
+		    else
+				l_idpractica = "0"
+			end if
+			l_rs.Close			
+			
+			
 	Case "M":
-		Set l_rs = Server.CreateObject("ADODB.RecordSet")
+		
 		l_id = request.querystring("cabnro")
 		l_sql = "SELECT  turnos.*, clientespacientes.id clientepacienteid, clientespacientes.* , obrassociales.id idobrasocial , obrassociales.descripcion"
 		l_sql = l_sql & " FROM turnos "
@@ -269,6 +282,8 @@ end select
 						<td>
 							<input class="deshabinp" readonly="" type="text" name="os" size="20" maxlength="20" value="<%= l_descripcion %>">
 						</td>
+						<td colspan="2" align="left"><a href="Javascript:parent.abrirVentana('Editarpacientes_con_02.asp?Tipo=M&cabnro='+document.datos.pacienteid.value ,'',600,250);"><img src="/turnos/shared/images/AsignarTurno.png" border="0" alt="Editar Paciente"></a></td>
+						 
 					    					
 					</tr>				
 					
@@ -315,7 +330,7 @@ end select
 						</td>
 					</tr>										
 					<tr>
-						<td  align="right" nowrap><b>Practica: </b></td>
+						<td  align="right" nowrap><b>Practica (*): </b></td>
 						<td colspan="3"><select name="practicaid" size="1" style="width:200;">
 								<option value=0 selected>Seleccione una Practica</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
@@ -343,7 +358,7 @@ end select
 					<tr>
 						<td  align="right" nowrap><b>Solicitado por : </b></td>
 						<td colspan="3"><select name="idrecursoreservable" size="1" style="width:200;">
-								<option value=0 selected>Seleccione un Recurso</option>
+								<option value=0 selected>Ningun Profesional</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM recursosreservables "
