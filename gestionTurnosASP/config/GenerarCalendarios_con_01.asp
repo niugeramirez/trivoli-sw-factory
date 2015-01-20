@@ -216,7 +216,6 @@ function Seleccionar(fila,cabnro){
 		<th>Hora Hasta</th>
         <th>Paciente</th>	
         <th>Practica</th>	
-        <th>Obra Social</th>
 	
 	
     </tr>
@@ -226,12 +225,11 @@ l_filtro = replace (l_filtro, "*", "%")
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 l_sql = "SELECT * " ' calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
 l_sql = l_sql & " ,  clientespacientes.apellido, clientespacientes.nombre"
-l_sql = l_sql & " ,  obrassociales.descripcion osnombre, practicas.descripcion practicanombre"
+l_sql = l_sql & " ,  practicas.descripcion practicanombre"
 'l_sql = l_sql & " ,  turnos.id turnoid, turnos.idclientepaciente, turnos.apellido turnoapellido , turnos.nombre turnonombre, turnos.dni turnodni , turnos.domicilio turnodomicilio"
 l_sql = l_sql & " FROM calendarios "
 l_sql = l_sql & " LEFT JOIN turnos ON turnos.idcalendario = calendarios.id "
 l_sql = l_sql & " LEFT JOIN clientespacientes ON clientespacientes.id = turnos.idclientepaciente "
-l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = turnos.idos "
 l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = turnos.idpractica "
 'l_sql = l_sql & " LEFT JOIN ser_medida       ON ser_legajo.mednro = ser_medida.mednro "
 
@@ -259,8 +257,7 @@ if l_rs.eof then
 	        <td width="10%" nowrap align="center"><%= l_rs("fechahorainicio")%></td>	
 			<td width="10%" nowrap align="center"><%= l_rs("fechahorafin")%></td>
 			<td width="10%" nowrap>&nbsp;<%= l_rs("apellido")%></td>
-			<td width="10%" nowrap>&nbsp;<%= l_rs("practicanombre")%></td>	
-			<td width="10%" nowrap>&nbsp;<%= l_rs("osnombre")%></td>				
+			<td width="10%" nowrap>&nbsp;<%= l_rs("practicanombre")%></td>								
 							   
 	    </tr>
 	<%
