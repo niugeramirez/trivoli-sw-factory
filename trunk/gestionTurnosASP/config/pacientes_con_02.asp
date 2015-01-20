@@ -51,35 +51,44 @@ if (document.datos.nombre.value == ""){
 	return;
 }
 
-if (document.datos.nrohistoriaclinica.value == ""){
-	alert("Debe ingresar el Nro. de Historia Clinica.");
-	document.datos.nrohistoriaclinica.focus();
-	return;
-}
-
 if (document.datos.dni.value == ""){
 	alert("Debe ingresar el DNI del Paciente.");
 	document.datos.dni.focus();
 	return;
 }
+if (isNaN(document.datos.dni.value)) {
+	alert("El D.N.I. debe ser numerico.");
+	document.datos.dni.focus();
+	return;
+}
 
+if (document.datos.nrohistoriaclinica.value == ""){
+	alert("Debe ingresar el Nro de Historia Clinica o ingresar 0.");
+	document.datos.nrohistoriaclinica.focus();
+	return;
+}
+if (isNaN(document.datos.nrohistoriaclinica.value)) {
+	alert("El Nro de Historia Clinica debe ser numerico.");
+	document.datos.nrohistoriaclinica.focus();
+	return;
+}
+/*
 if (document.datos.domicilio.value == ""){
 	alert("Debe ingresar el Domicilio del Paciente.");
 	document.datos.domicilio.focus();
 	return;
 }
-
+*/
 if (document.datos.telefono.value == ""){
-	alert("Debe ingresar el Tel&eacute;fono del Paciente.");
+	alert("Debe ingresar el Telefono del Paciente.");
 	document.datos.telefono.focus();
 	return;
 }
 
-/*
 var d=document.datos;
-document.valida.location = "pacientes_con_06.asp?tipo=<%= l_tipo%>&counro="+document.datos.counro.value + "&coudes="+document.datos.coudes.value;
-*/
-valido();
+document.valida.location = "pacientes_con_06.asp?tipo=<%= l_tipo%>&id="+document.datos.id.value + "&dni="+document.datos.dni.value;
+
+//valido();
 }
 
 function valido(){
@@ -109,11 +118,11 @@ select Case l_tipo
 	Case "A":
  	    	l_apellido      = ""
 	    	l_nombre        = ""
-			l_nrohistoriaclinica = ""
+			l_nrohistoriaclinica = "0"
 	    	l_dni           = ""
 	    	l_domicilio     = ""
 			l_telefono      = ""
-			l_idobrasocial  = ""
+			l_idobrasocial  = "0"
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
@@ -154,21 +163,21 @@ end select
 					<table cellspacing="0" cellpadding="0" border="0">
 									
 					<tr>
-					    <td align="right"><b>Apellido:</b></td>
+					    <td align="right"><b>Apellido (*):</b></td>
 						<td>
 							<input type="text" name="apellido" size="20" maxlength="20" value="<%= l_apellido %>">							
 						</td>
-					    <td align="right"><b>Nombre:</b></td>						
+					    <td align="right"><b>Nombre (*):</b></td>						
 						<td>
 							<input type="text" name="nombre" size="20" maxlength="20" value="<%= l_nombre %>">
 						</td>						
 					</tr>					
 					<tr>
-					    <td align="right"><b>D.N.I.:</b></td>
+					    <td align="right"><b>D.N.I. (*):</b></td>
 						<td>
 							<input type="text" name="dni" size="20" maxlength="20" value="<%= l_dni %>">
 						</td>
-					    <td align="right"><b>Nro. Historia Cl&iacute;nica:</b></td>
+					    <td align="right"><b>Nro. Historia Cl&iacute;nica (*):</b></td>
 						<td>
 							<input type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%= l_nrohistoriaclinica %>">
 						</td>						
@@ -182,7 +191,26 @@ end select
 						<td>
 							<input type="text" name="domicilio" size="20" maxlength="20" value="<%= l_domicilio %>">
 						</td>					
-					</tr>					
+					</tr>			
+					<tr>
+						<td  align="right" nowrap><b>Obra Social: </b></td>
+						<td colspan="3"><select name="osid" size="1" style="width:200;">
+								<option value=0 selected>Seleccione una OS</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT  * "
+								l_sql  = l_sql  & " FROM obrassociales "
+								l_sql  = l_sql  & " ORDER BY descripcion "
+								rsOpen l_rs, cn, l_sql, 0
+								do until l_rs.eof		%>	
+								<option value= <%= l_rs("id") %> > 
+								<%= l_rs("descripcion") %> </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>
+							</select>
+							<script>document.datos.osid.value="<%= l_idobrasocial %>"</script>
+						</td>					
+					</tr>									
 					<!--
 					<tr>
 					    <td align="right" ><b>Fec. Nac.:</b></td>

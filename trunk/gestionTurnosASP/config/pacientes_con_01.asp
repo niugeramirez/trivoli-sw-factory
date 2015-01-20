@@ -62,6 +62,7 @@ function Seleccionar(fila,cabnro){
         <th>Apellido</th>
         <th>Nombre</th>		
 		<th>Nro. Hist. Cl&iacute;nica</th>
+		<th>Obra Social</th>
         <th>DNI</th>		
 		<th align="left">Domicilio</th>	
 		<th align="left">Tel&eacute;fono</th>	
@@ -71,8 +72,9 @@ function Seleccionar(fila,cabnro){
 l_filtro = replace (l_filtro, "*", "%")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
-l_sql = "SELECT    * "
+l_sql = "SELECT  clientespacientes.id id,   clientespacientes.* , obrassociales.descripcion"
 l_sql = l_sql & " FROM clientespacientes "
+l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
 
 if l_filtro <> "" then
   l_sql = l_sql & " WHERE " & l_filtro & " "
@@ -96,7 +98,8 @@ if l_rs.eof then
 	    <tr ondblclick="Javascript:parent.abrirVentana('pacientes_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',600,250)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
 	        <td width="10%" nowrap><%= l_rs("apellido")%></td>				
 	        <td width="10%" nowrap><%= l_rs("nombre")%></td>		
-	        <td width="10%" align="center"><%= l_rs("nrohistoriaclinica")%></td>							
+	        <td width="10%" align="center"><%= l_rs("nrohistoriaclinica")%></td>		
+			 <td width="10%" nowrap><%= l_rs("descripcion")%></td>					
 	        <td width="10%" nowrap><%= l_rs("dni")%></td>			
 	        <td width="10%" nowrap><%= l_rs("domicilio")%></td>		
 			<td width="10%" nowrap><%= l_rs("telefono")%></td>				
