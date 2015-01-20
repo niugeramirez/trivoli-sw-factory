@@ -81,6 +81,8 @@ if l_generar = 1 then
 	
 	l_hd = l_rs("horainicial")
 	l_hh = l_rs("horafinal")
+	response.write l_hd & " " & l_hh & "<br> "
+	
 	l_do = l_rs("dia1")
 	l_lu = l_rs("dia2")
 	l_ma = l_rs("dia3")
@@ -119,24 +121,24 @@ if l_generar = 1 then
 							l_hora =  l_hd
 							l_horafin = DateAdd("n", clng(l_intervaloTurnoMinutos), l_hora)
 							
-							'response.write "l_hora" & l_hora
-							'response.write "l_horafin" & l_horafin
+							response.write "l_hora" & l_hora
+							response.write "l_horafin" & l_horafin
 							'response.end
 							Do While DATEDIFF("n", cdate( l_horafin ), cdate( l_hh )) >= 0
 								
 	
 								'Verifico que no este repetida el Turno
-								l_sql = "SELECT * "
-								l_sql = l_sql & " FROM calendarios "
-								l_sql = l_sql & " WHERE fechahorainicio=" & cambiaformato (l_fecha,l_hora )
-								l_sql = l_sql & " AND fechahorafin=" & cambiaformato (l_fecha,l_horafin )
-								l_sql = l_sql & " AND estado='ACTIVO'"
-								l_sql = l_sql & " AND idrecursoreservable=" & l_id
+								'l_sql = "SELECT * "
+								'l_sql = l_sql & " FROM calendarios "
+								'l_sql = l_sql & " WHERE fechahorainicio=" & cambiaformato (l_fecha,l_hora )
+								'l_sql = l_sql & " AND fechahorafin=" & cambiaformato (l_fecha,l_horafin )
+								'l_sql = l_sql & " AND estado='ACTIVO'"
+								'l_sql = l_sql & " AND idrecursoreservable=" & l_id
 								
-								rsOpen l_rs2, cn, l_sql, 0
-								if not l_rs2.eof then
+								'rsOpen l_rs2, cn, l_sql, 0
+								'if not l_rs2.eof then
 								    'texto =  "Ya existe otra Obra Social con esa Descripción."
-								else
+								'else
 								
 									l_sql = "INSERT INTO calendarios "
 						            l_sql = l_sql & "(fechahorainicio, fechahorafin, estado, idrecursoreservable ) "
@@ -145,8 +147,8 @@ if l_generar = 1 then
 									l_cm.CommandText = l_sql
 						            cmExecute l_cm, l_sql, 0   							
 								
-								end if 
-								l_rs2.close
+								'end if 
+								'l_rs2.close
 															
 	
 								l_hora = DateAdd("n", clng(l_intervaloTurnoMinutos), l_hora)
