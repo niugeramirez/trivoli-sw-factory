@@ -229,7 +229,7 @@ function TotalVolumen(valor){
 		  		  
           <% call MostrarBoton ("opcionbtn", "Javascript:abrirVentana('pacientes_con_02.asp?Tipo=A','',600,250);","Alta")%>
 		  &nbsp;&nbsp;
-          <% call MostrarBoton ("opcionbtn", "Javascript:eliminarRegistro(document.ifrm,'pacientes_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
+          <%' call MostrarBoton ("opcionbtn", "Javascript:eliminarRegistro(document.ifrm,'pacientes_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
 		  &nbsp;&nbsp;
           <% call MostrarBoton ("opcionbtn", "Javascript:abrirVentanaVerif('pacientes_con_02.asp?Tipo=M&cabnro=' + document.ifrm.datos.cabnro.value,'',600,250);","Modifica")%>
 		  &nbsp;&nbsp;
