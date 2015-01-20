@@ -213,25 +213,15 @@ function Seleccionar(fila,cabnro){
 <table>
     <tr>
         <th>Hora Desde</th>
-		<th>Hora Hasta</th>
-        <th>Paciente</th>	
-        <th>Practica</th>	
-	
-	
+		<th>Hora Hasta</th>		
     </tr>
 <%
 l_filtro = replace (l_filtro, "*", "%")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
-l_sql = "SELECT * " ' calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
-l_sql = l_sql & " ,  clientespacientes.apellido, clientespacientes.nombre"
-l_sql = l_sql & " ,  practicas.descripcion practicanombre"
-'l_sql = l_sql & " ,  turnos.id turnoid, turnos.idclientepaciente, turnos.apellido turnoapellido , turnos.nombre turnonombre, turnos.dni turnodni , turnos.domicilio turnodomicilio"
+l_sql = "SELECT * " 
 l_sql = l_sql & " FROM calendarios "
 l_sql = l_sql & " LEFT JOIN turnos ON turnos.idcalendario = calendarios.id "
-l_sql = l_sql & " LEFT JOIN clientespacientes ON clientespacientes.id = turnos.idclientepaciente "
-l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = turnos.idpractica "
-'l_sql = l_sql & " LEFT JOIN ser_medida       ON ser_legajo.mednro = ser_medida.mednro "
 
 if l_filtro <> "" then
   l_sql = l_sql & " WHERE " & l_filtro & " "
@@ -255,9 +245,7 @@ if l_rs.eof then
 	    <tr  onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
 			
 	        <td width="10%" nowrap align="center"><%= l_rs("fechahorainicio")%></td>	
-			<td width="10%" nowrap align="center"><%= l_rs("fechahorafin")%></td>
-			<td width="10%" nowrap>&nbsp;<%= l_rs("apellido")%></td>
-			<td width="10%" nowrap>&nbsp;<%= l_rs("practicanombre")%></td>								
+			<td width="10%" nowrap align="center"><%= l_rs("fechahorafin")%></td>							
 							   
 	    </tr>
 	<%
