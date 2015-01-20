@@ -74,6 +74,7 @@ else
 	l_sql = l_sql & " WHERE id = " & l_id
 end if
 response.write l_sql & "<br>"
+
 l_cm.activeconnection = Cn
 l_cm.CommandText = l_sql
 cmExecute l_cm, l_sql, 0

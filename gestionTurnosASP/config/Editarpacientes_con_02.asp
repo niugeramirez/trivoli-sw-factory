@@ -44,8 +44,6 @@ l_id = request.querystring("cabnro")
 function Validar_Formulario(){
 
 
-
-
 if (document.datos.apellido.value == ""){
 	alert("Debe ingresar el Apellido del Paciente.");
 	document.datos.apellido.focus();
@@ -57,30 +55,47 @@ if (document.datos.nombre.value == ""){
 	document.datos.nombre.focus();
 	return;
 }
-
+<% If l_tipo = "M" then %>
 if (document.datos.dni.value == ""){
 	alert("Debe ingresar el DNI del Paciente.");
 	document.datos.dni.focus();
 	return;
 }
-
+if (isNaN(document.datos.dni.value)) {
+	alert("El D.N.I. debe ser numerico.");
+	document.datos.dni.focus();
+	return;
+}
+<% End If %>
+/*
+if (document.datos.nrohistoriaclinica.value == ""){
+	alert("Debe ingresar el Nro de Historia Clinica o ingresar 0.");
+	document.datos.nrohistoriaclinica.focus();
+	return;
+}
+if (isNaN(document.datos.nrohistoriaclinica.value)) {
+	alert("El Nro de Historia Clinica debe ser numerico.");
+	document.datos.nrohistoriaclinica.focus();
+	return;
+}
+*/
+/*
 if (document.datos.domicilio.value == ""){
 	alert("Debe ingresar el Domicilio del Paciente.");
 	document.datos.domicilio.focus();
 	return;
 }
+*/
 if (document.datos.tel.value == ""){
 	alert("Debe ingresar el Telefono del Paciente.");
 	document.datos.tel.focus();
 	return;
 }
 
-
-/*
 var d=document.datos;
-document.valida.location = "pacientes_con_06.asp?tipo=<%= l_tipo%>&counro="+document.datos.counro.value + "&coudes="+document.datos.coudes.value;
-*/
-valido();
+document.valida.location = "editarpacientes_con_06.asp?tipo=<%= l_tipo%>&id="+document.datos.id.value + "&dni="+document.datos.dni.value;
+
+//valido();
 }
 
 function valido(){
@@ -130,8 +145,9 @@ select Case l_tipo
 	    	l_dni           = ""
 	    	l_domicilio     = ""
 			l_tel           = ""
-			l_idobrasocial  = ""
+			l_idobrasocial  = "0"
 			idrecursoreservable = ""
+			l_nrohistoriaclinica = "0"
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
@@ -175,39 +191,39 @@ end select
 					<table cellspacing="0" cellpadding="0" border="0">						
 					
 					<tr>
-					    <td align="right"><b>Apellido:</b></td>
+					    <td align="right"><b>Apellido (*):</b></td>
 						<td>
 							<input type="text" name="apellido" size="20" maxlength="20" value="<%= l_apellido %>">							
 						</td>
-					    <td align="right"><b>Nombre:</b></td>						
+					    <td align="right"><b>Nombre (*):</b></td>						
 						<td>
 							<input type="text" name="nombre" size="20" maxlength="20" value="<%= l_nombre %>">
 						</td>						
 					</tr>					
 					<tr>
-					    <td align="right"><b>D.N.I.:</b></td>
+					    <td align="right"><b>D.N.I.:<% If l_tipo = "M" then %> (*)<% End If %></b></td>
 						<td>
 							<input type="text" name="dni" size="20" maxlength="20" value="<%= l_dni %>">
 						</td>
+					    <td align="right"><b>Tel&eacute;fono (*):</b></td>
+						<td>
+							<input type="text" name="tel" size="20" maxlength="20" value="<%= l_tel %>">
+						</td>						
+					
+						<!--
 					    <td align="right"><b>Nro. Historia Cl&iacute;nica:</b></td>
 						<td>
 							<input type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%= l_nrohistoriaclinica %>">
-						</td>						
+						</td>	-->					
 					</tr>
 					<tr>
-					    <td align="right"><b>Tel&eacute;fono:</b></td>
-						<td>
-							<input type="text" name="tel" size="20" maxlength="20" value="<%= l_tel %>">
-						</td>
 					    <td align="right"><b>Domicilio:</b></td>
 						<td>
 							<input type="text" name="domicilio" size="20" maxlength="20" value="<%= l_domicilio %>">
 						</td>						
-					</tr>
-					
-					<tr>
+
 						<td  align="right" nowrap><b>Obra Social: </b></td>
-						<td colspan="3"><select name="osid" size="1" style="width:200;">
+						<td ><select name="osid" size="1" style="width:200;">
 								<option value=0 selected>Seleccione una OS</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
@@ -223,7 +239,8 @@ end select
 							</select>
 							<script>document.datos.osid.value="<%= l_idobrasocial %>"</script>
 						</td>					
-					</tr>				
+					</tr>
+											
 					</table>
 				</td>
 			</tr>

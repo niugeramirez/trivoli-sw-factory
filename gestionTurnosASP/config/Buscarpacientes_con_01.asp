@@ -70,8 +70,8 @@ function AsignarPaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicili
 <table>
     <tr>
          <!-- <th>&nbsp;</th>
-        <th>Legajo</th>	-->
-        <th>&nbsp;</th>  	
+        <th>Legajo</th>	
+        <th>&nbsp;</th>  	-->
         <th>Apellido</th>
         <th>Nombre</th>		
         <th>Nro. Hist. Cl&iacute;nica</th>		
@@ -112,7 +112,7 @@ if l_rs.eof then
 	        <!--<td width="10%" nowrap><%'= l_rs("buqnro")%></td>		-->
 			<!-- <td width="2%" nowrap><%'= l_cant %></td>
 	        <td width="10%" nowrap><%'= l_rs("legpar1")%>-<%'= l_rs("legpar2")%>/<%'= l_rs("legpar3")%></td>			-->
-	        <td width="1%" nowrap><a href="Javascript:parent.abrirVentana('Editarpacientes_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value ,'',600,250);"><img src="/turnos/shared/images/cal.gif" border="0" alt="Editar Paciente"></a> </td>  
+	        <!-- <td width="1%" nowrap><a href="Javascript:parent.abrirVentana('Editarpacientes_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value ,'',600,250);"><img src="/turnos/shared/images/cal.gif" border="0" alt="Editar Paciente"></a> </td>  -->
 	        <td width="10%" nowrap><%= l_rs("apellido")%></td>
 	        <td width="10%" nowrap><%= l_rs("nombre")%></td>		
 	        <td width="10%" align="center"><%= l_rs("nrohistoriaclinica")%></td>								
