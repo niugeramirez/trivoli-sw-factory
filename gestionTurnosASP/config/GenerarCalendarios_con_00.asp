@@ -192,6 +192,27 @@ function Buscar(generar){
 }
 
 
+function AltaManual(){
+	var tieneotro;
+	var estado;
+	document.datos.filtro.value = "";
+	tieneotro = "no";
+	estado = "si";
+
+	
+	if (document.datos.id.value == "0"){
+		alert("Debe ingresar un Medico.");
+		document.datos.id.focus();
+		return;
+	}	
+	
+     abrirVentana('calendarios_con_02.asp?id='+document.datos.id.value +'&Tipo=A','',520,200);
+	
+	
+}
+
+
+
 function Nuevo_Dialogo(w_in, pagina, ancho, alto)
 {
  return w_in.showModalDialog(pagina,'', 'center:yes;dialogWidth:' + ancho.toString() + ';dialogHeight:' + alto.toString() + ';');
@@ -255,7 +276,9 @@ function TotalVolumen(valor){
         <tr style="border-color :CadetBlue;">
           <td align="left" class="barra">&nbsp;</td>
           <td nowrap align="right" class="barra">
-		  		  
+		  
+		  <% call MostrarBoton ("sidebtnABM", "Javascript:AltaManual();","Alta Manual de Calendario")%>	
+				  
           <%' call MostrarBoton ("opcionbtn", "Javascript:abrirVentana('legajos_con_02.asp?Tipo=A','',800,500);","Alta")%>
 		  &nbsp;&nbsp;
           <%' call MostrarBoton ("opcionbtn", "Javascript:eliminarRegistro(document.ifrm,'legajos_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
