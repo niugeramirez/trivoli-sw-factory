@@ -13,8 +13,11 @@ Dim l_orden
 Dim l_sqlfiltro
 Dim l_sqlorden
 
+Dim l_idobrasocial
+
 l_filtro = request("filtro")
 l_orden  = request("orden")
+l_idobrasocial = request("idobrasocial")
 
 if l_orden = "" then
   l_orden = " ORDER BY titulo "
@@ -61,8 +64,9 @@ function Seleccionar(fila,cabnro){
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 l_sql = "SELECT * "
 l_sql = l_sql & " FROM listaprecioscabecera "
+l_sql = l_sql & " WHERE idobrasocial = " & l_idobrasocial
 if l_filtro <> "" then
-  l_sql = l_sql & " WHERE " & l_filtro & " "
+  l_sql = l_sql & " AND " & l_filtro & " "
 end if
 l_sql = l_sql & " " & l_orden
 rsOpen l_rs, cn, l_sql, 0 
