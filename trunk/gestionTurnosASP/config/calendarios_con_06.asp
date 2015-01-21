@@ -94,7 +94,8 @@ l_rs.close
 <script>
 <% 
  if texto1 <> "" and texto2 <> ""  then
- 	texto = texto2 & texto1
+ 	'texto = texto2 & texto1
+	texto = "Existen calendarios dentro del intervalo horario ingresado."
 %>
    parent.invalido('<%= texto %> ')
 <% else%>
