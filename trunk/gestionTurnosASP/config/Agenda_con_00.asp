@@ -34,6 +34,11 @@ on error goto 0
   Dim l_rs
   Dim l_sql
   
+  Dim l_hd
+  Dim l_md
+  Dim l_hh
+  Dim l_mh
+  
 %>
 <html>
 <head>
@@ -155,7 +160,7 @@ function Buscar(){
 	//alert(document.datos.filtro.value);
 	*/
 	if (estado == "si"){
-		window.ifrm.location = 'Agenda_con_01.asp?id=' + document.datos.id.value;
+		window.ifrm.location = 'Agenda_con_01.asp?id=' + document.datos.id.value + "&hd="+document.datos.hd.value + "&md="+ document.datos.md.value + "&hh="+ document.datos.hh.value + "&mh="+ document.datos.mh.value;
 	}
 }
 
@@ -279,7 +284,52 @@ function TotalVolumen(valor){
 								l_rs.Close %>
 							</select>
 							<script>document.datos.id.value= "0"</script>
+						</td>	
+
+						<td  align="right" nowrap><b>Desde: </b></td>
+						<td ><select name="hd" size="1" style="width:50;">
+								<%
+								l_hd = 0  
+								do while clng(l_hd) < 24 %>
+								<option value= <%= right("0" & l_hd, 2) %>> <%= right("0" & l_hd, 2) %> </option>
+								<%	l_hd = clng(l_hd) + 1
+								loop
+								%>
+							</select>							
+						    <b>:</b>
+							<select name="md" size="1" style="width:50;">
+								<%
+								l_md = 0  
+								do while clng(l_md) < 60 %>
+								<option value= <%= right("0" & l_md, 2) %>> <%= right("0" & l_md, 2) %> </option>
+								<%	l_md = clng(l_md) + 15
+								loop
+								%>
+							</select>							
 						</td>			
+						<td  align="right" nowrap><b>Hasta: </b></td>
+						<td ><select name="hh" size="1" style="width:50;">
+								<%
+								l_hh = 0  
+								do while clng(l_hh) < 24 %>
+								<option value= <%= right("0" & l_hh, 2) %>> <%= right("0" & l_hh, 2) %> </option>
+								<%	l_hh = clng(l_hh) + 1
+								loop
+								%>
+							</select>							
+						<b>:</b>
+						   <select name="mh" size="1" style="width:50;">
+								<%
+								l_mh = 0  
+								do while clng(l_mh) < 60 %>
+								<option value= <%= right("0" & l_mh, 2) %>> <%= right("0" & l_mh, 2) %> </option>
+								<%	l_mh = clng(l_mh) + 15
+								loop
+								%>
+							</select>							
+						</td>							
+						
+						
 						
 
 										<td ><a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/turnos/shared/images/find_48.png" border="0" alt="Buscar"></a></td>
