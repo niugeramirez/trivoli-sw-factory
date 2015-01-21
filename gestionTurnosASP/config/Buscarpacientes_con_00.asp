@@ -231,7 +231,7 @@ function Ayuda_Fecha(txt)
 }
 
 function AltaPaciente(){
-	abrirVentana('Editarpacientes_con_02.asp?Tipo=A','',600,250);
+	abrirVentana('Editarpacientes_con_02.asp?Tipo=A&ventana=3','',600,250);
 }
 
 function Limpiar(){

@@ -3,6 +3,8 @@
 <!--#include virtual="/turnos/shared/inc/const.inc"-->
 <!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <!--#include virtual="/turnos/shared/inc/fecha.inc"-->
+<!--#include virtual="/turnos/shared/inc/adovbs.inc"-->
+<!--#include virtual="/turnos/shared/inc/sqls.inc"-->
 <% 
 
 
@@ -22,6 +24,9 @@ dim l_dni
 dim l_domicilio
 dim l_tel
 dim l_idobrasocial
+dim l_os
+
+dim l_ventana
 
 
 l_tipo 		     = request.querystring("tipo")
@@ -33,7 +38,32 @@ l_domicilio      = request.Form("domicilio")
 'l_nrohistoriaclinica = request.Form("nrohistoriaclinica")
 l_tel            = request.Form("tel")
 l_idobrasocial   = request.Form("osid")
+l_os             = request.Form("os")
 
+l_ventana        = request.Form("ventana") 
+
+if isnull(l_dni) or l_dni = "" then
+	l_dni = 0
+end if
+
+
+' ------------------------------------------------------------------------------------------------------------------
+' codigogenerado() :
+' ------------------------------------------------------------------------------------------------------------------
+function codigogenerado()
+	Dim l_rs
+	Dim l_sql
+	Set l_rs = Server.CreateObject("ADODB.RecordSet")
+	l_sql = fsql_seqvalue("next_id","cap_evento")
+	rsOpen l_rs, cn, l_sql, 0
+	codigogenerado=l_rs("next_id")
+	l_rs.Close
+	Set l_rs = Nothing
+end function 'codigogenerado()
+
+
+'Al operar sobre varias tablas debo iniciar una transacción
+ cn.BeginTrans
 
 set l_cm = Server.CreateObject("ADODB.Command")
 
@@ -48,6 +78,22 @@ if l_tipo = "A" then
 		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "','" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial &  ")"
 	
 	end if
+	'response.write l_sql & "<br>"
+	l_cm.activeconnection = Cn
+	l_cm.CommandText = l_sql
+	cmExecute l_cm, l_sql, 0	
+	
+	'Ingreso la lista de empleados a la tabla
+	l_id = codigogenerado()	
+	
+	'l_sql = " SELECT @@IDENTITY AS 'Identity' "
+	'l_cm.activeconnection = Cn
+	'l_cm.CommandText = l_sql
+	'cmExecute l_cm, l_sql, 0		
+	
+	Set l_cm = Nothing	
+	
+	
 else
 
 	l_sql = "UPDATE clientespacientes "
@@ -61,19 +107,28 @@ else
 	l_sql = l_sql & "    ,telefono      = '" & l_tel & "'"	
 	l_sql = l_sql & "    ,idobrasocial      = " & l_idobrasocial
 	l_sql = l_sql & " WHERE id = " & l_id
+	'response.write l_sql & "<br>"
+	l_cm.activeconnection = Cn
+	l_cm.CommandText = l_sql
+	cmExecute l_cm, l_sql, 0	
+	Set l_cm = Nothing
 	
 end if	
 	
-response.write l_sql & "<br>"
-l_cm.activeconnection = Cn
-l_cm.CommandText = l_sql
-cmExecute l_cm, l_sql, 0
-Set l_cm = Nothing
 
-if l_tipo = "A" then
-Response.write "<script>alert('Operación Realizada.');window.parent.opener.VolverdelAltaPaciente('" & l_apellido & "');window.parent.close();</script>"
+
+
+cn.CommitTrans 
+
+
+if l_ventana = 1 then ' Ventana de Alta en Asignar Pacientes
+Response.write "<script>alert('Operación Realizada.');window.parent.opener.EncontrePacienteAlta(" & l_id & ",'"&l_apellido&"','"&l_nombre&"',"&l_dni&",'"&l_tel&"','"&l_domicilio&"',"&l_idobrasocial &",'"& l_os & "') ;window.parent.close();</script>"
 else
-Response.write "<script>alert('Operación Realizada .');window.parent.opener.location.reload();window.parent.close();</script>"
+	if l_ventana = 2 then ' Ventana de Modid en Asignar Pacientes
+		Response.write "<script>alert('Operación Realizada .');window.parent.opener.location.reload();window.parent.close();</script>"
+	else ' ventana Alta Paciente en Buscar Pacientes
+		Response.write "<script>alert('Operación Realizada .');window.parent.opener.opener.EncontrePacienteAlta("& l_id & ",'" &l_apellido&"','"&l_nombre&"',"&l_dni&",'"&l_tel&"','"&l_domicilio&"',"&l_idobrasocial &",' "&l_os&"') ;window.parent.opener.close();window.parent.close();</script>"	
+	end if	
 end if
 %>
 

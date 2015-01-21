@@ -20,6 +20,8 @@ dim l_descripcion
 dim l_comentario
 dim l_idrecursoreservable
 Dim l_idpractica
+Dim l_ventana
+
 'ADO
 Dim l_tipo
 Dim l_sql
@@ -27,6 +29,12 @@ Dim l_rs
 
 l_tipo = request.querystring("tipo")
 l_id = request.querystring("cabnro")
+
+if l_tipo = "A" then
+	l_ventana = 1
+else
+	l_ventana = 2
+end if
 
 'response.write l_tipo
 
@@ -150,6 +158,20 @@ function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicil
 	document.datos.os.value = os;
 	//document.datos.coudes.focus();
 }
+
+function EncontrePacienteAlta(id,apellido, nombre, dni,tel,domicilio,osid, os){
+	
+	document.datos.pacienteid.value = id;
+	document.datos.apellido.value = apellido;
+	document.datos.nombre.value = nombre;
+	document.datos.dni.value = dni;
+	document.datos.domicilio.value = domicilio;
+	document.datos.tel.value = tel;
+	document.datos.osid.value = osid;
+	document.datos.os.value = os;
+	//document.datos.coudes.focus();
+}
+
 
 
 function Nuevo_Dialogo(w_in, pagina, ancho, alto)
@@ -290,7 +312,7 @@ end select
 						<td>
 							<input class="deshabinp" readonly="" type="text" name="os" size="20" maxlength="20" value="<%= l_descripcion %>">
 						</td>
-						<td colspan="2" align="left"><a href="Javascript:parent.abrirVentana('Editarpacientes_con_02.asp?Tipo=M&cabnro='+document.datos.pacienteid.value ,'',600,250);"><img src="/turnos/shared/images/AsignarTurno.png" border="0" alt="Editar Paciente"></a></td>
+						<td colspan="2" align="left"><a href="Javascript:parent.abrirVentana('Editarpacientes_con_02.asp?Tipo=M&Ventana=<%= l_ventana %>&cabnro='+document.datos.pacienteid.value ,'',600,250);"><img src="/turnos/shared/images/AsignarTurno.png" border="0" alt="Editar Paciente"></a></td>
 				 
 					    					
 					</tr>				

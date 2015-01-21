@@ -17,6 +17,9 @@ dim l_domicilio
 dim l_idobrasocial
 dim l_comentario
 dim idrecursoreservable
+
+Dim l_ventana
+
 'ADO
 Dim l_tipo
 Dim l_sql
@@ -24,6 +27,8 @@ Dim l_rs
 
 l_tipo = request.querystring("tipo")
 l_id = request.querystring("cabnro")
+
+l_ventana = request.querystring("ventana")
 
 'response.write l_tipo
 
@@ -43,6 +48,7 @@ l_id = request.querystring("cabnro")
 <script>
 function Validar_Formulario(){
 
+var s = document.datos.osid;
 
 if (document.datos.apellido.value == ""){
 	alert("Debe ingresar el Apellido del Paciente.");
@@ -91,6 +97,10 @@ if (document.datos.tel.value == ""){
 	document.datos.tel.focus();
 	return;
 }
+
+// Texto seleccionado:  s.options[s.selectedIndex].text;
+//alert(s.options[s.selectedIndex].text);
+document.datos.os.value = s.options[s.selectedIndex].text;
 
 var d=document.datos;
 document.valida.location = "editarpacientes_con_06.asp?tipo=<%= l_tipo%>&id="+document.datos.id.value + "&dni="+document.datos.dni.value;
@@ -175,6 +185,8 @@ end select
 <form name="datos" action="Editarpacientes_con_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">
 <input type="hidden" name="id" value="<%= l_id %>">
 <input type="hidden" name="pacienteid" value="<%'= l_id %>">
+<input type="hidden" name="ventana" value="<%= l_ventana %>">
+<input type="hidden" name="os" value="">
 
 <table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
 <tr>
