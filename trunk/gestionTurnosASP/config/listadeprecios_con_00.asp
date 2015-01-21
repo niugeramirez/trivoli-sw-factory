@@ -80,7 +80,7 @@ function llamadaexcel(){
         </tr>
         <tr valign="top" height="100%">
           <td colspan="2" style="" width="100%">
-      	  <iframe scrolling="Yes" name="ifrm" src="listadeprecios_con_01.asp" width="100%" height="100%"></iframe> 
+      	  <iframe scrolling="Yes" name="ifrm" src="listadeprecios_con_01.asp?idobrasocial=<%= l_id  %>" width="100%" height="100%"></iframe> 
 	      </td>
         </tr>		
       </table>
