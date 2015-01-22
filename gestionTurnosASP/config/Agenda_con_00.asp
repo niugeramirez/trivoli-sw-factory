@@ -316,7 +316,8 @@ function TotalVolumen(valor){
 								<%	l_hh = clng(l_hh) + 1
 								loop
 								%>
-							</select>							
+							</select>	
+							<script>document.datos.hh.value="23"</script>							
 						<b>:</b>
 						   <select name="mh" size="1" style="width:50;">
 								<%
