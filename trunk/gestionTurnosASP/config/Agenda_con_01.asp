@@ -54,8 +54,12 @@ l_mh = Request.Querystring("mh")
 l_horadesde = l_hd & ":" & l_md
 l_horahasta = l_hh & ":" & l_mh
 
-'response.write l_horadesde
-'response.write l_horahasta
+'response.write "l_hd"&l_hd&"</br>"
+'response.write "l_md"&l_md&"</br>"
+'response.write "l_hh"&l_hh&"</br>"
+'response.write "l_mh"&l_mh&"</br>"
+'response.write "l_horadesde"&l_horadesde&"</br>"
+'response.write "l_horadesde"&l_horahasta&"</br>"
 
 
 If IsEmpty(MyMonth) then MyMonth = Month(Date)
@@ -146,9 +150,9 @@ Sub ShowHeader(MyMonth,MyYear)
 		<td colspan='7'>
 			<table border='0' cellspacing='1' cellpadding='1' width='100%' class="calFondoEncabe">
 				<tr>
-					<td align='left'>
+					<td align='left'>					
 						<%
-						response.write "<a href = 'Agenda_con_01.asp?id=" & l_id & "&"
+						response.write "<a href = 'Agenda_con_01.asp?id=" & l_id & "&hd="&l_hd & "&md="& l_md & "&hh="& l_hh & "&mh="& l_mh& "&"
 						if MyMonth - 1 = 0 then 
 							response.write "month=12&year=" & MyYear -1
 						else 
@@ -158,7 +162,7 @@ Sub ShowHeader(MyMonth,MyYear)
 
 						response.write "<span class='calEncabe'> <b>" & MonthName(MyMonth) & "</b> </span>"
 
-						response.write "<a href = 'Agenda_con_01.asp?id=" & l_id & "&"
+						response.write "<a href = 'Agenda_con_01.asp?id=" & l_id & "&hd="&l_hd & "&md="& l_md & "&hh="& l_hh & "&mh="& l_mh& "&"
 						if MyMonth + 1 = 13 then 
 							response.write "month=1&year=" & MyYear + 1
 						else 
@@ -169,19 +173,19 @@ Sub ShowHeader(MyMonth,MyYear)
 					</td>
 					<td align='center'>
 						<%
-						response.write "<a href = 'Agenda_con_01.asp?id=" & l_id & "&"
+						response.write "<a href = 'Agenda_con_01.asp?id=" & l_id &  "&hd="&l_hd & "&md="& l_md & "&hh="& l_hh & "&mh="& l_mh& "&"
 						response.write "month=" & Month(Date()) & "&year=" & Year(Date())
 						response.write "'><div class='calSimbolo'><b>Hoy</b></div></a>"
 						%>						
 					</td>
 					<td align='right'>
 						<%
-						response.write "<a href = 'Agenda_con_01.asp?id=" & l_id & "&"
+						response.write "<a href = 'Agenda_con_01.asp?id=" & l_id & "&hd="&l_hd & "&md="& l_md & "&hh="& l_hh & "&mh="& l_mh& "&"
 						response.write "month=" & MyMonth & "&year=" & MyYear -1
 						response.write "'><span class='calSimbolo'><<</span></a>"
 
 						response.write "<span class='calEncabe'> <b>" & MyYear & "</b> </span>"
-						response.write "<a href = 'Agenda_con_01.asp?id=" & l_id & "&"
+						response.write "<a href = 'Agenda_con_01.asp?id=" & l_id &  "&hd="&l_hd & "&md="& l_md & "&hh="& l_hh & "&mh="& l_mh& "&"
 						response.write "month=" & MyMonth & "&year=" & MyYear + 1
 						response.write "'><span class='calSimbolo'>>></span></a>"
 						%>
