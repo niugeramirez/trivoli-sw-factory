@@ -1,3 +1,5 @@
+
+
 function eliminarRegistro(obj,donde,sistema)
 {
 	if (obj.datos.cabnro.value == 0)
