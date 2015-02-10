@@ -164,7 +164,7 @@ l_rs.close
 ''l_sql = l_sql & " LEFT JOIN ser_medida       ON ser_legajo.mednro = ser_medida.mednro "
 
 
-l_sql = "SELECT  clientespacientes.id clientespacientesid,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.nrohistoriaclinica nrohistoriaclinica , clientespacientes.idobrasocial "
+l_sql = "SELECT  clientespacientes.id clientespacientesid,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.nrohistoriaclinica nrohistoriaclinica , isnull(clientespacientes.idobrasocial,0) idobrasocial "
 l_sql = l_sql & " , isnull(practicas.id,0) practicaid, practicas.descripcion "
 l_sql = l_sql & " ,  visitas.id visitaid "
 l_sql = l_sql & " ,  isnull(practicasrealizadas.id,0) practicasrealizadasid , practicasrealizadas.precio "
