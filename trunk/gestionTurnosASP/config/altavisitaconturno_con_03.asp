@@ -98,7 +98,7 @@ set l_cm = Server.CreateObject("ADODB.Command")
 	 
 	 
 	  l_sql = "SELECT turnos.*, CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101) AS FechaVisita , calendarios.idrecursoreservable idrecursoreservable "
-	  l_sql = l_sql & " , clientespacientes.idobrasocial"	  
+	  l_sql = l_sql & " , isnull(clientespacientes.idobrasocial,0) idobrasocial "	  
 	  l_sql = l_sql & " ,  isnull(obrassociales.flag_particular,0) flag_particular  "	  	  
 	  l_sql = l_sql & " FROM turnos "
 	  l_sql = l_sql & " INNER JOIN calendarios ON turnos.idcalendario = calendarios.id "
