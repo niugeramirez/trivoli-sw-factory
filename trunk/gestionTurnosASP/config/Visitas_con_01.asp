@@ -58,6 +58,11 @@ function Deseleccionar(fila){
 	fila.className = "MouseOutRow";
 }
 
+function ppp(){
+	alert();
+}
+
+
 function Seleccionar(fila,cabnro){
 	if (jsSelRow != null){
 		Deseleccionar(jsSelRow);
@@ -208,7 +213,7 @@ if l_rs.eof then
 			<td <%= l_fondovisita %> align="center" width="10%" nowrap>&nbsp;</td>
 			<td <%= l_fondovisita %> align="center" width="10%" nowrap>&nbsp;</td>
 			<td <%= l_fondovisita %> align="center" width="10%" nowrap>
-			<a href="Javascript:parent.abrirVentana('AgregarPractica_con_02.asp?cabnro=<%= l_rs("visitaid") %>' ,'',400,200);"><img src="/turnos/shared/images/colba_24.png" border="0" alt="Agregar Practica"></a>
+			<a href="Javascript:parent.abrirVentana('AgregarPractica_con_02.asp?tipo=A&cabnro=<%= l_rs("visitaid") %>' ,'',400,200);"><img src="/turnos/shared/images/colba_24.png" border="0" alt="Agregar Practica"></a>
 			<a href="Javascript:parent.abrirVentana('EliminarVisita_con_02.asp?cabnro=<%= l_rs("visitaid") %>' ,'',400,200);"><img src="/turnos/shared/images/eliminarvisita_24.png" border="0" alt="Eliminar Visita"></a>			
 			</td>
 			</tr>
@@ -217,7 +222,7 @@ if l_rs.eof then
 			
 			if l_rs("practicasrealizadasid") <> 0 then
 			%>
-			<tr>
+			<tr ondblclick="Javascript:abrirVentana('AgregarPractica_con_02.asp?tipo=M&cabnro=<%= l_rs("visitaid") %>&idpracticarealizada=<%= l_rs("practicasrealizadasid") %>' ,'',400,200);">
 			<% 
 			l_PrecioPractica = PrecioPractica(l_rs("practicaid") ,l_rs("idobrasocial") )
 			l_Pagos = Pagos(l_rs("practicasrealizadasid") ,l_rs("idobrasocial") )

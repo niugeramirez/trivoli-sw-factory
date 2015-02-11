@@ -17,6 +17,7 @@ Dim l_solicitadopor
 Dim l_precio
 Dim l_turnoid
 Dim l_idobrasocial
+Dim l_idpracticarealizada
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
@@ -46,6 +47,7 @@ l_idvisita                 = request.Form("idvisita")
 l_practicaid 			   = request.Form("practicaid")
 l_solicitadopor			   = request.Form("idrecursoreservable")
 l_turnoid				   = request.Form("idvisita")
+l_idpracticarealizada       = request.Form("idpracticarealizada") 
 
 response.write l_idvisita & " - " & l_practicaid & " - " & l_solicitadopor
 
@@ -65,11 +67,22 @@ set l_cm = Server.CreateObject("ADODB.Command")
  end if
 
 
-
-l_precio = BuscarPrecio(l_idobrasocial, l_practicaid )
-
-l_sql = "INSERT INTO practicasrealizadas (idvisita , idpractica , idsolicitadapor , precio ) "
-l_sql = l_sql & " VALUES ( " & l_idvisita & ","  & l_practicaid & "," & l_solicitadopor & "," & l_precio & ")"
+if l_tipo = "A" then
+	l_precio = BuscarPrecio(l_idobrasocial, l_practicaid )
+	l_sql = "INSERT INTO practicasrealizadas (idvisita , idpractica , idsolicitadapor , precio ) "
+	l_sql = l_sql & " VALUES ( " & l_idvisita & ","  & l_practicaid & "," & l_solicitadopor & "," & l_precio & ")"	
+else
+	l_precio = request.Form("precio")
+	l_sql = "INSERT INTO practicasrealizadas (idvisita , idpractica , idsolicitadapor , precio ) "
+	l_sql = l_sql & " VALUES ( " & l_idvisita & ","  & l_practicaid & "," & l_solicitadopor & "," & l_precio & ")"	
+	
+		l_sql = "UPDATE practicasrealizadas"
+		l_sql = l_sql & " SET idpractica = " & l_practicaid
+		l_sql = l_sql & " , idsolicitadapor = " & l_solicitadopor		
+		l_sql = l_sql & " , precio = " & l_precio
+  	    l_sql = l_sql & " WHERE id = " & l_idpracticarealizada	
+		
+end if 	
 
 response.write l_sql & "<br>"
 
@@ -77,7 +90,10 @@ l_cm.activeconnection = Cn
 l_cm.CommandText = l_sql
 cmExecute l_cm, l_sql, 0
 Set l_cm = Nothing
-
-Response.write "<script>alert('Operación Realizada.');window.parent.opener.ifrm.location.reload();window.parent.close();</script>"
+if l_tipo = "A" then
+	Response.write "<script>alert('Operación Realizada.');window.parent.opener.ifrm.location.reload();window.parent.close();</script>"
+else
+	Response.write "<script>alert('Operación 44 Realizada.');window.parent.opener.parent.ifrm.location.reload();window.parent.close();</script>"
+end if
 %>
 
