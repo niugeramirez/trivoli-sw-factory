@@ -18,11 +18,17 @@ Dim l_tipo
 Dim l_sql
 Dim l_rs
 
-Dim l_idvisita
+dim l_idpractica 
+dim l_idsolicitadapor
+dim l_precio
 
-'l_tipo = request.querystring("tipo")
+Dim l_idvisita
+Dim l_idpracticarealizada
+
+l_tipo = request.querystring("tipo")
 l_idvisita = request("cabnro")
 
+l_idpracticarealizada = request("idpracticarealizada")
 
 %>
 <html>
@@ -58,15 +64,6 @@ function invalido(texto){
 	document.datos.coudes.focus();
 }
 
-function actualizaBerth(valor){
-
-   document.datos.bernro.value = 0 ;    
-
-  if ((document.datos.pornro.value == "")||(document.datos.pornro.value == "0"))   	 
- 	 document.ifrmBerth.location = "contracts_berth_con_00.asp?pornro=0&disabled=disabled";
-  else 
-     document.ifrmberth.location = "contracts_berth_con_00.asp?pornro="+valor+"&bernro=0";  
-}
 
 function Nuevo_Dialogo(w_in, pagina, ancho, alto)
 {
@@ -80,11 +77,39 @@ function Ayuda_Fecha(txt)
  else txt.value = jsFecha;
 }
 
-</script>
 
+function ppa(){
+	alert();
+}
+
+</script>
+<% 
+select Case l_tipo
+	Case "A":
+			l_idpractica = 0
+			l_idsolicitadapor = 0
+			l_precio = 0
+	Case "M":
+		Set l_rs = Server.CreateObject("ADODB.RecordSet")
+		l_id = request.querystring("cabnro")
+		l_sql = "SELECT * "
+		l_sql = l_sql & " FROM practicasrealizadas "
+		l_sql  = l_sql  & " WHERE id = " & l_idpracticarealizada
+		rsOpen l_rs, cn, l_sql, 0 
+		if not l_rs.eof then
+			l_idpractica = l_rs("idpractica")
+			l_idsolicitadapor = l_rs("idsolicitadapor") 
+			l_precio = l_rs("precio")
+		end if
+		l_rs.Close
+end select
+%>
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos.motivo.focus();">
 <form name="datos" action="AgregarPractica_con_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">
 <input type="hidden" name="idvisita" value="<%= l_idvisita %>">
+<input type="hidden" name="idpracticarealizada" value="<%= l_idpracticarealizada %>">
+
+
 
 <table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
 <tr>
@@ -105,22 +130,7 @@ function Ayuda_Fecha(txt)
 							Servicio Local: <b><%'= l_serdes %><b>				
 						</td>																	
 					</tr>  -->						
-					<!-- 	
-					<tr>
-					    <td align="right" ><b>Legajo:</b></td>
-						<td align="left" colspan="3"  >
-						    <input type="text" name="legpar1" size="2" maxlength="2" value="<%'= l_legpar1 %>">
-						    <input type="text" name="legpar2" size="10" maxlength="10" value="<%'= l_legpar2 %>">
-						    <input type="text" name="legpar3" size="2" maxlength="2" value="<%'= l_legpar3 %>">							
-						</td>																	
-					</tr>  																
-					<tr>
-					    <td align="right" ><b>Fecha Ingreso:</b></td>
-						<td align="left" colspan="3"  >
-						    <input type="text" name="legfecing" size="10" maxlength="10" value="<%'= l_legfecing %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecing)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
-						</td>																	
-					</tr>	-->										
+											
 					<tr>
 						<td  align="right" nowrap><b>Practica (*): </b></td>
 						<td colspan="3"><select name="practicaid" size="1" style="width:200;">
@@ -137,6 +147,7 @@ function Ayuda_Fecha(txt)
 								loop
 								l_rs.Close %>
 							</select>
+							<script>document.datos.practicaid.value="<%= l_idpractica %>"</script>
 						</td>					
 					</tr>	
 					
@@ -156,8 +167,17 @@ function Ayuda_Fecha(txt)
 								loop
 								l_rs.Close %>
 							</select>
+							<script>document.datos.idrecursoreservable.value="<%= l_idsolicitadapor %>"</script>							
 						</td>					
-					</tr>					
+					</tr>		
+					<% if l_tipo = "M" then %>
+					<tr>
+					    <td align="right"><b>Precio:</b></td>
+						<td colspan="3">
+							<input type="text" name="precio" size="20" maxlength="20" value="<%= l_precio %>">
+						</td>
+					</tr>		
+					<% End If %>							
 									
 					
 					<!--
