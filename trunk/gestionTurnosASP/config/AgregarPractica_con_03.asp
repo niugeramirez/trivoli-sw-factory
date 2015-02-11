@@ -93,7 +93,7 @@ Set l_cm = Nothing
 if l_tipo = "A" then
 	Response.write "<script>alert('Operación Realizada.');window.parent.opener.ifrm.location.reload();window.parent.close();</script>"
 else
-	Response.write "<script>alert('Operación 44 Realizada.');window.parent.opener.parent.ifrm.location.reload();window.parent.close();</script>"
+	Response.write "<script>alert('Operación Realizada.');window.parent.opener.parent.ifrm.location.reload();window.parent.close();</script>"
 end if
 %>
 
