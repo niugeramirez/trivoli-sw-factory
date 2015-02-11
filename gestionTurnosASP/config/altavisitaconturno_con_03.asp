@@ -99,16 +99,20 @@ set l_cm = Server.CreateObject("ADODB.Command")
 	 
 	  l_sql = "SELECT turnos.*, CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101) AS FechaVisita , calendarios.idrecursoreservable idrecursoreservable "
 	  l_sql = l_sql & " , isnull(clientespacientes.idobrasocial,0) idobrasocial "	  
-	  l_sql = l_sql & " ,  isnull(obrassociales.flag_particular,0) flag_particular  "	  	  
+	  l_sql = l_sql & " ,  isnull(obrassociales.flag_particular,0) flag_particular  "	  
+	  l_sql = l_sql & " ,  isnull(turnos.idrecursoreservable,0) idsolicitadapor  "	  
 	  l_sql = l_sql & " FROM turnos "
 	  l_sql = l_sql & " INNER JOIN calendarios ON turnos.idcalendario = calendarios.id "
 	  l_sql = l_sql & " INNER JOIN clientespacientes ON clientespacientes.id = turnos.idclientepaciente "	  
 	  l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "	  	  
 	  l_sql = l_sql & " WHERE turnos.id= " & l_lista(i)
+
+	  Response.write "<script>alert('Operación"& l_sql &" Realizada.');</script>"		  
+
 	  rsOpen l_rs, cn, l_sql, 0
 	  do while not l_rs.eof 
 	  
-	  'Response.write "<script>alert('Operación"& l_rs("flag_particular") &" Realizada.');</script>"	 
+	  Response.write "<script>alert('Operación"& l_rs("idsolicitadapor") &" Realizada.');</script>"	 
 	  
 		l_sql = "INSERT INTO visitas "
 		l_sql = l_sql & "(idturno, idpaciente, idrecursoreservable, fecha  ) "
@@ -124,7 +128,7 @@ set l_cm = Server.CreateObject("ADODB.Command")
 		
 		l_sql = "INSERT INTO practicasrealizadas "
 		l_sql = l_sql & "(idvisita, idpractica, idsolicitadapor, precio  ) "
-		l_sql = l_sql & "VALUES (" & l_nuevavisita & "," & l_rs("idpractica") & "," & l_rs("idrecursoreservable") & "," & l_precio & ")"
+		l_sql = l_sql & "VALUES (" & l_nuevavisita & "," & l_rs("idpractica") & "," & l_rs("idsolicitadapor") & "," & l_precio & ")"
 		l_cm.activeconnection = Cn
 		l_cm.CommandText = l_sql
 		cmExecute l_cm, l_sql, 0  		
