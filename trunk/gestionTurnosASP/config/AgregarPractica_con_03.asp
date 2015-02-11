@@ -54,7 +54,7 @@ response.write l_idvisita & " - " & l_practicaid & " - " & l_solicitadopor
 
 set l_cm = Server.CreateObject("ADODB.Command")
 
- l_sql = "SELECT clientespacientes.idobrasocial "
+ l_sql = "SELECT isnull(clientespacientes.idobrasocial,0) idobrasocial "
  l_sql = l_sql & " FROM visitas "
  l_sql = l_sql & " INNER JOIN clientespacientes ON clientespacientes.id = visitas.idpaciente "	  
  l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "	  	  
