@@ -111,7 +111,7 @@ l_rs.close
 
 end Function
 
-Function Pagos(id_practica , id_obrasocial )
+Function Pagos(idpracticarealizada )
 dim l_rs
 dim l_sql
 
@@ -120,17 +120,15 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
 l_sql = "SELECT  * "
 l_sql = l_sql & " FROM pagos "
-l_sql = l_sql & " WHERE idobrasocial = " & id_obrasocial
-l_sql = l_sql & " AND idpracticarealizada = " & id_practica
+l_sql = l_sql & " WHERE idpracticarealizada = " & idpracticarealizada
 rsOpen l_rs, cn, l_sql, 0 
-if not l_rs.eof then
-	Pagos = l_rs("importe")
-else
-	Pagos = 0
-end if
-l_rs.close
-
+Pagos = 0
+do while not l_rs.eof
+	Pagos = Pagos + cdbl(l_rs("importe"))
+	l_rs.movenext
+loop
 	
+l_rs.close
 
 end Function
 
@@ -225,7 +223,7 @@ if l_rs.eof then
 			<tr ondblclick="Javascript:abrirVentana('AgregarPractica_con_02.asp?tipo=M&cabnro=<%= l_rs("visitaid") %>&idpracticarealizada=<%= l_rs("practicasrealizadasid") %>' ,'',400,200);">
 			<% 
 			l_PrecioPractica = PrecioPractica(l_rs("practicaid") ,l_rs("idobrasocial") )
-			l_Pagos = Pagos(l_rs("practicasrealizadasid") ,l_rs("idobrasocial") )
+			l_Pagos = Pagos(l_rs("practicasrealizadasid") )
 			%>
 			<td align="center" width="10%" nowrap>&nbsp;</td>
 			<td align="center" width="10%" nowrap>&nbsp;</td>
@@ -234,7 +232,7 @@ if l_rs.eof then
 			<td align="center" width="10%" nowrap><%= l_Pagos %></td>
 			<td align="center" width="10%" nowrap><%= cdbl(l_PrecioPractica) - cdbl(l_Pagos) %></td>
 			<td align="center" width="10%">
-			<a href="Javascript:parent.abrirVentana('AnularTurno_con_02.asp?Tipo=B&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/turnos/shared/images/money_24.png" border="0" alt="Detalle de Pagos"></a>
+			<a href="Javascript:parent.abrirVentana('pagos_con_00.asp?cabnro=<%= l_rs("practicasrealizadasid") %>','',600,400);"><img src="/turnos/shared/images/money_24.png" border="0" alt="Detalle de Pagos"></a>
 			<a href="Javascript:parent.abrirVentana('EliminarPractica_con_02.asp?cabnro=<%= l_rs("practicasrealizadasid") %>' , '',400,200);"><img src="/turnos/shared/images/windows_close_program_24.png" border="0" alt="Eliminar Practicas"></a>
 			</td>
 			<% End If %>
