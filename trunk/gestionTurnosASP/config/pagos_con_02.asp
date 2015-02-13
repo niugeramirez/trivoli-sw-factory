@@ -25,10 +25,24 @@ Dim l_idmediodepago
 Dim l_idobrasocial
 Dim l_nro
 Dim l_importe
+Dim l_mediodepagoos 
 
 
 l_tipo = request.querystring("tipo")
 l_idpracticarealizada = request.querystring("idpracticarealizada")
+
+
+Set l_rs = Server.CreateObject("ADODB.RecordSet")
+
+		l_sql = "SELECT * "
+		l_sql = l_sql & " FROM mediosdepago "
+		l_sql  = l_sql  & " WHERE flag_obrasocial = -1 " 
+		rsOpen l_rs, cn, l_sql, 0 
+		l_mediodepagoos = 0
+		if not l_rs.eof then
+			l_mediodepagoos = l_rs("id")	
+		end if
+		l_rs.Close
 
 %>
 <html>
@@ -55,11 +69,12 @@ if (Trim(document.datos.idmediodepago.value) == "0"){
 	document.datos.idmediodepago.focus();
 	return;
 }
-
-if (Trim(document.datos.idobrasocial.value) == "0"){
-	alert("Debe ingresar la Obra Social.");
-	document.datos.idobrasocial.focus();
-	return;
+if (document.datos.mediodepagoos.value == document.datos.idmediodepago.value)  {
+	if (Trim(document.datos.idobrasocial.value) == "0"){
+		alert("Debe ingresar la Obra Social.");
+		document.datos.idobrasocial.focus();
+		return;
+	}
 }
 
 document.datos.importe2.value = document.datos.importe.value.replace(",", ".");
@@ -116,7 +131,7 @@ select Case l_tipo
 		l_importe = "0"
 		
 	Case "M":
-		Set l_rs = Server.CreateObject("ADODB.RecordSet")
+		'Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
 		l_sql = "SELECT * "
 		l_sql = l_sql & " FROM pagos "
@@ -137,7 +152,7 @@ end select
 <form name="datos" action="pagos_con_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">
 <input type="Hidden" name="id" value="<%= l_id %>">
 <input type="Hidden" name="idpracticarealizada" value="<%= l_idpracticarealizada %>">
-
+<input type="Hidden" name="mediodepagoos" value="<%= l_mediodepagoos %>">
 
 <table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
 <tr>
