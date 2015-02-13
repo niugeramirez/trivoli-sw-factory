@@ -62,6 +62,16 @@ if (Trim(document.datos.idobrasocial.value) == "0"){
 	return;
 }
 
+document.datos.importe2.value = document.datos.importe.value.replace(",", ".");
+  
+if (!validanumero(document.datos.importe2, 15, 4)){
+		  alert("El Monto no es válido. Se permite hasta 15 enteros y 4 decimales.");	
+		  document.datos.importe.focus();
+		  document.datos.importe.select();
+		  return;
+}	
+
+
 /*
 if (!stringValido(document.datos.agedes.value)){
 	alert("La Descripción contiene caracteres inválidos.");
@@ -200,6 +210,7 @@ end select
 					    <td align="right"><b>Importe:</b></td>
 						<td>
 							<input align="right" type="text" name="importe" size="20" maxlength="20" value="<%= l_importe %>">
+							<input type="hidden" name="importe2" value="">
 						</td>					
 					</tr>																
 		

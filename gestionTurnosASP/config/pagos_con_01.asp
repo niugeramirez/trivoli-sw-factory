@@ -80,7 +80,7 @@ l_sql = l_sql & " " & l_orden
 rsOpen l_rs, cn, l_sql, 0 
 if l_rs.eof then%>
 <tr>
-	 <td colspan="2" >No existen Pagos cargados.</td>
+	 <td colspan="4" >No existen Pagos cargados.</td>
 </tr>
 <%else
 	l_sumapago = 0

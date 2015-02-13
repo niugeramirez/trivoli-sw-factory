@@ -230,7 +230,7 @@ if l_rs.eof then
 			<td align="center" width="10%" nowrap><%= l_rs("descripcion") %></td>		
 			<td align="center" width="10%" nowrap><%= l_rs("precio") %></td>
 			<td align="center" width="10%" nowrap><%= l_Pagos %></td>
-			<td align="center" width="10%" nowrap><%= cdbl(l_PrecioPractica) - cdbl(l_Pagos) %></td>
+			<td align="center" width="10%" nowrap><%= cdbl(l_rs("precio")) - cdbl(l_Pagos) %></td>
 			<td align="center" width="10%">
 			<a href="Javascript:parent.abrirVentana('pagos_con_00.asp?cabnro=<%= l_rs("practicasrealizadasid") %>','',600,400);"><img src="/turnos/shared/images/money_24.png" border="0" alt="Detalle de Pagos"></a>
 			<a href="Javascript:parent.abrirVentana('EliminarPractica_con_02.asp?cabnro=<%= l_rs("practicasrealizadasid") %>' , '',400,200);"><img src="/turnos/shared/images/windows_close_program_24.png" border="0" alt="Eliminar Practicas"></a>

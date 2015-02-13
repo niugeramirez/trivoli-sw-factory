@@ -28,7 +28,7 @@ l_fecha       = request.Form("fecha")
 l_idobrasocial = request.Form("idobrasocial")
 l_idpracticarealizada = request.Form("idpracticarealizada")
 l_nro      = request.Form("nro")
-l_importe      = request.Form("importe")
+l_importe      = request.Form("importe2")
 
 
 if len(l_fecha) = 0 then
