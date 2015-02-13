@@ -107,12 +107,12 @@ set l_cm = Server.CreateObject("ADODB.Command")
 	  l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "	  	  
 	  l_sql = l_sql & " WHERE turnos.id= " & l_lista(i)
 
-	  Response.write "<script>alert('Operación"& l_sql &" Realizada.');</script>"		  
+	  'Response.write "<script>alert('Operación"& l_sql &" Realizada.');</script>"		  
 
 	  rsOpen l_rs, cn, l_sql, 0
 	  do while not l_rs.eof 
 	  
-	  Response.write "<script>alert('Operación"& l_rs("idsolicitadapor") &" Realizada.');</script>"	 
+	  'Response.write "<script>alert('Operación"& l_rs("idsolicitadapor") &" Realizada.');</script>"	 
 	  
 		l_sql = "INSERT INTO visitas "
 		l_sql = l_sql & "(idturno, idpaciente, idrecursoreservable, fecha  ) "

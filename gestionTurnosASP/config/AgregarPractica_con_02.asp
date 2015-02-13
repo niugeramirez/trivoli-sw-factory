@@ -29,6 +29,7 @@ l_tipo = request.querystring("tipo")
 l_idvisita = request("cabnro")
 
 l_idpracticarealizada = request("idpracticarealizada")
+l_idobrasocial=request("idobrasocial")
 
 %>
 <html>
@@ -50,6 +51,14 @@ if (document.datos.practicaid.value == "0"){
 	alert("Debe ingresar la Practica.");
 	document.datos.practicaid.focus();
 	return;
+}
+
+document.datos.precio2.value = document.datos.precio.value.replace(",", ".");
+if (!validanumero(document.datos.precio2, 15, 4)){
+		  alert("El Precio no es válido. Se permite hasta 15 enteros y 4 decimales.");	
+		  document.datos.precio.focus();
+		  document.datos.precio.select();
+		  return;
 }
 
 valido();
@@ -78,9 +87,19 @@ function Ayuda_Fecha(txt)
 }
 
 
-function ppa(){
-	alert();
+
+
+function calcularprecio(){
+
+
+	
+	document.valida.location = "agregarpractica_con_06.asp?idos=" + document.datos.idos.value + "&practicaid="+ document.datos.practicaid.value ;	
 }
+
+function actualizarprecio(p_precio){	
+	document.datos.precio.value = p_precio;
+
+}	
 
 </script>
 <% 
@@ -108,6 +127,8 @@ end select
 <form name="datos" action="AgregarPractica_con_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">
 <input type="hidden" name="idvisita" value="<%= l_idvisita %>">
 <input type="hidden" name="idpracticarealizada" value="<%= l_idpracticarealizada %>">
+<input type="hidden" name="idos" value="<%= l_idobrasocial %>">
+
 
 
 
@@ -133,7 +154,7 @@ end select
 											
 					<tr>
 						<td  align="right" nowrap><b>Practica (*): </b></td>
-						<td colspan="3"><select name="practicaid" size="1" style="width:200;">
+						<td colspan="3"><select name="practicaid" size="1" style="width:200;" onchange="calcularprecio()">
 								<option value=0 selected>Seleccione una Practica</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
@@ -170,14 +191,15 @@ end select
 							<script>document.datos.idrecursoreservable.value="<%= l_idsolicitadapor %>"</script>							
 						</td>					
 					</tr>		
-					<% if l_tipo = "M" then %>
+					<% 'if l_tipo = "M" then %>
 					<tr>
 					    <td align="right"><b>Precio:</b></td>
 						<td colspan="3">
-							<input type="text" name="precio" size="20" maxlength="20" value="<%= l_precio %>">
+							<input align="right" type="text" name="precio" size="20" maxlength="20" value="<%= l_precio %>">
+							<input type="hidden" name="precio2" value="">							
 						</td>
 					</tr>		
-					<% End If %>							
+					<%' End If %>							
 									
 					
 					<!--
