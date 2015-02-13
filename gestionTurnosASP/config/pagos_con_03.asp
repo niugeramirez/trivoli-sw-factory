@@ -26,6 +26,9 @@ l_id 	      = request.Form("id")
 l_idmediodepago	  = request.Form("idmediodepago")
 l_fecha       = request.Form("fecha")
 l_idobrasocial = request.Form("idobrasocial")
+
+if l_idobrasocial = "" then l_idobrasocial = 0 end if
+
 l_idpracticarealizada = request.Form("idpracticarealizada")
 l_nro      = request.Form("nro")
 l_importe      = request.Form("importe2")
@@ -44,7 +47,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO pagos "
 	l_sql = l_sql & " (idmediodepago, fecha, idpracticarealizada, idobrasocial, nro, importe )"
-	l_sql = l_sql & " VALUES (" & l_idmediodepago & "," & l_fecha & "," & l_idpracticarealizada & "," & l_idobrasocial & ",'" & l_nro & "'," & l_importe & ")"
+	l_sql = l_sql & " VALUES (" & l_idmediodepago & "," & l_fecha & "," & l_idpracticarealizada & "," & l_idobrasocial & ",'" & l_nro & "'," & l_importe & ")"	
+	
 else
 	l_sql = "UPDATE pagos "
 	l_sql = l_sql & " SET idmediodepago = " & l_idmediodepago
