@@ -154,7 +154,7 @@ end select
 											
 					<tr>
 						<td  align="right" nowrap><b>Practica (*): </b></td>
-						<td colspan="3"><select name="practicaid" size="1" style="width:200;" onchange="calcularprecio()">
+						<td colspan="3"><select name="practicaid" size="1" style="width:200;" onchange="calcularprecio();">
 								<option value=0 selected>Seleccione una Practica</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "

@@ -26,6 +26,8 @@ Dim l_idobrasocial
 Dim l_nro
 Dim l_importe
 Dim l_mediodepagoos 
+Dim l_idospaciente
+Dim l_flag_particular
 
 
 l_tipo = request.querystring("tipo")
@@ -34,15 +36,38 @@ l_idpracticarealizada = request.querystring("idpracticarealizada")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
-		l_sql = "SELECT * "
-		l_sql = l_sql & " FROM mediosdepago "
-		l_sql  = l_sql  & " WHERE flag_obrasocial = -1 " 
-		rsOpen l_rs, cn, l_sql, 0 
-		l_mediodepagoos = 0
-		if not l_rs.eof then
-			l_mediodepagoos = l_rs("id")	
-		end if
-		l_rs.Close
+'obtengo el Medio de Pago Obra Social
+l_sql = "SELECT * "
+l_sql = l_sql & " FROM mediosdepago "
+l_sql  = l_sql  & " WHERE flag_obrasocial = -1 " 
+rsOpen l_rs, cn, l_sql, 0 
+l_mediodepagoos = 0
+if not l_rs.eof then
+	l_mediodepagoos = l_rs("id")	
+end if
+l_rs.Close
+
+
+'obtengo la Obra Social del paciente
+l_sql = "select isnull(clientespacientes.idobrasocial, 0) idobrasocial,isnull(obrassociales.flag_particular, 0) flag_particular "
+l_sql = l_sql & " from practicasrealizadas "
+l_sql = l_sql & " inner join visitas on practicasrealizadas.idvisita = visitas.id "
+l_sql = l_sql & " inner join clientespacientes on clientespacientes.id = visitas.idpaciente "
+l_sql = l_sql & " inner join obrassociales on obrassociales.id = clientespacientes.idobrasocial "
+l_sql  = l_sql  & " WHERE practicasrealizadas.id =  " &l_idpracticarealizada
+
+'response.write l_sql&"</BR>"
+
+rsOpen l_rs, cn, l_sql, 0 
+l_idospaciente = 0
+l_flag_particular = 0
+if not l_rs.eof then
+	l_idospaciente = l_rs("idobrasocial")	
+	l_flag_particular = l_rs("flag_particular")		
+end if
+l_rs.Close
+
+
 
 %>
 <html>
@@ -120,15 +145,37 @@ function Ayuda_Fecha(txt)
 }
 
 
+function ctrolmetodopago(){
+	if (document.datos.mediodepagoos.value == document.datos.idmediodepago.value) {
+			//document.datos.idobrasocial.readOnly = false;
+			//document.datos.idobrasocial.className = 'habinp';			
+			document.datos.idobrasocial.disabled = false;							
+		}
+		else {
+			//document.datos.idobrasocial.readOnly = true;
+			//document.datos.idobrasocial.className = 'deshabinp';		
+			document.datos.idobrasocial.disabled = true;							
+			//document.datos.idobrasocial.value = 0;	
+		}	
+
+}
+
 </script>
 <% 
 select Case l_tipo
 	Case "A":
-		l_idmediodepago = "0"
-		l_fecha = ""
-		l_idobrasocial = "0"
+	
+		l_fecha = Date()
 		l_nro = ""
 		l_importe = "0"
+
+		if l_flag_particular = 0 then
+			l_idmediodepago = l_mediodepagoos
+			l_idobrasocial = l_idospaciente			
+		else
+			l_idmediodepago = "0"
+			l_idobrasocial = "0"		
+		end if
 		
 	Case "M":
 		'Set l_rs = Server.CreateObject("ADODB.RecordSet")
@@ -171,7 +218,7 @@ end select
 				<td>
 					<table cellspacing="0" cellpadding="0" border="0">
 					<tr>
-					    <td align="right" nowrap width="0"><b>Fecha;</b></td>
+					    <td align="right" nowrap width="0"><b>Fecha:</b></td>
 						<td align="left" nowrap width="0" >
 						    <input type="text" name="fecha" size="10" maxlength="10" value="<%= l_fecha %>">
 							<a href="Javascript:Ayuda_Fecha(document.datos.fecha)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
@@ -179,7 +226,7 @@ end select
 					</tr>							
 					<tr>
 						<td  align="right" nowrap><b>Medio de Pago: </b></td>
-						<td colspan="3"><select name="idmediodepago" size="1" style="width:200;">
+						<td colspan="3"><select name="idmediodepago" size="1" style="width:200;" onchange="ctrolmetodopago();">
 								<option value=0 selected>Seleccione una OS</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
@@ -194,6 +241,7 @@ end select
 								l_rs.Close %>
 							</select>
 							<script>document.datos.idmediodepago.value="<%= l_idmediodepago %>"</script>
+
 						</td>					
 					</tr>		
 					<tr>
@@ -213,6 +261,7 @@ end select
 								l_rs.Close %>
 							</select>
 							<script>document.datos.idobrasocial.value="<%= l_idobrasocial %>"</script>
+							<script>ctrolmetodopago();</script>
 						</td>					
 					</tr>		
 					<tr>
