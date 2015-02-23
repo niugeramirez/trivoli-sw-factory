@@ -79,6 +79,7 @@ function Seleccionar(fila,cabnro){
     <tr>
         <th>Paciente</th>
         <th>Nro. Historia Clinica</th>	
+		<th>Obra Social</th>	
 		<th>Practica</th>
         <th>Precio</th>	
         <th>Precio Pagado</th>
@@ -167,7 +168,7 @@ l_rs.close
 ''l_sql = l_sql & " LEFT JOIN ser_medida       ON ser_legajo.mednro = ser_medida.mednro "
 
 
-l_sql = "SELECT  clientespacientes.id clientespacientesid,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.nrohistoriaclinica nrohistoriaclinica , isnull(clientespacientes.idobrasocial,0) idobrasocial "
+l_sql = "SELECT  clientespacientes.id clientespacientesid,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.nrohistoriaclinica nrohistoriaclinica , isnull(clientespacientes.idobrasocial,0) idobrasocial, obrassociales.descripcion osnombre"
 l_sql = l_sql & " , isnull(practicas.id,0) practicaid, practicas.descripcion "
 l_sql = l_sql & " ,  visitas.id visitaid "
 l_sql = l_sql & " ,  isnull(practicasrealizadas.id,0) practicasrealizadasid , practicasrealizadas.precio "
@@ -175,6 +176,7 @@ l_sql = l_sql & " FROM visitas "
 l_sql = l_sql & " LEFT JOIN clientespacientes ON clientespacientes.id = visitas.idpaciente "
 l_sql = l_sql & " LEFT JOIN practicasrealizadas ON practicasrealizadas.idvisita = visitas.id "
 l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = practicasrealizadas.idpractica "
+l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
 'l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = turnos.idpractica "
 
 if l_filtro <> "" then
@@ -182,7 +184,7 @@ if l_filtro <> "" then
 end if
 'l_sql = l_sql & " " & l_orden
 
-' response.write l_sql
+'response.write l_sql
 rsOpen l_rs, cn, l_sql, 0 
 if l_rs.eof then
 	l_primero = 0
@@ -210,6 +212,7 @@ if l_rs.eof then
 			<td <%= l_fondovisita %> align="center" width="10%" nowrap>&nbsp;</td>
 			<td <%= l_fondovisita %> align="center" width="10%" nowrap>&nbsp;</td>
 			<td <%= l_fondovisita %> align="center" width="10%" nowrap>&nbsp;</td>
+			<td <%= l_fondovisita %> align="center" width="10%" nowrap>&nbsp;</td>
 			<td <%= l_fondovisita %> align="center" width="10%" nowrap>
 			<a href="Javascript:parent.abrirVentana('AgregarPractica_con_02.asp?tipo=A&idobrasocial=<%= l_rs("idobrasocial") %>&cabnro=<%= l_rs("visitaid") %>' ,'',400,200);"><img src="/turnos/shared/images/colba_24.png" border="0" alt="Agregar Practica"></a>
 			<a href="Javascript:parent.abrirVentana('EliminarVisita_con_02.asp?cabnro=<%= l_rs("visitaid") %>' ,'',400,200);"><img src="/turnos/shared/images/eliminarvisita_24.png" border="0" alt="Eliminar Visita"></a>			
@@ -226,7 +229,8 @@ if l_rs.eof then
 			l_Pagos = Pagos(l_rs("practicasrealizadasid") )
 			%>
 			<td align="center" width="10%" nowrap>&nbsp;</td>
-			<td align="center" width="10%" nowrap>&nbsp;</td>
+			<td align="center" width="10%" nowrap>&nbsp;</td>			
+			<td align="center" width="10%" nowrap><%= l_rs("osnombre") %></td>		
 			<td align="center" width="10%" nowrap><%= l_rs("descripcion") %></td>		
 			<td align="center" width="10%" nowrap><%= l_rs("precio") %></td>
 			<td align="center" width="10%" nowrap><%= l_Pagos %></td>
