@@ -91,11 +91,12 @@ l_rs.close
 l_sql = "SELECT  calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
 l_sql = l_sql & " ,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono"
 l_sql = l_sql & " ,  obrassociales.descripcion osnombre, practicas.descripcion practicanombre"
-l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente, turnos.apellido turnoapellido , turnos.nombre turnonombre, turnos.dni turnodni , turnos.domicilio turnodomicilio , turnos.telefono turnotelefono, turnos.comentario turnocomentario"
+'l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente, turnos.apellido turnoapellido , turnos.nombre turnonombre, turnos.dni turnodni , turnos.domicilio turnodomicilio , turnos.telefono turnotelefono, turnos.comentario turnocomentario"
+l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente, turnos.comentario turnocomentario"
 l_sql = l_sql & " FROM calendarios "
 l_sql = l_sql & " LEFT JOIN turnos ON turnos.idcalendario = calendarios.id "
 l_sql = l_sql & " LEFT JOIN clientespacientes ON clientespacientes.id = turnos.idclientepaciente "
-l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = turnos.idos "
+l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
 l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = turnos.idpractica "
 l_sql = l_sql & " WHERE calendarios.idrecursoreservable = " & l_idrecursoreservable
 l_sql = l_sql & " AND  CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  = " & cambiafecha(l_fechadesde,"YMD",true) 
