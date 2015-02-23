@@ -16,6 +16,8 @@ Dim l_id
 l_id = request.querystring("cabnro")
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 set l_cm = Server.CreateObject("ADODB.Command")
+
+'Response.write "<script>alert('l_id "&l_id& ".');</script>"
 'l_sql = "SELECT counro"
 'l_sql = l_sql & " FROM for_port "
 'l_sql  = l_sql  & " WHERE counro = " & l_counro
@@ -23,7 +25,7 @@ set l_cm = Server.CreateObject("ADODB.Command")
 'if not l_rs.eof then
 '	Response.write "<script>alert('Existen Ports asociados a este Country.\nNo es posible dar de baja.');window.close();</script>"
 'else
-	l_sql = " DELETE FROM templatereservas WHERE id = " & l_id
+	l_sql = " DELETE FROM listaprecioscabecera WHERE id = " & l_id
 'end if
 'l_rs.close
 
