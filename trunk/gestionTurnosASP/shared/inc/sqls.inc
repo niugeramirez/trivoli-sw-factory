@@ -80,6 +80,34 @@ function fsql_seqvalue(ByVal campo, ByVal tabla)
   fsql_seqvalue = auxi
 end function
 
+function fsql_seqvalue2(ByVal campo, ByVal tabla)
+  Dim auxi
+  Select Case l_base
+        Case "1"
+			auxi = "select unique DBINFO('sqlca.sqlerrd1') as " & campo & " from " & tabla & " "
+        Case "2" 
+			auxi = "select IDENT_CURRENT ('" & tabla & "') as " & campo & " "
+        Case "3" 
+			auxi = "SELECT IDENTITY_VAL_LOCAL() as " & campo & " FROM SYSIBM.SYSDUMMY1 "
+        Case "8" 
+			auxi = "select @@IDENTITY as " & campo & " "
+        Case "9" 
+			auxi = "select @@IDENTITY as " & campo & " "			
+        Case "10" 
+			auxi = "select @@IDENTITY as " & campo & " "
+        Case "12" 
+			auxi = "select @@IDENTITY as " & campo & " "
+        Case "13" 
+			auxi = "select @@IDENTITY as " & campo & " "
+        Case "14" 
+			auxi = "select @@IDENTITY as " & campo & " "
+        Case "15" 
+			auxi = "select @@IDENTITY as " & campo & " "
+
+  End Select
+  fsql_seqvalue2 = auxi
+end function
+
 function fsql_query(query)
 Dim Sql
 Select Case l_base
