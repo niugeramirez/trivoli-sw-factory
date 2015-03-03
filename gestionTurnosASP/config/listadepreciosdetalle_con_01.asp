@@ -81,7 +81,7 @@ if l_rs.eof then%>
 <%else
 	do until l_rs.eof
 	%>
-	    <tr ondblclick="Javascript:parent.abrirVentana('listadepreciosdetalle_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',520,200)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
+	    <tr ondblclick="Javascript:parent.abrirVentana('listadepreciosdetalle_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',520,100)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
 	        <td width="15%" align="left" nowrap><%= l_rs("descripcion")%></td>
 	        <td width="15%" align="right" nowrap><%= formatnumber(l_rs("precio"),2)%></td>
 	       <!--  <td width="85%" nowrap><%'= l_rs("descripcion")%></td>		 -->	
