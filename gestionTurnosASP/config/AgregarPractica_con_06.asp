@@ -45,5 +45,5 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
 %>
 <script>
-	parent.actualizarprecio(<%= l_precio %>)
+	parent.actualizarprecio('<%= l_precio %>')
 </script>
