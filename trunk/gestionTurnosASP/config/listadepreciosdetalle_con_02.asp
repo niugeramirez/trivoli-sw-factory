@@ -39,6 +39,7 @@ l_idcab = request.querystring("idcab")
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_valida.js"></script>
+<script src="/turnos/shared/js/fn_numeros.js"></script>
 <script>
 function Validar_Formulario(){
 /*
@@ -64,6 +65,14 @@ if (!stringValido(document.datos.agedes.value)){
 var d=document.datos;
 document.valida.location = "agencias_con_06.asp?tipo=<%= l_tipo%>&agenro="+document.datos.agenro.value + "&agedes="+document.datos.agedes.value;
 */
+
+document.datos.precio2.value = document.datos.precio.value.replace(",", ".");
+if (!validanumero(document.datos.precio2, 15, 4)){
+		  alert("El Precio no es válido. Se permite hasta 15 enteros y 4 decimales.");	
+		  document.datos.precio.focus();
+		  document.datos.precio.select();
+		  return;
+}
 
 valido();
 
@@ -140,6 +149,7 @@ end select
 					    <td align="right"><b>Precio:</b></td>
 						<td>
 							<input type="text" name="precio" size="40" maxlength="50" value="<%= l_precio %>">
+							<input type="hidden" name="precio2" value="">	
 						</td>
 					</tr>	
 

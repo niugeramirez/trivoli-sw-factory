@@ -73,7 +73,7 @@ function llamadaexcel(){
 		  &nbsp;
           <% call MostrarBoton ("sidebtnABM", "Javascript:eliminarRegistro(document.ifrm,'listadepreciosdetalle_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
 		  &nbsp;
-          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('listadepreciosdetalle_con_02.asp?idcab='+document.datos.id.value + '&Tipo=M&cabnro=' + document.ifrm.datos.cabnro.value,'',520,200);","Modifica")%>
+          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('listadepreciosdetalle_con_02.asp?idcab='+document.datos.id.value + '&Tipo=M&cabnro=' + document.ifrm.datos.cabnro.value,'',520,100);","Modifica")%>
 		  &nbsp;&nbsp;
           <%' call MostrarBoton ("sidebtnSHW", "Javascript:llamadaexcel();","Excel")%>
 		  <!-- <a class=sidebtnSHW href="Javascript:orden('../../config/agencias_con_01.asp');">Orden</a>

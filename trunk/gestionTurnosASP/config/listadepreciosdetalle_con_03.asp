@@ -21,7 +21,7 @@ Dim l_idcab
 l_tipo 		  = request.querystring("tipo")
 l_id 	      = request.Form("id")
 l_idpractica  = request.Form("idpractica")
-l_precio      = request.Form("precio")
+l_precio      = request.Form("precio2")
 
 l_idcab = request.Form("idcab")
 
