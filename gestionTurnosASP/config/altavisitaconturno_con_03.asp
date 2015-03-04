@@ -33,11 +33,11 @@ l_turnos 		           = request("cabnro")
 ' ------------------------------------------------------------------------------------------------------------------
 ' codigogenerado() :
 ' ------------------------------------------------------------------------------------------------------------------
-function codigogenerado()
+function codigogenerado(tabla)
 	Dim l_rs
 	Dim l_sql
 	Set l_rs = Server.CreateObject("ADODB.RecordSet")
-	l_sql = fsql_seqvalue("next_id","cap_evento")
+	l_sql = fsql_seqvalue("next_id",tabla)
 	rsOpen l_rs, cn, l_sql, 0
 	codigogenerado=l_rs("next_id")
 	l_rs.Close
@@ -57,7 +57,7 @@ function BuscarPrecio(idobrasocial, idpractica )
 	l_sql = l_sql & " AND idpractica = " & idpractica
 	rsOpen l_rs, cn, l_sql, 0
 	if not l_rs.eof then
-		BuscarPrecio = l_rs("precio")
+		BuscarPrecio = Replace(l_rs("precio"), ",", ".")
 	else
 		BuscarPrecio = 0
 	end if
@@ -123,8 +123,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 		
 
 		'Ingreso la lista de empleados a la tabla
-		l_nuevavisita = codigogenerado()		
-		l_precio = buscarprecio(l_rs("idobrasocial") , l_rs("idpractica") )	
+		l_nuevavisita = codigogenerado("visitas")		
+		l_precio = buscarprecio(l_rs("idobrasocial") , l_rs("idpractica") )			
 		
 		l_sql = "INSERT INTO practicasrealizadas "
 		l_sql = l_sql & "(idvisita, idpractica, idsolicitadapor, precio  ) "
@@ -135,7 +135,7 @@ set l_cm = Server.CreateObject("ADODB.Command")
 		
 		' Si tiene Obra Social registro el Pago
 		if l_rs("flag_particular") = 0 then
-			l_practicarealizada = codigogenerado()	
+			l_practicarealizada = codigogenerado("practicasrealizadas")	
 			
 			l_sql = "INSERT INTO pagos "
 			l_sql = l_sql & "( idpracticarealizada, idmediodepago, idobrasocial, fecha , importe ) "
