@@ -52,7 +52,7 @@ function fsql_first(sql,cant)
   fsql_first = auxi
 end function
 
-function fsql_seqvalue(ByVal campo, ByVal tabla)
+function fsql_seqvalue2(ByVal campo, ByVal tabla)
   Dim auxi
   Select Case l_base
         Case "1"
@@ -80,7 +80,7 @@ function fsql_seqvalue(ByVal campo, ByVal tabla)
   fsql_seqvalue = auxi
 end function
 
-function fsql_seqvalue2(ByVal campo, ByVal tabla)
+function fsql_seqvalue(ByVal campo, ByVal tabla)
   Dim auxi
   Select Case l_base
         Case "1"
