@@ -31,7 +31,7 @@ function codigogenerado(tabla)
 	Dim l_rs
 	Dim l_sql
 	Set l_rs = Server.CreateObject("ADODB.RecordSet")
-	l_sql = fsql_seqvalue2("next_id",tabla)
+	l_sql = fsql_seqvalue("next_id",tabla)
 	rsOpen l_rs, cn, l_sql, 0
 	codigogenerado=l_rs("next_id")
 	l_rs.Close
