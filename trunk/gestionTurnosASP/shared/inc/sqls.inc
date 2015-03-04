@@ -77,7 +77,7 @@ function fsql_seqvalue2(ByVal campo, ByVal tabla)
 			auxi = "select @@IDENTITY as " & campo & " "
 
   End Select
-  fsql_seqvalue = auxi
+  fsql_seqvalue2 = auxi
 end function
 
 function fsql_seqvalue(ByVal campo, ByVal tabla)
@@ -105,7 +105,7 @@ function fsql_seqvalue(ByVal campo, ByVal tabla)
 			auxi = "select @@IDENTITY as " & campo & " "
 
   End Select
-  fsql_seqvalue2 = auxi
+  fsql_seqvalue = auxi
 end function
 
 function fsql_query(query)
