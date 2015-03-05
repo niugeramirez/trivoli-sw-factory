@@ -466,7 +466,7 @@ function crearUsuario(user,pass)
 	cn.execute "exec sp_helplogins '" & user & "'",cantidad
 	if cantidad = 0 then
 		'Si no encuentro al usuario lo agrego
-		cn.Execute "exec sp_addlogin '" & user & "','" & pass & "','buques'", , 1
+		cn.Execute "exec sp_addlogin '" & user & "','" & pass & "','turnos'", , 1
 		cn.Execute "exec sp_grantdbaccess '" & user & "','" & user & "'", , 1
 		cn.Execute "exec sp_addrolemember 'db_owner','" & user & "'", , 1
 	else
