@@ -21,6 +21,7 @@ dim l_comentario
 dim l_idrecursoreservable
 Dim l_idpractica
 Dim l_ventana
+Dim l_iduser
 
 'ADO
 Dim l_tipo
@@ -89,6 +90,12 @@ if (document.datos.tel.value == ""){
 if (document.datos.practicaid.value == "0"){
 	alert("Debe ingresar una Practica.");
 	document.datos.practicaid.focus();
+	return;
+}
+
+if (document.datos.iduser.value == "0"){
+	alert("Debe ingresar quien Ingresa el Turno.");
+	document.datos.iduser.focus();
 	return;
 }
 
@@ -213,12 +220,13 @@ select Case l_tipo
 				l_idpractica = "0"
 			end if
 			l_rs.Close			
+			l_iduser  = "0"
 			
 			
 	Case "M":
 		
 		l_id = request.querystring("cabnro")
-		l_sql = "SELECT  turnos.id id , turnos.idpractica, turnos.idrecursoreservable, turnos.comentario "
+		l_sql = "SELECT  turnos.id id , turnos.idpractica, turnos.idrecursoreservable, turnos.comentario, turnos.iduseringresoturno "
 		l_sql = l_sql & " , clientespacientes.id clientepacienteid, clientespacientes.apellido, clientespacientes.nombre , clientespacientes.nrohistoriaclinica "
 		l_sql = l_sql & " , clientespacientes.dni , clientespacientes.domicilio, clientespacientes.telefono , clientespacientes.idobrasocial "
 		l_sql = l_sql & " , obrassociales.id idobrasocial , obrassociales.descripcion "
@@ -241,7 +249,8 @@ select Case l_tipo
 			l_idpractica    = l_rs("idpractica")
 			l_idrecursoreservable = l_rs("idrecursoreservable")
 			'response.write l_idrecursoreservable
-			l_comentario = l_rs("comentario")
+			l_comentario    = l_rs("comentario")
+			l_iduser        = l_rs("iduseringresoturno")
 			
 		end if
 		l_rs.Close
@@ -355,10 +364,7 @@ end select
 						<td>&nbsp;
 						</td>
 					</tr>
-					<tr>
-						<td>&nbsp;
-						</td>
-					</tr>										
+						
 					<tr>
 						<td  align="right" nowrap><b>Practica (*): </b></td>
 						<td colspan="3"><select name="practicaid" size="1" style="width:200;">
@@ -403,7 +409,28 @@ end select
 							</select>
 							<script>document.datos.idrecursoreservable.value="<%= l_idrecursoreservable %>"</script>
 						</td>					
-					</tr>					
+					</tr>			
+					
+					<tr>
+						<td  align="right" nowrap><b>Ingresado por : </b></td>
+						<td colspan="3"><select name="iduser" size="1" style="width:200;">
+								<option value=0 selected>Seleccionar un Usuario</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT  * "
+								l_sql  = l_sql  & " FROM user_per "
+								l_sql  = l_sql  & " WHERE iduser <> 'sa' "								
+								l_sql  = l_sql  & " ORDER BY iduser "
+								rsOpen l_rs, cn, l_sql, 0
+								do until l_rs.eof		%>	
+								<option value= <%= l_rs("iduser") %> > 
+								<%= l_rs("usrnombre") %> </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>
+							</select>
+							<script>document.datos.iduser.value="<%= l_iduser %>"</script>
+						</td>					
+					</tr>								
 					
 									<!-- 
 					<tr>
