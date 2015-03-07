@@ -43,6 +43,12 @@ function Actualizar(destino){
   		document.datos.fechahasta.focus();
 		return;
 	}	
+	
+	if (!menorque(document.datos.fechadesde.value ,document.datos.fechahasta.value)){
+		alert('La fecha hasta debe ser mayor que la fecha desde.');
+  		document.datos.fechadesde.focus();
+		return;
+	}		
 
 	/*
 	if (document.datos.fecini.value != "") {
@@ -55,7 +61,7 @@ function Actualizar(destino){
 	*/
 
 	if (document.datos.id.value == "0")  {
-  		alert("Debe ingresar el Medico ");
+  		alert("Debe ingresar el Medio de Pago ");
   		document.datos.id.focus();
 		return;
 	}	
@@ -105,11 +111,11 @@ function Ayuda_Fecha(txt){
 
 					<tr>
 						<td align="right"><b>Fecha Desde: </b></td>
-						<td><input  type="text" name="fechadesde" size="10" maxlength="10" value="<%'= l_fecha%>" >
+						<td><input  type="text" name="fechadesde" size="10" maxlength="10" value="<%= date()%>" >
 							<a href="Javascript:Ayuda_Fecha(document.datos.fechadesde);"><img src="/turnos/shared/images/calendar1.png" border="0"></a>
 						</td>
 						<td align="right"><b>Fecha Hasta: </b></td>
-						<td><input  type="text" name="fechahasta" size="10" maxlength="10" value="<%'= l_fecha%>" >
+						<td><input  type="text" name="fechahasta" size="10" maxlength="10" value="<%= date()%>" >
 							<a href="Javascript:Ayuda_Fecha(document.datos.fechahasta);"><img src="/turnos/shared/images/calendar1.png" border="0"></a>
 						</td>						
 						<td  align="right" nowrap><b>Medio de Pago: </b></td>
