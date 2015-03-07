@@ -23,6 +23,7 @@ dim l_idobrasocial
 dim l_idpractica
 dim l_comentario
 dim l_idrecursoreservable
+dim l_iduser
 
 
 l_tipo 		     = request.querystring("tipo")
@@ -37,6 +38,7 @@ l_idobrasocial   = request.Form("osid")
 l_idpractica     = request.Form("practicaid")
 l_comentario     = request.Form("comentario")
 l_idrecursoreservable = request.Form("idrecursoreservable")
+l_iduser         = request.Form("iduser")
 
 
 
@@ -63,14 +65,15 @@ if l_tipo = "A" then
 	'else
 	
 	l_sql = "INSERT INTO turnos "
-	l_sql = l_sql & " (idcalendario, idclientepaciente, idpractica, comentario , idrecursoreservable)"
-	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ")"
+	l_sql = l_sql & " (idcalendario, idclientepaciente, idpractica, comentario , idrecursoreservable, iduseringresoturno)"
+	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ",'" & l_iduser & "')"
 	'end if
 else
 	l_sql = "UPDATE turnos "
 	l_sql = l_sql & " SET idpractica    = " & l_idpractica
 	l_sql = l_sql & "    ,comentario    = '" & l_comentario & "'"
 	l_sql = l_sql & "    ,idrecursoreservable  = " & l_idrecursoreservable
+	l_sql = l_sql & "    ,iduseringresoturno  = '" & l_iduser & "'"
 	l_sql = l_sql & " WHERE id = " & l_id
 end if
 response.write l_sql & "<br>"
