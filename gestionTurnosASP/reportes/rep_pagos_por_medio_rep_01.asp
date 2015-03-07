@@ -26,6 +26,7 @@ Dim l_primero
 Dim l_fechadesde
 Dim l_fechahasta
 Dim l_descripcion
+Dim l_titulo
 
 l_filtro = request("filtro")
 l_orden  = request("orden")
@@ -77,20 +78,20 @@ l_fechahasta = request("qfechahasta")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
-' Obtengo la cantidad de turnos simultaneos del Recurso Reservable
-'l_sql = "SELECT  * "
-'l_sql = l_sql & " FROM recursosreservables "
-'l_sql = l_sql & " WHERE id = " & l_idrecursoreservable
-'rsOpen l_rs, cn, l_sql, 0 
-'if not l_rs.eof then
-'	l_descripcion = l_rs("descripcion")
-'	l_cantturnossimult = l_rs("cantturnossimult")
-'end if
-'l_rs.close
+' Obtengo el Nombre del Medio de Pago
+l_sql = "SELECT  * "
+l_sql = l_sql & " FROM mediosdepago "
+l_sql = l_sql & " WHERE id = " & l_idmedio
+rsOpen l_rs, cn, l_sql, 0 
+l_titulo = ""
+if not l_rs.eof then
+	l_titulo = l_rs("titulo")
+end if
+l_rs.close
 
 
 
-l_sql = "SELECT  pagos.fecha, clientespacientes.apellido, clientespacientes.nombre, practicas.descripcion,  pagos.importe " 'calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
+l_sql = "SELECT  pagos.fecha, clientespacientes.apellido, clientespacientes.nombre, practicas.descripcion,  pagos.importe,  recursosreservables.descripcion medico" 'calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
 'l_sql = l_sql & " ,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono"
 'l_sql = l_sql & " ,  obrassociales.descripcion osnombre, practicas.descripcion practicanombre"
 'l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente, turnos.apellido turnoapellido , turnos.nombre turnonombre, turnos.dni turnodni , turnos.domicilio turnodomicilio , turnos.telefono turnotelefono, turnos.comentario turnocomentario"
@@ -99,6 +100,7 @@ l_sql = l_sql & " FROM pagos "
 l_sql = l_sql & " LEFT JOIN practicasrealizadas ON practicasrealizadas.id = pagos.idpracticarealizada "
 l_sql = l_sql & " LEFT JOIN visitas ON visitas.id = practicasrealizadas.idvisita "
 l_sql = l_sql & " LEFT JOIN clientespacientes ON clientespacientes.id = visitas.idpaciente "
+l_sql = l_sql & " LEFT JOIN recursosreservables ON recursosreservables.id = visitas.idrecursoreservable "
 'l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
 l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = practicasrealizadas.idpractica "
 l_sql = l_sql & " WHERE pagos.idmediodepago = " & l_idmedio
@@ -120,16 +122,18 @@ rsOpen l_rs, cn, l_sql, 0
         <td colspan="6">&nbsp;</td>
     </tr>
 	<tr>
-        <td  colspan="6" align="center" ><h3>Pagos desde:&nbsp;<%= l_fechadesde %>&nbsp; al <%= l_fechahasta %>&nbsp;&nbsp;</h3></td>
-	
-	
+        <td  colspan="6" align="center" ><h3>Pagos desde:&nbsp;<%= l_fechadesde %>&nbsp; al <%= l_fechahasta %>&nbsp;&nbsp;</h3></td>	
     </tr>
+	<tr>
+        <td  colspan="6" align="center" ><h3>Medio de Pago:&nbsp;<%= l_titulo %></h3></td>	
+    </tr>	
     <tr>
         <td colspan="6">&nbsp;</td>
     </tr>	
     <tr>
         <th width="100">Fecha</th>
         <th width="200">Paciente</th>	
+        <th width="200">M&eacute;dico</th>			
         <th width="200">Practica</th>	
         <th width="100">Importe</th>
 	
@@ -153,6 +157,7 @@ if l_rs.eof then
 			
 	        <td align="center"><%= l_rs("fecha") %></td>	
 			<td <%'= l_fondo  %> ><%= l_rs("apellido")%>,&nbsp;<%= l_rs("nombre")%></td>
+			<td <%'= l_fondo  %> ><%= l_rs("medico")%></td>				
 			<td <%'= l_fondo  %> ><%= l_rs("descripcion")%></td>					
 			<td align="right"><%= l_rs("importe")%></td>					
 										   
@@ -164,6 +169,7 @@ if l_rs.eof then
 		 <tr>
 			
 	        <td align="center">&nbsp;</td>	
+			<td>&nbsp;</td>
 			<td>&nbsp;</td>
 			<td align="right">Total</td>					
 			<td align="right"><%= l_cant %></td>					
