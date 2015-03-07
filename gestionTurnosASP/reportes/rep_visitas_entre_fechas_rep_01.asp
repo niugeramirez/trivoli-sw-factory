@@ -21,11 +21,14 @@ dim l_cantturnossimult
 dim l_idpaciente
 dim l_cantturnos
 dim l_fondo
+Dim l_PrecioPractica
+Dim l_pagos
 
 Dim l_primero
 Dim l_fechadesde
 Dim l_fechahasta
 Dim l_descripcion
+Dim l_apeynom
 
 l_filtro = request("filtro")
 l_orden  = request("orden")
@@ -70,6 +73,52 @@ function Seleccionar(fila,cabnro, turnoid){
 </script>
 <% 
 
+
+Function PrecioPractica(id_practica , id_obrasocial )
+dim l_rs
+dim l_sql
+
+
+Set l_rs = Server.CreateObject("ADODB.RecordSet")
+
+l_sql = "SELECT  * "
+l_sql = l_sql & " FROM listaprecioscabecera "
+l_sql = l_sql & " INNER JOIN listapreciosdetalle ON listapreciosdetalle.idlistaprecioscabecera = listaprecioscabecera.id "
+l_sql = l_sql & " WHERE flag_activo = -1 "
+l_sql = l_sql & " AND idobrasocial = " & id_obrasocial
+l_sql = l_sql & " AND idpractica = " & id_practica
+rsOpen l_rs, cn, l_sql, 0 
+if not l_rs.eof then
+	PrecioPractica = l_rs("precio")
+else
+	PrecioPractica = 0
+end if
+l_rs.close
+
+end Function
+
+Function Pagos(idpracticarealizada )
+dim l_rs
+dim l_sql
+
+
+Set l_rs = Server.CreateObject("ADODB.RecordSet")
+
+l_sql = "SELECT  * "
+l_sql = l_sql & " FROM pagos "
+l_sql = l_sql & " WHERE idpracticarealizada = " & idpracticarealizada
+rsOpen l_rs, cn, l_sql, 0 
+Pagos = 0
+do while not l_rs.eof
+	Pagos = Pagos + cdbl(l_rs("importe"))
+	l_rs.movenext
+loop
+	
+l_rs.close
+
+end Function
+
+
 l_filtro = replace (l_filtro, "*", "%")
 l_idpaciente = request("idpaciente")
 l_fechadesde = request("qfechadesde")
@@ -77,20 +126,19 @@ l_fechahasta = request("qfechahasta")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
-' Obtengo la cantidad de turnos simultaneos del Recurso Reservable
-'l_sql = "SELECT  * "
-'l_sql = l_sql & " FROM recursosreservables "
-'l_sql = l_sql & " WHERE id = " & l_idrecursoreservable
-'rsOpen l_rs, cn, l_sql, 0 
-'if not l_rs.eof then
-'	l_descripcion = l_rs("descripcion")
-'	l_cantturnossimult = l_rs("cantturnossimult")
-'end if
-'l_rs.close
+' Obtengo el nombre del Paciente
+l_sql = "SELECT  * "
+l_sql = l_sql & " FROM clientespacientes "
+l_sql = l_sql & " WHERE id = " & l_idpaciente
+rsOpen l_rs, cn, l_sql, 0 
+if not l_rs.eof then
+	l_apeynom = l_rs("apellido") & ", " & l_rs("nombre")
+end if
+l_rs.close
 
 
 
-l_sql = "SELECT  visitas.fecha, practicas.descripcion nombrepractica , recursosreservables.descripcion " 'calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
+l_sql = "SELECT  visitas.fecha, practicas.descripcion nombrepractica , recursosreservables.descripcion , isnull(practicasrealizadas.id,0) practicasrealizadasid , practicasrealizadas.precio  " 'calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
 'l_sql = l_sql & " ,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono"
 'l_sql = l_sql & " ,  obrassociales.descripcion osnombre, practicas.descripcion practicanombre"
 'l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente, turnos.apellido turnoapellido , turnos.nombre turnonombre, turnos.dni turnodni , turnos.domicilio turnodomicilio , turnos.telefono turnotelefono, turnos.comentario turnocomentario"
@@ -120,18 +168,21 @@ rsOpen l_rs, cn, l_sql, 0
         <td colspan="6">&nbsp;</td>
     </tr>
 	<tr>
-        <td  colspan="6" align="center" ><h3>Visitas desde:&nbsp;<%= l_fechadesde %>&nbsp; al <%= l_fechahasta %>&nbsp;&nbsp;</h3></td>
-	
-	
+        <td  colspan="6" align="center" ><h3>Visitas desde:&nbsp;<%= l_fechadesde %>&nbsp; al <%= l_fechahasta %>&nbsp;&nbsp;</h3></td>	
     </tr>
+	<tr>
+        <td  colspan="6" align="center" ><h3>Paciente:&nbsp;<%= l_apeynom %>&nbsp; </h3></td>	
+    </tr>	
     <tr>
         <td colspan="6">&nbsp;</td>
     </tr>	
     <tr>
         <th width="100">Fecha</th>
+        <th width="200">Medico</th>		
         <th width="200">Practica</th>	
-        <th width="200">Medico</th>	
-        
+ 		<th width="200">Precio</th>
+ 		<th width="200">Monto Pagado</th>
+ 		<th width="200">Saldo</th>  	       
 	
 	
     </tr>
@@ -152,23 +203,25 @@ if l_rs.eof then
 	    <tr>
 			
 	        <td align="center"><%= l_rs("fecha") %></td>	
-			<td <%'= l_fondo  %> ><%= l_rs("nombrepractica")%>,&nbsp;</td>
-			<td <%'= l_fondo  %> ><%= l_rs("descripcion")%></td>					
+			<td <%'= l_fondo  %> ><%= l_rs("nombrepractica")%>&nbsp;</td>
+			<td <%'= l_fondo  %> ><%= l_rs("descripcion")%></td>	
+			<% 
+			l_PrecioPractica = l_rs("precio")
+			l_Pagos = Pagos(l_rs("practicasrealizadasid") )
+			%>			
+			<td <%'= l_fondo  %> align="right"  ><%= l_PrecioPractica %></td>		
+			<td <%'= l_fondo  %> align="right" ><%= l_Pagos	 %></td>	
+			<td align="center" ><%= cdbl(l_PrecioPractica) - cdbl(l_Pagos) %></td>						
+
+			
+			
 			
 										   
 	    </tr>
 	<%
 		l_rs.MoveNext
 	loop
-	%>
-		 <tr>
-			
-	        <td align="center">&nbsp;</td>	
-			<td align="right">Cantidad</td>					
-			<td align="center"><%= l_cant %></td>					
-										   
-	    </tr>
-	<%
+
 end if
 
 l_rs.Close

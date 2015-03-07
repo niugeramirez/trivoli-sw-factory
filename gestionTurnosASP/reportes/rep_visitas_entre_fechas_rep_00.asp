@@ -43,6 +43,12 @@ function Actualizar(destino){
   		document.datos.fechahasta.focus();
 		return;
 	}	
+	
+	if (!menorque(document.datos.fechadesde.value ,document.datos.fechahasta.value)){
+		alert('La fecha hasta debe ser mayor que la fecha desde.');
+  		document.datos.fechadesde.focus();
+		return;
+	}		
 
 	/*
 	if (document.datos.fecini.value != "") {
