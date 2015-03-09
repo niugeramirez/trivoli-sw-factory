@@ -220,7 +220,7 @@ select Case l_tipo
 				l_idpractica = "0"
 			end if
 			l_rs.Close			
-			l_iduser  = "0"
+			l_iduser  = session("loguinUser")
 			
 			
 	Case "M":
@@ -411,7 +411,7 @@ end select
 						</td>					
 					</tr>			
 					
-					<tr>
+					<tr> 
 						<td  align="right" nowrap><b>Ingresado por : </b></td>
 						<td colspan="3"><select name="iduser" size="1" style="width:200;">
 								<option value=0 selected>Seleccionar un Usuario</option>
@@ -428,7 +428,7 @@ end select
 								loop
 								l_rs.Close %>
 							</select>
-							<script>document.datos.iduser.value="<%= l_iduser %>"</script>
+							<script>document.datos.iduser.value="<%= l_iduser %>"</script> 
 						</td>					
 					</tr>								
 					
