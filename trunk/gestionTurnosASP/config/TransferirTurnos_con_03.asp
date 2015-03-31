@@ -43,7 +43,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 
 l_sql = "UPDATE turnos "
 l_sql = l_sql & " SET idcalendario    = " & l_nuevo & ""
-
+l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"
+l_sql = l_sql & "    ,last_update_date = GETDATE()" 
 l_sql = l_sql & " WHERE id = " & l_ant
 
 
