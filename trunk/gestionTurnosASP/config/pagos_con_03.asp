@@ -46,8 +46,8 @@ end if
 set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO pagos "
-	l_sql = l_sql & " (idmediodepago, fecha, idpracticarealizada, idobrasocial, nro, importe )"
-	l_sql = l_sql & " VALUES (" & l_idmediodepago & "," & l_fecha & "," & l_idpracticarealizada & "," & l_idobrasocial & ",'" & l_nro & "'," & l_importe & ")"	
+	l_sql = l_sql & " (idmediodepago, fecha, idpracticarealizada, idobrasocial, nro, importe ,created_by,creation_date,last_updated_by,last_update_date)"
+	l_sql = l_sql & " VALUES (" & l_idmediodepago & "," & l_fecha & "," & l_idpracticarealizada & "," & l_idobrasocial & ",'" & l_nro & "'," & l_importe &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
 	
 else
 	l_sql = "UPDATE pagos "
@@ -57,6 +57,8 @@ else
 	l_sql = l_sql & " , idobrasocial = " & l_idobrasocial
 	l_sql = l_sql & " , nro = '" & l_nro & "'"
 	l_sql = l_sql & " , importe = " & l_importe		
+	l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"
+	l_sql = l_sql & "    ,last_update_date = GETDATE()" 	
 	l_sql = l_sql & " WHERE id = " & l_id
 end if
 'response.write l_sql & "<br>"
