@@ -33,8 +33,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 
 
 	l_sql = "INSERT INTO visitas "
-	l_sql = l_sql & "(fecha, idrecursoreservable, idpaciente , idturno ) "
-	l_sql = l_sql & "VALUES (" & cambiaformato (l_calfec, "00:00" )  & "," & l_idrecursoreservable  & "," &  l_pacienteid & ",0)"
+	l_sql = l_sql & "(fecha, idrecursoreservable, idpaciente , idturno ,created_by,creation_date,last_updated_by,last_update_date) "
+	l_sql = l_sql & "VALUES (" & cambiaformato (l_calfec, "00:00" )  & "," & l_idrecursoreservable  & "," &  l_pacienteid & ",0"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	l_cm.activeconnection = Cn
 	l_cm.CommandText = l_sql
 	cmExecute l_cm, l_sql, 0

@@ -115,35 +115,34 @@ set l_cm = Server.CreateObject("ADODB.Command")
 	  'Response.write "<script>alert('Operación"& l_rs("idsolicitadapor") &" Realizada.');</script>"	 
 	  
 		l_sql = "INSERT INTO visitas "
-		l_sql = l_sql & "(idturno, idpaciente, idrecursoreservable, fecha  ) "
-		l_sql = l_sql & "VALUES (" & l_lista(i) & "," & l_rs("idclientepaciente") & "," & l_rs("idrecursoreservable") & ",'" & l_rs("FechaVisita") & "')"
+		l_sql = l_sql & "(idturno, idpaciente, idrecursoreservable, fecha ,created_by,creation_date,last_updated_by,last_update_date ) "
+		l_sql = l_sql & "VALUES (" & l_lista(i) & "," & l_rs("idclientepaciente") & "," & l_rs("idrecursoreservable") & ",'" & l_rs("FechaVisita") & "'"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 		l_cm.activeconnection = Cn
 		l_cm.CommandText = l_sql
-		cmExecute l_cm, l_sql, 0  
-		
+		cmExecute l_cm, l_sql, 0  		
 
 		'Ingreso la lista de empleados a la tabla
 		l_nuevavisita = codigogenerado("visitas")		
 		l_precio = buscarprecio(l_rs("idobrasocial") , l_rs("idpractica") )			
 		
 		l_sql = "INSERT INTO practicasrealizadas "
-		l_sql = l_sql & "(idvisita, idpractica, idsolicitadapor, precio  ) "
-		l_sql = l_sql & "VALUES (" & l_nuevavisita & "," & l_rs("idpractica") & "," & l_rs("idsolicitadapor") & "," & l_precio & ")"
+		l_sql = l_sql & "(idvisita, idpractica, idsolicitadapor, precio ,created_by,creation_date,last_updated_by,last_update_date ) "
+		l_sql = l_sql & "VALUES (" & l_nuevavisita & "," & l_rs("idpractica") & "," & l_rs("idsolicitadapor") & "," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 		l_cm.activeconnection = Cn
 		l_cm.CommandText = l_sql
 		cmExecute l_cm, l_sql, 0  		
-		
+
 		' Si tiene Obra Social registro el Pago
 		if l_rs("flag_particular") = 0 then
 			l_practicarealizada = codigogenerado("practicasrealizadas")	
 			
 			l_sql = "INSERT INTO pagos "
-			l_sql = l_sql & "( idpracticarealizada, idmediodepago, idobrasocial, fecha , importe ) "
-			l_sql = l_sql & "VALUES (" & l_practicarealizada  & "," & BuscarmediopagoOS( ) & "," & l_rs("idobrasocial") & ",'" & l_rs("FechaVisita") & "'," & l_precio & ")"
+			l_sql = l_sql & "( idpracticarealizada, idmediodepago, idobrasocial, fecha , importe ,created_by,creation_date,last_updated_by,last_update_date) "
+			l_sql = l_sql & "VALUES (" & l_practicarealizada  & "," & BuscarmediopagoOS( ) & "," & l_rs("idobrasocial") & ",'" & l_rs("FechaVisita") & "'," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 			l_cm.activeconnection = Cn
 			l_cm.CommandText = l_sql
 			cmExecute l_cm, l_sql, 0 
-		
+
 		end if
 	  
 		l_rs.movenext
