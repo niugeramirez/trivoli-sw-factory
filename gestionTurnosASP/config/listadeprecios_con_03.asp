@@ -38,14 +38,16 @@ end if
 set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO listaprecioscabecera "
-	l_sql = l_sql & " (titulo, fecha, idobrasocial, flag_activo )"
-	l_sql = l_sql & " VALUES ('" & l_titulo & "'," & l_fecha & "," & l_idobrasocial & "," & l_flag_activo & ")"
+	l_sql = l_sql & " (titulo, fecha, idobrasocial, flag_activo ,created_by,creation_date,last_updated_by,last_update_date)"
+	l_sql = l_sql & " VALUES ('" & l_titulo & "'," & l_fecha & "," & l_idobrasocial & "," & l_flag_activo &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 else
 	l_sql = "UPDATE listaprecioscabecera "
 	l_sql = l_sql & " SET titulo = '" & l_titulo & "'"
 	l_sql = l_sql & " , fecha = " & l_fecha 
-	l_sql = l_sql & " , idobrasocial = " & l_idobrasocial
+	'l_sql = l_sql & " , idobrasocial = " & l_idobrasocial 'Eugenio 03/04/2015 esto para mi no va, se me abortaba al agregar los campos who, creo que nunca se testeo
 	l_sql = l_sql & " , flag_activo = " & l_flag_activo
+	l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"
+	l_sql = l_sql & "    ,last_update_date = GETDATE()" 	
 	l_sql = l_sql & " WHERE id = " & l_id
 end if
 'response.write l_sql & "<br>"
