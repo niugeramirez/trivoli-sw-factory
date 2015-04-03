@@ -46,14 +46,16 @@ l_cantsobreturnos          = 0 ' request.Form("cantsobreturnos") se elimino esta
 set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO recursosreservables  "
-	l_sql = l_sql & " (descripcion, idtemplatereserva, cantturnossimult, cantsobreturnos)"
-	l_sql = l_sql & " VALUES ('" & l_descripcion & "'," & l_idtemplatereserva & "," & l_cantturnossimult & "," & l_cantsobreturnos & ")"
+	l_sql = l_sql & " (descripcion, idtemplatereserva, cantturnossimult, cantsobreturnos,created_by,creation_date,last_updated_by,last_update_date)"
+	l_sql = l_sql & " VALUES ('" & l_descripcion & "'," & l_idtemplatereserva & "," & l_cantturnossimult & "," & l_cantsobreturnos  &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 else
 	l_sql = "UPDATE recursosreservables "
 	l_sql = l_sql & " SET descripcion    = '" & l_descripcion & "'"
 	l_sql = l_sql & "    ,idtemplatereserva    = " & l_idtemplatereserva & ""	
 	l_sql = l_sql & "    ,cantturnossimult    = " & l_cantturnossimult & ""
 	l_sql = l_sql & "    ,cantsobreturnos    =    " & l_cantsobreturnos & ""
+	l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"
+	l_sql = l_sql & "    ,last_update_date = GETDATE()" 	
 	l_sql = l_sql & " WHERE id = " & l_id
 end if
 response.write l_sql & "<br>"

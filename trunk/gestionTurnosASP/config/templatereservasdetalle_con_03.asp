@@ -105,8 +105,8 @@ l_calhorhas = l_calhorhas1 & ":" &  l_calhorhas2
 set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO templatereservasdetalleresumido "
-	l_sql = l_sql & " (titulo, idtemplatereserva, horaInicial, horaFinal, intervaloTurnoMinutos, dia1, dia2, dia3, dia4, dia5, dia6, dia7 )"
-	l_sql = l_sql & " VALUES ('" & l_titulo & "'," & l_idtemplatereserva & ",'" & l_calhordes & "','" & l_calhorhas & "','" & l_intervaloTurnoMinutos & "','" & l_do & "','" & l_lu & "','" & l_ma & "','" & l_mi & "','" & l_ju & "','" & l_vi & "','" & l_sa & "')"
+	l_sql = l_sql & " (titulo, idtemplatereserva, horaInicial, horaFinal, intervaloTurnoMinutos, dia1, dia2, dia3, dia4, dia5, dia6, dia7,created_by,creation_date,last_updated_by,last_update_date )"
+	l_sql = l_sql & " VALUES ('" & l_titulo & "'," & l_idtemplatereserva & ",'" & l_calhordes & "','" & l_calhorhas & "','" & l_intervaloTurnoMinutos & "','" & l_do & "','" & l_lu & "','" & l_ma & "','" & l_mi & "','" & l_ju & "','" & l_vi & "','" & l_sa & "'"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 else
 	l_sql = "UPDATE templatereservasdetalleresumido "
 	l_sql = l_sql & " SET titulo = '" & l_titulo & "'"
@@ -119,7 +119,9 @@ else
 	l_sql = l_sql & " , dia4 = '" & l_mi & "'"
 	l_sql = l_sql & " , dia5 = '" & l_ju & "'"
 	l_sql = l_sql & " , dia6 = '" & l_vi & "'"
-	l_sql = l_sql & " , dia7 = '" & l_sa & "'"						
+	l_sql = l_sql & " , dia7 = '" & l_sa & "'"	
+	l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"
+	l_sql = l_sql & "    ,last_update_date = GETDATE()" 
 	l_sql = l_sql & " WHERE id = " & l_id
 end if
 'response.write l_sql & "<br>"
