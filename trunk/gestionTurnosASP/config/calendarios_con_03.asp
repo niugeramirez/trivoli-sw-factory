@@ -57,8 +57,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 Do While DATEDIFF("n", cdate( l_horafin ), cdate( l_calhorhas )) >= 0
 
 	l_sql = "INSERT INTO calendarios "
-	l_sql = l_sql & "(fechahorainicio, fechahorafin, estado, idrecursoreservable, tipo  ) "
-	l_sql = l_sql & "VALUES (" & cambiaformato (l_calfec,l_hora )  & "," & cambiaformato (l_calfec,l_horafin )  & ",'ACTIVO'," & l_id & ",'MANUAL')"
+	l_sql = l_sql & "(fechahorainicio, fechahorafin, estado, idrecursoreservable, tipo ,created_by,creation_date,last_updated_by,last_update_date ) "
+	l_sql = l_sql & "VALUES (" & cambiaformato (l_calfec,l_hora )  & "," & cambiaformato (l_calfec,l_horafin )  & ",'ACTIVO'," & l_id & ",'MANUAL'"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	l_cm.activeconnection = Cn
 	l_cm.CommandText = l_sql
 	cmExecute l_cm, l_sql, 0

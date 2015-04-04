@@ -49,7 +49,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 l_sql = "UPDATE calendarios "
 l_sql = l_sql & " SET motivo    = '" & l_motivo & "'"
 l_sql = l_sql & "    ,estado    = '" & l_estado & "' "
-
+l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"
+l_sql = l_sql & "    ,last_update_date = GETDATE()" 
 l_sql = l_sql & " WHERE id = " & l_id
 
 response.write l_sql & "<br>"

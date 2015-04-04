@@ -139,8 +139,8 @@ if l_generar = 1 then
 								else
 								
 									l_sql = "INSERT INTO calendarios "
-						            l_sql = l_sql & "(fechahorainicio, fechahorafin, estado, idrecursoreservable ) "
-						            l_sql = l_sql & "VALUES (" & cambiaformato (l_fecha,l_hora )  & "," & cambiaformato (l_fecha,l_horafin )  & ",'ACTIVO'," & l_id & ")"
+						            l_sql = l_sql & "(fechahorainicio, fechahorafin, estado, idrecursoreservable ,created_by,creation_date,last_updated_by,last_update_date) "
+						            l_sql = l_sql & "VALUES (" & cambiaformato (l_fecha,l_hora )  & "," & cambiaformato (l_fecha,l_horafin )  & ",'ACTIVO'," & l_id &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 									l_cm.activeconnection = Cn
 									l_cm.CommandText = l_sql
 						            cmExecute l_cm, l_sql, 0   							
@@ -153,12 +153,7 @@ if l_generar = 1 then
 								l_horafin = DateAdd("n", clng(l_intervaloTurnoMinutos), l_hora)
 							Loop
 							
-							
-		       			    'l_sql = "INSERT INTO calendarios "
-					        'l_sql = l_sql & "(calfecha, caldia, calhordes, calhorhas, lugnro, evmonro ) "
-					        'l_sql = l_sql & "VALUES (" & cambiafecha(l_fecha,"YMD",true)  & ",'" & l_caldia & "','" & l_calhordes1 & l_calhordes2 & "','" & l_calhorhas1 & l_calhorhas2 & "'," & l_lugnro & "," & l_evmonro & ")"
-	   					    'l_cm.CommandText = l_sql
-					        'cmExecute l_cm, l_sql, 0   
+  
 
 					end if		
 	
