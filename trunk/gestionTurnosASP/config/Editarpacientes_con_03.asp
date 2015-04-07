@@ -50,11 +50,11 @@ end if
 ' ------------------------------------------------------------------------------------------------------------------
 ' codigogenerado() :
 ' ------------------------------------------------------------------------------------------------------------------
-function codigogenerado()
+function codigogenerado(tabla)
 	Dim l_rs
 	Dim l_sql
 	Set l_rs = Server.CreateObject("ADODB.RecordSet")
-	l_sql = fsql_seqvalue("next_id","cap_evento")
+	l_sql = fsql_seqvalue("next_id",tabla)
 	rsOpen l_rs, cn, l_sql, 0
 	codigogenerado=l_rs("next_id")
 	l_rs.Close
@@ -84,7 +84,7 @@ if l_tipo = "A" then
 	cmExecute l_cm, l_sql, 0	
 	
 	'Ingreso la lista de empleados a la tabla
-	l_id = codigogenerado()	
+	l_id = codigogenerado("clientespacientes")	
 	
 	'l_sql = " SELECT @@IDENTITY AS 'Identity' "
 	'l_cm.activeconnection = Cn
