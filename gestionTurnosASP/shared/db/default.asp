@@ -41,8 +41,8 @@
  
 
 
-'Response.write "<script>alert('"&  l_iduser &".');</script>"
-'Response.write "<script>alert('"&   l_pass &".');</script>"
+Response.write "<script>alert('"&  l_iduser &".');</script>"
+Response.write "<script>alert('"&   l_pass &".');</script>"
 'Response.write "<script>alert('"&   l_seg_NT &".');</script>"
 'Response.write "<script>alert('"&   l_baseBD &".');</script>"
 'Response.write "<script>alert('"&   l_menu &".');</script>"
@@ -83,7 +83,7 @@ end sub
 '------------------------------------------------------------------------------------------------- 
 ' Bloque principal
 '------------------------------------------------------------------------------------------------- 
- 
+
 %>
  <!--#include virtual="/turnos/shared/inc/encrypt.inc"-->
  <!--#include virtual="/turnos/shared/db/conn.inc"-->
@@ -129,103 +129,7 @@ ON ERROR resume next
 	l_seguir = false
  else
  	' La conexion a la base de datos es valida con el usuario 'sa'
-	
-	if l_seg_NT = 0 then
-		%>
-		<!--#include virtual="/turnos/shared/inc/password.inc"-->
-		<%
-		
-	 	if not usuariovalido(l_iduser) then
-			MostrarError "Usuario no válido."
-			l_seguir = false
-	 	else
-			l_pol_nro = valoruser_pol_cuenta(l_iduser, "pol_nro")
-			
-		 	l_pass_expira_dias	 = valorpol_cuenta(l_pol_nro, "pass_expira_dias")
-		 	l_pass_camb_dias	 = valorpol_cuenta(l_pol_nro, "pass_camb_dias")
-		 	l_pass_int_fallidos  = valorpol_cuenta(l_pol_nro, "pass_int_fallidos")
-		 	l_pass_dias_log	 	 = valorpol_cuenta(l_pol_nro, "pass_dias_log")
-		 	
-		 	l_usrpasscambiar	 = valoruser_per(l_iduser, "usrpasscambiar")
-		 	
-		 	l_cambiarpass = 0
-
-			
-			if ctabloqueada(l_iduser) then
-				MostrarError "1Cuenta Bloqueada. Consulte con el administrador."
-				l_seguir = false
-			else
-	 			if valorhistpass (l_iduser, "husrpass") <> Decrypt(c_strEncryptionKey, l_pass,true) then
-					l_seguir = false
-					' Verifico si se debe bloquear la cuenta por los logueos fallidos.
-					l_aux = CInt(logueosfallidos(l_iduser)) + 1
-					if CInt(l_pass_int_fallidos) <> 0 and l_aux >= CInt(l_pass_int_fallidos) then
-						bloquearcuenta l_iduser, -1
-						bajapass l_iduser
-						MostrarError "2Cuenta Bloqueada por intentos fallidos."
-					else
-						actlogfallidos l_iduser, l_aux
-						MostrarError "Contraseña incorrecta."
-					end if
-				else
-					' Verifico si debe cambiar la contraseña por ser el primer logueo.
-					if CInt(l_usrpasscambiar) = -1 then
-						l_cambiarpass = -1
-					else
-						' Verifico si se pasaron los dias sin loguearse permitidos por el sistema.
-						l_hlogfecini = valorhistlog (l_iduser, "hlogfecini")
-						if l_hlogfecini = "" then
-							l_hlogfecini = date()
-						end if
-						l_aux = datediff("d", l_hlogfecini, date())
-						
-						'MostrarError (l_aux)
-						'MostrarError (l_pass_dias_log)
-						
-						
-						if CInt(l_pass_dias_log) <> 0 and CInt(l_pass_dias_log) <= CInt(l_aux) then
-							bloquearcuenta l_iduser, -1
-							bajapass l_iduser
-							MostrarError "3Cuenta Bloqueada. Consulte con el administrador."
-							l_seguir = false
-						else
-							' Verifico si expiró la contraseña
-							l_hpassfecini = valorhistpass (l_iduser, "hpassfecini")
-							if l_hpassfecini = "" then
-								l_hpassfecini = date()
-							end if
-							l_aux = datediff("d", l_hpassfecini, date())
-							if CInt(l_pass_expira_dias) <> 0 and CInt(l_pass_expira_dias - 1) <= CInt(l_aux) then
-								if l_pass_expira_dias - 1 = l_aux then
-									MostrarMsgAdv "Su contraseña expira mañana."
-									l_MsgAdv = true
-								else
-									bloquearcuenta l_iduser, -1
-									bajapass l_iduser
-									MostrarError "4Cuenta Bloqueada. Expiró su contraseña."
-									l_seguir = false
-								end if
-							else
-								' Verifico si debe cambiar la contraseña.
-								l_aux = datediff("d", l_hpassfecini, date())
-								if CInt(l_pass_camb_dias) <> 0 and CInt(l_pass_camb_dias) <= CInt(l_aux) then
-									l_cambiarpass = -1
-								end if
-							end if
-						end if
-					end if
-				end if
-			end if
-		end if
-	else
-	 	if not usuariovalido(l_iduser) then
-			MostrarError "Usuario no válido."
-			l_seguir = false
-		else
-			Session("UserName") = l_iduser
-			Session("Password") = l_pass
-		end if
-	end if
+	l_seguir = true
  end if
  
  if l_seguir then
@@ -260,8 +164,8 @@ ON ERROR resume next
 		
 		if l_menu = "html" then
 			%><script>//parent.document.location = "../../lanzador/lanzador3.asp";</script><%
-			%><script>//parent.document.location = "../asp/asistente_00.asp?wiznro=8";</script><%
-			%><script>parent.document.location = "../../config/menu.asp?wiznro=8";</script><%
+			%><script>parent.document.location = "../asp/asistente_00_RH.asp?wiznro=8";</script><%
+			%><script>//parent.document.location = "../../config/menu.asp?wiznro=8";</script><%
 		else
 			if not l_MsgAdv then
 				response.write "&acceso=Valido&"
