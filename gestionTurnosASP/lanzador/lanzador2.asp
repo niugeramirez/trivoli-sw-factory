@@ -91,6 +91,7 @@ function ok(){
 }
 
 function ok2(){
+alert();
 
 	<% If l_tipo <> "pass" then %>
 
