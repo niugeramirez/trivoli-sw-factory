@@ -51,11 +51,20 @@
 %>
 <html>
 <head>
-<link href="../css/tables4.css" rel="StyleSheet" type="text/css">
+<link href="../css/tablesnuevo.css" rel="StyleSheet" type="text/css">
+
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="css/reset.css" type="text/css" media="all">
+		<link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
+		<link rel="stylesheet" href="css/style2.css" type="text/css" media="all">
+
 <title><%'= Session("Titulo")%> Intranet &reg;</title>
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_confirm.js"></script>
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
+
+
+
 <script>
 function ActPasos(codigo, clabel, nombre){
 	//alert(codigo);
@@ -101,27 +110,61 @@ function llamadaexcel(){
 <input type="hidden" name="menunro" value="">
 <input type="hidden" name="menunroant" value="">
 </form>
+
+<body id="page1">
+		<div class="body1">
+			<div class="main">
+<!-- header -->
+				<header>
+					<h1><a href="index.html" id="logo3"></a></h1>
+					<div class="wrapper">
+						<ul id="icons">
+							<li><a href="#" class="normaltip" title="Facebook"><img src="images/usuario_48.png" alt=""></a></li>
+							<!--
+							<li><a href="#" class="normaltip" title="Twitter"><img src="images/icon2.jpg" alt=""></a></li>
+							<li><a href="#" class="normaltip" title="Linkedin"><img src="images/icon3.jpg" alt=""></a></li>
+							-->
+						</ul>
+					</div>
+					
+				</header>
+<!-- / header -->
+			</div>
+		</div>
+
+<%'= RESPONSE.END %>
+
 <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+
 	<tr>
-    	<td align="left" class="barra" colspan="1" height="40" style="Navy; border-bottom: 1px solid White;"  nowrap>
-		    <!--<img style="filter:Shadow(Color=White,Direction=120);" src="../images/gen_rep/tablero7.jpg">--><SPAN 
+	
+		<td  bgcolor="#F1F2F2"  colspan="2">
+		&nbsp;
+				   
+		</td>
+				<!--
+		
+    	<td align="left" class="barra" colspan="1" height="40" style="#55739C; border-bottom: 1px solid White;"  nowrap>
+		    <!--<img style="filter:Shadow(Color=White,Direction=120);" src="../images/gen_rep/tablero7.jpg"><SPAN 
 			    STYLE="position: absolute; top:12px; left:260px; font-size: 18px; color: White; font-family: Arial, Helvetica, sans-serif;">
 				 &nbsp;</SPAN>
 				   
-		</td>
-		<td class="barra" style="Navy; border-bottom: 1px solid White;">
+		</td>-->
+		<!--
+		<td class="barra" style="#55739C; border-bottom: 1px solid White;">
 			<div align="right" >
 				<table  border="0" cellspacing="0"  cellpadding="0" bgcolor="navy" width="0" height="0" >
 					<tr valign="middle" >
 						<td class="barra" align="right"><!-- <img src="../images/gen_rep/boton_0581.gif"> --> </td>
-						<!--<td class="barra" background="../shared/images/gen_rep/boton_05.gif" align="center" width="0"><a class="opcionbtn" href="Javascript:ayuda('<%'= Request.ServerVariables("SCRIPT_NAME")%>');">Ayuda</a></td>-->
+						<!--<td class="barra" background="../shared/images/gen_rep/boton_05.gif" align="center" width="0"><a class="opcionbtn" href="Javascript:ayuda('<%'= Request.ServerVariables("SCRIPT_NAME")%>');">Ayuda</a></td>
 						<!--<td class="barra"><img src="../images/logosamsa.jpg"></td>
-						<td class="barra"><img src="../images/logosamsa.jpg"></td>-->
+						<td class="barra"><img src="../images/logosamsa.jpg"></td>
 						<td class="barra">&nbsp;&nbsp;&nbsp;</td>
 					</tr>
 				</table>
 			</div>
-		</td>
+		</td>-->
+		
 	</tr>
 	<tr>
 		<td nowrap align="center" width="160">

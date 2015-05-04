@@ -39,16 +39,16 @@
 			color:#F9B855;
 			-webkit-transition: color 0.2s linear;
 		}
-		#menu ul a{background-color:#6594D1;}
+		#menu ul a{background-color:#FFFFFF;}
 		#menu ul a:hover{
-			background-color:#FFF;
+			background-color:#A3E4E1;
 			color:#2961A9;
 			text-shadow:none;
 			-webkit-transition: color, background-color 0.2s linear;
 		}
 		ul{
 			display:block;
-			background-color:#2961A9;
+			background-color:#2FA69F; 
 			margin:0;
 			padding:0;
 			width:150px;
@@ -59,7 +59,7 @@
 	</style>
 </head>
 
-<body>
+<body bgcolor="#F1F2F2">
 <ul id="menu">
 
 
