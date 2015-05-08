@@ -39,82 +39,53 @@
 			color:#F9B855;
 			-webkit-transition: color 0.2s linear;
 		}
-		#menu ul a{background-color:#FFFFFF;}
+		#menu ul a{background-color:#6594D1;}
 		#menu ul a:hover{
-			background-color:#A3E4E1;
+			background-color:#FFF;
 			color:#2961A9;
 			text-shadow:none;
 			-webkit-transition: color, background-color 0.2s linear;
 		}
 		ul{
 			display:block;
-			background-color:#2FA69F; 
+			background-color:#2961A9;
 			margin:0;
 			padding:0;
-			width:150px;
+			width:130px;
 			list-style:none;
 		}
 		#menu ul{background-color:#6594D1;}
 		#menu li ul {display:none;}
 	</style>
 </head>
-
-<body bgcolor="#F1F2F2">
+ 
+<body>
 <ul id="menu">
-
-
-<li><a href="#">Agenda</a>
-	<ul>		
-		<li><a target="ifrm"  href="../../config/Agenda_con_00.asp">Agenda</a></li>
-	</ul>
-</li>
-<li><a href="#">Turnos</a>
-	<ul>		
-		<li><a target="ifrm"  href="../../config/AsignarTurnos_con_00.asp">Turnos</a></li>
-	</ul>
-</li>
-<li><a href="#">Pacientes</a>
-	<ul>		
-		<li><a target="ifrm"  href="../../config/pacientes_con_00.asp">Pacientes</a></li>
-	</ul>
-</li>
-<li><a href="#">Medicos</a>
-	<ul>		
-		<li><a target="ifrm"  href="../../config/recursosreservables_con_00.asp">Medicos</a></li>
-	</ul>
-</li>
-<li><a href="#">Calendarios</a>
-	<ul>		
-		<li><a target="ifrm"  href="../../config/generarcalendarios_con_00.asp">Generar Calendarios</a></li>
-	</ul>
-</li>
-
-<li><a href="#">Visitas</a>
-	<ul>		
-		<li><a target="ifrm"  href="../../config/visitas_con_00.asp">Visitas</a></li>
-	</ul>
-</li>
-<li><a href="#">Reportes</a>
+<li><a href="#">Menu 1</a>
 	<ul>
-		<li><a target="ifrm"  href="../../reportes/rep_planilla_turnos_rep_00.asp">Planilla de Turnos</a></li>
-		<li><a target="ifrm"  href="../../reportes/rep_visitas_entre_fechas_rep_00.asp">Visitas entre Fechas</a></li>
-		<li><a target="ifrm"  href="../../reportes/rep_pagos_por_medio_rep_00.asp">Pago entre Fechas</a></li>
-		
+		<li><a href="#">Submenu 1</a></li>
+		<li><a href="#">Submenu 2</a></li>
+		<li><a href="#">Submenu 3</a></li>
+		<li><a href="#">Submenu 4</a></li>
 	</ul>
 </li>
-<li><a href="#">Configuraci&oacute;n</a>
-	<ul>		
-		<li><a target="ifrm"  href="../../config/obrassociales_00.asp">Obras Sociales</a></li>
-		<li><a target="ifrm"  href="../../config/practicas_00.asp">Practicas Medicas</a></li>
-		<li><a target="ifrm"  href="../../config/templatereservas_con_00.asp">Modelo de Turnos</a></li>
-		<li><a target="ifrm"  href="../../config/mediosdepago_00.asp">Medios de Pago</a></li>
-		<li><a target="ifrm"  href="../../seguridad/usuarios_seg_00.asp">Usuarios</a></li>
-		<li><a target="ifrm"  href="../../seguridad/armado_menu_00.asp">Menues</a></li>
-		
-		
+<li><a href="#">Menu 2</a>
+	<ul>
+		<li><a href="#">Submenu 1</a></li>
+		<li><a href="#">Submenu 2</a></li>
+		<li><a href="#">Submenu 3</a></li>
+		<li><a href="#">Submenu 4</a></li>
 	</ul>
 </li>
-<!--<li><a href="#">Menu sin submenu</a></li>-->
+<li><a href="#">Menu 3</a>
+	<ul>
+		<li><a href="#">Submenu 1</a></li>
+		<li><a href="#">Submenu 2</a></li>
+		<li><a href="#">Submenu 3</a></li>
+		<li><a href="#">Submenu 4</a></li>
+	</ul>
+</li>
+<li><a href="#">Menu sin submenu</a></li>
 </ul>
 </body>
 </html>

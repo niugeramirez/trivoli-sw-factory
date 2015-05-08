@@ -41,8 +41,8 @@
  
 
 
-Response.write "<script>alert('"&  l_iduser &".');</script>"
-Response.write "<script>alert('"&   l_pass &".');</script>"
+' Response.write "<script>alert('"&  l_iduser &".');</script>"
+' Response.write "<script>alert('"&   l_pass &".');</script>"
 'Response.write "<script>alert('"&   l_seg_NT &".');</script>"
 'Response.write "<script>alert('"&   l_baseBD &".');</script>"
 'Response.write "<script>alert('"&   l_menu &".');</script>"
