@@ -58,7 +58,7 @@
 		<link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
 		<link rel="stylesheet" href="css/style2.css" type="text/css" media="all">
 
-<title><%'= Session("Titulo")%> Intranet &reg;</title>
+<title><%'= Session("Titulo")%> Sistema de Turnos</title>
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_confirm.js"></script>
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
@@ -119,7 +119,8 @@ function llamadaexcel(){
 					<h1><a href="index.html" id="logo3"></a></h1>
 					<div class="wrapper">
 						<ul id="icons">
-							<li><a href="#" class="normaltip" title="Facebook"><img src="images/usuario_48.png" alt=""></a></li>
+							<li><img src="images/man_48.png" alt=""></li>
+							<li>Usuario: &nbsp;<%=  Session("UserName") %></li>
 							<!--
 							<li><a href="#" class="normaltip" title="Twitter"><img src="images/icon2.jpg" alt=""></a></li>
 							<li><a href="#" class="normaltip" title="Linkedin"><img src="images/icon3.jpg" alt=""></a></li>
@@ -168,7 +169,7 @@ function llamadaexcel(){
 	</tr>
 	<tr>
 		<td nowrap align="center" width="160">
-			<iframe name="pasos" src="asistente_01_RH.asp" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" align="left"></iframe> 
+			<iframe name="pasos" src="menu1.asp" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" align="left"></iframe> 
 		</td>
     	<td nowrap align="right" width="100%" height="100%">
 			<iframe name="ifrm" src="../../config/Agenda_con_00.asp" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no"></iframe>
