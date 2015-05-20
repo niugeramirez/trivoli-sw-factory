@@ -58,7 +58,7 @@
 		<link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
 		<link rel="stylesheet" href="css/style2.css" type="text/css" media="all">
 
-<title><%'= Session("Titulo")%> Sistema de Turnos</title>
+<title><%'= Session("Titulo")%> Gesti&oacute;n M&eacute;dica</title>
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_confirm.js"></script>
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
@@ -116,7 +116,7 @@ function llamadaexcel(){
 			<div class="main">
 <!-- header -->
 				<header>
-					<h1><a href="index.html" id="logo3"></a></h1>
+					<h1><a href="index.html" id="logo33no"></a></h1>
 					<div class="wrapper">
 						<ul id="icons">
 							<li><img src="images/man_48.png" alt=""></li>

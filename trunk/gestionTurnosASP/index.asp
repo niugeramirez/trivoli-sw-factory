@@ -203,7 +203,7 @@ function logout(arg){
 	if (arg == "0"){
 		//document.ifrm.location = "lanzador/logout.asp?arg=0";
 	}else{
-		//abrirVentanaH('logout.asp?arg=1','',10,10);
+		//abrirVentanaH('logout.asp?arg=1','',10,10 );
 	}
 }
 </script>		
