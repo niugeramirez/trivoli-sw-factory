@@ -33,7 +33,10 @@ l_telefono       = request.Form("telefono")
 'Response.write "<script>alert('Operación telefono " & l_telefono  &" Realizada.');</script>"
 l_idobrasocial	 =  request.Form("osid")
 
-'Response.write "<script>alert('Operación " & l_idobrasocial  &" Realizada.');</script>"
+if len(l_idobrasocial) = 0 then
+	l_idobrasocial = 0
+end if 
+
 
 
 set l_cm = Server.CreateObject("ADODB.Command")
