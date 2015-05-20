@@ -67,11 +67,12 @@ if (document.datos.nrohistoriaclinica.value == ""){
 	document.datos.nrohistoriaclinica.focus();
 	return;
 }
+/*
 if (isNaN(document.datos.nrohistoriaclinica.value)) {
 	alert("El Nro de Historia Clinica debe ser numerico.");
 	document.datos.nrohistoriaclinica.focus();
 	return;
-}
+}*/
 /*
 if (document.datos.domicilio.value == ""){
 	alert("Debe ingresar el Domicilio del Paciente.");
