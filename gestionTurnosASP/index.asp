@@ -324,7 +324,7 @@ function logout(arg){
 					<!--<li><a href="#" class="normaltip" title="Picasa"><img src="images/icon3.jpg" alt=""></a></li>-->
 					<li><a href="#" class="normaltip" title="YouTube"><img src="images/icon4.jpg" alt=""></a></li>
 				</ul>
-				Megavision.com.ar &copy; 2015 <br>Desarrollado por <a rel="nofollow" href="http://www.templatemonster.com/" target="_blank">Trivoli</a><br>
+				Megavision.com.ar &copy; 2015 <br>Desarrollado por Trivoli <!--<a rel="nofollow" href="#" target="_blank">Trivoli</a>--><br>
 				<!-- {%FOOTER_LINK} -->
 			</footer>
 <!--footer end-->
