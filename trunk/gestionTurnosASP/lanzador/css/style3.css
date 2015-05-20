@@ -27,11 +27,12 @@ h1 {
 	margin-left:0px;
 	position:absolute;
 	z-index:2;
-	background:url(../images/cab1.png) 0 0 no-repeat;
+	background:url(../shared/asp/images/gestion.png) 0 0 no-repeat;
 	height:95px;
 	padding-left:390px;
 	padding-top:28px;
 }
+
 h2 {font-size:33px;color:#fff;font-weight:700;line-height:1.2em;padding:30px 0 11px 0;letter-spacing:-1px}
 h3 {font-size:27px;color:#fff;font-weight:700;line-height:1.2em;padding:33px 0 17px 0;letter-spacing:-1px}
 h3.color1 {padding:0 0 7px 0}
