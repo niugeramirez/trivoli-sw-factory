@@ -40,12 +40,12 @@ set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO clientespacientes "
 	l_sql = l_sql & " (apellido, nombre, nrohistoriaclinica , dni,domicilio, telefono,idobrasocial ,created_by,creation_date,last_updated_by,last_update_date)"
-	l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "'," & l_nrohistoriaclinica & "," & l_dni & ",'" & l_domicilio & "','" & l_telefono & "'," & l_idobrasocial &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "','" & l_nrohistoriaclinica & "'," & l_dni & ",'" & l_domicilio & "','" & l_telefono & "'," & l_idobrasocial &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 else
 	l_sql = "UPDATE clientespacientes "
 	l_sql = l_sql & " SET apellido    = '" & l_apellido & "'"
 	l_sql = l_sql & "    ,nombre    = '" & l_nombre & "'"
-	l_sql = l_sql & "    ,nrohistoriaclinica    = " & l_nrohistoriaclinica & ""	
+	l_sql = l_sql & "    ,nrohistoriaclinica    = '" & l_nrohistoriaclinica & "'"	
 	l_sql = l_sql & "    ,dni    =    " & l_dni & ""
 	l_sql = l_sql & "    ,domicilio     = '" & l_domicilio & "'"
 	l_sql = l_sql & "    ,telefono      = '" & l_telefono & "'"	
