@@ -185,12 +185,15 @@ end select
 					</tr>
 					<tr>
 					    <td align="right"><b>Tel&eacute;fono:</b></td>
-						<td>
-							<input type="text" name="telefono" size="20" maxlength="20" value="<%= l_telefono %>">
+						<td colspan="3">
+							<input type="text" name="telefono" size="50" maxlength="50" value="<%= l_telefono %>">
 						</td>
+					</tr>	
+					<tr>			
+						
 					    <td align="right"><b>Domicilio:</b></td>
-						<td>
-							<input type="text" name="domicilio" size="20" maxlength="20" value="<%= l_domicilio %>">
+						<td colspan="3">
+							<input type="text" name="domicilio" size="50" maxlength="100" value="<%= l_domicilio %>">
 						</td>					
 					</tr>			
 					<tr>
