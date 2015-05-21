@@ -87,7 +87,7 @@ if (document.datos.telefono.value == ""){
 }
 
 var d=document.datos;
-document.valida.location = "pacientes_con_06.asp?tipo=<%= l_tipo%>&id="+document.datos.id.value + "&dni="+document.datos.dni.value;
+document.valida.location = "pacientes_con_06.asp?tipo=<%= l_tipo%>&id="+document.datos.id.value + "&dni="+document.datos.dni.value + "&nrohistoriaclinica="+ document.datos.nrohistoriaclinica.value;
 
 //valido();
 }
