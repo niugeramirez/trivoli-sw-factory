@@ -76,12 +76,12 @@ if (!stringValido(document.datos.agedes.value)){
 	document.datos.agedes.focus();
 	return;
 }
-
-var d=document.datos;
-document.valida.location = "calendarios_con_06.asp?id=<%= l_id%>&calfec="+document.datos.calfec.value + "&calhordes1="+document.datos.calhordes1.value + "&calhordes2="+document.datos.calhordes2.value + "&calhorhas1="+document.datos.calhorhas1.value + "&calhorhas2="+document.datos.calhorhas2.value + "&intervaloTurnoMinutos="+document.datos.intervaloTurnoMinutos.value ; 
 */
+var d=document.datos;
+document.valida.location = "altavisita_con_06.asp?pacienteid="+document.datos.pacienteid.value ; 
 
-valido();
+
+//valido();
 
 }
 
