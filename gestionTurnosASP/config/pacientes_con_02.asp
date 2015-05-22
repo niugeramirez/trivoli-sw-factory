@@ -15,6 +15,15 @@ dim l_dni
 dim l_domicilio
 dim l_telefono
 dim l_idobrasocial
+
+dim l_fecha_ingreso
+Dim l_fechanacimiento
+dim l_nro_obra_social
+Dim l_sexo
+Dim l_ciudad 
+
+dim l_observaciones
+
 'ADO
 Dim l_tipo
 Dim l_sql
@@ -124,6 +133,13 @@ select Case l_tipo
 	    	l_domicilio     = ""
 			l_telefono      = ""
 			l_idobrasocial  = "0"
+			l_fecha_ingreso = ""
+			l_fechanacimiento = ""
+			l_nro_obra_social = ""
+			l_sexo = ""
+			l_ciudad  = "0"
+			
+			l_observaciones = ""
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
@@ -139,6 +155,16 @@ select Case l_tipo
 	    	l_domicilio     = l_rs("domicilio")
 			l_telefono      = l_rs("telefono")
 			l_idobrasocial  = l_rs("idobrasocial")
+			l_fecha_ingreso = l_rs("fecha_ingreso") 
+			l_fechanacimiento = l_rs("fechanacimiento")
+			l_nro_obra_social = l_rs("nro_obra_social") 
+			l_sexo = l_rs("sexo")
+			l_ciudad  = l_rs("idciudad")
+			if isnull(l_ciudad)  then
+				l_ciudad = "0"
+			end if
+			
+			l_observaciones = l_rs("observaciones")
 			
 		end if
 		l_rs.Close
@@ -185,20 +211,43 @@ end select
 					</tr>
 					<tr>
 					    <td align="right"><b>Tel&eacute;fono:</b></td>
-						<td colspan="3">
-							<input type="text" name="telefono" size="50" maxlength="50" value="<%= l_telefono %>">
+						<td>
+							<input type="text" name="telefono" size="20" maxlength="50" value="<%= l_telefono %>">
 						</td>
+					    <td align="right"><b>Sexo:</b></td>
+						<td ><select name="sexo" size="1" style="width:150;">
+								<option value=M selected>Masculino</option>
+								<option value="F" >Femenino </option>							
+							</select>
+							<script>document.datos.sexo.value= "<%= l_sexo %>"</script>						
 					</tr>	
 					<tr>			
 						
 					    <td align="right"><b>Domicilio:</b></td>
-						<td colspan="3">
-							<input type="text" name="domicilio" size="50" maxlength="100" value="<%= l_domicilio %>">
-						</td>					
+						<td >
+							<input type="text" name="domicilio" size="30" maxlength="100" value="<%= l_domicilio %>">
+						</td>	
+						<td  align="right" nowrap><b>Ciudad: </b></td>
+						<td><select name="ciudad" size="1" style="width:150;">
+								<option value=0 selected>Seleccione Ciudad</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT  * "
+								l_sql  = l_sql  & " FROM ciudades "
+								l_sql  = l_sql  & " ORDER BY ciudad "
+								rsOpen l_rs, cn, l_sql, 0
+								do until l_rs.eof		%>	
+								<option value= <%= l_rs("id") %> > 
+								<%= l_rs("ciudad") %> </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>
+							</select>
+							<script>document.datos.ciudad.value="<%= l_ciudad %>"</script>
+						</td>											
 					</tr>			
 					<tr>
 						<td  align="right" nowrap><b>Obra Social: </b></td>
-						<td colspan="3"><select name="osid" size="1" style="width:200;">
+						<td><select name="osid" size="1" style="width:200;">
 								<option value=0 selected>Seleccione una OS</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
@@ -213,21 +262,27 @@ end select
 								l_rs.Close %>
 							</select>
 							<script>document.datos.osid.value="<%= l_idobrasocial %>"</script>
-						</td>					
+						</td>		
+					    <td align="right"><b>Nro OS:</b></td>
+						<td colspan="3">
+							<input type="text" name="nro_obra_social" size="20" maxlength="30" value="<%= l_nro_obra_social %>">
+						</td>										
 					</tr>									
-					<!--
+									
+					
 					<tr>
-					    <td align="right" ><b>Fec. Nac.:</b></td>
+					    <td align="right" ><b>Fec. Ingreso:</b></td>
 						<td align="left"  >
-						    <input type="text" name="legfecnac" size="10" maxlength="10" value="<%'= l_legfecnac %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecnac)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
+						    <input type="text" name="fecha_ingreso" size="10" maxlength="10" value="<%= l_fecha_ingreso %>">
+							<a href="Javascript:Ayuda_Fecha(document.datos.fecha_ingreso)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
 						</td>
-						<td align="right"><b>Teléfono:</b></td>
-						<td>
-							<input type="text" name="legtel" size="20" maxlength="20" value="<%'= l_legtel %>">
-						</td>						
+					    <td align="right" ><b>Fec. Nacimiento:</b></td>
+						<td align="left"  >
+						    <input type="text" name="fechanacimiento" size="10" maxlength="10" value="<%= l_fechanacimiento %>">
+							<a href="Javascript:Ayuda_Fecha(document.datos.fechanacimiento)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
+						</td>					
 					</tr>
-					-->
+					
 					<!-- 
 					<tr>
 						<td  align="right" nowrap><b>Derecho Vulnerado: </b></td>
@@ -287,13 +342,15 @@ end select
 						<td colspan="3">
 							<input type="text" name="legcobsoc" size="80" maxlength="20" value="<%'= l_legcobsoc %>">
 						</td>
-					</tr>																														
+					</tr>	
+					-->																													
 					<tr>
-					    <td align="right"><b>Estrategias de Intervención:</b></td>
+					    <td align="right"><b>Observaciones:</b></td>
 						<td colspan="3">
-							<input type="text" name="legabo" size="80" maxlength="20" value="<%'= l_legabo %>">
+							<input type="text" name="observaciones" size="93" maxlength="200" value="<%= l_observaciones %>">
 						</td>
-					</tr>					
+					</tr>
+					<!--					
 					<tr>
 						<td align="right"><b>Medidas Protección:</b></td>
 						<td colspan="3"><select name="mednro" size="1" style="width:150;">

@@ -95,7 +95,7 @@ if l_rs.eof then
 	do until l_rs.eof
 		l_cant = l_cant + 1
 	%>
-	    <tr ondblclick="Javascript:parent.abrirVentana('pacientes_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',600,250)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
+	    <tr ondblclick="Javascript:parent.abrirVentana('pacientes_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',750,280)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
 	        <td width="10%" nowrap><%= l_rs("apellido")%></td>				
 	        <td width="10%" nowrap><%= l_rs("nombre")%></td>		
 	        <td width="10%" align="center"><%= l_rs("nrohistoriaclinica")%></td>		
