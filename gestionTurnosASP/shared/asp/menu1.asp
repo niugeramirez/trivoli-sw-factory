@@ -113,6 +113,7 @@
 		<li><a target="ifrm"  href="../../config/mediosdepago_00.asp">Medios de Pago</a></li>
 		<li><a target="ifrm"  href="../../seguridad/usuarios_seg_00.asp">Usuarios</a></li>
 		<li><a target="ifrm"  href="../../seguridad/armado_menu_00.asp">Menues</a></li>
+		<li><a target="ifrm"  href="../../config/provincias_00.asp">Provincias</a></li>
 		
 		
 	</ul>
