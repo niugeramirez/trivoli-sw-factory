@@ -379,7 +379,7 @@ function TotalVolumen(valor){
 		
         <tr valign="top" height="100%">
           <td colspan="2" style="" width="100%">
-      	  <iframe scrolling="yes" name="ifrm" src="pacientes_con_01.asp" width="100%" height="100%"></iframe> 
+      	  <iframe scrolling="yes" name="ifrm" src="" width="100%" height="100%"></iframe> 
 	      </td>
         </tr>		
 			</form>		
@@ -387,6 +387,6 @@ function TotalVolumen(valor){
 </body>
 
 <script>
-	Buscar();
+	//Buscar();
 </script>
 </html>
