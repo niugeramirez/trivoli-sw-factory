@@ -46,6 +46,7 @@ l_calfec  = request.querystring("fechadesde")
 <script>
 function Validar_Formulario(){
 
+
 if ((document.datos.calfec.value == "")&&(!validarfecha(document.datos.calfec))){
 	 document.datos.calfec.focus();
 	 return;
@@ -102,6 +103,23 @@ function Ayuda_Fecha(txt)
  else txt.value = jsFecha;
 }
 
+function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, tel, osid, os){
+	document.datos.pacienteid.value = id;
+	document.datos.apellido.value = apellido;
+	document.datos.nombre.value = nombre;
+	document.datos.nrohistoriaclinica.value = nrohistoriaclinica;
+	document.datos.dni.value = dni;
+	//document.datos.domicilio.value = domicilio;
+	//document.datos.tel.value = tel;
+	//document.datos.osid.value = osid;
+	//document.datos.os.value = os;
+	//document.datos.coudes.focus();
+}
+
+function BuscarPaciente(){
+	abrirVentana('Buscarpacientes_con_00.asp?Tipo=A','',600,250);
+}
+
 </script>
 <% 
 select Case l_tipo
@@ -155,23 +173,33 @@ end select
 						</td>																	
 					</tr>	
 					<tr>
-						<td  align="right" nowrap><b>Paciente (*): </b></td>
-						<td colspan="3"><select name="pacienteid" size="1" style="width:200;">
-								<option value=0 selected>Seleccione un Paciente</option>
-								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-								l_sql = "SELECT  * "
-								l_sql  = l_sql  & " FROM clientespacientes "
-								l_sql  = l_sql  & " ORDER BY apellido "
-								rsOpen l_rs, cn, l_sql, 0
-								do until l_rs.eof		%>	
-								<option value= <%= l_rs("id") %> > 
-								<%= l_rs("apellido") %>&nbsp;<%= l_rs("nombre") %> </option>
-								<%	l_rs.Movenext
-								loop
-								l_rs.Close %>
-							</select>
-						</td>					
-					</tr>			
+					    <td align="right" nowrap width="0"><b>Paciente (*):</b></td>
+						<td align="left" nowrap width="0" >
+						    <input type="hidden" name="pacienteid" size="10" maxlength="10" value="0">
+							<a href="Javascript:BuscarPaciente();"><img src="/turnos/shared/images/BuscarPaciente.png" border="0" alt="Buscar Paciente"></a>	
+						</td>																	
+					</tr>
+					<tr>
+					    <td align="right"><b>Apellido:</b></td>
+						<td>
+							<input class="deshabinp" readonly="" type="text" name="apellido" size="20" maxlength="20" value="<%'= l_apellido %>">							
+						</td>
+					    <td align="right"><b>Nombre:</b></td>						
+						<td>
+							<input class="deshabinp" readonly="" type="text" name="nombre" size="20" maxlength="20" value="<%'= l_nombre %>">
+						</td>						
+					</tr>					
+					<tr>
+					    <td align="right"><b>D.N.I.:</b></td>
+						<td>
+							<input class="deshabinp" readonly="" type="text" name="dni" size="20" maxlength="20" value="<%'= l_dni %>">
+						</td>
+					    <td align="right"><b>Nro. Historia Cl&iacute;nica:</b></td>
+						<td>
+							<input class="deshabinp" readonly="" type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%'= l_nrohistoriaclinica %>">
+						</td>						
+					</tr>											
+						
 					</table>
 				</td>
 				<td width="50%"></td>
