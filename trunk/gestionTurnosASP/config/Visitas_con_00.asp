@@ -260,7 +260,7 @@ function AltaVisita(){
 	}		
 	else {
 		//abrirVentana("contenidos_con_00.asp?buqnro=" + document.ifrm.datos.cabnro.value,'',780,580);	
-		abrirVentana("altavisita_con_02.asp?Tipo=A&fechadesde="+ document.datos.fechadesde.value + "&idrecursoreservable="+ document.datos.id.value,'',450,150);
+		abrirVentana("altavisita_con_02.asp?Tipo=A&fechadesde="+ document.datos.fechadesde.value + "&idrecursoreservable="+ document.datos.id.value,'',650,230);
 	}		
 	
 }
