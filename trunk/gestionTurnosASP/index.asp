@@ -220,7 +220,7 @@ function logout(arg){
 			
 				<div class="wrapper">
 			
-					<h1><a href="in.asp" id="logo">Megavision.com.ar</a></h1>
+					<h1><a href="" id="logo">Megavision.com.ar</a></h1>
 					<form name="FormVar" method="post" id="search">
 		<input type="hidden" name="menu" value="html">
 		<input type="hidden" name="base" value=2>
