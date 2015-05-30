@@ -2,10 +2,6 @@
 <!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <!--#include virtual="/turnos/shared/inc/fecha.inc"-->
 <% 
-'Archivo: contracts_con_01.asp
-'Descripción: ABM de Contracts
-'Autor : Raul Chinestra
-'Fecha: 28/11/2007
 
 Dim l_rs
 Dim l_sql
@@ -137,7 +133,7 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
 
 l_sql = "SELECT   calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
-l_sql = l_sql & " , clientespacientes.id clientespacientesid,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono, clientespacientes.nrohistoriaclinica nrohistoriaclinica"
+l_sql = l_sql & " , clientespacientes.id clientespacientesid,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono, clientespacientes.nrohistoriaclinica nrohistoriaclinica , clientespacientes.dni dni"
 l_sql = l_sql & " ,  obrassociales.descripcion osnombre, practicas.descripcion practicanombre"
 l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente"
 l_sql = l_sql & " FROM calendarios "
@@ -170,7 +166,7 @@ if l_rs.eof then
 		l_cant = l_cant + 1
 		
 	%>
-	    <tr ondblclick="Javascript:parent.abrirVentana('Asignarpacientes_con_02.asp?Tipo=M&cabnro=<%= l_rs("turnoid")%>' ,'',600,350);"  onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>,<%= l_rs("turnoid")%>)">
+	    <tr   onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>,<%= l_rs("turnoid")%>)">
 			
 	        <td align="center" width="10%" nowrap>
 			<% if l_fechahorainicio <> l_rs("fechahorainicio") then 
@@ -215,9 +211,17 @@ if l_rs.eof then
 				<td <%= l_fondo  %> width="10%" nowrap><%= l_rs("telefono")%></td>
 				<td <%= l_fondo  %> width="10%" nowrap><%= l_rs("practicanombre")%></td>					
 				<td <%= l_fondo  %> width="10%" nowrap><%= l_rs("osnombre")%></td>		
+				<% End If 
+				
+				if isnull(l_rs("dni")) or l_rs("dni") = "" or l_rs("nrohistoriaclinica") = "0" or l_rs("nrohistoriaclinica") = "" or isnull(l_rs("nrohistoriaclinica")) then
+				%>
+					<td align="center" width="10%" nowrap><img src="/turnos/shared/images/cal.gif" border="0" alt="El Paciente seleccionado no tiene DNI o Nro de Historia Clinica cargado. Ir a la opcion Pacientes para completar esta informacion" ></td>
+				<% Else  %>
+					<td align="center" width="10%" nowrap><input type=checkbox onclick="Habilitar(this, <%= l_rs("turnoid")%>)" name="asistio"> </td>    				
 				<% End If %>
 				
-		        <td align="center" width="10%" nowrap><input type=checkbox onclick="Habilitar(this, <%= l_rs("turnoid")%>)" name="asistio"> </td>	
+		        	
+											
 			<% End If %>		
 						   
 	    </tr>
