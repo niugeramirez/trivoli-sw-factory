@@ -173,7 +173,11 @@ select Case l_tipo
 	    	l_dni           = l_rs("dni")
 	    	l_domicilio     = l_rs("domicilio")
 			l_tel           = l_rs("telefono")
-			l_idobrasocial  = l_rs("idobrasocial")
+			if isnull(l_rs("idobrasocial")) then
+				l_idobrasocial  = 0
+			else
+				l_idobrasocial  = l_rs("idobrasocial")
+			end if
 			'l_idrecursoreservable = l_rs("idrecursoreservable")
 			
 		end if
