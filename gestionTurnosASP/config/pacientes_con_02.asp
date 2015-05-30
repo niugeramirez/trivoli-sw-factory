@@ -124,6 +124,18 @@ function Ayuda_Fecha(txt)
 
 </script>
 <% 
+Set l_rs = Server.CreateObject("ADODB.RecordSet")
+l_sql = "SELECT  idciudad "
+l_sql = l_sql & " FROM config "
+rsOpen l_rs, cn, l_sql, 0 
+if not l_rs.eof then
+	l_ciudad     = l_rs("idciudad")
+else
+   	l_ciudad     = 0
+end if
+l_rs.Close
+
+
 select Case l_tipo
 	Case "A":
  	    	l_apellido      = ""
@@ -137,11 +149,11 @@ select Case l_tipo
 			l_fechanacimiento = ""
 			l_nro_obra_social = ""
 			l_sexo = ""
-			l_ciudad  = "0"
+			'l_ciudad  = "0"
 			
 			l_observaciones = ""
 	Case "M":
-		Set l_rs = Server.CreateObject("ADODB.RecordSet")
+
 		l_id = request.querystring("cabnro")
 		l_sql = "SELECT  * "
 		l_sql = l_sql & " FROM clientespacientes "
