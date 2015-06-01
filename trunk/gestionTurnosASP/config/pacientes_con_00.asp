@@ -126,13 +126,35 @@ function Buscar(){
 			document.datos.filtro.value += " clientespacientes.apellido like '*" + document.datos.legape.value + "*'";
 		}
 		tieneotro = "si";
-	}				
+	}	
+	// Nombre
+	if (document.datos.legnom.value != 0){
+		if (tieneotro == "si"){
+			document.datos.filtro.value += " AND clientespacientes.nombre like '*" + document.datos.legnom.value + "*'";
+		}else{
+			document.datos.filtro.value += " clientespacientes.nombre like '*" + document.datos.legnom.value + "*'";
+		}
+		tieneotro = "si";
+	}	
+	// Nro. Historia Clinica
+	if (document.datos.nrohistoriaclinica.value != 0){
+		if (tieneotro == "si"){
+			//document.datos.filtro.value += " AND clientespacientes.nrohistoriaclinica = '" + document.datos.nrohistoriaclinica.value + "'";
+			document.datos.filtro.value += " AND clientespacientes.nrohistoriaclinica like '*" + document.datos.nrohistoriaclinica.value + "*'";
+		}else{
+			//document.datos.filtro.value += " clientespacientes.nrohistoriaclinica = '" + document.datos.nrohistoriaclinica.value + "'";
+			document.datos.filtro.value += " clientespacientes.nrohistoriaclinica like '*" + document.datos.nrohistoriaclinica.value + "*'";
+		}
+		tieneotro = "si";
+	}	
 	// DNI
 	if (document.datos.legdni.value != 0){
 		if (tieneotro == "si"){
-			document.datos.filtro.value += " AND clientespacientes.dni = '" + document.datos.legdni.value + "'";
+			//document.datos.filtro.value += " AND clientespacientes.dni = '" + document.datos.legdni.value + "'";
+			document.datos.filtro.value += " AND clientespacientes.dni like '*" + document.datos.legdni.value + "*'";
 		}else{
-			document.datos.filtro.value += " clientespacientes.dni = '" + document.datos.legdni.value + "'";
+			//document.datos.filtro.value += " clientespacientes.dni = '" + document.datos.legdni.value + "'";
+			document.datos.filtro.value += " clientespacientes.dni like '*" + document.datos.legdni.value + "*'";
 		}
 		tieneotro = "si";
 	}					
@@ -315,14 +337,22 @@ function TotalVolumen(valor){
 						<td align="right"><b>Apellido: </b></td>
 						<td><input  type="text" name="legape" size="21" maxlength="21" value="" >
 						</td>
+						<td align="right"><b>Nombre: </b></td>
+						<td><input  type="text" name="legnom" size="21" maxlength="21" value="" >
+						</td>						
+						<td align="right"><b>Domicilio: </b></td>
+						<td colspan="3"><input  type="text" name="legdom" size="21" maxlength="21" value="" >
+						</td>						
+					</tr>
+					<tr>
 						<td align="right"><b>D.N.I.: </b></td>
 						<td><input  type="text" name="legdni" size="21" maxlength="21" value="" >
 						</td>
-					</tr>
-					<tr>
-						<td align="right"><b>Domicilio: </b></td>
-						<td colspan="3"><input  type="text" name="legdom" size="21" maxlength="21" value="" >
-						</td>
+						</td>		
+					    <td align="right"><b>Nro. Historia Cl&iacute;nica:</b></td>
+						<td>
+							<input type="text" name="nrohistoriaclinica" size="21" value="">
+						</td>							
 						<!-- 
 						<td align="right"><b>Medidas Protección:</b></td>
 						<td ><select name="mednro" size="1" style="width:150;">
