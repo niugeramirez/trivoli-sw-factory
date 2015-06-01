@@ -140,9 +140,11 @@ function Buscar(){
 	// Nro. Historia Clinica
 	if (document.datos.nrohistoriaclinica.value != 0){
 		if (tieneotro == "si"){
-			document.datos.filtro.value += " AND clientespacientes.nrohistoriaclinica = '" + document.datos.nrohistoriaclinica.value + "'";
+			//document.datos.filtro.value += " AND clientespacientes.nrohistoriaclinica = '" + document.datos.nrohistoriaclinica.value + "'";
+			document.datos.filtro.value += " AND clientespacientes.nrohistoriaclinica like '*" + document.datos.nrohistoriaclinica.value + "*'";
 		}else{
-			document.datos.filtro.value += " clientespacientes.nrohistoriaclinica = '" + document.datos.nrohistoriaclinica.value + "'";
+			//document.datos.filtro.value += " clientespacientes.nrohistoriaclinica = '" + document.datos.nrohistoriaclinica.value + "'";
+			document.datos.filtro.value += " clientespacientes.nrohistoriaclinica like '*" + document.datos.nrohistoriaclinica.value + "*'";
 		}
 		tieneotro = "si";
 	}				
