@@ -1,11 +1,11 @@
 <% Option Explicit %>
 <!--#include virtual="/turnos/shared/db/conn_db.inc"-->
-<!--#include virtual="/turnos/shared/inc/const.inc"-->
+
 <% 
-'Archivo: countries_con_04.asp
-'Descripción: ABM de Countries
-'Autor : Raul Chinestra
-'Fecha: 23/11/2007
+'Archivo: recursosreservables_con_04.asp
+'Descripción: Script Baja Medicos
+'Autor : Trivoli
+'Fecha: 31/05/2015
 
 'on error goto 0
 Dim l_cm
@@ -14,19 +14,11 @@ Dim l_sql
 Dim l_id
 	
 l_id = request.querystring("cabnro")
-Set l_rs = Server.CreateObject("ADODB.RecordSet")
-set l_cm = Server.CreateObject("ADODB.Command")
 
-'l_sql = "SELECT counro"
-'l_sql = l_sql & " FROM for_port "
-'l_sql  = l_sql  & " WHERE counro = " & l_counro
-'rsOpen l_rs, cn, l_sql, 0 
-'if not l_rs.eof then
-'	Response.write "<script>alert('Existen Ports asociados a este Country.\nNo es posible dar de baja.');window.close();</script>"
-'else
-	l_sql = " DELETE FROM recursosreservables  WHERE id = " & l_id
-'end if
-'l_rs.close
+Set l_rs = Server.CreateObject("ADODB.RecordSet")
+Set l_cm = Server.CreateObject("ADODB.Command")
+
+l_sql = "DELETE FROM recursosreservables  WHERE id = " & l_id
 
 l_cm.activeconnection = Cn
 l_cm.CommandText = l_sql
@@ -37,11 +29,6 @@ Set cn = Nothing
 %>
 <script>
 	alert('Operación Realizada.');
-	window.opener.ifrm.location.reload();
+    window.opener.parent.ifrm.location.reload();
 	window.close();
 </script>
-	
-
-
-
-
