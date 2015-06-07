@@ -114,6 +114,8 @@ function ok(){
 
 function ok2(){
 
+//alert(document.FormVar.usr2.value);
+
 
 	<% If l_tipo <> "pass" then %>
 
@@ -133,7 +135,7 @@ function ok2(){
 			//document.all.base.value = document.FormVar.basex.bases;
 
 		}
-		if (document.FormVar.usr2.value == ""){
+		if (document.FormVar.usr2.value == "Usuario"){
 			alert('Debe ingresar un usuario.');
 			return;
 		}
@@ -141,7 +143,7 @@ function ok2(){
 	<% Else  %>
 		document.FormVar.action = 'seguridad/cambio_clave_seg_01.asp';
 	<% End If %>
-		document.FormVar.target = "_self";
+		document.FormVar.target = "ifrmx";
 		document.FormVar.method = "POST";
 		//alert(document.FormVar.usr.value +"="+ document.FormVar.pass.value +"="+ document.FormVar.base.value +"="+ document.FormVar.seg_nt.value+"="+ document.FormVar.menu.value+"="+ document.FormVar.debug.value);
 		document.FormVar.submit();
@@ -274,7 +276,7 @@ function logout(arg){
 							<div class="bg"><input class="input" type="text" value="Search"  onblur="if(this.value=='') this.value='Search'" onFocus="if(this.value =='Search' ) this.value=''" ></div>
 							
 						</fieldset>-->
-				
+					<iframe name="ifrmx" src="blanc.asp" style="visibility: hidden;"  width="250" height="250"></iframe> 				
 					</form>
 				</div>
 

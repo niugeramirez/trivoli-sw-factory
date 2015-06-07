@@ -120,7 +120,7 @@ function llamadaexcel(){
 					<div class="wrapper">
 						<ul id="icons">
 							<li><img src="images/man_48.png" alt=""></li>
-							<li>Usuario: &nbsp;<%=  Session("UserName") %></li>
+							<li>Usuario: &nbsp;<%=  Session("loguinUser") %></li>
 							<!--
 							<li><a href="#" class="normaltip" title="Twitter"><img src="images/icon2.jpg" alt=""></a></li>
 							<li><a href="#" class="normaltip" title="Linkedin"><img src="images/icon3.jpg" alt=""></a></li>
