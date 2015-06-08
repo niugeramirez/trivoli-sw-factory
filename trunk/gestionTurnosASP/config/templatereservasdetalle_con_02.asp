@@ -30,6 +30,8 @@ Dim l_ju
 Dim l_vi
 Dim l_sa
 
+Dim l_hd
+Dim l_md
 
 
 l_tipo = request.querystring("tipo")
@@ -159,16 +161,53 @@ end select
 		<table border="0" cellspacing="0" cellpadding="0">
 			<tr>
 	<td align="right"><b>Hora Desde:</b></td>
-	<td>
-	<input type="text" name="calhordes1" size="2" maxlength="2" value="<%= left(l_horainicial,2) %>">
-	<b>:</b>
-    <input type="text" name="calhordes2" size="2" maxlength="2" value="<%= right(l_horainicial,2) %>">
+	<td>		
+			<select name="calhordes1" size="1" style="width:50;">
+				<%
+				l_hd = 0  
+				do while clng(l_hd) < 24 %>
+				<option value= <%= right("0" & l_hd, 2) %>> <%= right("0" & l_hd, 2) %> </option>
+				<%	l_hd = clng(l_hd) + 1
+				loop
+				%>
+			</select>
+			<script>document.datos.calhordes1.value="<%= left(l_horainicial,2) %>"</script>		
+		<b>:</b>
+			
+			<select name="calhordes2" size="1" style="width:50;">
+				<%
+				l_md = 0  
+				do while clng(l_md) < 60 %>
+				<option value= <%= right("0" & l_md, 2) %>> <%= right("0" & l_md, 2) %> </option>
+				<%	l_md = clng(l_md) + 15
+				loop
+				%>
+			</select>	
+			<script>document.datos.calhordes2.value="<%= right(l_horainicial,2) %>"</script>					
 	</td>
 	<td align="right"><b>Hora Hasta:</b></td>
-	<td>
-	<input type="text" name="calhorhas1" size="2" maxlength="2" value="<%= left(l_horafinal,2) %>" >
-	<b>:</b>
-    <input type="text" name="calhorhas2" size="2" maxlength="2" value="<%= right(l_horafinal,2) %>">
+	<td>			
+			<select name="calhorhas1" size="1" style="width:50;">
+				<%
+				l_hd = 0  
+				do while clng(l_hd) < 24 %>
+				<option value= <%= right("0" & l_hd, 2) %>> <%= right("0" & l_hd, 2) %> </option>
+				<%	l_hd = clng(l_hd) + 1
+				loop
+				%>
+			</select>	
+			<script>document.datos.calhorhas1.value="<%= left(l_horafinal,2) %>"</script>			
+		<b>:</b>			
+			<select name="calhorhas2" size="1" style="width:50;">
+				<%
+				l_md = 0  
+				do while clng(l_md) < 60 %>
+				<option value= <%= right("0" & l_md, 2) %>> <%= right("0" & l_md, 2) %> </option>
+				<%	l_md = clng(l_md) + 15
+				loop
+				%>
+			</select>				
+			<script>document.datos.calhorhas2.value="<%= right(l_horafinal,2) %>"</script>			
 	</td>
 		</tr>
 		</table>
