@@ -27,6 +27,9 @@ Dim l_fechadesde
 Dim l_fechahasta
 Dim l_descripcion
 Dim l_titulo
+Dim l_medico
+
+Dim l_idrecursoreservable
 
 l_filtro = request("filtro")
 l_orden  = request("orden")
@@ -75,6 +78,7 @@ l_filtro = replace (l_filtro, "*", "%")
 l_idmedio = request("idmedio")
 l_fechadesde = request("qfechadesde")
 l_fechahasta = request("qfechahasta")
+l_idrecursoreservable = request("idrecursoreservable")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
@@ -89,6 +93,20 @@ if not l_rs.eof then
 end if
 l_rs.close
 
+' Obtengo el Nombre del Medico
+if l_idrecursoreservable = "0" then
+	l_medico = "Todos"
+else	
+	l_sql = "SELECT  * "
+	l_sql = l_sql & " FROM recursosreservables "
+	l_sql = l_sql & " WHERE id = " & l_idrecursoreservable
+	rsOpen l_rs, cn, l_sql, 0 
+	l_medico = ""
+	if not l_rs.eof then
+		l_medico = l_rs("descripcion")
+	end if
+	l_rs.close
+end if
 
 
 l_sql = "SELECT  pagos.fecha, clientespacientes.apellido, clientespacientes.nombre, practicas.descripcion,  pagos.importe,  recursosreservables.descripcion medico" 'calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
@@ -106,6 +124,9 @@ l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = practicasrealizadas.idpr
 l_sql = l_sql & " WHERE pagos.idmediodepago = " & l_idmedio
 l_sql = l_sql & " AND  pagos.fecha  >= " & cambiafecha(l_fechadesde,"YMD",true) 
 l_sql = l_sql & " AND  pagos.fecha <= " & cambiafecha(l_fechahasta,"YMD",true) 
+if l_idrecursoreservable <> "0" then
+	l_sql = l_sql & " AND recursosreservables.id = " & l_idrecursoreservable
+end if	
 
 'if l_filtro <> "" then
 '  l_sql = l_sql & " WHERE " & l_filtro & " "
@@ -126,6 +147,9 @@ rsOpen l_rs, cn, l_sql, 0
     </tr>
 	<tr>
         <td  colspan="6" align="center" ><h3>Medio de Pago:&nbsp;<%= l_titulo %></h3></td>	
+    </tr>	
+	<tr>
+        <td  colspan="6" align="center" ><h3>Medico:&nbsp;<%= l_medico %></h3></td>	
     </tr>	
     <tr>
         <td colspan="6">&nbsp;</td>

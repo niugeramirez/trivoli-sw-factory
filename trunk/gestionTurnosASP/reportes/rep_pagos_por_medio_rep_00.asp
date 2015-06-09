@@ -17,8 +17,10 @@
 Dim l_rs
 Dim l_sql
 Dim l_id
+Dim l_idrecursoreservable
 
 l_id = 0
+l_idrecursoreservable = 0
 %>
 
 function Imprimir(){
@@ -30,7 +32,6 @@ function Actualizar(destino){
 
 	var param;
 	//Fechas	
-	
 	
 	if (document.datos.fechadesde.value == "")  {
   		alert("Debe ingresar la Fecha Desde ");
@@ -66,7 +67,7 @@ function Actualizar(destino){
 		return;
 	}	
 	
-	param = "qfechadesde=" + document.all.fechadesde.value + "&qfechahasta=" + document.all.fechahasta.value + "&idmedio=" + document.all.id.value; // + document.all.repnro.value;
+	param = "qfechadesde=" + document.all.fechadesde.value + "&qfechahasta=" + document.all.fechahasta.value + "&idmedio=" + document.all.id.value + "&idrecursoreservable=" + document.all.idrecursoreservable.value; // + document.all.repnro.value;
 	
 	if (destino== "exel")
     	abrirVentana("rep_pagos_por_medio_rep_01.asp?" + param + "&excel=true",'execl',250,150);
@@ -134,7 +135,25 @@ function Ayuda_Fecha(txt){
 								l_rs.Close %>
 							</select>
 							<script>document.datos.id.value= "<%= l_id %>"</script>
-						</td>							
+						</td>	
+						<td  align="right" nowrap><b>M&eacute;dico: </b></td>
+						<td><select name="idrecursoreservable" size="1" style="width:200;">
+								<option value=0 selected>Todos los M&eacute;dico</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT  * "
+								l_sql  = l_sql  & " FROM recursosreservables  "
+								l_sql  = l_sql  & " ORDER BY descripcion "
+								rsOpen l_rs, cn, l_sql, 0
+								do until l_rs.eof		%>	
+								<option value= <%= l_rs("id") %> > 
+								<%= l_rs("descripcion") %> </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>
+							</select>
+							<script>document.datos.idrecursoreservable.value= "<%= l_idrecursoreservable %>"</script>
+						</td>			
+																		
 					</tr>	
 
 				</table>
