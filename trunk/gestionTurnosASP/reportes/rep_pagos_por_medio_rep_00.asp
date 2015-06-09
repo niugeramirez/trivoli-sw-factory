@@ -60,12 +60,12 @@ function Actualizar(destino){
 			}	
 	}
 	*/
-
+/*
 	if (document.datos.id.value == "0")  {
   		alert("Debe ingresar el Medio de Pago ");
   		document.datos.id.focus();
 		return;
-	}	
+	}	*/
 	
 	param = "qfechadesde=" + document.all.fechadesde.value + "&qfechahasta=" + document.all.fechahasta.value + "&idmedio=" + document.all.id.value + "&idrecursoreservable=" + document.all.idrecursoreservable.value; // + document.all.repnro.value;
 	
@@ -121,7 +121,7 @@ function Ayuda_Fecha(txt){
 						</td>						
 						<td  align="right" nowrap><b>Medio de Pago: </b></td>
 						<td><select name="id" size="1" style="width:200;">
-								<option value=0 selected>Seleccionar un Medio</option>
+								<option value=0 selected>Todos los Medios</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM mediosdepago  "
