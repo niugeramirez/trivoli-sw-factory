@@ -167,7 +167,7 @@ l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = practicasrealizadas.idpr
 l_sql = l_sql & " WHERE  pagos.fecha  >= " & cambiafecha(l_fechadesde,"YMD",true) 
 l_sql = l_sql & " AND  pagos.fecha <= " & cambiafecha(l_fechahasta,"YMD",true) 
 if l_idmedio <> "0" then
-	l_sql = l_sql & " WHERE pagos.idmediodepago = " & l_idmedio
+	l_sql = l_sql & " AND pagos.idmediodepago = " & l_idmedio
 end if	
 if l_idrecursoreservable <> "0" then
 	l_sql = l_sql & " AND recursosreservables.id = " & l_idrecursoreservable
