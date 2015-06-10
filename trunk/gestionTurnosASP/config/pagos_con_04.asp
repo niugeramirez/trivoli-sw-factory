@@ -36,8 +36,8 @@ Set cn = Nothing
 %>
 <script>
 	alert('Operación Realizada.');
-	window.parent.opener.parent.opener.ifrm.location.reload()
-	window.opener.close();
+	window.parent.opener.parent.opener.ifrm.location.reload();
+	window.opener.ifrm.location.reload();
 	window.close();
 </script>
 	

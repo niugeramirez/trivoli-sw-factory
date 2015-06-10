@@ -67,6 +67,6 @@ l_cm.CommandText = l_sql
 cmExecute l_cm, l_sql, 0
 Set l_cm = Nothing
 
-Response.write "<script>alert('Operación Realizada.');window.parent.opener.parent.opener.ifrm.location.reload();window.parent.opener.close();window.parent.close();</script>"
+Response.write "<script>alert('Operación Realizada.');window.parent.opener.parent.opener.ifrm.location.reload();window.parent.opener.ifrm.location.reload();window.parent.close();</script>"
 %>
 
