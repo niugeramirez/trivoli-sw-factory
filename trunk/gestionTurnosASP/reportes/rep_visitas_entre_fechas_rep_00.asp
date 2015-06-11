@@ -11,6 +11,36 @@
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script src="/turnos/shared/js/fn_fechas.js"></script>
 <script src="/turnos/shared/js/fn_ay_generica.js"></script>
+
+<!-- Comienzo Datepicker -->
+<link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css">
+<script src="../js/jquery-1.8.0.js"></script>
+<script src="../js/jquery-ui.js"></script>  
+<script src="../js/jquery.ui.datepicker-es.js"></script>
+<script>
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1
+});
+
+		
+$( "#fechadesde" ).datepicker({
+	showOn: "button",
+	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+$( "#fechahasta" ).datepicker({
+	showOn: "button",
+	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+});
+</script>
+<!-- Final Datepicker -->
+
 <script>
 
 <% on error goto 0
@@ -85,7 +115,22 @@ function Ayuda_Fecha(txt){
 	}
 }
 
+function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, tel, osid, os){
+	document.datos.pacienteid.value = id;
+	document.datos.apellido.value = apellido;
+	document.datos.nombre.value = nombre;
+	//document.datos.nrohistoriaclinica.value = nrohistoriaclinica;
+	//document.datos.dni.value = dni;
+	//document.datos.domicilio.value = domicilio;
+	//document.datos.tel.value = tel;
+	//document.datos.osid.value = osid;
+	//document.datos.os.value = os;
+	//document.datos.coudes.focus();
+}
 
+function BuscarPaciente(){
+	abrirVentana('../config/Buscarpacientes_con_00.asp?Tipo=A','',600,250);
+}
 
 </script>
 
@@ -108,32 +153,41 @@ function Ayuda_Fecha(txt){
 			<td align="center" colspan="2">
 				<table border="0">
 					<input type="hidden" name="filtro" value="">
+		
 
 					<tr>
-						<td align="right"><b>Fecha Desde: </b></td>
-						<td><input  type="text" name="fechadesde" size="10" maxlength="10" value="<%= "01/01/"&Year( date() -1825)%>" >
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechadesde);"><img src="/turnos/shared/images/calendar1.png" border="0"></a>
-						</td>
-						<td align="right"><b>Fecha Hasta: </b></td>
-						<td><input  type="text" name="fechahasta" size="10" maxlength="10" value="<%= date()%>"  >
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechahasta);"><img src="/turnos/shared/images/calendar1.png" border="0"></a>
-						</td>						
-						<td  align="right" nowrap><b>Paciente: </b></td>
+						<td align="right"><b>Fecha Desde: </b><input id="fechadesde" type="text" name="fechadesde" value="<%'= date()%>"></td>
+						
+						<td align="right"><b>Fecha Hasta: </b><input id="fechahasta" type="text" name="fechahasta"></td>
+												
+						
+						<td align="right"><b>Paciente:</b></td>
+						<td>
+							<input class="deshabinp" readonly="" type="text" name="apellido" size="20" maxlength="20" value="<%'= l_apellido %>">							
+
+							<input class="deshabinp" readonly="" type="text" name="nombre" size="20" maxlength="20" value="<%'= l_nombre %>">
+							<input type="hidden" name="pacienteid" size="10" maxlength="10" value="0">					
+							<a href="Javascript:BuscarPaciente();"><img src="/turnos/shared/images/BuscarPaciente24.png" border="0" alt="Buscar Paciente"></a>										
+						</td>	
+						
+												
+						<!--
 						<td colspan="3"><select name="pacienteid" size="1" style="width:200;">
 								<option value=0 selected>Seleccione un Paciente</option>
-								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-								l_sql = "SELECT  * "
-								l_sql  = l_sql  & " FROM clientespacientes "
-								l_sql  = l_sql  & " ORDER BY apellido "
-								rsOpen l_rs, cn, l_sql, 0
-								do until l_rs.eof		%>	
-								<option value= <%= l_rs("id") %> > 
-								<%= l_rs("apellido") %>&nbsp;<%= l_rs("nombre") %> </option>
-								<%	l_rs.Movenext
-								loop
-								l_rs.Close %>
+								<%'Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								'l_sql = "SELECT  * "
+								'l_sql  = l_sql  & " FROM clientespacientes "
+								'l_sql  = l_sql  & " ORDER BY apellido "
+								'rsOpen l_rs, cn, l_sql, 0
+								'do until l_rs.eof		%>	
+								<option value= <%'= l_rs("id") %> > 
+								<%'= l_rs("apellido") %>&nbsp;<%'= l_rs("nombre") %> </option>
+								<%'	l_rs.Movenext
+								'loop
+								'l_rs.Close %>
 							</select>
-						</td>							
+						</td>	
+						-->						
 					</tr>	
 
 				</table>
