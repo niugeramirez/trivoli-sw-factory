@@ -11,6 +11,36 @@
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script src="/turnos/shared/js/fn_fechas.js"></script>
 <script src="/turnos/shared/js/fn_ay_generica.js"></script>
+
+<!-- Comienzo Datepicker -->
+<link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css">
+<script src="../js/jquery-1.8.0.js"></script>
+<script src="../js/jquery-ui.js"></script>  
+<script src="../js/jquery.ui.datepicker-es.js"></script>
+<script>
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1
+});
+
+		
+$( "#fechadesde" ).datepicker({
+	showOn: "button",
+	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+$( "#fechahasta" ).datepicker({
+	showOn: "button",
+	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+});
+</script>
+<!-- Final Datepicker -->
+
 <script>
 
 <% on error goto 0
@@ -51,21 +81,6 @@ function Actualizar(destino){
 		return;
 	}		
 
-	/*
-	if (document.datos.fecini.value != "") {
-	
-			if (!validarfecha(document.datos.fechadesde)) {
-		  		document.datos.fechadesde.focus();
-				return;
-			}	
-	}
-	*/
-/*
-	if (document.datos.id.value == "0")  {
-  		alert("Debe ingresar el Medio de Pago ");
-  		document.datos.id.focus();
-		return;
-	}	*/
 	
 	param = "qfechadesde=" + document.all.fechadesde.value + "&qfechahasta=" + document.all.fechahasta.value + "&idmedio=" + document.all.id.value + "&idrecursoreservable=" + document.all.idrecursoreservable.value; // + document.all.repnro.value;
 	
@@ -112,12 +127,10 @@ function Ayuda_Fecha(txt){
 
 					<tr>
 						<td align="right"><b>Fecha Desde: </b></td>
-						<td><input  type="text" name="fechadesde" size="10" maxlength="10" value="<%= date()%>" >
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechadesde);"><img src="/turnos/shared/images/calendar1.png" border="0"></a>
+						<td><input id="fechadesde" type="text" name="fechadesde" size="10" maxlength="10" value="<%= date()%>" >							
 						</td>
 						<td align="right"><b>Fecha Hasta: </b></td>
-						<td><input  type="text" name="fechahasta" size="10" maxlength="10" value="<%= date()%>" >
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechahasta);"><img src="/turnos/shared/images/calendar1.png" border="0"></a>
+						<td><input  id="fechahasta" type="text" name="fechahasta" size="10" maxlength="10" value="<%= date()%>" >							
 						</td>						
 						<td  align="right" nowrap><b>Medio de Pago: </b></td>
 						<td><select name="id" size="1" style="width:200;">
