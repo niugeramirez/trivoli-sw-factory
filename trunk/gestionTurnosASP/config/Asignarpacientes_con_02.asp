@@ -197,6 +197,18 @@ function BuscarPaciente(){
 	abrirVentana('Buscarpacientes_con_00.asp?Tipo=A','',600,250);
 }
 
+function Editar(){ 
+
+	if (document.datos.pacienteid.value == 0){
+		alert("Debe ingresar el Paciente.");
+		document.datos.pacienteid.focus();
+		return;
+	}; 
+	
+	parent.abrirVentana('Editarpacientes_con_02.asp?Tipo=M&Ventana=<%= l_ventana %>&cabnro='+document.datos.pacienteid.value ,'',600,250) 
+}
+
+
 </script>
 <% 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
@@ -321,8 +333,7 @@ end select
 						<td>
 							<input class="deshabinp" readonly="" type="text" name="os" size="20" maxlength="20" value="<%= l_descripcion %>">
 						</td>
-						<td colspan="2" align="left"><a href="Javascript:parent.abrirVentana('Editarpacientes_con_02.asp?Tipo=M&Ventana=<%= l_ventana %>&cabnro='+document.datos.pacienteid.value ,'',600,250);"><img src="/turnos/shared/images/AsignarTurno.png" border="0" alt="Editar Paciente"></a></td>
-				 
+						<td colspan="2" align="left"><a href="Javascript:Editar();"><img src="/turnos/shared/images/AsignarTurno.png" border="0" alt="Editar Paciente"></a></td>
 					    					
 					</tr>				
 					
