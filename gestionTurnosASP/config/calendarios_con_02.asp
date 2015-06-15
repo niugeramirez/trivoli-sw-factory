@@ -37,33 +37,59 @@ l_id = request.querystring("id")
 <head>
 <link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>Detalle de Modelo de Turno</title>
+<title>Detalle de Calendarios</title>
 </head>
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_valida.js"></script>
 <script>
 function Validar_Formulario(){
-/*
-if (Trim(document.datos.titulo.value) == ""){
-	alert("Debe ingresar el T&iacute;tulo.");
-	document.datos.titulo.focus();
+
+if (document.datos.calfec.value == ""){
+	alert("Debe ingresar la fecha.");
+	document.datos.calfec.focus();
 	return;
 }
 
 
-if (Trim(document.datos.descripcion.value) == ""){
-	alert("Debe ingresar la Descripción.");
-	document.datos.descripcion.focus();
+if (document.datos.calhordes1.value == "" || document.datos.calhordes2.value == ""){
+	alert("Debe ingresar la Hora Desde");
+	if (document.datos.calhordes1.value == "") {document.datos.calhordes1.focus();}
+	else if (document.datos.calhordes2.value == "") {document.datos.calhordes2.focus();}
 	return;
 }
-/*
-if (!stringValido(document.datos.agedes.value)){
-	alert("La Descripción contiene caracteres inválidos.");
-	document.datos.agedes.focus();
+
+	
+if (document.datos.calhorhas1.value == "" || document.datos.calhorhas2.value == ""){
+	alert("Debe ingresar la Hora Hasta");
+	if (document.datos.calhorhas1.value == "") {document.datos.calhorhas1.focus();}
+	else if (document.datos.calhorhas2.value == "") {document.datos.calhorhas2.focus();}
 	return;
 }
-*/
+	
+if (document.datos.intervaloTurnoMinutos.value == ""){
+	alert("Debe ingresar el intervalo de los turnos");
+	document.datos.intervaloTurnoMinutos.focus();	
+	return;
+}
+
+
+if (isNaN(document.datos.intervaloTurnoMinutos.value)) {
+	alert("El intervalo de minutos debe ser numerico.");
+	document.datos.intervaloTurnoMinutos.focus();
+	return;
+}
+
+if (document.datos.calhorhas1.value < document.datos.calhordes1.value) {
+	alert("La hora desde debe ser menor a la hora hasta");
+	document.datos.calhorhas1.focus();	
+	return;
+} else if (document.datos.calhorhas1.value == document.datos.calhordes1.value && document.datos.calhorhas2.value <= document.datos.calhordes2.value) {
+	alert("La hora (y minutos) desde debe ser menor a la hora (y minutos) hasta");
+	document.datos.calhorhas2.focus();	
+	return;
+}
+
 var d=document.datos;
 document.valida.location = "calendarios_con_06.asp?id=<%= l_id%>&calfec="+document.datos.calfec.value + "&calhordes1="+document.datos.calhordes1.value + "&calhordes2="+document.datos.calhordes2.value + "&calhorhas1="+document.datos.calhorhas1.value + "&calhorhas2="+document.datos.calhorhas2.value + "&intervaloTurnoMinutos="+document.datos.intervaloTurnoMinutos.value ; 
 

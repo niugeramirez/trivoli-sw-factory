@@ -94,7 +94,11 @@ if (document.datos.telefono.value == ""){
 	document.datos.telefono.focus();
 	return;
 }
-
+if (document.datos.osid.value == "0"){
+	alert("Debe ingresar la Obra Social del Paciente.");
+	document.datos.osid.focus();
+	return;
+}
 var d=document.datos;
 document.valida.location = "pacientes_con_06.asp?tipo=<%= l_tipo%>&id="+document.datos.id.value + "&dni="+document.datos.dni.value + "&nrohistoriaclinica="+ document.datos.nrohistoriaclinica.value;
 
@@ -222,7 +226,7 @@ end select
 						</td>						
 					</tr>
 					<tr>
-					    <td align="right"><b>Tel&eacute;fono:</b></td>
+					    <td align="right"><b>Tel&eacute;fono (*):</b></td>
 						<td>
 							<input type="text" name="telefono" size="20" maxlength="50" value="<%= l_telefono %>">
 						</td>
@@ -258,7 +262,7 @@ end select
 						</td>											
 					</tr>			
 					<tr>
-						<td  align="right" nowrap><b>Obra Social: </b></td>
+						<td  align="right" nowrap><b>Obra Social (*): </b></td>
 						<td><select name="osid" size="1" style="width:200;">
 								<option value=0 selected>Seleccione una OS</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
