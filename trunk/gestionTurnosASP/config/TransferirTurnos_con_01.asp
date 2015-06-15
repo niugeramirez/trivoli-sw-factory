@@ -73,7 +73,7 @@ l_filtro = replace (l_filtro, "*", "%")
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 Set l_rs2 = Server.CreateObject("ADODB.RecordSet")
 
-l_sql = "SELECT   descripcion, COUNT(*) AS Cantidad "
+l_sql = "SELECT   descripcion, recursosreservables.id AS idrecursoreservable, COUNT(*) AS Cantidad "
 l_sql = l_sql & " FROM calendarios "
 ' l_sql = l_sql & " LEFT JOIN turnos ON turnos.idcalendario = calendarios.id "
 l_sql = l_sql & " LEFT JOIN recursosreservables ON recursosreservables.id = calendarios.idrecursoreservable "
@@ -85,7 +85,8 @@ if l_filtro <> "" then
   l_sql = l_sql & " WHERE " & l_filtro & " "
 end if
 l_sql = l_sql & " AND calendarios.id not in (select turnos.idcalendario from turnos)"
-l_sql = l_sql & " group by descripcion" 
+l_sql = l_sql & " AND calendarios.estado = 'ACTIVO'"
+l_sql = l_sql & " group by descripcion, recursosreservables.id" 
 l_sql = l_sql & " " & l_orden
 
 
@@ -116,12 +117,14 @@ if l_rs.eof then
 				'if l_filtro <> "" then
 				  l_sql2 = l_sql2 & " WHERE " & l_filtro & " "
 				'end if
+				l_sql2 = l_sql2 & " AND calendarios.idrecursoreservable = " & l_rs("idrecursoreservable")
 				l_sql2 = l_sql2 & " AND calendarios.id not in (select turnos.idcalendario from turnos)"
+				l_sql2 = l_sql2 & " AND calendarios.estado = 'ACTIVO'"
 				
 				l_sql2 = l_sql2 & " ORDER BY fechahorainicio "
 				
 				
-				'response.write l_sql2
+				'response.write l_sql2&"</br>"
 				rsOpen l_rs2, cn, l_sql2, 0
 
 				do until l_rs2.eof
