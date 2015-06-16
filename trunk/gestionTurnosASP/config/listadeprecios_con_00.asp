@@ -60,11 +60,11 @@ function llamadaexcel(){
         <tr style="border-color :CadetBlue;">
           <td align="left" class="barra">Lista de Precios</td>
           <td nowrap align="right" class="barra">
-          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentana('listadeprecios_con_02.asp?Tipo=A&idobrasocial="&l_id&"','',520,200);","Alta")%>
+          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentana('listadeprecios_con_02.asp?Tipo=A&idobrasocial="&l_id&"','',520,350);","Alta")%>
 		  &nbsp;
           <% call MostrarBoton ("sidebtnABM", "Javascript:eliminarRegistro(document.ifrm,'listadeprecios_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
 		  &nbsp;
-          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('listadeprecios_con_02.asp?Tipo=M&idobrasocial="&l_id&"&cabnro=' + document.ifrm.datos.cabnro.value,'',520,200);","Modifica")%>
+          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('listadeprecios_con_02.asp?Tipo=M&idobrasocial="&l_id&"&cabnro=' + document.ifrm.datos.cabnro.value,'',520,350);","Modifica")%>
 		  &nbsp;&nbsp;
 		  <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('listadepreciosdetalle_con_00.asp?id=' + document.ifrm.datos.cabnro.value,'',520,200);","Detalle")%>
 		  &nbsp;
