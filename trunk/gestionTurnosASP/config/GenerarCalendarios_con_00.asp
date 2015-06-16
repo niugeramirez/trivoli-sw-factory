@@ -64,6 +64,36 @@ end if
 <script src="/turnos/shared/js/fn_confirm.js"></script>
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script src="/turnos/shared/js/fn_fechas.js"></script>
+
+<!-- Comienzo Datepicker -->
+<link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css">
+<script src="../js/jquery-1.8.0.js"></script>
+<script src="../js/jquery-ui.js"></script>  
+<script src="../js/jquery.ui.datepicker-es.js"></script>
+<script>
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1
+});
+
+		
+$( "#fechadesde" ).datepicker({
+	showOn: "button",
+	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+$( "#fechahasta" ).datepicker({
+	showOn: "button",
+	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+});
+</script>
+<!-- Final Datepicker -->
+
 <script>
 
 function orden(pag){
@@ -206,7 +236,7 @@ function AltaManual(){
 		return;
 	}	
 	
-     abrirVentana('calendarios_con_02.asp?id='+document.datos.id.value +'&Tipo=A','',520,200);
+     abrirVentana('calendarios_con_02.asp?id='+document.datos.id.value +'&Tipo=A','',550,350);
 	
 	
 }
@@ -304,27 +334,14 @@ function TotalVolumen(valor){
 				<table border="0">
 					<form name="datos">
 					<input type="hidden" name="filtro" value="">
-					<!--
-					<tr>
-						<td align="right"><b>Fec. Desde: </b></td>
-						<td><input  type="text" name="fechadesde" size="10" maxlength="10" value="<%'= Date() - 1 %>" >
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechadesde);"><img src="/turnos/shared/images/cal.gif" border="0"></a>
-						</td>
-						<td align="right"><b>Fec. Hasta: </b></td>
-						<td><input  type="text" name="fechahasta" size="10" maxlength="10" value="<%'= Date() %>" >
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechahasta);"><img src="/turnos/shared/images/cal.gif" border="0"></a>
-						</td>
-					</tr>
-					-->
 					<tr>
 						<td align="right"><b>Fecha Desde: </b></td>
-						<td><input  type="text" name="fechadesde" size="10" maxlength="10" value="<%= l_fecha%>" >
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechadesde);"><img src="/turnos/shared/images/calendar1.png" border="0"></a>
+						<td><input  type="text" id="fechadesde" name="fechadesde" size="10" maxlength="10" value="<%= l_fecha%>" >
+							
 						</td>
 						
-						<td align="right"><b>Fec. Hasta: </b></td>
-						<td><input  type="text" name="fechahasta" size="10" maxlength="10" value="<%= l_fecha %>" >
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechahasta);"><img src="/turnos/shared/images/cal.gif" border="0"></a>
+						<td align="right"><b>Fecha Hasta: </b></td>
+						<td><input  type="text" id="fechahasta" name="fechahasta" size="10" maxlength="10" value="<%= l_fecha %>" >							
 						</td>					
 						
 						<td  align="right" nowrap><b>M&eacute;dico: </b></td>
