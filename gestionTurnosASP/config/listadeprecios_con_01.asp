@@ -77,7 +77,7 @@ if l_rs.eof then%>
 <%else
 	do until l_rs.eof
 	%>
-	    <tr ondblclick="Javascript:parent.abrirVentana('listadeprecios_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',520,200)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
+	    <tr ondblclick="Javascript:parent.abrirVentana('listadeprecios_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',520,350)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
 	        <td width="15%" align="left" nowrap><%= l_rs("fecha")%></td>
 	        <td width="85%" nowrap><%= l_rs("titulo")%></td>		
 			<td width="5%" nowrap><% if l_rs("flag_activo") = -1 then%>SI <% Else  %>NO<% End If %></td>		
