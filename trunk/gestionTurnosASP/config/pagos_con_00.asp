@@ -62,11 +62,11 @@ function llamadaexcel(){
           <td align="left" class="barra">&nbsp;</td>
           <td nowrap align="right" class="barra">
 		  
-          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentana('pagos_con_02.asp?Tipo=A&idpracticarealizada=" & l_idpracticarealizada & "','',450,200);","Alta")%>
+          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentana('pagos_con_02.asp?Tipo=A&idpracticarealizada=" & l_idpracticarealizada & "','',520,350);","Alta")%>
 		  &nbsp;
           <% call MostrarBoton ("sidebtnABM", "Javascript:eliminarRegistro(document.ifrm,'pagos_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
 		  &nbsp;
-          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('pagos_con_02.asp?Tipo=M&idpracticarealizada=" & l_idpracticarealizada & "&cabnro=' + document.ifrm.datos.cabnro.value,'',450,200);","Modifica")%>
+          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('pagos_con_02.asp?Tipo=M&idpracticarealizada=" & l_idpracticarealizada & "&cabnro=' + document.ifrm.datos.cabnro.value,'',520,350);","Modifica")%>
 		  &nbsp;&nbsp;
 		  &nbsp;
           <%' call MostrarBoton ("sidebtnSHW", "Javascript:llamadaexcel();","Excel")%>
