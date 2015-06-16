@@ -45,6 +45,36 @@ l_tipo = request.querystring("tipo")
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_numeros.js"></script>
+
+<!-- Comienzo Datepicker -->
+<link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css">
+<script src="../js/jquery-1.8.0.js"></script>
+<script src="../js/jquery-ui.js"></script>  
+<script src="../js/jquery.ui.datepicker-es.js"></script>
+<script>
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1
+});
+
+		
+$( "#fecha_ingreso" ).datepicker({
+	showOn: "button",
+	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+$( "#fechanacimiento" ).datepicker({
+	showOn: "button",
+	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+});
+</script>
+<!-- Final Datepicker -->
+
 <script>
 function Validar_Formulario(){
 
@@ -230,19 +260,17 @@ end select
 						<td>
 							<input type="text" name="telefono" size="20" maxlength="50" value="<%= l_telefono %>">
 						</td>
-					    <td align="right"><b>Sexo:</b></td>
-						<td ><select name="sexo" size="1" style="width:150;">
-								<option value=M selected>Masculino</option>
-								<option value="F" >Femenino </option>							
-							</select>
-							<script>document.datos.sexo.value= "<%= l_sexo %>"</script>						
-					</tr>	
-					<tr>			
-						
 					    <td align="right"><b>Domicilio:</b></td>
 						<td >
 							<input type="text" name="domicilio" size="30" maxlength="100" value="<%= l_domicilio %>">
-						</td>	
+						</td>
+
+					</tr>	
+					<tr>			
+						<td align="right" ><b>Fec. Nacimiento:</b></td>
+						<td align="left"  >
+						    <input type="text" id="fechanacimiento" name="fechanacimiento" size="10" maxlength="10" value="<%= l_fechanacimiento %>">							
+						</td>							
 						<td  align="right" nowrap><b>Ciudad: </b></td>
 						<td><select name="ciudad" size="1" style="width:150;">
 								<option value=0 selected>Seleccione Ciudad</option>
@@ -289,14 +317,15 @@ end select
 					<tr>
 					    <td align="right" ><b>Fec. Ingreso:</b></td>
 						<td align="left"  >
-						    <input type="text" name="fecha_ingreso" size="10" maxlength="10" value="<%= l_fecha_ingreso %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.fecha_ingreso)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
+						    <input type="text" id="fecha_ingreso" name="fecha_ingreso" size="10" maxlength="10" value="<%= l_fecha_ingreso %>">							
 						</td>
-					    <td align="right" ><b>Fec. Nacimiento:</b></td>
-						<td align="left"  >
-						    <input type="text" name="fechanacimiento" size="10" maxlength="10" value="<%= l_fechanacimiento %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechanacimiento)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
-						</td>					
+					    <td align="right"><b>Sexo:</b></td>
+						<td ><select name="sexo" size="1" style="width:150;">
+								<option value=M selected>Masculino</option>
+								<option value="F" >Femenino </option>							
+							</select>
+							<script>document.datos.sexo.value= "<%= l_sexo %>"</script>						
+						</td>						
 					</tr>
 					
 					<!-- 
