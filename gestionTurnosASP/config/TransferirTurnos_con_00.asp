@@ -49,6 +49,28 @@ on error goto 0
 <script src="/turnos/shared/js/fn_confirm.js"></script>
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script src="/turnos/shared/js/fn_fechas.js"></script>
+<!-- Comienzo Datepicker -->
+<link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css">
+<script src="../js/jquery-1.8.0.js"></script>
+<script src="../js/jquery-ui.js"></script>  
+<script src="../js/jquery.ui.datepicker-es.js"></script>
+<script>
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1
+});
+
+		
+$( "#fechadesde" ).datepicker({
+	showOn: "button",
+	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+});
+</script>
+<!-- Final Datepicker -->
 <script>
 
 function orden(pag){
@@ -276,8 +298,7 @@ function TotalVolumen(valor){
 					-->
 					<tr>
 						<td align="right"><b>Fecha: </b></td>
-						<td><input  type="text" name="fechadesde" size="10" maxlength="10" value="<%= Date()%>" >
-							<a href="Javascript:Ayuda_Fecha(document.datos.fechadesde);"><img src="/turnos/shared/images/calendar1.png" border="0"></a>
+						<td><input  type="text" id="fechadesde" name="fechadesde" size="10" maxlength="10" value="<%= Date()%>" >							
 						</td>
 						<td  align="right" nowrap><b>M&eacute;dico: </b></td>
 						<td><select name="id" size="1" style="width:200;">
