@@ -34,6 +34,30 @@ l_idobrasocial = request.querystring("idobrasocial")
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_numeros.js"></script>
+
+<!-- Comienzo Datepicker -->
+<link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css">
+<script src="../js/jquery-1.8.0.js"></script>
+<script src="../js/jquery-ui.js"></script>  
+<script src="../js/jquery.ui.datepicker-es.js"></script>
+<script>
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1
+});
+
+		
+$( "#fecha" ).datepicker({
+	showOn: "button",
+	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+});
+</script>
+<!-- Final Datepicker -->
+
 <script>
 function Validar_Formulario(){
 
@@ -129,10 +153,10 @@ end select
 				<td>
 					<table cellspacing="0" cellpadding="0" border="0">
 					<tr>
-					    <td align="right" nowrap width="0"><b>Fecha;</b></td>
+					    <td align="right" nowrap width="0"><b>Fecha:</b></td>
 						<td align="left" nowrap width="0" >
-						    <input type="text" name="fecha" size="10" maxlength="10" value="<%= l_fecha %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.fecha)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
+						    <input type="text" id="fecha" name="fecha" size="10" maxlength="10" value="<%= l_fecha %>">
+							
 						</td>																	
 					</tr>							
 					<tr>
