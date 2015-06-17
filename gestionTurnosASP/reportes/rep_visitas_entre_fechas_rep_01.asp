@@ -203,8 +203,8 @@ if l_rs.eof then
 	    <tr>
 			
 	        <td align="center"><%= l_rs("fecha") %></td>	
-			<td <%'= l_fondo  %> ><%= l_rs("nombrepractica")%>&nbsp;</td>
 			<td <%'= l_fondo  %> ><%= l_rs("descripcion")%></td>	
+			<td <%'= l_fondo  %> ><%= l_rs("nombrepractica")%>&nbsp;</td>			
 			<% 
 			l_PrecioPractica = l_rs("precio")
 			l_Pagos = Pagos(l_rs("practicasrealizadasid") )
