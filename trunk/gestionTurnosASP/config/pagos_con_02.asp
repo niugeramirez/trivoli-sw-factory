@@ -275,6 +275,7 @@ end select
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM obrassociales "
+								l_sql  = l_sql  & " WHERE isnull(obrassociales.flag_particular,0) = 0 "								
 								l_sql  = l_sql  & " ORDER BY descripcion "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	
