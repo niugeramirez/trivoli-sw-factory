@@ -132,8 +132,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 		l_cm.CommandText = l_sql
 		cmExecute l_cm, l_sql, 0  		
 
-		' Si tiene Obra Social registro el Pago
-		if l_rs("flag_particular") = 0 then
+		' Si tiene Obra Social registro el Pago (solo si tiene precio, para no generar informacion innecesaria)
+		if l_rs("flag_particular") = 0 and l_precio <> 0 then
 			l_practicarealizada = codigogenerado("practicasrealizadas")	
 			
 			l_sql = "INSERT INTO pagos "
@@ -150,17 +150,6 @@ set l_cm = Server.CreateObject("ADODB.Command")
 	  l_rs.close
 	 
 	 
-
-		'Response.write "<script>alert('Operación"& l_lista(i) &" Realizada.');</script>"	 
-		'l_entnro   = l_lista(i)
-		'l_porcnro =  l_lista(i+1)
-		
-		'l_sql = "INSERT INTO visitas "
-		'l_sql = l_sql & "(fecha, idrecursoreservable, idpaciente  ) "
-		'l_sql = l_sql & "VALUES (" & cambiaformato (l_calfec, "00:00" )  & "," & l_idrecursoreservable  & "," &  l_pacienteid & ")"
-		'l_cm.activeconnection = Cn
-		'l_cm.CommandText = l_sql
-		'cmExecute l_cm, l_sql, 0
 		
 		i = i + 1
 	 loop	
