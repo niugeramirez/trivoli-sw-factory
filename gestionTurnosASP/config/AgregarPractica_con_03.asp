@@ -110,8 +110,8 @@ if l_tipo = "A" then
 
 		'Response.write "<script>alert('Operación " & l_rs("flag_particular") & "Realizada.');</script>"
 				
-		' Si tiene Obra Social registro el Pago
-		if l_rs("flag_particular") = 0 then
+		' Si tiene Obra Social registro el Pago (solo si tiene precio, para no generar informacion innecesaria)
+		if l_rs("flag_particular") = 0 and l_precio <> 0 then
 			l_practicarealizada = codigogenerado("practicasrealizadas")				
 			
 			l_sql = "INSERT INTO pagos "
