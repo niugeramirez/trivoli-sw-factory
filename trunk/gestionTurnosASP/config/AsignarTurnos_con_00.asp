@@ -343,9 +343,8 @@ function TotalVolumen(valor){
 						</td>			
 						
 
-										<td ><a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/turnos/shared/images/find_48.png" border="0" alt="Buscar"></a></td>
-										
-										<td ><a class="sidebtnABM" href="Javascript:Limpiar();">Limpiar</a></td>
+										<td ><a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/turnos/shared/images/Buscar_24.png" border="0" alt="Buscar"></a></td>										
+										<td ><a class="sidebtnABM" href="Javascript:Limpiar();"><img  src="/turnos/shared/images/Limpiar_24.png" border="0" alt="Limpiar"></a></td>
 										<!--<td ><img src="../shared/images/gen_rep/boton_06.gif"></td>-->						
 								
 					</tr>
