@@ -333,7 +333,7 @@ end select
 						<td>
 							<input class="deshabinp" readonly="" type="text" name="os" size="20" maxlength="20" value="<%= l_descripcion %>">
 						</td>
-						<td colspan="2" align="left"><a href="Javascript:Editar();"><img src="/turnos/shared/images/AsignarTurno.png" border="0" alt="Editar Paciente"></a></td>
+						<td colspan="2" align="left"><a href="Javascript:Editar();"><img src="/turnos/shared/images/Modificar_16.png" border="0" alt="Editar Paciente"></a></td>
 					    					
 					</tr>				
 					
