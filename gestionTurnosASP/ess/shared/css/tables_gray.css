@@ -174,3 +174,17 @@ A.sidebtn {
 {
 	background: #e0e0de;
 }
+
+/* Tooltips */
+.aToolTip  {
+	background:#5f870e;
+	color:#fff;
+	margin:0;
+	padding:4px 10px 3px;
+	font-size:12px;
+	line-height:1.0em;
+	position:absolute;
+	font-family : Arial, Helvetica, sans-serif;
+}
+.aToolTip .aToolTipContent  {position:relative;	margin:0;padding:0}
+/* ============================= forms ============================= */
