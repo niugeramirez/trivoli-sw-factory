@@ -214,8 +214,8 @@ if l_rs.eof then
 			<td <%= l_fondovisita %> align="center" width="10%" nowrap>&nbsp;</td>
 			<td <%= l_fondovisita %> align="center" width="10%" nowrap>&nbsp;</td>
 			<td <%= l_fondovisita %> align="center" width="10%" nowrap>
-			<a href="Javascript:parent.abrirVentana('AgregarPractica_con_02.asp?tipo=A&idobrasocial=<%= l_rs("idobrasocial") %>&cabnro=<%= l_rs("visitaid") %>' ,'',400,200);"><img src="/turnos/shared/images/colba_24.png" border="0" alt="Agregar Practica"></a>
-			<a href="Javascript:parent.abrirVentana('EliminarVisita_con_02.asp?cabnro=<%= l_rs("visitaid") %>' ,'',400,200);"><img src="/turnos/shared/images/eliminarvisita_24.png" border="0" alt="Eliminar Visita"></a>			
+			<a href="Javascript:parent.abrirVentana('AgregarPractica_con_02.asp?tipo=A&idobrasocial=<%= l_rs("idobrasocial") %>&cabnro=<%= l_rs("visitaid") %>' ,'',400,200);"><img src="/turnos/shared/images/Agregar_24.png" border="0" title="Agregar Practica"></a>
+			<a href="Javascript:parent.abrirVentana('EliminarVisita_con_02.asp?cabnro=<%= l_rs("visitaid") %>' ,'',400,200);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Eliminar Visita"></a>			
 			</td>
 			</tr>
 			
@@ -236,8 +236,8 @@ if l_rs.eof then
 			<td align="center" width="10%" nowrap><%= l_Pagos %></td>
 			<td align="center" width="10%" nowrap><%= cdbl(l_rs("precio")) - cdbl(l_Pagos) %></td>
 			<td align="center" width="10%">
-			<a href="Javascript:parent.abrirVentana('pagos_con_00.asp?cabnro=<%= l_rs("practicasrealizadasid") %>','',600,400);"><img src="/turnos/shared/images/money_24.png" border="0" alt="Detalle de Pagos"></a>
-			<a href="Javascript:parent.abrirVentana('EliminarPractica_con_02.asp?cabnro=<%= l_rs("practicasrealizadasid") %>' , '',400,200);"><img src="/turnos/shared/images/windows_close_program_24.png" border="0" alt="Eliminar Practicas"></a>
+			<a href="Javascript:parent.abrirVentana('pagos_con_00.asp?cabnro=<%= l_rs("practicasrealizadasid") %>','',600,400);"><img src="/turnos/shared/images/US-dollar-icon_16.png" border="0" title="Detalle de Pagos"></a>
+			<a href="Javascript:parent.abrirVentana('EliminarPractica_con_02.asp?cabnro=<%= l_rs("practicasrealizadasid") %>' , '',400,200);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Eliminar Practicas"></a>
 			</td>
 			<% End If %>
 		    

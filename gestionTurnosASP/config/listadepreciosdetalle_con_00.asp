@@ -69,20 +69,18 @@ function llamadaexcel(){
         <tr style="border-color :CadetBlue;">
           <td align="left" class="barra">Detalle Lista de Precios</td>
           <td nowrap align="right" class="barra">
-          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentana('listadepreciosdetalle_con_02.asp?idcab='+document.datos.id.value +'&Tipo=A','',520,200);","Alta")%>
+          <%'eugenio 29/06/2015, unificacion de iconos  call MostrarBoton ("sidebtnABM", "Javascript:abrirVentana('listadepreciosdetalle_con_02.asp?idcab='+document.datos.id.value +'&Tipo=A','',520,200);","Alta")%>
+		  <a class="sidebtnABM" href="Javascript:abrirVentana('listadepreciosdetalle_con_02.asp?idcab='+document.datos.id.value +'&Tipo=A','',520,200);" ><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Alta">
 		  &nbsp;
-          <% call MostrarBoton ("sidebtnABM", "Javascript:eliminarRegistro(document.ifrm,'listadepreciosdetalle_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
+          <%'eugenio 29/06/2015, unificacion de iconos  call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('listadepreciosdetalle_con_02.asp?idcab='+document.datos.id.value + '&Tipo=M&cabnro=' + document.ifrm.datos.cabnro.value,'',520,100);","Modifica")%>
+		  <a href="Javascript:abrirVentanaVerif('listadepreciosdetalle_con_02.asp?idcab='+document.datos.id.value + '&Tipo=M&cabnro=' + document.ifrm.datos.cabnro.value,'',520,100);"><img src="/turnos/shared/images/Modificar_16.png" border="0" title="Editar"></a>
 		  &nbsp;
-          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('listadepreciosdetalle_con_02.asp?idcab='+document.datos.id.value + '&Tipo=M&cabnro=' + document.ifrm.datos.cabnro.value,'',520,100);","Modifica")%>
+          <%'eugenio 29/06/2015, unificacion de iconos  call MostrarBoton ("sidebtnABM", "Javascript:eliminarRegistro(document.ifrm,'listadepreciosdetalle_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
+		  <a href="Javascript:eliminarRegistro(document.ifrm,'listadepreciosdetalle_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Baja"></a>	
 		  &nbsp;&nbsp;
-          <%' call MostrarBoton ("sidebtnSHW", "Javascript:llamadaexcel();","Excel")%>
-		  <!-- <a class=sidebtnSHW href="Javascript:orden('../../config/agencias_con_01.asp');">Orden</a>
-		  <a class=sidebtnSHW href="Javascript:filtro('../../config/agencias_con_01.asp')">Filtro</a>
-		   -->
+          
 		  &nbsp;&nbsp;
-		  <!--
-		  <a class=sidebtnHLP href="Javascript:ayuda('<%'= Request.ServerVariables("SCRIPT_NAME")%>');">Ayuda</a>
-		  -->
+		  
 		  </td>
         </tr>
         <tr valign="top" height="100%">
