@@ -307,7 +307,8 @@ function TotalVolumen(valor){
           <td align="left" class="barra">&nbsp;</td>
           <td nowrap align="right" class="barra">
 		  
-		  <% call MostrarBoton ("sidebtnABM", "Javascript:AltaManual();","Alta Manual de Calendario")%>	
+		  <%'eugenio 29/06/2015, unificacion de iconos  call MostrarBoton ("sidebtnABM", "Javascript:AltaManual();","Alta Manual de Calendario")%>	
+		  <a class="sidebtnABM" href="Javascript:AltaManual();" ><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Alta">
 				  
           <%' call MostrarBoton ("opcionbtn", "Javascript:abrirVentana('legajos_con_02.asp?Tipo=A','',800,500);","Alta")%>
 		  &nbsp;&nbsp;
@@ -363,9 +364,9 @@ function TotalVolumen(valor){
 						</td>			
 						
 
-										<td ><a class="sidebtnABM" href="Javascript:Buscar(1);" ><img  src="/turnos/shared/images/generar.png" border="0" alt="Generar Calendarios"></a></td>
+										<td ><a class="sidebtnABM" href="Javascript:Buscar(1);" ><img  src="/turnos/shared/images/calendar-add-icon_24.png" border="0" title="Generar Calendarios"></a></td>
 										
-										<td ><a class="sidebtnABM" href="Javascript:Buscar(0);"><img  src="/turnos/shared/images/photo_48.png" border="0" alt="Visualizar Calendarios"></a></td>
+										<td ><a class="sidebtnABM" href="Javascript:Buscar(0);"><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar"></a></td>
 										<!--<td ><img src="../shared/images/gen_rep/boton_06.gif"></td>-->						
 								
 					</tr>

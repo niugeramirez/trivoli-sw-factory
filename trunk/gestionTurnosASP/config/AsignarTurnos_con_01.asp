@@ -134,11 +134,11 @@ if l_rs.eof then
 				%>
 				  
 				  <% if l_rs("estado") = "ANULADO" then ' si esta bloquado: solo desbloquear &acirc; %>	
-				  <a href="Javascript:parent.abrirVentana('AnularTurno_con_02.asp?Tipo=D&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/turnos/shared/images/candadoabierto.jpg" border="0" alt="Desbloquear Turno"></a>						
+				  <a href="Javascript:parent.abrirVentana('AnularTurno_con_02.asp?Tipo=D&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/turnos/shared/images/candadoabierto.jpg" border="0" title="Desbloquear Turno"></a>						
 				  <% Else  %>
-				  	<a href="Javascript:parent.abrirVentana('Asignarpacientes_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value ,'',600,350);"><img src="/turnos/shared/images/Agregar_24.png" border="0" alt="Asignar Turno"></a>
+				  	<a href="Javascript:parent.abrirVentana('Asignarpacientes_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value ,'',600,350);"><img src="/turnos/shared/images/Agregar_24.png" border="0" title="Asignar Turno"></a>
 				  	<% if l_rs("estado") = "ACTIVO" and isnull(l_rs("idclientepaciente")) then  ' puede cancelar, transferir  %>				  
-				  		<a href="Javascript:parent.abrirVentana('AnularTurno_con_02.asp?Tipo=B&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/turnos/shared/images/candado.jpg" border="0" alt="Bloquear Turno"></a>	
+				  		<a href="Javascript:parent.abrirVentana('AnularTurno_con_02.asp?Tipo=B&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/turnos/shared/images/candado.jpg" border="0" title="Bloquear Turno"></a>	
 				  	<% End If %>	
 				  <% End If %>
 				  
@@ -194,9 +194,9 @@ if l_rs.eof then
 				<% End If %>
 				
 		        <td align="center" width="10%" nowrap>
-									   <a href="Javascript:parent.abrirVentana('Asignarpacientes_con_02.asp?Tipo=M&cabnro=<%= l_rs("turnoid")%>' ,'',600,350);"><img src="/turnos/shared/images/Modificar_16.png" border="0" alt="Editar Turno"></a> 
-				                       <a href="Javascript:parent.abrirVentana('CancelarTurnos_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value + '&turnoid=' + datos.idturno.value,'',600,300);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" alt="Cancelar Turno"></a>
-	                                   <a href="Javascript:parent.abrirVentana('TransferirTurnos_con_00.asp?Tipo=A&cabnro=<%= l_rs("turnoid")%>' ,'',800,600);"><img src="/turnos/shared/images/Arrow-icon.png" border="0" alt="Transferir Turno"></a>											   
+									   <a href="Javascript:parent.abrirVentana('Asignarpacientes_con_02.asp?Tipo=M&cabnro=<%= l_rs("turnoid")%>' ,'',600,350);"><img src="/turnos/shared/images/Modificar_16.png" border="0" title="Editar Turno"></a> 
+				                       <a href="Javascript:parent.abrirVentana('CancelarTurnos_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value + '&turnoid=' + datos.idturno.value,'',600,300);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Cancelar Turno"></a>
+	                                   <a href="Javascript:parent.abrirVentana('TransferirTurnos_con_00.asp?Tipo=A&cabnro=<%= l_rs("turnoid")%>' ,'',800,600);"><img src="/turnos/shared/images/Arrow-icon.png" border="0" title="Transferir Turno"></a>											   
 									   </td>	
 			<% End If %>		
 			<% End If %>							   

@@ -340,9 +340,9 @@ function TotalVolumen(valor){
 								<tr>
 								
 										<!--<td ><img src="../shared/images/gen_rep/boton_01.gif" width="5.9"></td>-->
-										<td ><a class="sidebtnABM" href="Javascript:Buscar();">Filtrar</a></td>
+										<td ><a class="sidebtnABM" href="Javascript:Buscar();"><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar"></a></td>
 										<!--<td  background="../shared/images/gen_rep/boton_05.gif"><img src="../shared/images/gen_rep/boton_03.gif" height="15"></td>-->
-										<td ><a class="sidebtnABM" href="Javascript:Limpiar();">Limpiar</a></td>
+										<td ><a class="sidebtnABM" href="Javascript:Limpiar();"><img  src="/turnos/shared/images/Limpiar_24.png" border="0" title="Limpiar"></a></td>
 										<!--<td ><img src="../shared/images/gen_rep/boton_06.gif"></td>-->
 								</tr>
 							</table>

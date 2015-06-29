@@ -113,9 +113,9 @@ function Ayuda_Fecha(txt){
 		<td align="left" class="barra" nowrap>
 			<!--<a class=sidebtnSHW href="Javascript:window.close();">Salir</a>--></td>
 		<td align="right" class="barra" >
-			<a class=sidebtnSHW href="Javascript:Actualizar('ifrm')">Actualizar</a>		  
+			<a class=sidebtnSHW href="Javascript:Actualizar('ifrm')"><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar"></a>		  
 			<!--<a class=sidebtnSHW href="Javascript:Imprimir()">Imprimir</a>	-->	  
-			<a class=sidebtnSHW href="Javascript:Actualizar('exel')">Excel</a> 
+			<a class=sidebtnSHW href="Javascript:Actualizar('exel')"><img  src="/turnos/shared/images/Excel-icon_24.png" border="0" title="Excel"></a> 
 			&nbsp;
 			
 		</td>

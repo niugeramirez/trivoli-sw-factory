@@ -189,9 +189,6 @@ if l_rs.eof then
 
 				
 		        <td align="center" width="10%" nowrap>
-				                       <!-- <a href="Javascript:parent.abrirVentana('Asignarpacientes_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value ,'',600,300);"><img src="/turnos/shared/images/AsignarTurno.png" border="0" alt="Asignar Turno"></a> -->
-									   <!-- <a href="Javascript:parent.abrirVentana('AnularTurno_con_02.asp?Tipo=B&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/turnos/shared/images/candado.jpg" border="0" alt="Bloquear Turno"></a>			-->
-	                                   <!--<a href="Javascript:parent.abrirVentana('EliminarTurnos_con_02.asp?Tipo=A&cabnro=' + datos.cabnro.value ,'',400,200);"><img src="/turnos/shared/images/eliminarturno.png" border="0" alt="Eliminar Turno"></a>	-->										   
 									   </td>				
 			
 			<% Else  
@@ -207,7 +204,7 @@ if l_rs.eof then
 			
 			
 				<% if l_rs("idclientepaciente") <> -1 then ' si esta asignado a un paciente: cancelar el paciente , transferir %>
-			    <td <%= l_fondo  %> width="10%" nowrap><% If clng(l_rs("nrohistoriaclinica")) = 0 or isnull(l_rs("nrohistoriaclinica")) then %>  <img src="/turnos/shared/images/mas.png" border="0" alt="Paciente Nuevo"> <% End If %> <%= l_rs("apellido")%>,&nbsp;<%= l_rs("nombre")%></td>	
+			    <td <%= l_fondo  %> width="10%" nowrap><% If clng(l_rs("nrohistoriaclinica")) = 0 or isnull(l_rs("nrohistoriaclinica")) then %>  <img src="/turnos/shared/images/mas.png" border="0" title="Paciente Nuevo"> <% End If %> <%= l_rs("apellido")%>,&nbsp;<%= l_rs("nombre")%></td>	
 				<td <%= l_fondo  %> width="10%" nowrap><%= l_rs("telefono")%></td>
 				<td <%= l_fondo  %> width="10%" nowrap><%= l_rs("practicanombre")%></td>					
 				<td <%= l_fondo  %> width="10%" nowrap><%= l_rs("osnombre")%></td>		
@@ -215,7 +212,7 @@ if l_rs.eof then
 				
 				if isnull(l_rs("dni")) or l_rs("dni") = "" or l_rs("nrohistoriaclinica") = "0" or l_rs("nrohistoriaclinica") = "" or isnull(l_rs("nrohistoriaclinica")) then
 				%>
-					<td align="center" width="10%" nowrap><img src="/turnos/shared/images/cal.gif" border="0" alt="El Paciente seleccionado no tiene DNI o Nro de Historia Clinica cargado. Ir a la opcion Pacientes para completar esta informacion" ></td>
+					<td align="center" width="10%" nowrap><img src="/turnos/shared/images/cal.gif" border="0" title="El Paciente seleccionado no tiene DNI o Nro de Historia Clinica cargado. Ir a la opcion Pacientes para completar esta informacion" ></td>
 				<% Else  %>
 					<td align="center" width="10%" nowrap><input type=checkbox onclick="Habilitar(this, <%= l_rs("turnoid")%>)" name="asistio"> </td>    				
 				<% End If %>

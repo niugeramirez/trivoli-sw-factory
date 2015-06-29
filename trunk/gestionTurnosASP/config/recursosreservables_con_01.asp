@@ -94,8 +94,8 @@ function Seleccionar(fila,cabnro){
 			<td width="10%" nowrap><%= l_rs("titulo")%></td>
 	        <td width="10%" nowrap align="center"><%= l_rs("cantturnossimult")%></td>						
 	        <td align="center" width="10%" nowrap>    
-                <a href="Javascript:parent.abrirVentana('recursosreservables_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',650,250);"><img src="/turnos/shared/images/Modificar_16.png" border="0" alt="Editar Medico"></a>						
-                <a href="Javascript:eliminarRegistro(parent.document.ifrm,'recursosreservables_con_04.asp?cabnro=' + datos.cabnro.value);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" alt="Eliminar Medico"></a>						
+                <a href="Javascript:parent.abrirVentana('recursosreservables_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',650,250);"><img src="/turnos/shared/images/Modificar_16.png" border="0" title="Editar Medico"></a>						
+                <a href="Javascript:eliminarRegistro(parent.document.ifrm,'recursosreservables_con_04.asp?cabnro=' + datos.cabnro.value);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Eliminar Medico"></a>						
             </td>
         </tr>
 	    <%

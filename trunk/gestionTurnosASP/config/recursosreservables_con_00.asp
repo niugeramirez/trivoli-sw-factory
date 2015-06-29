@@ -82,9 +82,9 @@ function Limpiar(){
 						<td><input  type="text" name="inpapellido" size="21" maxlength="21" value="" ></td>
 					    <td></td>
                         <td align="center">
-                            <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/turnos/shared/images/Buscar_24.png" border="0" alt="Buscar">
-                            <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/turnos/shared/images/Limpiar_24.png" border="0" alt="Limpiar">
-                            <a class="sidebtnABM" href="Javascript:abrirVentana('recursosreservables_con_02.asp?Tipo=A','',650,250);" ><img  src="/turnos/shared/images/Agregar_24.png" border="0" alt="Agregar Medico">
+                            <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar">
+                            <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/turnos/shared/images/Limpiar_24.png" border="0" title="Limpiar">
+                            <a class="sidebtnABM" href="Javascript:abrirVentana('recursosreservables_con_02.asp?Tipo=A','',650,250);" ><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Agregar Medico">
                         </td>
                     </tr>
 					</tbody>

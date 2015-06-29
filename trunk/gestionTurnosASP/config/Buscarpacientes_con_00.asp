@@ -275,7 +275,7 @@ function fnctrnum(valor){
           <td align="left" class="barra">&nbsp;</td>
           <td nowrap align="right" class="barra">
 
-			<a href="Javascript:AltaPaciente();">Alta Paciente</a>	
+			<a href="Javascript:AltaPaciente();"><img src="/turnos/shared/images/Agregar_24.png" border="0" title="Alta Paciente"></a>	
 		  	  
 		  <!--
 		  <a class=sidebtn href="Javascript:orden('../../config/contracts_con_01.asp');">Orden</a>
@@ -377,9 +377,9 @@ function fnctrnum(valor){
 								<tr>
 								
 										<!--<td ><img src="../shared/images/gen_rep/boton_01.gif" width="5.9"></td>-->
-										<td ><a class="sidebtnABM" href="Javascript:Buscar();">Filtrar</a></td>
+										<td ><a class="sidebtnABM" href="Javascript:Buscar();"><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar"></a></td>
 										<!--<td  background="../shared/images/gen_rep/boton_05.gif"><img src="../shared/images/gen_rep/boton_03.gif" height="15"></td>-->
-										<td ><a class="sidebtnABM" href="Javascript:Limpiar();">Limpiar</a></td>
+										<td ><a class="sidebtnABM" href="Javascript:Limpiar();"><img  src="/turnos/shared/images/Limpiar_24.png" border="0" title="Limpiar"></a></td>
 										<!--<td ><img src="../shared/images/gen_rep/boton_06.gif"></td>-->
 								</tr>
 							</table>

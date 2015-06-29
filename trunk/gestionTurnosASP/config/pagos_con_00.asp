@@ -62,11 +62,14 @@ function llamadaexcel(){
           <td align="left" class="barra">&nbsp;</td>
           <td nowrap align="right" class="barra">
 		  
-          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentana('pagos_con_02.asp?Tipo=A&idpracticarealizada=" & l_idpracticarealizada & "','',520,350);","Alta")%>
+          <%'eugenio 29/06/2015, unificacion de iconos  call MostrarBoton ("sidebtnABM", "Javascript:abrirVentana('pagos_con_02.asp?Tipo=A&idpracticarealizada=" & l_idpracticarealizada & "','',520,350);","Alta")%>
+		  <a class="sidebtnABM" href="Javascript:abrirVentana('pagos_con_02.asp?Tipo=A&idpracticarealizada=<%=l_idpracticarealizada%>','',520,350);" ><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Alta">
 		  &nbsp;
-          <% call MostrarBoton ("sidebtnABM", "Javascript:eliminarRegistro(document.ifrm,'pagos_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
+          <%'eugenio 29/06/2015, unificacion de iconos call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('pagos_con_02.asp?Tipo=M&idpracticarealizada=" & l_idpracticarealizada & "&cabnro=' + document.ifrm.datos.cabnro.value,'',520,350);","Modifica")%>
+		  <a href="Javascript:parent.abrirVentanaVerif('pagos_con_02.asp?Tipo=M&idpracticarealizada=<%=l_idpracticarealizada%>&cabnro=' + document.ifrm.datos.cabnro.value,'',520,350);"><img src="/turnos/shared/images/Modificar_16.png" border="0" title="Editar"></a>
 		  &nbsp;
-          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('pagos_con_02.asp?Tipo=M&idpracticarealizada=" & l_idpracticarealizada & "&cabnro=' + document.ifrm.datos.cabnro.value,'',520,350);","Modifica")%>
+          <%'eugenio 29/06/2015, unificacion de iconos  call MostrarBoton ("sidebtnABM", "Javascript:eliminarRegistro(document.ifrm,'pagos_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
+		  <a href="Javascript:eliminarRegistro(document.ifrm,'pagos_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Baja"></a>								  
 		  &nbsp;&nbsp;
 		  &nbsp;
           <%' call MostrarBoton ("sidebtnSHW", "Javascript:llamadaexcel();","Excel")%>

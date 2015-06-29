@@ -292,7 +292,7 @@ end select
 					<tr>	
 					<td colspan="4" align="center">
 					<% if l_tipo <> "M" then %>
-					<a href="Javascript:BuscarPaciente();"><img src="/turnos/shared/images/BuscarPaciente.png" border="0" alt="Buscar Paciente"></a>		
+					<a href="Javascript:BuscarPaciente();"><img src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar Paciente"></a>		
 					<% End If %>						
 
 					</td>
@@ -333,7 +333,7 @@ end select
 						<td>
 							<input class="deshabinp" readonly="" type="text" name="os" size="20" maxlength="20" value="<%= l_descripcion %>">
 						</td>
-						<td colspan="2" align="left"><a href="Javascript:Editar();"><img src="/turnos/shared/images/Modificar_16.png" border="0" alt="Editar Paciente"></a></td>
+						<td colspan="2" align="left"><a href="Javascript:Editar();"><img src="/turnos/shared/images/Modificar_16.png" border="0" title="Editar Paciente"></a></td>
 					    					
 					</tr>				
 					

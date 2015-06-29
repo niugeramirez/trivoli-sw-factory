@@ -310,8 +310,11 @@ function AltaVisitaconTurno(){
           <td align="left" class="barra">&nbsp;</td>
           <td nowrap align="right" class="barra">
 		  		  
-          <% call MostrarBoton ("opcionbtn", "Javascript:AltaVisita();","Agregar Visitas sin Turno")%>&nbsp;&nbsp;
-		  <% call MostrarBoton ("opcionbtn", "Javascript:AltaVisitaconTurno();","Agregar Visitas con Turno")%>
+          <%'eugenio 29/06/2015, unificacion de iconos  call MostrarBoton ("opcionbtn", "Javascript:AltaVisita();","Agregar Visitas sin Turno")%>
+		  <a class="sidebtnABM" href="Javascript:AltaVisita();" ><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Agregar Visitas sin Turno">
+		  &nbsp;&nbsp;		  
+		  <%'eugenio 29/06/2015, unificacion de iconos call MostrarBoton ("opcionbtn", "Javascript:AltaVisitaconTurno();","Agregar Visitas con Turno")%>
+		  <a class="sidebtnABM" href="Javascript:AltaVisitaconTurno();"><img  src="/turnos/shared/images/Add-Appointment-icon_24.png" border="0" title="Agregar Visitas con Turno"></a>
 		  &nbsp;&nbsp;
           <%' call MostrarBoton ("opcionbtn", "Javascript:eliminarRegistro(document.ifrm,'legajos_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
 		  &nbsp;&nbsp;
@@ -360,7 +363,7 @@ function AltaVisitaconTurno(){
 						</td>			
 						
 
-										<td ><a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/turnos/shared/images/find_48.png" border="0" alt="Buscar"></a></td>
+										<td ><a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar"></a></td>
 										<!--
 										<td ><a class="sidebtnABM" href="Javascript:Limpiar();">Limpiar</a></td>
 										<td ><img src="../shared/images/gen_rep/boton_06.gif"></td>-->						

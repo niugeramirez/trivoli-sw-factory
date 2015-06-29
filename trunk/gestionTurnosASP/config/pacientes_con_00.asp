@@ -249,11 +249,13 @@ function TotalVolumen(valor){
           <td align="left" class="barra">&nbsp;</td>
           <td nowrap align="right" class="barra">
 		  		  
-          <% call MostrarBoton ("opcionbtn", "Javascript:abrirVentana('pacientes_con_02.asp?Tipo=A','',750,520);","Alta")%>
+          <% 'eugenio 29/06/2015, unificacion de iconos call MostrarBoton ("opcionbtn", "Javascript:abrirVentana('pacientes_con_02.asp?Tipo=A','',750,520);","Alta")%>
+		  <a class="sidebtnABM" href="Javascript:abrirVentana('pacientes_con_02.asp?Tipo=A','',750,520);" ><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Alta">
 		  &nbsp;&nbsp;
           <%' call MostrarBoton ("opcionbtn", "Javascript:eliminarRegistro(document.ifrm,'pacientes_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
 		  &nbsp;&nbsp;
-          <% call MostrarBoton ("opcionbtn", "Javascript:abrirVentanaVerif('pacientes_con_02.asp?Tipo=M&cabnro=' + document.ifrm.datos.cabnro.value,'',750,520);","Modifica")%>
+          <%'eugenio 29/06/2015, unificacion de iconos call MostrarBoton ("opcionbtn", "Javascript:abrirVentanaVerif('pacientes_con_02.asp?Tipo=M&cabnro=' + document.ifrm.datos.cabnro.value,'',750,520);","Modifica")%>		               		  
+		  <a href="Javascript:abrirVentanaVerif('pacientes_con_02.asp?Tipo=M&cabnro=' + document.ifrm.datos.cabnro.value,'',750,520);"><img src="/turnos/shared/images/Modificar_16.png" border="0" title="Editar"></a>	
 		  &nbsp;&nbsp;
           <%' call MostrarBoton ("sidebtnSHW", "Javascript:llamadaexcel();","Excel")%>
 		  &nbsp;&nbsp;
@@ -394,9 +396,9 @@ function TotalVolumen(valor){
 								<tr>
 								
 										<!--<td ><img src="../shared/images/gen_rep/boton_01.gif" width="5.9"></td>-->
-										<td ><a class="sidebtnABM" href="Javascript:Buscar();">Filtrar</a></td>
+										<td ><a class="sidebtnABM" href="Javascript:Buscar();"><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar"></a></td>
 										<!--<td  background="../shared/images/gen_rep/boton_05.gif"><img src="../shared/images/gen_rep/boton_03.gif" height="15"></td>-->
-										<td ><a class="sidebtnABM" href="Javascript:Limpiar();">Limpiar</a></td>
+										<td ><a class="sidebtnABM" href="Javascript:Limpiar();"><img  src="/turnos/shared/images/Limpiar_24.png" border="0" title="Limpiar"></a></td>
 										<!--<td ><img src="../shared/images/gen_rep/boton_06.gif"></td>-->
 								</tr>
 							</table>
