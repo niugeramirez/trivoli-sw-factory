@@ -162,18 +162,38 @@ end select
 					<tr>
 					    <td align="right"><b>T&iacute;tulo:</b></td>
 						<td>
-							<input type="text" name="titulo" size="60" maxlength="100" value="<%= l_titulo %>">
+							<input type="text" name="titulo" size="50" maxlength="100" value="<%= l_titulo %>">
 						</td>
 					</tr>		
 					<tr>
 						<td  align="right" nowrap><b>Activo: </b></td>
-						<td ><select name="activo" size="1" style="width:200;">
+						<td ><select name="activo" size="1" style="width:250;">
 								<option value=0 selected>No</option>
 								<option value=-1 selected>Si</option>								
 							</select>
 							<script>document.datos.activo.value="<%= l_flag_activo %>"</script>
 						</td>		
-					</tr>									
+					</tr>		
+					<tr>
+						<td  align="right" nowrap><b>Lista de Precios: </b></td>
+						<td ><select name="lpcab" size="1" style="width:250;">
+								<option value=0 selected>Seleccione una Lista de Precios</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT * "
+								l_sql = l_sql & " FROM listaprecioscabecera "
+								'l_sql = l_sql & " WHERE idobrasocial = " & l_idobrasocial
+								l_sql  = l_sql  & " ORDER BY titulo "
+								rsOpen l_rs, cn, l_sql, 0
+								do until l_rs.eof		%>	
+								<option value= <%= l_rs("id") %> > 
+								<%= l_rs("titulo") %> </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>
+							</select>
+							
+						</td>	
+					</tr>												
 		
 					</table>
 				</td>

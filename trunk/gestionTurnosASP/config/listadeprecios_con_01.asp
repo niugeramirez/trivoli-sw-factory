@@ -72,7 +72,7 @@ l_sql = l_sql & " " & l_orden
 rsOpen l_rs, cn, l_sql, 0 
 if l_rs.eof then%>
 <tr>
-	 <td colspan="2" >No existen Lista de Precios cargadas.</td>
+	 <td colspan="3" >No existen Lista de Precios cargadas.</td>
 </tr>
 <%else
 	do until l_rs.eof
