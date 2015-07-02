@@ -1,5 +1,6 @@
 <% Option Explicit %>
 <!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
 <% 
 'Archivo: contracts_con_01.asp
 'Descripción: ABM de Contracts
@@ -20,16 +21,60 @@ Dim l_cant
 
 Dim l_primero
 
+Dim l_hd
+Dim l_md
+Dim l_hh
+Dim l_mh  
+
+Dim l_fechadesde
+Dim l_fechahasta
+
+Dim l_horadesde
+Dim l_horahasta
+
+Dim l_DiasSemana
+
+l_fechadesde = request("fechadesde")
+l_fechahasta = request("fechahasta")
+'response.write l_fechadesde
+'response.write l_fechahasta
+
+l_hd = request("hd")
+l_md = request("md")
+l_hh = request("hh")
+l_mh = request("mh")
+
+l_DiasSemana = request("DiasSemana")
+
+l_horadesde = l_hd & ":" & l_md
+l_horahasta = l_hh & ":" & l_mh
+
+
 l_filtro = request("filtro")
 l_cabnro = request("cabnro")
 l_orden  = request("orden")
 
-'if l_orden = "" then
-'  l_orden = " ORDER BY fechahorainicio "
-'end if
+
+Function diasemana(fecha)
 
 
-'l_ternro  = request("ternro")
+	Select Case weekday(fecha)
+		Case 1
+			diasemana = "#FFFF80"
+		Case 2
+			diasemana = "#FF0080"
+		Case 3
+			diasemana = "#FF1180"
+		Case 4
+			diasemana = "#FF2280"
+		Case 5
+			diasemana = "#FF3380"
+		Case 6
+			diasemana = "#FF4480"
+		Case 7
+			diasemana = "#FF5580"
+	End Select
+End Function
 
 %>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
@@ -58,14 +103,15 @@ function Seleccionar(fila,cabnro){
 	fila.className = "SelectedRow";
 	jsSelRow = fila;
 }
+
+
 </script>
 
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar();">
 <table>
     <tr>
         <th>Medico</th>
-        <th>Cant.Turnos</th>		
-		<th>Turnos Disponibles</th>
+        <th>Turnos Disponibles</th>
     </tr>
 <%
 l_filtro = replace (l_filtro, "*", "%")
@@ -84,6 +130,7 @@ l_sql = l_sql & " LEFT JOIN recursosreservables ON recursosreservables.id = cale
 if l_filtro <> "" then
   l_sql = l_sql & " WHERE " & l_filtro & " "
 end if
+
 l_sql = l_sql & " AND calendarios.id not in (select turnos.idcalendario from turnos)"
 l_sql = l_sql & " AND calendarios.estado = 'ACTIVO'"
 l_sql = l_sql & " group by descripcion, recursosreservables.id" 
@@ -103,15 +150,16 @@ if l_rs.eof then
 	l_cant = 0
 	do until l_rs.eof
 		l_cant = l_cant + 1
+		'response.write l_rs("fechahorainicio") '  >= & cambiaformato (Fec,l_horadesde )
 	%>
 	    <tr  onclick="Javascript:Seleccionar(this,<%= l_rs("idrecursoreservable")%>)">
 	        <!--<td width="10%" nowrap><%'= l_rs("buqnro")%></td>		-->
 			
 	        <td width="10%" nowrap><%= l_rs("descripcion")%></td>		
-			  <td width="10%" nowrap align="center"><%= l_rs("Cantidad")%></td>			
+			  	
 			    <td width="10%" nowrap>
 				<% 
-				l_sql2 = "SELECT id,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio "
+				l_sql2 = "SELECT id,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS horainicio , fechahorainicio , CONVERT(VARCHAR(10), fechahorainicio, 101) AS Fecha"
 				l_sql2 = l_sql2 & " FROM calendarios "
 								
 				'if l_filtro <> "" then
@@ -126,15 +174,33 @@ if l_rs.eof then
 				
 				'response.write l_sql2&"</br>"
 				rsOpen l_rs2, cn, l_sql2, 0
-
+				dim l_a
+				%>
+				<table border="0" cellpadding="3" cellspacing="3"   >
+				<tr> 
+				<%
+				
+				 
 				do until l_rs2.eof
-					'l_cant = l_cant + 1%>
-					<a href="Javascript:parent.abrirVentana('TransferirTurnos_con_02.asp?Tipo=A&ant=<%= l_cabnro %>&nuevo=<%= l_rs2("id")%>' ,'',600,300);"><%= l_rs2("fechahorainicio")%>&nbsp;</a>
+					'l_cant = l_cant + 1
+					'response.write   instr(l_DiasSemana, weekday (cdate( l_rs2("fechahorainicio"))) )
+					
+					'and weekday (l_rs2("Fecha")) in l_DiasSemana 
+					
+					if l_rs2("horainicio") >= l_horadesde  and l_rs2("horainicio") <= l_horahasta and instr(l_DiasSemana, weekday (cdate( l_rs2("fechahorainicio"))) ) <> 0 then
+					%>
+					<td bgcolor="<%= diasemana(l_rs2("Fecha")) %>" align="center" ><a href="Javascript:parent.abrirVentana('TransferirTurnos_con_02.asp?Tipo=A&ant=<%= l_cabnro %>&nuevo=<%= l_rs2("id")%>' ,'',600,300);"><%= cambiafecha(l_rs2("Fecha"),"","")%><br><%= l_rs2("horainicio")%>&nbsp;<%'= weekday(cdate(l_rs2("Fecha"))) %></a></td>
 					<%
+					end if
+					
+					
 					l_rs2.MoveNext
 				loop		
 				l_rs2.Close
-				 %></td>				   
+				 %>
+				 </tr>
+				 </table>
+				 </td>				   
 	    </tr>
 	<%
 		l_rs.MoveNext
