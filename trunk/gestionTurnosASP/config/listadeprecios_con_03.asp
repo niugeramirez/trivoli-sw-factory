@@ -64,7 +64,7 @@ if l_tipo = "A" then
 	l_cm.CommandText = l_sql
 	cmExecute l_cm, l_sql, 0	
 	
-	'Ingreso la lista de empleados a la tabla
+	'Copio la lista de precios recibida
 	l_nueva_lpcab = codigogenerado("listaprecioscabecera")	
 	
 	l_sql = "SELECT * "
@@ -100,6 +100,29 @@ else
 	l_cm.activeconnection = Cn
 	l_cm.CommandText = l_sql
 	cmExecute l_cm, l_sql, 0	
+
+	'Copio la lista de precios recibida
+	l_nueva_lpcab = codigogenerado("listaprecioscabecera")	
+	
+	l_sql = "SELECT * "
+	l_sql = l_sql & " FROM listapreciosdetalle "
+	l_sql = l_sql & " WHERE idlistaprecioscabecera= " & l_lpcab
+
+	rsOpen l_rs, cn, l_sql, 0
+	do while not l_rs.eof 	
+	
+		l_sql = "INSERT INTO listapreciosdetalle "
+		l_sql = l_sql & " (idpractica, precio, idlistaprecioscabecera ,created_by,creation_date,last_updated_by,last_update_date)"
+		l_sql = l_sql & " VALUES (" & l_rs("idpractica") & "," & l_rs("precio")  & "," & l_id &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
+	
+		l_cm.activeconnection = Cn
+		l_cm.CommandText = l_sql
+		cmExecute l_cm, l_sql, 0
+		
+		l_rs.movenext	
+	loop
+	l_rs.close	
+	
 end if
 
 Set l_cm = Nothing

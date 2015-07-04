@@ -137,16 +137,6 @@ if (!validanumero(document.datos.importe2, 15, 4)){
 }	
 
 
-/*
-if (!stringValido(document.datos.agedes.value)){
-	alert("La Descripción contiene caracteres inválidos.");
-	document.datos.agedes.focus();
-	return;
-}
-
-var d=document.datos;
-document.valida.location = "agencias_con_06.asp?tipo=<%= l_tipo%>&agenro="+document.datos.agenro.value + "&agedes="+document.datos.agedes.value;
-*/
 
 valido();
 
@@ -230,9 +220,6 @@ end select
 <tr>
     <td class="th2" nowrap>Detalle de Pago</td>
 	<td class="th2" align="right">
-		<!--
-		<a class=sidebtnHLP href="Javascript:ayuda('<%'= Request.ServerVariables("SCRIPT_NAME")%>');">Ayuda</a>
-		-->
 	</td>
 </tr>
 <tr>

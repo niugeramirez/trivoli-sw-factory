@@ -18,6 +18,7 @@ Dim l_rs
 
 Dim l_flag_activo
 Dim l_idobrasocial
+Dim l_flag_percoplistprec
 
 l_tipo = request.querystring("tipo")
 l_idobrasocial = request.querystring("idobrasocial")
@@ -75,17 +76,6 @@ if (Trim(document.datos.titulo.value) == ""){
 
 
 
-/*
-if (!stringValido(document.datos.agedes.value)){
-	alert("La Descripción contiene caracteres inválidos.");
-	document.datos.agedes.focus();
-	return;
-}
-
-var d=document.datos;
-document.valida.location = "agencias_con_06.asp?tipo=<%= l_tipo%>&agenro="+document.datos.agenro.value + "&agedes="+document.datos.agedes.value;
-*/
-
 valido();
 
 }
@@ -107,6 +97,18 @@ function Ayuda_Fecha(txt)
  else txt.value = jsFecha;
 }
 
+function enable_Copy_List_Prec() {
+	if (document.datos.flag_percoplistprec.value == "0") {
+			//document.datos.idobrasocial.readOnly = false;
+			//document.datos.idobrasocial.className = 'habinp';			
+			document.datos.lpcab.disabled = false;							
+		}
+		else {
+			//document.datos.idobrasocial.readOnly = true;
+			//document.datos.idobrasocial.className = 'deshabinp';		
+			document.datos.lpcab.disabled = true;	
+		}	
+}
 
 </script>
 <% 
@@ -115,20 +117,26 @@ select Case l_tipo
 		l_titulo = ""
 		l_fecha = ""
 		l_flag_activo = "0"
+		l_flag_percoplistprec = "0"
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
 		l_sql = "SELECT * "
+		l_sql = l_sql & " ,( select count(*) 	 from listapreciosdetalle  where idlistaprecioscabecera = listaprecioscabecera.id) as flag_tiene_detalle"
 		l_sql = l_sql & " FROM listaprecioscabecera "
 		l_sql  = l_sql  & " WHERE id = " & l_id
+		
+		'response.write l_sql & "<br>"
+		
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
 			l_titulo = l_rs("titulo")
 			l_fecha = l_rs("fecha") 
 			l_flag_activo = l_rs("flag_activo")
+			l_flag_percoplistprec = l_rs("flag_tiene_detalle")
 		end if
 		l_rs.Close
-end select
+end select 
 %>
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="JavaScript:document.datos.fecha.focus()">
 <form name="datos" action="listadeprecios_con_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">
@@ -140,9 +148,7 @@ end select
 <tr>
     <td class="th2" nowrap>Lista de Precios</td>
 	<td class="th2" align="right">
-		<!--
-		<a class=sidebtnHLP href="Javascript:ayuda('<%'= Request.ServerVariables("SCRIPT_NAME")%>');">Ayuda</a>
-		-->
+
 	</td>
 </tr>
 <tr>
@@ -175,13 +181,14 @@ end select
 						</td>		
 					</tr>		
 					<tr>
-						<td  align="right" nowrap><b>Lista de Precios: </b></td>
-						<td ><select name="lpcab" size="1" style="width:250;">
+						<td  align="right" nowrap><b>Copiar precios de: </b></td>
+						<td >
+							<input type="Hidden" name="flag_percoplistprec" value="<%= l_flag_percoplistprec %>">							
+							<select name="lpcab" size="1" style="width:250;">
 								<option value=0 selected>Seleccione una Lista de Precios</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT * "
-								l_sql = l_sql & " FROM listaprecioscabecera "
-								'l_sql = l_sql & " WHERE idobrasocial = " & l_idobrasocial
+								l_sql = l_sql & " FROM listaprecioscabecera "								
 								l_sql  = l_sql  & " ORDER BY titulo "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	
@@ -191,6 +198,7 @@ end select
 								loop
 								l_rs.Close %>
 							</select>
+							<script>enable_Copy_List_Prec();</script>
 							
 						</td>	
 					</tr>												
