@@ -34,6 +34,7 @@ on error goto 0
 <script src="/turnos/shared/js/fn_fechas.js"></script>
 
 
+
 <!-- Comienzo Datepicker -->
 <link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css">
 <script src="../js/jquery-1.8.0.js"></script>
@@ -47,30 +48,22 @@ firstDay: 1
 });
 
 		
-	$("#from").datepicker({
-		defaultDate: "+1w",
-		changeMonth: true,
-		numberOfMonths: 3,
-		onSelect: function(selectedDate) {
-			$("#to").datepicker("option", "minDate", selectedDate);
-		}
-	});
-	
-	$("#to").datepicker({
-		defaultDate: "+1w",
-		changeMonth: true,
-		numberOfMonths: 3,
-		onSelect: function(selectedDate) {
-			$("#from").datepicker( "option", "maxDate", selectedDate);
-		}
-	});
+$( "#fechadesde" ).datepicker({
+	showOn: "button",
+	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
 
+$( "#fechahasta" ).datepicker({
+	showOn: "button",
+	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
 
 
 });
 </script>
 <!-- Final Datepicker -->
-
 <!-- Inicio MULTIPLE SELECCION -->	
 <script src="../js/jquery.sumoselect.js"></script>
 <link href="../js/sumoselect.css" rel="stylesheet" />
@@ -101,6 +94,20 @@ function Buscar(){
 	document.datos.filtro.value = "";
 	tieneotro = "no";
 	estado = "si";
+	
+	if (document.datos.fechadesde.value == "")  {
+  		alert("Debe ingresar la Fecha Desde ");
+  		document.datos.fechadesde.focus();
+		return;
+	}
+	
+	if (document.datos.fechahasta.value == "")  {
+  		alert("Debe ingresar la Fecha Hasta ");
+  		document.datos.fechahasta.focus();
+		return;
+	}		
+	
+	
 
 	// fec. desde
 	if (document.datos.fechadesde.value != ""){
@@ -130,6 +137,28 @@ function Buscar(){
 		}
 	}	
 	
+	// Dia
+    lista = document.all.dia;
+	opciones = lista.options
+    DiasSemana = '';
+    for (i=0;i<opciones.length;i++) {
+         if (opciones[i].selected == true ) {
+		     if  (DiasSemana == '' ) {
+			 	DiasSemana = opciones[i].value;
+			 }	
+			 else {
+			 	DiasSemana = DiasSemana + ',' + opciones[i].value ;
+			 }           
+		
+         }
+    }		
+	
+	if (DiasSemana == '' ){
+		alert('Debe Seleccionar al menos un Dia.');
+		return;
+		
+	}		
+	
 	// Medicos
     lista = document.all.Med;
 	opciones = lista.options
@@ -152,45 +181,6 @@ function Buscar(){
 		
 	}		
 	
-	// Dia
-    lista = document.all.dia;
-	opciones = lista.options
-    DiasSemana = '';
-    for (i=0;i<opciones.length;i++) {
-         if (opciones[i].selected == true ) {
-		     if  (DiasSemana == '' ) {
-			 	DiasSemana = opciones[i].value;
-			 }	
-			 else {
-			 	DiasSemana = DiasSemana + ',' + opciones[i].value ;
-			 }           
-		
-         }
-    }	
-	
-	//alert(DiasSemana);
-	
-
-	
-	
-	/*
-	// fec. hasta
-	if (document.datos.fechahasta.value != ""){
-		if (tieneotro == "si"){
-			document.datos.filtro.value += " AND " ;
-			tieneotro = "si";
-		}
-		if (validarfecha(document.datos.fechahasta)){
-			document.datos.filtro.value += " ser_legajo.legfecing <= " + cambiafecha(document.datos.fechahasta.value,true,1) + "";
-		}else{
-			estado = "no";
-		}
-	}
-
-	*/
-	
-
-	
 	
 	if (document.datos.id.value != 0){
 		if (tieneotro == "si"){
@@ -200,46 +190,7 @@ function Buscar(){
 		}
 		tieneotro = "si";
 	}	
-	/*	
-	// Apellido
-	if (document.datos.legape.value != 0){
-		if (tieneotro == "si"){
-			document.datos.filtro.value += " AND ser_legajo.legape like '*" + document.datos.legape.value + "*'";
-		}else{
-			document.datos.filtro.value += " ser_legajo.legape like '*" + document.datos.legape.value + "*'";
-		}
-		tieneotro = "si";
-	}				
-	// DNI
-	if (document.datos.legdni.value != 0){
-		if (tieneotro == "si"){
-			document.datos.filtro.value += " AND ser_legajo.legdni = '" + document.datos.legdni.value + "'";
-		}else{
-			document.datos.filtro.value += " ser_legajo.legdni = '" + document.datos.legdni.value + "'";
-		}
-		tieneotro = "si";
-	}					
-	// Domicilio
-	if (document.datos.legdom.value != 0){
-		if (tieneotro == "si"){
-			document.datos.filtro.value += " AND ser_legajo.legdom like '*" + document.datos.legdom.value + "*'";
-		}else{
-			document.datos.filtro.value += " ser_legajo.legdom like '*" + document.datos.legdom.value + "*'";
-		}
-		tieneotro = "si";
-	}		
-	// Medida de Proteccion
-	if (document.datos.mednro.value != 0){
-		if (tieneotro == "si"){
-			document.datos.filtro.value += " AND ser_legajo.mednro = '" + document.datos.mednro.value + "'";
-		}else{
-			document.datos.filtro.value += " ser_legajo.mednro = '" + document.datos.mednro.value + "'";
-		}
-		tieneotro = "si";
-	}							
-
-	//alert(document.datos.filtro.value);
-	*/
+	
 	if (estado == "si"){
 		window.ifrm.location = 'transferirturnos_con_01.asp?cabnro=' + document.datos.cabnro.value + "&fechadesde="+document.datos.fechadesde.value + "&fechahasta="+document.datos.fechahasta.value + "&hd="+document.datos.hd.value + "&md="+ document.datos.md.value + "&hh="+ document.datos.hh.value + "&mh="+ document.datos.mh.value + "&diassemana="+ DiasSemana + '&filtro=' + document.datos.filtro.value;
 	}
@@ -283,15 +234,11 @@ function Limpiar(){
 					<input type="hidden" name="filtro" value="">
 
 					<tr>
-						<td align="right"><b>Desde:</b></td>
-						<td ><!--<input  type="text" id="fechadesde" name="fechadesde" size="10" maxlength="10" value="<%'= Date()%>" -->	
-						<input name="fechadesde" id="from" type="text" name="fecha2" value="<%= Date()%>"></td>
-
-						<td align="right"><b>Hasta:</b></td>
-						<td ><!--<input  type="text" id="fechadesde" name="fechadesde" size="10" maxlength="10" value="<%'= Date()%>" -->	
-						<input name="fechahasta" id="to" type="text" name="fecha2" value="<%= Date() + 5%>"></td>
+						<td align="right"><b>Fecha Desde: </b></td>
+						<td><input  id="fechadesde" type="text" name="fechadesde" size="10" maxlength="10" value="<%= date()%>" >		
 						
-						
+						<td align="right"><b>Fecha Hasta: </b></td>
+						<td><input  id="fechahasta" type="text" name="fechahasta" size="10" maxlength="10" value="<%= date() + 7%>" >			
 						
 					</tr>						
 					<tr>
@@ -342,11 +289,11 @@ function Limpiar(){
 					<tr>
 						<td  align="right" nowrap><b>Dia Semana: </b></td>
 						<td colspan="3"><select name="dia" multiple="multiple" placeholder="dia" onchange="console.log($(this).children(':selected').length)" class="testSelAll">
-							<option value= "2" >Lunes </option>
-							<option value= "3" >Martes </option>
-							<option value= "4" >Miercoles </option>
-							<option value= "5" >Jueves </option>
-							<option value= "6" >Viernes </option>
+							<option value= "2" selected>Lunes </option>
+							<option value= "3" selected>Martes </option>
+							<option value= "4" selected>Miercoles </option>
+							<option value= "5" selected>Jueves </option>
+							<option value= "6" selected>Viernes </option>
 							
 						</td>					
 					</tr>					
@@ -372,7 +319,7 @@ function Limpiar(){
 							<!--<td ><img src="../shared/images/gen_rep/boton_01.gif" width="5.9"></td>-->
 							<a class="sidebtnABM" href="Javascript:Buscar();"><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar"></a>
 							<!--<td  background="../shared/images/gen_rep/boton_05.gif"><img src="../shared/images/gen_rep/boton_03.gif" height="15"></td>-->
-							<a class="sidebtnABM" href="Javascript:Limpiar();"><img  src="/turnos/shared/images/Limpiar_24.png" border="0" title="Limpiar"></a>
+							<!--<a class="sidebtnABM" href="Javascript:Limpiar();"><img  src="/turnos/shared/images/Limpiar_24.png" border="0" title="Limpiar"></a>
 							<!--<td ><img src="../shared/images/gen_rep/boton_06.gif"></td>-->
 					</tr>
 											

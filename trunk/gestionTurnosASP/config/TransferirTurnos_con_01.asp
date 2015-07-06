@@ -9,8 +9,10 @@
 
 Dim l_rs
 Dim l_rs2
+Dim l_rs3
 Dim l_sql
 Dim l_sql2
+Dim l_sql3
 Dim l_filtro
 Dim l_cabnro
 Dim l_orden
@@ -20,6 +22,7 @@ Dim l_totvol
 Dim l_cant
 
 Dim l_primero
+Dim l_primeravez
 
 Dim l_hd
 Dim l_md
@@ -28,6 +31,7 @@ Dim l_mh
 
 Dim l_fechadesde
 Dim l_fechahasta
+Dim l_fechaaux
 
 Dim l_horadesde
 Dim l_horahasta
@@ -108,104 +112,107 @@ function Seleccionar(fila,cabnro){
 </script>
 
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar();">
-<table>
-    <tr>
-        <th>Medico</th>
-        <th>Turnos Disponibles</th>
-    </tr>
-<%
+<table >
+<% 
+
 l_filtro = replace (l_filtro, "*", "%")
+
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 Set l_rs2 = Server.CreateObject("ADODB.RecordSet")
+Set l_rs3 = Server.CreateObject("ADODB.RecordSet")
 
-l_sql = "SELECT   descripcion, recursosreservables.id AS idrecursoreservable, COUNT(*) AS Cantidad "
-l_sql = l_sql & " FROM calendarios "
-' l_sql = l_sql & " LEFT JOIN turnos ON turnos.idcalendario = calendarios.id "
-l_sql = l_sql & " LEFT JOIN recursosreservables ON recursosreservables.id = calendarios.idrecursoreservable "
-'l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = turnos.idos "
-'l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = turnos.idpractica "
-'l_sql = l_sql & " LEFT JOIN ser_medida       ON ser_legajo.mednro = ser_medida.mednro "
-
-if l_filtro <> "" then
-  l_sql = l_sql & " WHERE " & l_filtro & " "
-end if
-
-l_sql = l_sql & " AND calendarios.id not in (select turnos.idcalendario from turnos)"
-l_sql = l_sql & " AND calendarios.estado = 'ACTIVO'"
-l_sql = l_sql & " group by descripcion, recursosreservables.id" 
-l_sql = l_sql & " " & l_orden
+l_fechaaux = cdate(l_fechadesde)
+do while cdate(l_fechaaux) <= cdate(l_fechahasta)
 
 
-'response.write l_sql
-rsOpen l_rs, cn, l_sql, 0 
-if l_rs.eof then
-	l_primero = 0
-%>
-<tr>
-	 <td colspan="7" >No existen Calendarios cargados para el filtro ingresado.</td>
-</tr>
-<%else
-    l_primero = l_rs("id")
-	l_cant = 0
-	do until l_rs.eof
-		l_cant = l_cant + 1
-		'response.write l_rs("fechahorainicio") '  >= & cambiaformato (Fec,l_horadesde )
+  if instr(l_DiasSemana, weekday (cdate( l_fechaaux ))) <> 0 then
+  %>
+    <tr>
+        <th align="left" colspan="2" ><%= l_fechaaux %></th>
+    </tr> 
+  <%
+  
+
+  l_sql2 = "SELECT  recursosreservables.descripcion, recursosreservables.id"
+  l_sql2 = l_sql2 & " FROM calendarios "
+  l_sql2 = l_sql2 & " INNER JOIN recursosreservables ON recursosreservables.id = calendarios.idrecursoreservable   "
+  l_sql2 = l_sql2 & " WHERE " & l_filtro & " "
+  l_sql2 = l_sql2 & " AND calendarios.id not in (select turnos.idcalendario from turnos)"
+  l_sql2 = l_sql2 & " AND calendarios.estado = 'ACTIVO'"
+  l_sql2 = l_sql2 & " AND CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  = " & cambiafecha( l_fechaaux ,true,1)
+  l_sql2 = l_sql2 & " AND CONVERT(VARCHAR(5), fechahorainicio, 108) >= '" & l_horadesde & "'"   
+  l_sql2 = l_sql2 & " AND CONVERT(VARCHAR(5), fechahorainicio, 108) <= '" & l_horahasta & "'"
+  l_sql2 = l_sql2 & " GROUP BY recursosreservables.descripcion , recursosreservables.id"
+  l_sql2 = l_sql2 & " ORDER BY recursosreservables.descripcion "
+  rsOpen l_rs2, cn, l_sql2, 0
+  l_primeravez = true
+  do until l_rs2.eof
+	if l_primeravez = true then
 	%>
-	    <tr  onclick="Javascript:Seleccionar(this,<%= l_rs("idrecursoreservable")%>)">
-	        <!--<td width="10%" nowrap><%'= l_rs("buqnro")%></td>		-->
-			
-	        <td width="10%" nowrap><%= l_rs("descripcion")%></td>		
-			  	
-			    <td width="10%" nowrap>
-				<% 
-				l_sql2 = "SELECT id,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS horainicio , fechahorainicio , CONVERT(VARCHAR(10), fechahorainicio, 101) AS Fecha"
-				l_sql2 = l_sql2 & " FROM calendarios "
-								
-				'if l_filtro <> "" then
-				  l_sql2 = l_sql2 & " WHERE " & l_filtro & " "
-				'end if
-				l_sql2 = l_sql2 & " AND calendarios.idrecursoreservable = " & l_rs("idrecursoreservable")
-				l_sql2 = l_sql2 & " AND calendarios.id not in (select turnos.idcalendario from turnos)"
-				l_sql2 = l_sql2 & " AND calendarios.estado = 'ACTIVO'"
-				
-				l_sql2 = l_sql2 & " ORDER BY fechahorainicio "
-				
-				
-				'response.write l_sql2&"</br>"
-				rsOpen l_rs2, cn, l_sql2, 0
-				dim l_a
-				%>
-				<table border="0" cellpadding="3" cellspacing="3"   >
-				<tr> 
-				<%
-				
-				 
-				do until l_rs2.eof
-					'l_cant = l_cant + 1
-					'response.write   instr(l_DiasSemana, weekday (cdate( l_rs2("fechahorainicio"))) )
-					
-					'and weekday (l_rs2("Fecha")) in l_DiasSemana 
-					
-					if l_rs2("horainicio") >= l_horadesde  and l_rs2("horainicio") <= l_horahasta and instr(l_DiasSemana, weekday (cdate( l_rs2("fechahorainicio"))) ) <> 0 then
-					%>
-					<td bgcolor="<%= diasemana(l_rs2("Fecha")) %>" align="center" ><a href="Javascript:parent.abrirVentana('TransferirTurnos_con_02.asp?Tipo=A&ant=<%= l_cabnro %>&nuevo=<%= l_rs2("id")%>' ,'',600,300);"><%= cambiafecha(l_rs2("Fecha"),"","")%><br><%= l_rs2("horainicio")%>&nbsp;<%'= weekday(cdate(l_rs2("Fecha"))) %></a></td>
-					<%
-					end if
-					
-					
-					l_rs2.MoveNext
-				loop		
-				l_rs2.Close
-				 %>
-				 </tr>
-				 </table>
-				 </td>				   
-	    </tr>
+    <tr>
+        <th>Medico</th>
+        <th>Turnos Disponibles</th>
+    </tr>	
 	<%
-		l_rs.MoveNext
-	loop
-end if
+		l_primeravez = false
+	end if 
+	%>	
+    <tr>
+        <td nowrap align="left" width="15%" ><%= l_rs2("descripcion") %></td>        
+    
+	<%
+	
+	  l_sql3 = "SELECT  calendarios.id,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS horainicio , fechahorainicio , CONVERT(VARCHAR(10), fechahorainicio, 101) AS Fecha , recursosreservables.descripcion"
+	  l_sql3 = l_sql3 & " FROM calendarios "
+	  l_sql3 = l_sql3 & " INNER JOIN recursosreservables ON recursosreservables.id = calendarios.idrecursoreservable   "
+	  l_sql3 = l_sql3 & " WHERE " & l_filtro & " "
+	  l_sql3 = l_sql3 & " AND calendarios.idrecursoreservable = " & l_rs2("id")
+	  l_sql3 = l_sql3 & " AND calendarios.id not in (select turnos.idcalendario from turnos)"
+	  l_sql3 = l_sql3 & " AND calendarios.estado = 'ACTIVO'"
+      l_sql3 = l_sql3 & " AND CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  = " & cambiafecha( l_fechaaux ,true,1)	  
+	  l_sql3 = l_sql3 & " ORDER BY recursosreservables.descripcion "
+	  rsOpen l_rs3, cn, l_sql3, 0
+	  
+	  if not l_rs3.eof then
+	  %>
+	   <td nowrap align="left"  >
+	  <%  
+	  end if
+	  
+	  do until l_rs3.eof
+			'l_cant = l_cant + 1
+			'response.write   "rrrrr"
+			if l_rs3("horainicio") >= l_horadesde  and l_rs3("horainicio") <= l_horahasta and instr(l_DiasSemana, weekday (cdate( l_rs3("fechahorainicio"))) ) <> 0 then
+			%>	
+	    
+	        	<a href="Javascript:parent.abrirVentana('TransferirTurnos_con_02.asp?Tipo=A&ant=<%= l_cabnro %>&nuevo=<%= l_rs3("id")%>' ,'',600,300);"><%'= cambiafecha(l_rs3("Fecha"),"","")%><%= l_rs3("horainicio")%>&nbsp;<%'= weekday(cdate(l_rs2("Fecha"))) %></a>
+	    
+			<%
+			end if
+			l_rs3.MoveNext
+	  loop	
+	 
+	   l_rs3.Close	
+	
+	  %>
+	  </td>
+	  </tr>
+	  <%
+	
+	
+		l_rs2.MoveNext
+  loop	
+ 
+   l_rs2.Close
+  
+  
+  end if
+
+  l_fechaaux = cdate(l_fechaaux) + 1
+ 	
+loop
+
 
 l_rs.Close
 set l_rs = Nothing
