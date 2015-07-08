@@ -31,27 +31,6 @@ on error goto 0
 <!-- Final TOOLTIP -->		
 
 
-<!-- Inicio MULTIPLE SELECCION -->	
-<script src="../js/jquery.min.js"></script>
-<script src="../js/jquery.sumoselect.js"></script>
-<link href="../js/sumoselect.css" rel="stylesheet" />
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        window.asd = $('.SlectBox').SumoSelect({ csvDispCount: 3 });
-        window.test = $('.testsel').SumoSelect({okCancelInMulti:true });
-        window.testSelAll = $('.testSelAll').SumoSelect({okCancelInMulti:true, selectAll:true });
-        window.testSelAll2 = $('.testSelAll2').SumoSelect({selectAll:true });
-    });
-</script>
-<style type="text/css">
-    body{font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;color:#444;font-size:13px;}
-    p,div,ul,li{padding:0px; margin:0px;}
-</style>
-<!-- Final MULTIPLE SELECCION -->
-
-
-
 <script>
 
 function Buscar(){
@@ -61,8 +40,7 @@ function Buscar(){
 	tieneotro = "no";
 	estado = "si";
 
-escribe();
-	
+
 	if (document.datos.id.value == "0"){
 		alert("Debe ingresar un Medico.");
 		document.datos.id.focus();
@@ -128,26 +106,6 @@ function TotalVolumen(valor){
 	document.datos.totvol.value =  valor;
 }
 
-
-function escribe() {
-		alert('1');
-         lista = document.all.Med;
-		 alert('2');
-         opciones = lista.options
-
-         //escribir = document.getElementById("respuesta")
-         //escribir.innerHTML = ""
-         for (i=0;i<opciones.length;i++) {
-              if (opciones[i].selected == true ) {
-                 grupos = opciones[i].text
-                 //escribir.innerHTML += grupos + "<br/>"
-				 alert(grupos)
-                 }
-              }
-         }
-
-
-
 </script>
 </head>
 <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" onload="Javascript:document.datos.fechadesde.focus();">
@@ -182,34 +140,7 @@ function escribe() {
 
 					<form name="datos" action="#">
 					<input type="hidden" name="filtro" value="" title="dsf">
-					
-					
-<select name="Med" multiple="multiple" placeholder="Todos los Medicos" onchange="console.log($(this).children(':selected').length)" class="testSelAll">
-<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-l_sql = "SELECT  * "
-l_sql  = l_sql  & " FROM recursosreservables  "
-l_sql  = l_sql  & " ORDER BY descripcion "
-rsOpen l_rs, cn, l_sql, 0
-do until l_rs.eof		%>	
-<option value= "<%= l_rs("id") %>" > 
-<%= l_rs("descripcion") %> </option>
-<%	l_rs.Movenext
-loop
-l_rs.Close %>
-								
-<!--       <option selected value="volvo">Volvo</option>
-       <option value="saab">Saab</option>
-       <option disabled="disabled" value="mercedes">Mercedes</option>
-       <option value="audi">Audi</option>
-       <option selected value="bmw">BMW</option>
-       <option value="porsche">Porche</option>
-       <option value="ferrari">Ferrari</option>
-       <option value="mitsubishi">Mitsubishi</option> -->
-
-
-</select>					
-					
-					
+									
 					<tr>
 
 						<td  align="right" nowrap><b>M&eacute;dico: </b></td>
