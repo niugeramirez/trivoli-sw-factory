@@ -138,7 +138,7 @@ l_rs.close
 
 
 
-l_sql = "SELECT  visitas.fecha, practicas.descripcion nombrepractica , recursosreservables.descripcion , isnull(practicasrealizadas.id,0) practicasrealizadasid , practicasrealizadas.precio  " 'calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
+l_sql = "SELECT  visitas.fecha, practicas.descripcion nombrepractica , recursosreservables.descripcion , isnull(practicasrealizadas.id,0) practicasrealizadasid , practicasrealizadas.precio , visitas.flag_ausencia  " 'calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
 'l_sql = l_sql & " ,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono"
 'l_sql = l_sql & " ,  obrassociales.descripcion osnombre, practicas.descripcion practicanombre"
 'l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente, turnos.apellido turnoapellido , turnos.nombre turnonombre, turnos.dni turnodni , turnos.domicilio turnodomicilio , turnos.telefono turnotelefono, turnos.comentario turnocomentario"
@@ -204,19 +204,24 @@ if l_rs.eof then
 			
 	        <td align="center"><%= l_rs("fecha") %></td>	
 			<td <%'= l_fondo  %> ><%= l_rs("descripcion")%></td>	
-			<td <%'= l_fondo  %> ><%= l_rs("nombrepractica")%>&nbsp;</td>			
-			<% 
-			l_PrecioPractica = l_rs("precio")
-			l_Pagos = Pagos(l_rs("practicasrealizadasid") )
-			%>			
-			<td <%'= l_fondo  %> align="right"  ><%= l_PrecioPractica %></td>		
-			<td <%'= l_fondo  %> align="right" ><%= l_Pagos	 %></td>	
-			<td align="center" ><%= cdbl(l_PrecioPractica) - cdbl(l_Pagos) %></td>						
+			<% if l_rs("flag_ausencia") = -1 then %>
+				<td align="center" >Ausente</td>
+				<td align="center" >&nbsp;</td>
+				<td align="center" >&nbsp;</td>
+				<td align="center" >&nbsp;</td>
+			
+			<% Else  %>
+				<td <%'= l_fondo  %> ><%= l_rs("nombrepractica")%>&nbsp;</td>			
+				<% 
+				l_PrecioPractica = l_rs("precio")
+				l_Pagos = Pagos(l_rs("practicasrealizadasid") )
+				%>			
+				<td <%'= l_fondo  %> align="right"  ><%= l_PrecioPractica %></td>		
+				<td <%'= l_fondo  %> align="right" ><%= l_Pagos	 %></td>	
+				<td align="center" ><%= cdbl(l_PrecioPractica) - cdbl(l_Pagos) %></td>			
+			<% End If %>			
 
-			
-			
-			
-										   
+													   
 	    </tr>
 	<%
 		l_rs.MoveNext
