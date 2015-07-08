@@ -26,8 +26,10 @@ Dim i
 Dim l_nuevavisita
 Dim l_precio
 Dim l_practicarealizada
+Dim l_noasistio
 
 l_turnos 		           = request("cabnro")
+l_noasistio                = request("cabnro2")
 
 
 ' ------------------------------------------------------------------------------------------------------------------
@@ -91,7 +93,9 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
 set l_cm = Server.CreateObject("ADODB.Command")
 
-
+'--------------
+'  Asistio
+'--------------
 	 l_lista= Split(l_turnos,",")
 	 i = 1
 	 do while i <= UBound(l_lista)
@@ -155,7 +159,44 @@ set l_cm = Server.CreateObject("ADODB.Command")
 	 loop	
 
 
+'--------------
+'  NO Asistio
+'--------------
+	 l_lista= Split(l_noasistio,",")
+	 i = 1
+	 do while i <= UBound(l_lista)
+	 
+	 
+	  l_sql = "SELECT turnos.*, CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101) AS FechaVisita , calendarios.idrecursoreservable idrecursoreservable "
+	  l_sql = l_sql & " , isnull(clientespacientes.idobrasocial,0) idobrasocial "	  
+	  l_sql = l_sql & " ,  isnull(obrassociales.flag_particular,0) flag_particular  "	  
+	  l_sql = l_sql & " ,  isnull(turnos.idrecursoreservable,0) idsolicitadapor  "	  
+	  l_sql = l_sql & " FROM turnos "
+	  l_sql = l_sql & " INNER JOIN calendarios ON turnos.idcalendario = calendarios.id "
+	  l_sql = l_sql & " INNER JOIN clientespacientes ON clientespacientes.id = turnos.idclientepaciente "	  
+	  l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "	  	  
+	  l_sql = l_sql & " WHERE turnos.id= " & l_lista(i)
 
+	  'Response.write "<script>alert('Operación"& l_sql &" Realizada.');</script>"		  
+
+	  rsOpen l_rs, cn, l_sql, 0
+	  do while not l_rs.eof 
+	  
+	  'Response.write "<script>alert('Operación"& l_rs("idsolicitadapor") &" Realizada.');</script>"	 
+	  
+		l_sql = "INSERT INTO visitas "
+		l_sql = l_sql & "(idturno, idpaciente, idrecursoreservable, fecha, flag_ausencia ,created_by,creation_date,last_updated_by,last_update_date ) "
+		l_sql = l_sql & "VALUES (" & l_lista(i) & "," & l_rs("idclientepaciente") & "," & l_rs("idrecursoreservable") & ",'" & l_rs("FechaVisita") & "'"&",-1,'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_cm.activeconnection = Cn
+		l_cm.CommandText = l_sql
+		cmExecute l_cm, l_sql, 0  		
+	  
+		l_rs.movenext
+	  loop
+	  l_rs.close
+	 
+		i = i + 1
+	 loop		 
 
 Set l_cm = Nothing
 Response.write "<script>alert('Operación Realizada.');window.parent.parent.opener.ifrm.location.reload();window.parent.parent.close();</script>"
