@@ -16,6 +16,7 @@ dim l_cantturnossimult
 dim l_idrecursoreservable
 dim l_cantturnos
 dim l_fondo
+Dim  l_permitir
 
 Dim l_primero
 
@@ -60,8 +61,15 @@ function Seleccionar(fila,cabnro, turnoid){
 	jsSelRow = fila;
 }
 
-function Habilitar(obj, turno){
+function Habilitar(obj,  turno, permitir){	
 
+
+	if (permitir=="N") {
+		alert('El Paciente seleccionado no tiene DNI o Nro de Historia Clinica cargado. Ir a la opcion Pacientes para completar esta informacion');
+		obj.checked="";
+		return;
+	}
+		
 	if (obj.checked==false) {
 	//alert('es falso');
 	document.datos.cabnro.value = document.datos.cabnro.value.replace(','+turno, '');
@@ -69,8 +77,34 @@ function Habilitar(obj, turno){
 	else {
 	//alert('es verdadero ');
 	document.datos.cabnro.value = document.datos.cabnro.value + "," + turno ;
+	document.datos.cabnro2.value = document.datos.cabnro2.value.replace(','+turno, '');
 	};
 	
+	if (!obj.checked) return 
+    elem=document.getElementsByName(obj.name); 
+    for(i=0;i<elem.length;i++)  
+        elem[i].checked=false; 
+    obj.checked=true; 		
+}
+
+function Habilitar2(obj,  turno, permitir){	
+
+	
+	if (obj.checked==false) {
+	//alert('es falso');
+	document.datos.cabnro2.value = document.datos.cabnro2.value.replace(','+turno, '');
+	}
+	else {
+	//alert('es verdadero ');
+	document.datos.cabnro2.value = document.datos.cabnro2.value + "," + turno ;
+	document.datos.cabnro.value = document.datos.cabnro.value.replace(','+turno, '');
+	};
+	
+	if (!obj.checked) return 
+    elem=document.getElementsByName(obj.name); 
+    for(i=0;i<elem.length;i++)  
+        elem[i].checked=false; 
+    obj.checked=true; 		
 }
 
 function Validar_Formulario(){
@@ -80,23 +114,6 @@ if (Trim(document.datos.cabnro.value) == "0"){
 	document.datos.cabnro.focus();
 	return;
 }
-/*
-
-if (Trim(document.datos.descripcion.value) == ""){
-	alert("Debe ingresar la Descripción.");
-	document.datos.descripcion.focus();
-	return;
-}
-/*
-if (!stringValido(document.datos.agedes.value)){
-	alert("La Descripción contiene caracteres inválidos.");
-	document.datos.agedes.focus();
-	return;
-}
-*/
-//var d=document.datos;
-//document.valida.location = "calendarios_con_06.asp?id=<%= l_id%>&calfec="+document.datos.calfec.value + "&calhordes1="+document.datos.calhordes1.value + "&calhordes2="+document.datos.calhordes2.value + "&calhorhas1="+document.datos.calhorhas1.value + "&calhorhas2="+document.datos.calhorhas2.value + "&intervaloTurnoMinutos="+document.datos.intervaloTurnoMinutos.value ; 
-
 
 valido();
 
@@ -121,7 +138,8 @@ function valido(){
 		<th>Tel&eacute;fono</th>
         <th>Practica</th>	
         <th>Obra Social</th>
-        <th>Asistio al Turno</th>		
+        <th>Asistio </th>		
+        <th>No Asistio </th>			
 	
     </tr>
 <%
@@ -211,12 +229,14 @@ if l_rs.eof then
 				<% End If 
 				
 				if isnull(l_rs("dni")) or l_rs("dni") = "" or l_rs("nrohistoriaclinica") = "0" or l_rs("nrohistoriaclinica") = "" or isnull(l_rs("nrohistoriaclinica")) then
+				 l_permitir = "N"
+				Else
+				 l_permitir = "S"
+				End If
 				%>
-					<td align="center" width="10%" nowrap><img src="/turnos/shared/images/cal.gif" border="0" title="El Paciente seleccionado no tiene DNI o Nro de Historia Clinica cargado. Ir a la opcion Pacientes para completar esta informacion" ></td>
-				<% Else  %>
-					<td align="center" width="10%" nowrap><input type=checkbox onclick="Habilitar(this, <%= l_rs("turnoid")%>)" name="asistio"> </td>    				
-				<% End If %>
-				
+							
+				<td align="center" width="10%" nowrap><input type=checkbox onclick="Habilitar(this, <%= l_rs("turnoid")%>, '<%= l_permitir %>', 'A')" name="asistio<%= l_rs("turnoid")%>" > </td>    				
+				<td align="center" width="10%" nowrap><input type=checkbox onclick="Habilitar2(this, <%= l_rs("turnoid")%>, 'S', 'NA')" name="asistio<%= l_rs("turnoid")%>" value="no"> </td>  
 		        	
 											
 			<% End If %>		
@@ -237,6 +257,7 @@ set cn = Nothing
 </table>
 
 <input type="hidden"  size="400" name="cabnro" value="0">
+<input type="hidden"  size="400" name="cabnro2" value="0">
 <input type="hidden" name="idturno" value="0">
 <input type="hidden" name="orden" value="<%= l_orden %>">
 <input type="hidden" name="filtro" value="<%= l_filtro %>">

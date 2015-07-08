@@ -23,8 +23,10 @@ dim l_fondo
 Dim l_PrecioPractica
 Dim l_Pagos
 Dim l_fondovisita
+Dim l_fondoausencia
 
 l_fondovisita = "bgcolor='#FFDEAD' "
+l_fondoausencia = "bgcolor='#FFFF80' "
 
 Dim l_primero
 
@@ -170,7 +172,7 @@ l_rs.close
 
 l_sql = "SELECT  clientespacientes.id clientespacientesid,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.nrohistoriaclinica nrohistoriaclinica , isnull(clientespacientes.idobrasocial,0) idobrasocial, obrassociales.descripcion osnombre"
 l_sql = l_sql & " , isnull(practicas.id,0) practicaid, practicas.descripcion "
-l_sql = l_sql & " ,  visitas.id visitaid "
+l_sql = l_sql & " ,  visitas.id visitaid , visitas.flag_ausencia "
 l_sql = l_sql & " ,  isnull(practicasrealizadas.id,0) practicasrealizadasid , practicasrealizadas.precio "
 l_sql = l_sql & " FROM visitas "
 l_sql = l_sql & " LEFT JOIN clientespacientes ON clientespacientes.id = visitas.idpaciente "
@@ -203,18 +205,27 @@ if l_rs.eof then
 	%>
 	
 			<% if l_primero <> l_rs("clientespacientesid") then %>
+			
+				<% if l_rs("flag_ausencia") = -1 then 
+				   		l_fondo = l_fondoausencia
+				   Else
+				   		l_fondo = l_fondovisita
+				   End If 
+				%>
 	        <tr onclick="Javascript:Seleccionar(this,<%= l_rs("visitaid")%>)">
 			
 			
-	        <td <%= l_fondovisita %> align="center" width="10%" nowrap><%= l_rs("apellido") %>,&nbsp;<%= l_rs("nombre") %></td>
-			<td <%= l_fondovisita %> align="center" width="10%" nowrap><%= l_rs("nrohistoriaclinica") %></td>
-			<td <%= l_fondovisita %> align="center" width="10%" nowrap>&nbsp;</td>
-			<td <%= l_fondovisita %> align="center" width="10%" nowrap>&nbsp;</td>
-			<td <%= l_fondovisita %> align="center" width="10%" nowrap>&nbsp;</td>
-			<td <%= l_fondovisita %> align="center" width="10%" nowrap>&nbsp;</td>
-			<td <%= l_fondovisita %> align="center" width="10%" nowrap>&nbsp;</td>
-			<td <%= l_fondovisita %> align="center" width="10%" nowrap>
+	        <td <%= l_fondo %> align="center" width="10%" nowrap><%= l_rs("apellido") %>,&nbsp;<%= l_rs("nombre") %></td>
+			<td <%= l_fondo %> align="center" width="10%" nowrap><%= l_rs("nrohistoriaclinica") %></td>
+			<td <%= l_fondo %> align="center" width="10%" nowrap>&nbsp;</td>
+			<td <%= l_fondo %> align="center" width="10%" nowrap>&nbsp;</td>
+			<td <%= l_fondo %> align="center" width="10%" nowrap>&nbsp;</td>
+			<td <%= l_fondo %> align="center" width="10%" nowrap>&nbsp;</td>
+			<td <%= l_fondo %> align="center" width="10%" nowrap>&nbsp;</td>
+			<td <%= l_fondo %> align="center" width="10%" nowrap>
+			<% if isnull(l_rs("flag_ausencia")) then %>
 			<a href="Javascript:parent.abrirVentana('AgregarPractica_con_02.asp?tipo=A&idobrasocial=<%= l_rs("idobrasocial") %>&cabnro=<%= l_rs("visitaid") %>' ,'',400,200);"><img src="/turnos/shared/images/Agregar_24.png" border="0" title="Agregar Practica"></a>
+			<% End If %>
 			<a href="Javascript:parent.abrirVentana('EliminarVisita_con_02.asp?cabnro=<%= l_rs("visitaid") %>' ,'',400,200);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Eliminar Visita"></a>			
 			</td>
 			</tr>

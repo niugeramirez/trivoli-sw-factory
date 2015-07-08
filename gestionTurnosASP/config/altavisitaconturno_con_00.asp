@@ -57,8 +57,8 @@ function llamadaexcel(){
 
 function Aceptar(){
 
-if (document.ifrm.datos.cabnro.value == "0"){
-	alert("Debe seleccionar el menos un Turno.");
+if ((document.ifrm.datos.cabnro.value == "0") && (Trim(document.ifrm.datos.cabnro2.value) == "0")){
+	alert("Debe seleccionar el menos una Opcion.");
 	//document.datos.descripcion.focus();
 	return;
 }
