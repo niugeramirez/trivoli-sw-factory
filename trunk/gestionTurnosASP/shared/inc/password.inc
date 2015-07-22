@@ -315,10 +315,10 @@ Sub ingresarpass (user, pass)
 	
 	'Cambio la clave del usuario de BD
 	if Trim(ucase(user)) = Trim(ucase(session("UserName"))) then
-		cn.Execute "exec sp_password '" & session("Password") & "','" & decrypt(c_strEncryptionKey,pass, false) & "'", , 1
+		'Eugenio 22/07/2015. Elimino las ejecuciones de store procedures de la base para manipulacion de usuarios porque en datatec no tienen permisos cn.Execute "exec sp_password '" & session("Password") & "','" & decrypt(c_strEncryptionKey,pass, false) & "'", , 1
 		session("password") = decrypt(c_strEncryptionKey,pass, false) 
 	ELSE
-		cn.Execute "exec sp_password null, '" & decrypt(c_strEncryptionKey,pass, false) & "', '" & user & "'", , 1
+		'Eugenio 22/07/2015. Elimino las ejecuciones de store procedures de la base para manipulacion de usuarios porque en datatec no tienen permisos cn.Execute "exec sp_password null, '" & decrypt(c_strEncryptionKey,pass, false) & "', '" & user & "'", , 1
 	end if
 	Set l_cm = nothing
 end sub
@@ -352,13 +352,13 @@ function CambiarPass (user, pass)
 		end if
 		'response.write ("exec sp_password " & l_pass & ",'" & decrypt(c_strEncryptionKey,pass, false) & "'")
 		'response.end
-		cn.Execute "exec sp_password " & l_pass & ",'" & decrypt(c_strEncryptionKey,pass, false) & "'", , 1
+		'Eugenio 22/07/2015. Elimino las ejecuciones de store procedures de la base para manipulacion de usuarios porque en datatec no tienen permisos cn.Execute "exec sp_password " & l_pass & ",'" & decrypt(c_strEncryptionKey,pass, false) & "'", , 1
 		session("password") = decrypt(c_strEncryptionKey,pass, false) 
 		CambiarPass = true
 	ELSE
 		on error resume next
 		err.clear
-		cn.Execute "exec sp_password null, '" & decrypt(c_strEncryptionKey,pass, false) & "', '" & user & "'", , 1
+		'Eugenio 22/07/2015. Elimino las ejecuciones de store procedures de la base para manipulacion de usuarios porque en datatec no tienen permisos cn.Execute "exec sp_password null, '" & decrypt(c_strEncryptionKey,pass, false) & "', '" & user & "'", , 1
 		if err = 0 then
 			CambiarPass = true
 		else
@@ -456,49 +456,50 @@ end function
 '------------------------------------------------------------------------------------------------- 
 ' Sub que crea un usuario en la bd
 '------------------------------------------------------------------------------------------------- 
-function crearUsuario(user,pass)
-	Dim cantidad
-	Dim l_cm
-	Dim l_rs
-	Dim l_encontrado
-	
-	'Busco al usuario en la bd
-	cn.execute "exec sp_helplogins '" & user & "'",cantidad
-	if cantidad = 0 then
-		'Si no encuentro al usuario lo agrego
-		cn.Execute "exec sp_addlogin '" & user & "','" & pass & "','turnos'", , 1
-		cn.Execute "exec sp_grantdbaccess '" & user & "','" & user & "'", , 1
-		cn.Execute "exec sp_addrolemember 'db_owner','" & user & "'", , 1
-	else
-	  	Set l_rs = Server.CreateObject("ADODB.RecordSet")
-		Set l_cm = Server.CreateObject("ADODB.Command")
-		l_cm.activeconnection = cn
-
-		'Lista de usuarios de la BD actual
-		l_cm.CommandText = "sp_helpuser"
-		Set l_rs = l_cm.Execute(cantidad, , 4)
-		l_encontrado = false
-
-		do while not l_rs.eof
-			if user = trim(l_rs(0)) then
-				l_encontrado = true
-			end if
-			l_rs.MoveNext
-		loop
-
-		'Si el usuario no figura entre los usuarios de la bd lo agrego
-		if not l_encontrado then
-			on error resume next
-			cn.Execute "exec sp_grantdbaccess '" & user & "','" & user & "'", , 1
-			on error goto 0
-		end if
-	end if
-	
-	if err then
-		crearUsuario = false
-	else
-		crearUsuario = true
-	end if
-	on error goto 0
+function crearUsuario(user,pass) 'Eugenio 22/07/2015. Elimino las ejecuciones de store procedures de la base para manipulacion de usuarios porque en datatec no tienen permisos
+'	Dim cantidad
+'	Dim l_cm
+'	Dim l_rs
+'	Dim l_encontrado
+'	
+'	'Busco al usuario en la bd
+'	cn.execute "exec sp_helplogins '" & user & "'",cantidad
+'	if cantidad = 0 then
+'		'Si no encuentro al usuario lo agrego
+'		cn.Execute "exec sp_addlogin '" & user & "','" & pass & "','turnos'", , 1
+'		cn.Execute "exec sp_grantdbaccess '" & user & "','" & user & "'", , 1
+'		cn.Execute "exec sp_addrolemember 'db_owner','" & user & "'", , 1
+'	else
+'	  	Set l_rs = Server.CreateObject("ADODB.RecordSet")
+'		Set l_cm = Server.CreateObject("ADODB.Command")
+'		l_cm.activeconnection = cn
+'
+'		'Lista de usuarios de la BD actual
+'		l_cm.CommandText = "sp_helpuser"
+'		Set l_rs = l_cm.Execute(cantidad, , 4)
+'		l_encontrado = false
+'
+'		do while not l_rs.eof
+'			if user = trim(l_rs(0)) then
+'				l_encontrado = true
+'			end if
+'			l_rs.MoveNext
+'		loop
+'
+'		'Si el usuario no figura entre los usuarios de la bd lo agrego
+'		if not l_encontrado then
+'			on error resume next
+'			cn.Execute "exec sp_grantdbaccess '" & user & "','" & user & "'", , 1
+'			on error goto 0
+'		end if
+'	end if
+'	
+'	if err then
+'		crearUsuario = false
+'	else
+'		crearUsuario = true
+'	end if
+'	on error goto 0
+	crearUsuario = true
 end function
 %>
