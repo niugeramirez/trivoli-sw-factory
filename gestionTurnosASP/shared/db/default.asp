@@ -89,8 +89,8 @@ end sub
  <!--#include virtual="/turnos/shared/db/conn.inc"-->
 <%
 
- Session("UserName") = "sa" ' l_iduser'
- Session("Password") = "" 'l_pass	'""
+ Session("UserName") = "wi521535_clinica" 	'"sa" ' l_iduser'
+ Session("Password") = "Clinica2015" 		'"" 'l_pass	'""
 
 
 ' if Cint(l_baseBD) = 2 then

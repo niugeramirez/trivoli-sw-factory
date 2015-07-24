@@ -159,6 +159,8 @@ Select Case l_base
         Case "2" 
 
 			cn.ConnectionString = "Provider=SQLOLEDB.1;Password=" & Session("password") & ";Persist Security Info=true;User ID=" & Session("username") & ";Data Source=127.0.0.1;Initial Catalog=turnos"
+			'cn.ConnectionString = "Driver={SQL Server Native Client 10.0};Server=localhost;Database=wi521535_turnos;User ID=" & Session("username") & ";Password=" & Session("password")
+			'cn.ConnectionString = "Driver={SQL Server Native Client 10.0};Server=localhost;Database=wi521535_turnos;Trusted_Connection=yes;"
 			'cn.ConnectionString = "Provider=SQLOLEDB.1;Password=" & Session("password") & ";Persist Security Info=true;User ID=" & Session("username") & ";Data Source=bb-omh-pc009;Initial Catalog=ticketprueba"
 			'cn.ConnectionString = "Provider=SQLOLEDB.1;Password=" & Session("password") & ";Persist Security Info=true;User ID=" & Session("username") & ";Data Source=bb-omh-tkt002;Initial Catalog=ticket"
 			'cn.ConnectionString = "Provider=SQLOLEDB.1;Password=" & Session("password") & ";Persist Security Info=True;User ID=" & Session("username") & ";Data Source=RHWEBBB\RHPRO;Initial Catalog=rhprox2"
@@ -181,7 +183,7 @@ if l_base = "3" then
 		rs97.Open sql97, Cn
 end if
 if err then
-		response.write "<script>window.alert('Problemasss con la conexión. Por favor salga del Sistema y vuelva a ingresar.');window.close;</script>"
+		response.write "<script>window.alert('Problemas con la conexión. Por favor salga del Sistema y vuelva a ingresar.');window.close;</script>"
 		response.write "<script>window.alert("""& err.Description &""");window.close;</script>"
 	response.end
 else
