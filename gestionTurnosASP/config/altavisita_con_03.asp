@@ -91,7 +91,7 @@ l_rs.Close
 
 	l_sql = "INSERT INTO visitas "
 	l_sql = l_sql & "(fecha, idrecursoreservable, idpaciente , idturno ,created_by,creation_date,last_updated_by,last_update_date) "
-	l_sql = l_sql & "VALUES ('" & l_calfec & "'," & l_idrecursoreservable  & "," &  l_pacienteid & ",0"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	l_sql = l_sql & "VALUES (" & cambiafecha(l_calfec,"YMD",true) & "," & l_idrecursoreservable  & "," &  l_pacienteid & ",0"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	l_cm.activeconnection = Cn
 	l_cm.CommandText = l_sql
 	cmExecute l_cm, l_sql, 0
@@ -111,7 +111,7 @@ l_rs.Close
 		
 		l_sql = "INSERT INTO pagos "
 		l_sql = l_sql & "( idpracticarealizada, idmediodepago, idobrasocial, fecha , importe ,created_by,creation_date,last_updated_by,last_update_date) "
-		l_sql = l_sql & "VALUES (" & l_practicarealizada  & "," & BuscarmediopagoOS( ) & "," & l_osid & ",'" & l_calfec & "'," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & "VALUES (" & l_practicarealizada  & "," & BuscarmediopagoOS( ) & "," & l_osid & "," & cambiafecha(l_calfec,"YMD",true) & "," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 		l_cm.activeconnection = Cn
 		l_cm.CommandText = l_sql
 		cmExecute l_cm, l_sql, 0 
