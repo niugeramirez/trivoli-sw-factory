@@ -43,6 +43,7 @@ l_calfec  = request.querystring("fechadesde")
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_valida.js"></script>
 <script src="/turnos/shared/js/fn_fechas.js"></script>
+<script src="/turnos/shared/js/fn_numeros.js"></script>
 <!-- Comienzo Datepicker -->
 <link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css">
 <script src="../js/jquery-1.8.0.js"></script>
@@ -70,17 +71,27 @@ $( "#calfec" ).datepicker({
 <script>
 function Validar_Formulario(){
 
-
-if ((document.datos.calfec.value == "")&&(!validarfecha(document.datos.calfec))){
-	 document.datos.calfec.focus();
-	 return;
-}
-
 if (document.datos.pacienteid.value == "0"){
 	alert("Debe ingresar el Paciente.");
 	document.datos.pacienteid.focus();
 	return;
 }
+
+if (document.datos.practicaid.value == "0"){
+	alert("Debe ingresar la Practica.");
+	document.datos.practicaid.focus();
+	return;
+}
+
+document.datos.precio2.value = document.datos.precio.value.replace(",", ".");
+if (!validanumero(document.datos.precio2, 15, 4)){
+		  alert("El Precio no es válido. Se permite hasta 15 enteros y 4 decimales.");	
+		  document.datos.precio.focus();
+		  document.datos.precio.select();
+		  return;
+}
+
+
 
 /*
 if (Trim(document.datos.titulo.value) == ""){
@@ -102,6 +113,7 @@ if (!stringValido(document.datos.agedes.value)){
 	return;
 }
 */
+
 var d=document.datos;
 document.valida.location = "altavisita_con_06.asp?pacienteid="+document.datos.pacienteid.value ; 
 
@@ -133,16 +145,41 @@ function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicil
 	document.datos.nombre.value = nombre;
 	document.datos.nrohistoriaclinica.value = nrohistoriaclinica;
 	document.datos.dni.value = dni;
-	//document.datos.domicilio.value = domicilio;
-	//document.datos.tel.value = tel;
-	//document.datos.osid.value = osid;
-	//document.datos.os.value = os;
+	document.datos.domicilio.value = domicilio;
+	document.datos.tel.value = tel;
+	document.datos.osid.value = osid;
+	document.datos.os.value = os;
+	//document.datos.coudes.focus();
+}
+
+function EncontrePacienteAlta(id,apellido, nombre, dni,tel,domicilio,osid, os){
+	
+	document.datos.pacienteid.value = id;
+	document.datos.apellido.value = apellido;
+	document.datos.nombre.value = nombre;
+	document.datos.dni.value = dni;
+	document.datos.domicilio.value = domicilio;
+	document.datos.tel.value = tel;
+	document.datos.osid.value = osid;
+	document.datos.os.value = os;
 	//document.datos.coudes.focus();
 }
 
 function BuscarPaciente(){
 	abrirVentana('Buscarpacientes_con_00.asp?Tipo=A','',600,250);
 }
+
+
+function calcularprecio(){
+	
+	document.valida.location = "agregarpractica_con_06.asp?idos=" + document.datos.osid.value + "&practicaid="+ document.datos.practicaid.value ;	
+}
+
+function actualizarprecio(p_precio){	
+	document.datos.precio.value = p_precio;
+
+}	
+
 
 </script>
 <% 
@@ -160,7 +197,7 @@ select Case l_tipo
 		'if not l_rs.eof then
 		'	l_titulo = l_rs("titulo")
 		'	l_horainicial = l_rs("horainicial") 
-		'	l_horafinal = l_rs("horafinal") 
+		'	l_horafinal = l_rs("horafinalANCHINELO	") 
 		'	l_intervaloturnominutos = l_rs("intervaloturnominutos") 
 		'	l_do =  l_rs("dia1") 
 		'	l_lu =  l_rs("dia2")
@@ -173,69 +210,135 @@ select Case l_tipo
 		'l_rs.Close
 end select
 %>
-<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="JavaScript:document.datos.titulo.focus()">
+
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" <% if l_tipo <> "M" then %> onload="javascript:BuscarPaciente();" <% End If %>>
 <form name="datos" action="altavisita_con_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">
-<input type="Hidden" name="idrecursoreservable" value="<%= l_idrecursoreservable %>">
+<input type="hidden" name="idrecursoreservable" value="<%= l_idrecursoreservable %>">
 
+<input type="hidden" name="id" value="<%= l_id %>">
+<input type="hidden" name="pacienteid" value="0">
 
-<table cellspacing="0" cellpadding="0" border="0" width="100%" height="50%">
+<input type="hidden" name="osid" value="<%= l_idobrasocial %>">
+
+<input type="hidden" name="calfec" value="<%= l_calfec %>">
+
+<table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
 <tr>
     <td class="th2" nowrap>&nbsp;</td>
+	
 </tr>
 <tr>
-	<td >
+	<td colspan="2" height="100%">
 		<table border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td width="50%"></td>
 				<td>
-					<table cellspacing="0" cellpadding="0" border="0">
-					<tr>
-					    <td align="right" nowrap width="0"><b>Fecha (*):</b></td>
-						<td align="left" nowrap width="0" >
-						    <input type="text" id="calfec" name="calfec" size="10" maxlength="10" value="<%= l_calfec %>">							
-						</td>																	
+					<table cellspacing="0" cellpadding="0" border="0">						
+					<tr>	
+					<td colspan="4" align="center">
+					<% if l_tipo <> "M" then %>
+					<a href="Javascript:BuscarPaciente();"><img src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar Paciente"></a>		
+					<% End If %>						
+
+					</td>
 					</tr>	
-					<tr>
-					    <td align="right" nowrap width="0"><b>Paciente (*):</b></td>
-						<td align="left" nowrap width="0" >
-						    <input type="hidden" name="pacienteid" size="10" maxlength="10" value="0">
-							<a href="Javascript:BuscarPaciente();"><img src="/turnos/shared/images/BuscarPaciente.png" border="0" alt="Buscar Paciente"></a>	
-						</td>																	
-					</tr>
 					<tr>
 					    <td align="right"><b>Apellido:</b></td>
 						<td>
-							<input class="deshabinp" readonly="" type="text" name="apellido" size="20" maxlength="20" value="<%'= l_apellido %>">							
+							<input class="deshabinp" readonly="" type="text" name="apellido" size="20" maxlength="20" value="<%= l_apellido %>">							
 						</td>
 					    <td align="right"><b>Nombre:</b></td>						
 						<td>
-							<input class="deshabinp" readonly="" type="text" name="nombre" size="20" maxlength="20" value="<%'= l_nombre %>">
+							<input class="deshabinp" readonly="" type="text" name="nombre" size="20" maxlength="20" value="<%= l_nombre %>">
 						</td>						
 					</tr>					
 					<tr>
 					    <td align="right"><b>D.N.I.:</b></td>
 						<td>
-							<input class="deshabinp" readonly="" type="text" name="dni" size="20" maxlength="20" value="<%'= l_dni %>">
+							<input class="deshabinp" readonly="" type="text" name="dni" size="20" maxlength="20" value="<%= l_dni %>">
 						</td>
 					    <td align="right"><b>Nro. Historia Cl&iacute;nica:</b></td>
 						<td>
-							<input class="deshabinp" readonly="" type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%'= l_nrohistoriaclinica %>">
+							<input class="deshabinp" readonly="" type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%= l_nrohistoriaclinica %>">
 						</td>						
-					</tr>											
+					</tr>
+					<tr>
+					    <td align="right"><b>Tel&eacute;fono:</b></td>
+						<td>
+							<input class="deshabinp" readonly="" type="text" name="tel" size="20" maxlength="20" value="<%= l_tel %>">
+						</td>
+					    <td align="right"><b>Domicilio:</b></td>
+						<td>
+							<input class="deshabinp" readonly="" type="text" name="domicilio" size="20" maxlength="20" value="<%= l_domicilio %>">
+						</td>						
+					</tr>
+				
+					<tr>
+					    <td align="right"><b>Obra Social:</b></td>
+						<td>
+							<input class="deshabinp" readonly="" type="text" name="os" size="20" maxlength="20" value="<%= l_descripcion %>">
+						</td>
+						<td colspan="2" align="left">&nbsp;</td>
+					    					
+					</tr>	
+					<tr>
+						<td>&nbsp;
+						</td>
+					</tr>
 						
+					<tr>
+						<td  align="right" nowrap><b>Practica (*): </b></td>
+						<td colspan="3"><select name="practicaid" size="1" style="width:200;" onchange="calcularprecio();">
+								<option value=0 selected>Seleccione una Practica</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT  * "
+								l_sql  = l_sql  & " FROM practicas "
+								l_sql  = l_sql  & " ORDER BY descripcion "
+								rsOpen l_rs, cn, l_sql, 0
+								do until l_rs.eof		%>	
+								<option value= <%= l_rs("id") %> > 
+								<%= l_rs("descripcion") %> </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>
+							</select>
+							<script>document.datos.practicaid.value="0"</script>
+						</td>					
+					</tr>	
+					
+					<tr>
+						<td  align="right" nowrap><b>Solicitado por : </b></td>
+						<td colspan="3"><select name="idrecursoreservable_solpor" size="1" style="width:200;">
+								<option value=0 selected>Ningun Profesional</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT  * "
+								l_sql  = l_sql  & " FROM recursosreservables "
+								l_sql  = l_sql  & " ORDER BY descripcion "
+								rsOpen l_rs, cn, l_sql, 0
+								do until l_rs.eof		%>	
+								<option value= <%= l_rs("id") %> > 
+								<%= l_rs("descripcion") %> </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>
+							</select>
+							<script>document.datos.idrecursoreservable_solpor.value="0"</script>							
+						</td>					
+					</tr>		
+					<% 'if l_tipo = "M" then %>
+					<tr>
+					    <td align="right"><b>Precio:</b></td>
+						<td colspan="3">
+							<input align="right" type="text" name="precio" size="20" maxlength="20" value="0">
+							<input type="hidden" name="precio2" value="">							
+						</td>
+					</tr>		
+					<%' End If %>			
 					</table>
 				</td>
-				<td width="50%"></td>
 			</tr>
 		</table>
 	</td>
 </tr>
-
-
-
-
-
-
 <tr>
     <td colspan="2" align="right" class="th">
 		<a class=sidebtnABM href="Javascript:Validar_Formulario()">Aceptar</a>
