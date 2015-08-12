@@ -24,6 +24,7 @@ dim l_idpractica
 dim l_comentario
 dim l_idrecursoreservable
 dim l_iduser
+Dim l_agenda
 
 
 l_tipo 		     = request.querystring("tipo")
@@ -39,7 +40,7 @@ l_idpractica     = request.Form("practicaid")
 l_comentario     = request.Form("comentario")
 l_idrecursoreservable = request.Form("idrecursoreservable")
 l_iduser         = request.Form("iduser")
-
+l_agenda         = request.Form("agenda")
 
 
 if l_pacienteid = "" then
@@ -88,7 +89,10 @@ l_cm.activeconnection = Cn
 l_cm.CommandText = l_sql
 cmExecute l_cm, l_sql, 0
 Set l_cm = Nothing
-
-Response.write "<script>alert('Operación Realizada.');window.parent.opener.ifrm.location.reload();window.parent.close();</script>"
+if l_agenda = "S" then
+	Response.write "<script>alert('Operación Realizada .');window.parent.opener.parent.ifrm2.location.reload();window.parent.close();</script>"
+else
+	Response.write "<script>alert('Operación Realizada .');window.parent.opener.ifrm.location.reload();window.parent.close();</script>"
+end if
 %>
 

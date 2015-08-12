@@ -22,14 +22,17 @@ dim l_idrecursoreservable
 Dim l_idpractica
 Dim l_ventana
 Dim l_iduser
+Dim l_agenda
 
 'ADO
 Dim l_tipo
 Dim l_sql
 Dim l_rs
 
+l_agenda = request.querystring("agenda")
 l_tipo = request.querystring("tipo")
 l_id = request.querystring("cabnro")
+
 
 if l_tipo = "A" then
 	l_ventana = 1
@@ -53,10 +56,9 @@ end if
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_numeros.js"></script>
 <script>
+
+
 function Validar_Formulario(){
-
-
-
 
 if (document.datos.apellido.value == ""){
 	alert("Debe ingresar el Apellido del Paciente.");
@@ -275,6 +277,8 @@ end select
 <input type="hidden" name="pacienteid" value="<%= l_clientepacienteid %>">
 
 <input type="hidden" name="osid" value="<%= l_idobrasocial %>">
+<input type="hidden" name="agenda" value="<%= l_agenda %>">
+
 
 <table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
 <tr>
