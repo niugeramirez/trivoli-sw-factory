@@ -68,7 +68,7 @@
 
 <li><a href="#">Agenda</a>
 	<ul>		
-		<li><a target="ifrm"  href="../../config/Agenda_con_00.asp">Agenda</a></li>
+		<li><a target="ifrm"  href="../../config/Agenda_con_00_v2.asp">Agenda</a></li>
 	</ul>
 </li>
 <li><a href="#">Turnos</a>
