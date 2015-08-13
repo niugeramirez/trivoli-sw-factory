@@ -102,6 +102,10 @@ function llamadaexcel(){
 		abrirVentana("acumulador_liq_excel.asp?orden="+document.ifrm.datos.orden.value+"&filtro="+escape(document.ifrm.datos.filtro.value),'execl',250,150);
 }
 
+function logout(arg){
+	abrirVentanaH('logout.asp?arg=1','',10,10);
+}
+
 </script>
 </head>
 <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
@@ -121,6 +125,8 @@ function llamadaexcel(){
 						<ul id="icons">
 							<li><img src="images/man_48.png" alt=""></li>
 							<li>Usuario: &nbsp;<%=  Session("loguinUser") %></li>
+							<li> | </li>
+							<li><a href="Javascript:logout(1);window.location= '../../index.asp';">Salir</a> </li>
 							<!--
 							<li><a href="#" class="normaltip" title="Twitter"><img src="images/icon2.jpg" alt=""></a></li>
 							<li><a href="#" class="normaltip" title="Linkedin"><img src="images/icon3.jpg" alt=""></a></li>
