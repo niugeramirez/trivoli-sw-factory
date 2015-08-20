@@ -37,6 +37,7 @@ function Validar_Formulario(){
 if (Trim(document.datos.descripcion.value) == ""){
 	alert("Debe ingresar la Descripción de la Obra Social.");
 	document.datos.descripcion.focus();
+	return;
 	}
 	/*
 else if(!stringValido(document.datos.balcod.value)){
@@ -55,11 +56,11 @@ else if(Trim(document.datos.planro.value) == ""){
 	alert("Debe ingresar una Planta.");
 	document.datos.planro.focus();
 	} 
-else{
+*/else{
 	var d=document.datos;
 	document.valida.location = "obrassociales_06.asp?tipo=<%= l_tipo%>&id="+document.datos.id.value + "&descripcion="+document.datos.descripcion.value;
-	}	*/
-	valido();
+	}	
+	//valido();
 }
 
 function valido(){

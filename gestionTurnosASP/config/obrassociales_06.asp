@@ -1,7 +1,7 @@
 <% Option Explicit %>
-<!--#include virtual="/intranet/shared/inc/sec.inc"-->
-<!--#include virtual="/intranet/shared/inc/const.inc"-->
-<!--#include virtual="/intranet/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/sec.inc"-->
+<!--#include virtual="/turnos/shared/inc/const.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 
 
