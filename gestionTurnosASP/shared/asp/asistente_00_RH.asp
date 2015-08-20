@@ -51,7 +51,7 @@
 %>
 <html>
 <head>
-<link href="../css/tablesnuevo.css" rel="StyleSheet" type="text/css">
+<!--<link href="../css/tablesnuevo.css" rel="StyleSheet" type="text/css">-->
 
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="css/reset.css" type="text/css" media="all">

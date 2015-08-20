@@ -184,7 +184,7 @@ function TotalVolumen(valor){
 
 </script>
 </head>
-<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" onload="Javascript:document.datos.fechadesde.focus();">
+<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" >
       <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
         <tr style="border-color :CadetBlue;">
           <td align="left" class="barra">&nbsp;</td>
