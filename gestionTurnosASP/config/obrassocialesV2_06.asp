@@ -33,7 +33,7 @@ if l_tipo = "M" then
 end if
 rsOpen l_rs, cn, l_sql, 0
 if not l_rs.eof then
-    texto =  "Ya existe otra Obra Social con esa Descripción."
+    texto =  "Ya existe otra Obra Social con esa Descripci&oacute;n."
 else
 	texto = "OK"
 end if 
