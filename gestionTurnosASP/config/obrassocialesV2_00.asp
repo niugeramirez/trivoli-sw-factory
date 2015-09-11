@@ -92,13 +92,15 @@ $(function () {
 		buttons: {
 					"Aceptar": function () {
 											$(this).dialog("close");
-											$.post("obrassocialesV2_04.asp?cabnro=" + document.ifrm.datos.cabnro.value, {},   
+											//$.post("obrassocialesV2_04.asp?cabnro=" + $("#cabnro_00").val()/*document.ifrm.datos.cabnro.value*/, {},
+											$.post($("#url_baja").val(), {},											
 													function(data) {     
 																		
 																		if(data=="OK") {
 																			window.parent.ifrm.location.reload();
 																		}
 																		else {
+																			$("#url_baja").val("0");
 																			abrirAlert("ERROR: " + data);
 																		}
 																
@@ -167,6 +169,8 @@ function eliminarRegistroAJAX(obj)
 		}
 	else
 		{
+			//$("#cabnro_00").val(obj.datos.cabnro.value);
+			$("#url_baja").val("obrassocialesV2_04.asp?cabnro="+obj.datos.cabnro.value); 
 			abrirConfirmDelete("¿Desea eliminar el registro seleccionado?");
 		}
 }
@@ -197,20 +201,21 @@ function valido(){
 		  <a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('obrassocialesV2_02.asp?Tipo=A')"><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Alta"></a>
 		  &nbsp;
           
+		  <!-- Este bloque no va mas porque se llevan las bajas y modificaciones a la grilla
 		  <a href="Javascript:abrirDialogoVerif('obrassocialesV2_02.asp?Tipo=M&cabnro=' + document.ifrm.datos.cabnro.value);"><img src="/turnos/shared/images/Modificar_16.png" border="0" title="Editar"></a>
 		  &nbsp;
-          
-		  <!--<a href="Javascript:eliminarRegistro(document.ifrm,'obrassociales_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Baja"></a>-->
+          		 
 		  <a href="Javascript:eliminarRegistroAJAX(document.ifrm);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Baja"></a>								  
 		  &nbsp;&nbsp;
   		  
           <a href="Javascript:abrirVentanaVerif('listadeprecios_con_00.asp?id=' + document.ifrm.datos.cabnro.value,'',520,200);"><img src="/turnos/shared/images/Ecommerce-Price-Tag-icon_24.png" border="0" title="Lista de Precios"></a>								  
-
+			-->
 		  </td>
         </tr>
         <tr valign="top" height="100%">
           <td colspan="2" style="" width="100%">
-      	  <iframe name="ifrm" src="obrassocialesV2_01.asp" width="100%" height="100%"></iframe> 
+      	  <iframe  id="ifrm" name="ifrm" src="obrassocialesV2_01.asp" width="100%" height="100%"></iframe> 
+		  <input type="hidden" id="url_baja" value="0">
 	      </td>
         </tr>
 		

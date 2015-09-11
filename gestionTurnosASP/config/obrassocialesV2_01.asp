@@ -51,7 +51,7 @@ function Seleccionar(fila,cabnro){
     <tr>
         
         <th>Descripci&oacute;n</th>
-		<!--<th>Código</th> -->
+		<th>Acciones</th> 
     </tr>
 <%
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
@@ -71,6 +71,12 @@ if l_rs.eof then%>
 	%>
 	    <tr ondblclick="Javascript:parent.abrirDialogo('obrassocialesV2_02.asp?Tipo=M&cabnro=' + datos.cabnro.value)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
             <td width="20%" nowrap><%= l_rs("descripcion")%></td>
+	        <td align="center" width="10%" nowrap>                    
+				<a href="Javascript:parent.abrirDialogo('obrassocialesV2_02.asp?Tipo=M&cabnro=' + document.datos.cabnro.value);"><img src="/turnos/shared/images/Modificar_16.png" border="0" title="Editar"></a>				
+                <!-- <a href="Javascript:eliminarRegistro(parent.document.ifrm,'recursosreservables_con_04.asp?cabnro=' + datos.cabnro.value);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Eliminar Medico"></a>	-->									
+				<a href="Javascript:parent.eliminarRegistroAJAX(document);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Baja"></a>
+				<a href="Javascript:parent.abrirVentanaVerif('listadeprecios_con_00.asp?id=' + document.datos.cabnro.value,'',520,200);"><img src="/turnos/shared/images/Ecommerce-Price-Tag-icon_24.png" border="0" title="Lista de Precios"></a>								  
+			</td>			
 	    </tr>
 	<%
 		l_rs.MoveNext
@@ -83,7 +89,7 @@ set cn = Nothing
 %>
 </table>
 <form name="datos" method="post">
-<input type="hidden" name="cabnro" value="0">
+<input type="hidden" id="cabnro" name="cabnro" value="0">
 <input type="hidden" name="orden" value="<%= l_orden %>">
 <input type="hidden" name="filtro" value="<%= l_filtro %>">
 </form>
