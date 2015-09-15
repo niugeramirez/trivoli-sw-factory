@@ -151,7 +151,12 @@ function abrirDialogo(url){
 		$("#dialog").dialog("option", "height", 300);
 		$("#dialog").dialog("option", "resizable", false);
 		$("#dialog").dialog("open");
-		$("#dialog").load(url);		
+		//$("#dialog").load(url);	
+		$.ajax({	url: url,
+					cache: false,
+					dataType: "html",
+					success: function(data) {$("#dialog").html(data);}
+				});		
 }
 function abrirDialogoVerif(url) 
 {

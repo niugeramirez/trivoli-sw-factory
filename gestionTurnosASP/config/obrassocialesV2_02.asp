@@ -48,35 +48,35 @@ end select
 %>
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="JavaScript:document.datos.descripcion.focus()">
 	<!--<form name="datos" action="obrassociales_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">-->
-	<form name="datos"  action = "Javascript:Validar_Formulario();" target="valida">
-	<input type="Hidden" name="id" value="<%= l_id %>">
-	<input type="Hidden" name="tipo" value="<%= l_tipo %>">
+	<form name="datos" action = "Javascript:Validar_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Validar_Formulario();}"  target="valida">
+		<input type="Hidden" name="id" value="<%= l_id %>">
+		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
 
 
-	<table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">	
-	
-	<tr>
-		<td colspan="2" height="100%">
-			<table border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="50%"></td>
-					<td>
-						<table cellspacing="0" cellpadding="0" border="0">
+		<table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">	
+		
+		<tr>
+			<td colspan="2" height="100%">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="50%"></td>
+						<td>
+							<table cellspacing="0" cellpadding="0" border="0">
 
-						<tr>
-							<td align="right"><b>Descripci&oacute;n:</b></td>
-							<td>
-								<input type="text" name="descripcion" size="60" maxlength="50" value="<%= l_descripcion %>">
-							</td>
-						</tr>					
-					</table>
-					</td>
-					<td width="50%"></td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	</table>
+							<tr>
+								<td align="right"><b>Descripci&oacute;n:</b></td>
+								<td> 
+									<input type="text" name="descripcion" size="60" maxlength="50" value="<%= l_descripcion %>">								
+								</td>
+							</tr>					
+						</table>
+						</td>
+						<td width="50%"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		</table>
 	 
 	</form>
 		
