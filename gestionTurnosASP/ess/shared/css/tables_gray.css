@@ -188,3 +188,22 @@ A.sidebtn {
 }
 .aToolTip .aToolTipContent  {position:relative;	margin:0;padding:0}
 /* ============================= forms ============================= */
+
+/* ======================== dialogos JQuery ======================== */
+.ui-dialog {
+background: #F1F2F2;
+}
+.ui-dialog-buttonpane {
+background: #F1F2F2;
+}
+.ui-dialog-titlebar  {
+background: Navy;
+}
+.ui-dialog-title {
+COLOR: #ffffff;
+}
+.ui-button-text{
+COLOR: Navy;
+}
+
+/* ======================== dialogos JQuery ======================== */

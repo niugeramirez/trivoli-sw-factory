@@ -33,7 +33,7 @@
 %>
 <html>
 <head>
-<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+
 <title>Obras Sociales</title>
 
 
@@ -44,6 +44,8 @@
 <!--<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>-->
 <script src="../js/jquery-ui.js"></script>
 
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_confirm.js"></script>
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
@@ -52,7 +54,7 @@
 function Validar_Formulario(){
 
 	if (Trim(document.datos.descripcion.value) == ""){
-		abrirAlert("Debe ingresar la Descripción de la Obra Social.");
+		abrirAlert("Debe ingresar la Descripci&oacute;n de la Obra Social.");
 		document.datos.descripcion.focus();
 		return;
 		}
@@ -143,7 +145,7 @@ function abrirConfirmDelete(texto){
 		$("#dialogConfirmDelete").dialog("option", "height", 300);
 		$("#dialogConfirmDelete").dialog("option", "resizable", false);
 		$("#dialogConfirmDelete").dialog("open");
-		$("#dialogConfirmDelete").text(texto);	
+		$("#dialogConfirmDelete").html(texto);	
 }		
 function abrirDialogo(url){
 		$("#dialog").text("");
@@ -170,13 +172,13 @@ function eliminarRegistroAJAX(obj)
 {
 	if (obj.datos.cabnro.value == 0)
 		{
-		abrirAlert("Debe seleccionar un registro para realizar la operación.");
+		abrirAlert("Debe seleccionar un registro para realizar la operaci&oacute;n.");
 		}
 	else
 		{
 			//$("#cabnro_00").val(obj.datos.cabnro.value);
 			$("#url_baja").val("obrassocialesV2_04.asp?cabnro="+obj.datos.cabnro.value); 
-			abrirConfirmDelete("¿Desea eliminar el registro seleccionado?");
+			abrirConfirmDelete("&iquest;Desea eliminar el registro seleccionado?");
 		}
 }
 
