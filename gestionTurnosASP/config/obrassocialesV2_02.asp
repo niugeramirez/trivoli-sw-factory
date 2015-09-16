@@ -18,13 +18,9 @@ l_tipo = request.querystring("tipo")
 %>
 <html>
 <head>
-<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
-<script src="/turnos/shared/js/fn_windows.js"></script>
-<script src="/turnos/shared/js/fn_valida.js"></script>
 
 <% 
 select Case l_tipo
@@ -48,7 +44,7 @@ end select
 %>
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="JavaScript:document.datos.descripcion.focus()">
 	<!--<form name="datos" action="obrassociales_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">-->
-	<form name="datos" action = "Javascript:Validar_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Validar_Formulario();}"  target="valida">
+	<form name="datos" id="datos" action = "Javascript:Validar_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Validar_Formulario();}"  target="valida">
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
 

@@ -207,3 +207,12 @@ COLOR: Navy;
 }
 
 /* ======================== dialogos JQuery ======================== */
+
+/* ======================== Estilos de Javi ======================== */
+    .title {background-color:#009999;
+            color:white;
+            text-align:left;
+            padding:5px;
+            font-weight:bold;}
+    .colWidth25{width:25%}
+/* ======================== Estilos de Javi ======================== */	

@@ -20,11 +20,12 @@ end if
 %>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
-<script src="/turnos/shared/js/fn_windows.js"></script>
-<script src="/turnos/shared/js/fn_confirm.js"></script>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="../shared/js/fn_windows.js"></script>
+<script src="../shared/js/fn_confirm.js"></script>
+<script src="../shared/js/fn_ayuda.js"></script>
+
 <head>
-<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="../ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Obras Sociales</title>
 </head>
@@ -72,10 +73,9 @@ if l_rs.eof then%>
 	    <tr ondblclick="Javascript:parent.abrirDialogo('obrassocialesV2_02.asp?Tipo=M&cabnro=' + datos.cabnro.value)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
             <td width="20%" nowrap><%= l_rs("descripcion")%></td>
 	        <td align="center" width="10%" nowrap>                    
-				<a href="Javascript:parent.abrirDialogo('obrassocialesV2_02.asp?Tipo=M&cabnro=' + document.datos.cabnro.value);"><img src="/turnos/shared/images/Modificar_16.png" border="0" title="Editar"></a>				
-                <!-- <a href="Javascript:eliminarRegistro(parent.document.ifrm,'recursosreservables_con_04.asp?cabnro=' + datos.cabnro.value);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Eliminar Medico"></a>	-->									
-				<a href="Javascript:parent.eliminarRegistroAJAX(document);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Baja"></a>
-				<a href="Javascript:parent.abrirVentanaVerif('listadeprecios_con_00.asp?id=' + document.datos.cabnro.value,'',520,200);"><img src="/turnos/shared/images/Ecommerce-Price-Tag-icon_24.png" border="0" title="Lista de Precios"></a>								  
+				<a href="Javascript:parent.abrirDialogo('obrassocialesV2_02.asp?Tipo=M&cabnro=' + document.datos.cabnro.value);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                								
+				<a href="Javascript:parent.eliminarRegistroAJAX(document);"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
+				<a href="Javascript:parent.abrirVentanaVerif('listadeprecios_con_00.asp?id=' + document.datos.cabnro.value,'',520,200);"><img src="../shared/images/Ecommerce-Price-Tag-icon.png" border="0" title="Lista de Precios"></a>								  
 			</td>			
 	    </tr>
 	<%
