@@ -126,7 +126,10 @@ function Buscar(generar){
 			tieneotro = "si";
 		}
 		if (validarfecha(document.datos.fechadesde)){
-			document.datos.filtro.value += " CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  >= " + cambiafecha(document.datos.fechadesde.value,true,1) + "";
+			//Eugenio 18/09/2015, el formato de datetime con el filtro como estaba hacía que las fechas se comparen como strings y por ejemplo traiga registros de 2016 cuando no existen en la base 
+			//document.datos.filtro.value += " CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  >= " + cambiafecha(document.datos.fechadesde.value,true,1) + "";
+			document.datos.filtro.value += " calendarios.fechahorainicio  >= Convert(datetime,  " + cambiafecha(document.datos.fechadesde.value,true,1) + ")";
+			//FIN Eugenio 18/09/2015 
 			tieneotro = "si";
 		}else{
 			estado = "no";
@@ -140,7 +143,10 @@ function Buscar(generar){
 			tieneotro = "si";
 		}
 		if (validarfecha(document.datos.fechahasta)){
-			document.datos.filtro.value += " CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  <= " + cambiafecha(document.datos.fechahasta.value,true,1) + "";			
+			//Eugenio 18/09/2015, el formato de datetime con el filtro como estaba hacia que las fechas se comparen como strings y por ejemplo traiga registros de 2016 cuando no existen en la base 
+			//document.datos.filtro.value += " CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  <= " + cambiafecha(document.datos.fechahasta.value,true,1) + "";			
+			document.datos.filtro.value += " calendarios.fechahorainicio <=DATEADD(day, 1, Convert(datetime, " + cambiafecha(document.datos.fechahasta.value,true,1) + "))";													
+			//FIN Eugenio 18/09/2015 
 		}else{
 			estado = "no";
 		}
