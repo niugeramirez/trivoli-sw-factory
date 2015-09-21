@@ -123,8 +123,14 @@ Set l_rs2 = Server.CreateObject("ADODB.RecordSet")
 Set l_rs3 = Server.CreateObject("ADODB.RecordSet")
 
 l_fechaaux = cdate(l_fechadesde)
+
+'response.write "l_fechaaux "&l_fechaaux&"<br/>" &"<br/>" 
+'response.write "l_fechahasta "&l_fechahasta&"<br/>" &"<br/>" 
+
 do while cdate(l_fechaaux) <= cdate(l_fechahasta)
 
+  'response.write "l_DiasSemana "&l_DiasSemana&"<br/>" &"<br/>" 
+  'response.write "weekday (cdate( l_fechaaux )) "&weekday (cdate( l_fechaaux ))&"<br/>" &"<br/>" 
 
   if instr(l_DiasSemana, weekday (cdate( l_fechaaux ))) <> 0 then
   %>
@@ -145,6 +151,9 @@ do while cdate(l_fechaaux) <= cdate(l_fechahasta)
   l_sql2 = l_sql2 & " AND CONVERT(VARCHAR(5), fechahorainicio, 108) <= '" & l_horahasta & "'"
   l_sql2 = l_sql2 & " GROUP BY recursosreservables.descripcion , recursosreservables.id"
   l_sql2 = l_sql2 & " ORDER BY recursosreservables.descripcion "
+  
+  'response.write "sql2 "&l_sql2&"<br/>" &"<br/>" 
+  
   rsOpen l_rs2, cn, l_sql2, 0
   l_primeravez = true
   do until l_rs2.eof
@@ -172,6 +181,8 @@ do while cdate(l_fechaaux) <= cdate(l_fechahasta)
 	  l_sql3 = l_sql3 & " AND calendarios.estado = 'ACTIVO'"
       l_sql3 = l_sql3 & " AND CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  = " & cambiafecha( l_fechaaux ,true,1)	  
 	  l_sql3 = l_sql3 & " ORDER BY recursosreservables.descripcion "
+      'response.write "sql3 "& l_sql3	&"<br/>" &"<br/>"  
+	  
 	  rsOpen l_rs3, cn, l_sql3, 0
 	  
 	  if not l_rs3.eof then
