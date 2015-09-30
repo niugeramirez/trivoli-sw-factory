@@ -76,19 +76,10 @@ document.ifrm.datos.submit();
         <tr style="border-color :CadetBlue;">
           <td align="left" class="barra">&nbsp;</td>
           <td nowrap align="right" class="barra">
-         
-          <% call MostrarBoton ("sidebtnABM", "Javascript:Aceptar();","Aceptar")%>
+		  <a class="sidebtnABM" href="Javascript:Aceptar();">Aceptar</a>
 		  &nbsp;
-      	  <% call MostrarBoton ("sidebtnABM", "Javascript:window.close();","Cancelar")%>
+		  <a class="sidebtnABM" href="Javascript:window.close();">Cancelar</a>
 		  &nbsp;
-          <%' call MostrarBoton ("sidebtnSHW", "Javascript:llamadaexcel();","Excel")%>
-		  <!-- <a class=sidebtnSHW href="Javascript:orden('../../config/agencias_con_01.asp');">Orden</a>
-		  <a class=sidebtnSHW href="Javascript:filtro('../../config/agencias_con_01.asp')">Filtro</a>
-		   -->
-		  &nbsp;&nbsp;
-		  <!--
-		  <a class=sidebtnHLP href="Javascript:ayuda('<%'= Request.ServerVariables("SCRIPT_NAME")%>');">Ayuda</a>
-		  -->
 		  </td>
         </tr>
         <tr valign="top" height="100%">
