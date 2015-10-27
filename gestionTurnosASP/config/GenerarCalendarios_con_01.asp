@@ -256,10 +256,7 @@ set l_rs = Nothing
 cn.Close
 set cn = Nothing
 %>
-<script>    
-	parent.parent.ActPasos(<%= l_primero %>,"","MENU");
-    parent.parent.datos.pasonro.value = <%= l_primero %>;
-</script>
+
 
 </table>
 <form name="datos" method="post">
