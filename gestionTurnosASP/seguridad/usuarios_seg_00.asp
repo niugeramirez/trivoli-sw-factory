@@ -63,7 +63,8 @@ function llamadaexcel(){
         <tr style="border-color :CadetBlue;">
           <td colspan="2" align="left" class="barra">Usuarios</td>
           <td colspan="2" align="right" class="barra">
-          <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentana('usuarios_seg_02.asp?Tipo=A','',550,350);","Alta")%>
+          <% 'call MostrarBoton ("sidebtnABM", "Javascript:abrirVentana('usuarios_seg_02.asp?Tipo=A','',550,350);","Alta")%>
+		  <a class=sidebtnSHW href="Javascript:abrirVentana('usuarios_seg_02.asp?Tipo=A','',550,350);">Alta</a>
           <% call MostrarBoton ("sidebtnABM", "Javascript:eliminarRegistro(document.ifrm,'usuarios_seg_04.asp?iduser=' + document.ifrm.datos.cabnro.value);","Baja")%>
           <% call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('usuarios_seg_02.asp?Tipo=M&iduser=' + document.ifrm.datos.cabnro.value,'',550,350);","Modifica")%>
 		  &nbsp;&nbsp;  
