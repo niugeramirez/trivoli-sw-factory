@@ -70,7 +70,7 @@ if l_generar = 1 then
 	l_sql = l_sql & " INNER JOIN templatereservasdetalleresumido ON templatereservasdetalleresumido.idtemplatereserva = templatereservas.id "
 	'Eugenio
 	l_sql = l_sql & " WHERE recursosreservables.id = "& l_id
-	
+	l_sql = l_sql & " and recursosreservables.empnro = " & Session("empnro")  
 	l_sql = l_sql & " " & l_orden
 	
 	'response.write l_sql& "<br>"
@@ -132,6 +132,7 @@ if l_generar = 1 then
 								l_sql = l_sql & " AND fechahorafin=" & cambiaformato (l_fecha,l_horafin )
 								l_sql = l_sql & " AND estado='ACTIVO'"
 								l_sql = l_sql & " AND idrecursoreservable=" & l_id
+								l_sql = l_sql & " and calendarios.empnro = " & Session("empnro")  
 								
 								rsOpen l_rs2, cn, l_sql, 0
 								if not l_rs2.eof then
@@ -139,8 +140,8 @@ if l_generar = 1 then
 								else
 								
 									l_sql = "INSERT INTO calendarios "
-						            l_sql = l_sql & "(fechahorainicio, fechahorafin, estado, idrecursoreservable ,created_by,creation_date,last_updated_by,last_update_date) "
-						            l_sql = l_sql & "VALUES (" & cambiaformato (l_fecha,l_hora )  & "," & cambiaformato (l_fecha,l_horafin )  & ",'ACTIVO'," & l_id &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+						            l_sql = l_sql & "(fechahorainicio, fechahorafin, estado, idrecursoreservable ,created_by,creation_date,last_updated_by,last_update_date,empnro) "
+						            l_sql = l_sql & "VALUES (" & cambiaformato (l_fecha,l_hora )  & "," & cambiaformato (l_fecha,l_horafin )  & ",'ACTIVO'," & l_id &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE(),'"& session("empnro") &"')"
 									l_cm.activeconnection = Cn
 									l_cm.CommandText = l_sql
 						            cmExecute l_cm, l_sql, 0   							
@@ -220,8 +221,10 @@ l_sql = l_sql & " LEFT JOIN turnos ON turnos.idcalendario = calendarios.id "
 
 if l_filtro <> "" then
   l_sql = l_sql & " WHERE " & l_filtro & " "
+  l_sql = l_sql & " and calendarios.empnro = " & Session("empnro")   
+else
+	l_sql = l_sql & " WHERE calendarios.empnro = " & Session("empnro")   
 end if
-l_sql = l_sql & " " & l_orden
 
 ' response.write l_sql
 rsOpen l_rs, cn, l_sql, 0 
