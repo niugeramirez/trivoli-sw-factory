@@ -207,6 +207,10 @@ end select
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM templatereservas "
+								' Multiempresa
+								' Se agrega este filtro 
+								l_sql = l_sql & " where templatereservas.empnro = " & Session("empnro")   
+								
 								l_sql  = l_sql  & " ORDER BY titulo "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	

@@ -24,6 +24,8 @@
  Dim l_hpassfecini
  Dim l_MsgAdv
  Dim l_pol_nro
+ Dim l_usrempnro
+
  
  Dim l_iduser
  Dim l_pass
@@ -147,6 +149,9 @@ ON ERROR resume next
 		 	l_pass_dias_log	 	 = valorpol_cuenta(l_pol_nro, "pass_dias_log")
 		 	
 		 	l_usrpasscambiar	 = valoruser_per(l_iduser, "usrpasscambiar")
+			
+			l_usrempnro	 = valoruser_per(l_iduser, "empnro")
+
 		 	
 		 	l_cambiarpass = 0
 
@@ -235,6 +240,8 @@ ON ERROR resume next
 	'ingresarlogueo l_iduser
 	
 	Session("loguinUser") = l_iduser
+	Session("empnro") = l_usrempnro
+
 	
 	if l_seg_NT = 0 and CInt(l_cambiarpass) = -1 then
 		if l_menu = "html" then

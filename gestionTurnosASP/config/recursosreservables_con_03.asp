@@ -46,8 +46,15 @@ l_cantsobreturnos          = 0 ' request.Form("cantsobreturnos") se elimino esta
 set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO recursosreservables  "
-	l_sql = l_sql & " (descripcion, idtemplatereserva, cantturnossimult, cantsobreturnos,created_by,creation_date,last_updated_by,last_update_date)"
-	l_sql = l_sql & " VALUES ('" & l_descripcion & "'," & l_idtemplatereserva & "," & l_cantturnossimult & "," & l_cantsobreturnos  &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	' Multiempresa
+	' Se elimina est linea y se reemplaza por el codigo de abajo
+	'l_sql = l_sql & " (descripcion, idtemplatereserva, cantturnossimult, cantsobreturnos,created_by,creation_date,last_updated_by,last_update_date)"
+	l_sql = l_sql & " (descripcion, idtemplatereserva, cantturnossimult, cantsobreturnos,empnro, created_by,creation_date,last_updated_by,last_update_date)"
+
+	' Se elimina est linea y se reemplaza por el codigo de abajo
+	'l_sql = l_sql & " VALUES ('" & l_descripcion & "'," & l_idtemplatereserva & "," & l_cantturnossimult & "," & l_cantsobreturnos  &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	l_sql = l_sql & " VALUES ('" & l_descripcion & "'," & l_idtemplatereserva & "," & l_cantturnossimult & "," & l_cantsobreturnos & ",'"& session("empnro") &"','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	
 else
 	l_sql = "UPDATE recursosreservables "
 	l_sql = l_sql & " SET descripcion    = '" & l_descripcion & "'"

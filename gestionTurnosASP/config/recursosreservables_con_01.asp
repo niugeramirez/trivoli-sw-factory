@@ -68,10 +68,20 @@ function Seleccionar(fila,cabnro){
     l_sql = "SELECT    recursosreservables.* , templatereservas.titulo"
     l_sql = l_sql & " FROM recursosreservables "
     l_sql = l_sql & " LEFT JOIN templatereservas ON templatereservas.id = recursosreservables.idtemplatereserva "
-
-    if l_filtro <> "" then
-      l_sql = l_sql & " WHERE " & l_filtro & " "
-    end if
+	' Multiempresa
+	' Se elimina este filtro y se reemplaza por el codigo de abajo
+    'if l_filtro <> "" then
+    '  l_sql = l_sql & " WHERE " & l_filtro & " "
+    'end if
+	if l_filtro <> "" then
+	  l_sql = l_sql & " WHERE " & l_filtro & " "
+	  l_sql = l_sql & " and recursosreservables.empnro = " & Session("empnro")   
+	else
+		l_sql = l_sql & " where recursosreservables.empnro = " & Session("empnro")   
+	end if
+	
+	
+	
     l_sql = l_sql & " " & l_orden
 
     rsOpen l_rs, cn, l_sql, 0 
