@@ -155,17 +155,6 @@ function Buscar(generar){
 		alert('La fecha hasta debe ser mayor que la fecha desde.');
 		estado = "no";
 	}	
-	/*
-	// Servicio Local
-	if (document.datos.sernro.value != 0){
-		if (tieneotro == "si"){
-			document.datos.filtro.value += " AND ser_legajo.legpar1 = '" + document.datos.sernro.value + "'";
-		}else{
-			document.datos.filtro.value += " ser_legajo.legpar1 = '" + document.datos.sernro.value + "'";
-		}
-		tieneotro = "si";
-	}	
-	*/
 	
 	if (document.datos.id.value == "0"){
 		alert("Debe ingresar un Medico.");
@@ -182,46 +171,7 @@ function Buscar(generar){
 		}
 		tieneotro = "si";
 	}	
-	/*	
-	// Apellido
-	if (document.datos.legape.value != 0){
-		if (tieneotro == "si"){
-			document.datos.filtro.value += " AND ser_legajo.legape like '*" + document.datos.legape.value + "*'";
-		}else{
-			document.datos.filtro.value += " ser_legajo.legape like '*" + document.datos.legape.value + "*'";
-		}
-		tieneotro = "si";
-	}				
-	// DNI
-	if (document.datos.legdni.value != 0){
-		if (tieneotro == "si"){
-			document.datos.filtro.value += " AND ser_legajo.legdni = '" + document.datos.legdni.value + "'";
-		}else{
-			document.datos.filtro.value += " ser_legajo.legdni = '" + document.datos.legdni.value + "'";
-		}
-		tieneotro = "si";
-	}					
-	// Domicilio
-	if (document.datos.legdom.value != 0){
-		if (tieneotro == "si"){
-			document.datos.filtro.value += " AND ser_legajo.legdom like '*" + document.datos.legdom.value + "*'";
-		}else{
-			document.datos.filtro.value += " ser_legajo.legdom like '*" + document.datos.legdom.value + "*'";
-		}
-		tieneotro = "si";
-	}		
-	// Medida de Proteccion
-	if (document.datos.mednro.value != 0){
-		if (tieneotro == "si"){
-			document.datos.filtro.value += " AND ser_legajo.mednro = '" + document.datos.mednro.value + "'";
-		}else{
-			document.datos.filtro.value += " ser_legajo.mednro = '" + document.datos.mednro.value + "'";
-		}
-		tieneotro = "si";
-	}							
 
-	//alert(document.datos.filtro.value);
-	*/
 	if (estado == "si"){
 		window.ifrm.location = 'GenerarCalendarios_con_01.asp?generar=' + generar + '&fechadesde='+ document.datos.fechadesde.value + '&fechahasta=' + document.datos.fechahasta.value + '&id=' + document.datos.id.value + '&filtro=' + document.datos.filtro.value;
 	}
@@ -268,14 +218,7 @@ function Limpiar(){
 
 	document.datos.sernro.value     = 0;
 	document.datos.pronro.value     = 0;	
-/*	
-	document.datos.pronro.value     = 0;
-	document.datos.ternro.value     = 0;
-	document.datos.pornro.value     = 0;
-	document.datos.clinro.value     = 0;	
-	document.datos.ctrnum.value     = 0;	
-	document.datos.txtctrnum.value  = "";	
-*/	
+
 	window.ifrm.location = 'buques_con_01.asp';
 }
 
@@ -316,20 +259,15 @@ function TotalVolumen(valor){
 		  <%'eugenio 29/06/2015, unificacion de iconos  call MostrarBoton ("sidebtnABM", "Javascript:AltaManual();","Alta Manual de Calendario")%>	
 		  <a class="sidebtnABM" href="Javascript:AltaManual();" ><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Alta">
 				  
-          <%' call MostrarBoton ("opcionbtn", "Javascript:abrirVentana('legajos_con_02.asp?Tipo=A','',800,500);","Alta")%>
 		  &nbsp;&nbsp;
-          <%' call MostrarBoton ("opcionbtn", "Javascript:eliminarRegistro(document.ifrm,'legajos_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>
+
 		  &nbsp;&nbsp;
-          <%' call MostrarBoton ("opcionbtn", "Javascript:abrirVentanaVerif('legajos_con_02.asp?Tipo=M&cabnro=' + document.ifrm.datos.cabnro.value,'',800,500);","Modifica")%>
+
 		  &nbsp;&nbsp;
-          <%' call MostrarBoton ("sidebtnSHW", "Javascript:llamadaexcel();","Excel")%>
+
 		  &nbsp;&nbsp;
-          <%' call MostrarBoton ("opcionbtn", "Javascript:Contenido();","Contenido")%>		  
-		  		  
-          <%' call MostrarBoton ("opcionbtn", "Javascript:orden('../../config/contracts_con_01.asp','',490,300);","Orden")%>		  
-		  <!--
-		  <a class=sidebtn href="Javascript:orden('../../config/contracts_con_01.asp');">Orden</a>
-		  -->
+	  
+
 		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -374,7 +312,7 @@ function TotalVolumen(valor){
 										<td ><a class="sidebtnABM" href="Javascript:Buscar(1);" ><img  src="/turnos/shared/images/calendar-add-icon_24.png" border="0" title="Generar Calendarios"></a></td>
 										
 										<td ><a class="sidebtnABM" href="Javascript:Buscar(0);"><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar"></a></td>
-										<!--<td ><img src="../shared/images/gen_rep/boton_06.gif"></td>-->						
+					
 								
 					</tr>
 
