@@ -32,6 +32,7 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 	l_sql = l_sql & " WHERE flag_activo = -1 " 
 	l_sql = l_sql & " AND idobrasocial = " & l_idos
 	l_sql = l_sql & " AND idpractica = " & l_practicaid
+	l_sql = l_sql & " and listaprecioscabecera.empnro = " & Session("empnro")
 	rsOpen l_rs, cn, l_sql, 0
 	if not l_rs.eof then
 		l_precio = l_rs("precio")

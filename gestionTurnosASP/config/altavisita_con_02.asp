@@ -92,28 +92,6 @@ if (!validanumero(document.datos.precio2, 15, 4)){
 }
 
 
-
-/*
-if (Trim(document.datos.titulo.value) == ""){
-	alert("Debe ingresar el T&iacute;tulo.");
-	document.datos.titulo.focus();
-	return;
-}
-
-
-if (Trim(document.datos.descripcion.value) == ""){
-	alert("Debe ingresar la Descripción.");
-	document.datos.descripcion.focus();
-	return;
-}
-/*
-if (!stringValido(document.datos.agedes.value)){
-	alert("La Descripción contiene caracteres inválidos.");
-	document.datos.agedes.focus();
-	return;
-}
-*/
-
 var d=document.datos;
 document.valida.location = "altavisita_con_06.asp?pacienteid="+document.datos.pacienteid.value ; 
 
@@ -188,26 +166,7 @@ select Case l_tipo
 		l_titulo = ""
 		l_descripcion = ""
 	Case "M":
-		'Set l_rs = Server.CreateObject("ADODB.RecordSet")
-		'l_id = request.querystring("cabnro")
-		'l_sql = "SELECT * "
-		'l_sql = l_sql & " FROM templatereservasdetalleresumido "
-		'l_sql  = l_sql  & " WHERE id = " & l_id
-		'rsOpen l_rs, cn, l_sql, 0 
-		'if not l_rs.eof then
-		'	l_titulo = l_rs("titulo")
-		'	l_horainicial = l_rs("horainicial") 
-		'	l_horafinal = l_rs("horafinalANCHINELO	") 
-		'	l_intervaloturnominutos = l_rs("intervaloturnominutos") 
-		'	l_do =  l_rs("dia1") 
-		'	l_lu =  l_rs("dia2")
-		'	l_ma =  l_rs("dia3")
-		'	l_mi =  l_rs("dia4")
-		'	l_ju =  l_rs("dia5")
-		'	l_vi =  l_rs("dia6")
-		'	l_sa =  l_rs("dia7")
-		'end if
-		'l_rs.Close
+
 end select
 %>
 
@@ -292,6 +251,7 @@ end select
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM practicas "
+								l_sql = l_sql & " WHERE empnro = " & Session("empnro")
 								l_sql  = l_sql  & " ORDER BY descripcion "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	
@@ -312,6 +272,7 @@ end select
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM recursosreservables "
+								l_sql = l_sql & " WHERE empnro = " & Session("empnro")
 								l_sql  = l_sql  & " ORDER BY descripcion "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	

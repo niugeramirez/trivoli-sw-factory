@@ -145,26 +145,7 @@ select Case l_tipo
 		l_titulo = ""
 		l_descripcion = ""
 	Case "M":
-		'Set l_rs = Server.CreateObject("ADODB.RecordSet")
-		'l_id = request.querystring("cabnro")
-		'l_sql = "SELECT * "
-		'l_sql = l_sql & " FROM templatereservasdetalleresumido "
-		'l_sql  = l_sql  & " WHERE id = " & l_id
-		'rsOpen l_rs, cn, l_sql, 0 
-		'if not l_rs.eof then
-		'	l_titulo = l_rs("titulo")
-		'	l_horainicial = l_rs("horainicial") 
-		'	l_horafinal = l_rs("horafinal") 
-		'	l_intervaloturnominutos = l_rs("intervaloturnominutos") 
-		'	l_do =  l_rs("dia1") 
-		'	l_lu =  l_rs("dia2")
-		'	l_ma =  l_rs("dia3")
-		'	l_mi =  l_rs("dia4")
-		'	l_ju =  l_rs("dia5")
-		'	l_vi =  l_rs("dia6")
-		'	l_sa =  l_rs("dia7")
-		'end if
-		'l_rs.Close
+
 end select
 %>
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="JavaScript:document.datos.titulo.focus()">
@@ -189,13 +170,7 @@ end select
 						    <input type="text" id="calfec" name="calfec" size="10" maxlength="10" value="<%= l_calfec %>">							
 						</td>																	
 					</tr>	
-					<!-- 					
-					<tr>
-					    <td align="right"><b>Descripción:</b></td>
-						<td>
-							<input type="text" name="descripcion" size="40" maxlength="50" value="<%'= l_descripcion %>">
-						</td>
-					</tr>  -->			
+		
 					</table>
 				</td>
 				<td width="50%"></td>

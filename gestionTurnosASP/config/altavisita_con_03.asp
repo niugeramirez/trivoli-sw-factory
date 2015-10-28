@@ -63,6 +63,7 @@ function BuscarmediopagoOS( )
 	l_sql = "SELECT * "
 	l_sql = l_sql & " FROM mediosdepago "
 	l_sql = l_sql & " WHERE flag_obrasocial = -1 " 
+	l_sql = l_sql & " and empnro = " & Session("empnro")
 	rsOpen l_rs, cn, l_sql, 0
 	if not l_rs.eof then
 		BuscarmediopagoOS = l_rs("id")
@@ -81,6 +82,7 @@ set l_cm = Server.CreateObject("ADODB.Command")
 l_sql = "SELECT isnull(obrassociales.flag_particular,0) flag_particular "
 l_sql = l_sql & " FROM obrassociales "
 l_sql  = l_sql  & " WHERE id = " & l_osid
+l_sql = l_sql & " and empnro = " & Session("empnro")
 rsOpen l_rs, cn, l_sql, 0 
 if not l_rs.eof then
 	l_flag_particular = l_rs("flag_particular")
@@ -90,16 +92,16 @@ l_rs.Close
 
 
 	l_sql = "INSERT INTO visitas "
-	l_sql = l_sql & "(fecha, idrecursoreservable, idpaciente , idturno ,created_by,creation_date,last_updated_by,last_update_date) "
-	l_sql = l_sql & "VALUES (" & cambiafecha(l_calfec,"YMD",true) & "," & l_idrecursoreservable  & "," &  l_pacienteid & ",0"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	l_sql = l_sql & "(fecha, idrecursoreservable, idpaciente , idturno ,created_by,creation_date,last_updated_by,last_update_date,empnro) "
+	l_sql = l_sql & "VALUES (" & cambiafecha(l_calfec,"YMD",true) & "," & l_idrecursoreservable  & "," &  l_pacienteid & ",0"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE(),'"& session("empnro") &"')"
 	l_cm.activeconnection = Cn
 	l_cm.CommandText = l_sql
 	cmExecute l_cm, l_sql, 0
 	
 	l_idvisita = codigogenerado("visitas")		
 	
-	l_sql = "INSERT INTO practicasrealizadas (idvisita , idpractica , idsolicitadapor , precio ,created_by,creation_date,last_updated_by,last_update_date ) "
-	l_sql = l_sql & " VALUES ( " & l_idvisita & ","  & l_practicaid & "," & l_solicitadopor & "," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
+	l_sql = "INSERT INTO practicasrealizadas (idvisita , idpractica , idsolicitadapor , precio ,created_by,creation_date,last_updated_by,last_update_date, empnro ) "
+	l_sql = l_sql & " VALUES ( " & l_idvisita & ","  & l_practicaid & "," & l_solicitadopor & "," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE(),'"& session("empnro") &"')"	
 
 	l_cm.activeconnection = Cn
 	l_cm.CommandText = l_sql
@@ -110,8 +112,8 @@ l_rs.Close
 		l_practicarealizada = codigogenerado("practicasrealizadas")				
 		
 		l_sql = "INSERT INTO pagos "
-		l_sql = l_sql & "( idpracticarealizada, idmediodepago, idobrasocial, fecha , importe ,created_by,creation_date,last_updated_by,last_update_date) "
-		l_sql = l_sql & "VALUES (" & l_practicarealizada  & "," & BuscarmediopagoOS( ) & "," & l_osid & "," & cambiafecha(l_calfec,"YMD",true) & "," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & "( idpracticarealizada, idmediodepago, idobrasocial, fecha , importe ,created_by,creation_date,last_updated_by,last_update_date, empnro) "
+		l_sql = l_sql & "VALUES (" & l_practicarealizada  & "," & BuscarmediopagoOS( ) & "," & l_osid & "," & cambiafecha(l_calfec,"YMD",true) & "," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE(),'"& session("empnro") &"')"
 		l_cm.activeconnection = Cn
 		l_cm.CommandText = l_sql
 		cmExecute l_cm, l_sql, 0 

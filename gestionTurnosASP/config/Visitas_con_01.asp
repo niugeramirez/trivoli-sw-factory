@@ -34,7 +34,7 @@ l_filtro = request("filtro")
 l_orden  = request("orden")
 
 if l_orden = "" then
-  l_orden = " ORDER BY fechahorainicio "
+  l_orden = " "
 end if
 
 
@@ -158,17 +158,6 @@ l_rs.close
 
 
 
-'l_sql = "SELECT   calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
-'l_sql = l_sql & " , clientespacientes.id clientespacientesid,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono, clientespacientes.nrohistoriaclinica nrohistoriaclinica"
-'l_sql = l_sql & " ,  obrassociales.descripcion osnombre, practicas.descripcion practicanombre"
-'l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente"
-'l_sql = l_sql & " FROM calendarios "
-'l_sql = l_sql & " LEFT JOIN turnos ON turnos.idcalendario = calendarios.id "
-'l_sql = l_sql & " LEFT JOIN clientespacientes ON clientespacientes.id = turnos.idclientepaciente "
-'l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
-'l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = turnos.idpractica "
-''l_sql = l_sql & " LEFT JOIN ser_medida       ON ser_legajo.mednro = ser_medida.mednro "
-
 
 l_sql = "SELECT  clientespacientes.id clientespacientesid,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.nrohistoriaclinica nrohistoriaclinica , isnull(clientespacientes.idobrasocial,0) idobrasocial, obrassociales.descripcion osnombre"
 l_sql = l_sql & " , isnull(practicas.id,0) practicaid, practicas.descripcion "
@@ -181,10 +170,15 @@ l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = practicasrealizadas.idpr
 l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
 'l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = turnos.idpractica "
 
+
 if l_filtro <> "" then
   l_sql = l_sql & " WHERE " & l_filtro & " "
+  l_sql = l_sql & " and visitas.empnro = " & Session("empnro")   
+else
+	l_sql = l_sql & " where visitas.empnro = " & Session("empnro")   
 end if
-'l_sql = l_sql & " " & l_orden
+	
+l_sql = l_sql & " " & l_orden
 
 'response.write l_sql
 rsOpen l_rs, cn, l_sql, 0 

@@ -100,8 +100,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 
 if l_tipo = "A" then
 	'l_precio = BuscarPrecio(l_idobrasocial, l_practicaid )
-	l_sql = "INSERT INTO practicasrealizadas (idvisita , idpractica , idsolicitadapor , precio ,created_by,creation_date,last_updated_by,last_update_date ) "
-	l_sql = l_sql & " VALUES ( " & l_idvisita & ","  & l_practicaid & "," & l_solicitadopor & "," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
+	l_sql = "INSERT INTO practicasrealizadas (idvisita , idpractica , idsolicitadapor , precio ,created_by,creation_date,last_updated_by,last_update_date , empnro) "
+	l_sql = l_sql & " VALUES ( " & l_idvisita & ","  & l_practicaid & "," & l_solicitadopor & "," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE(),'"& session("empnro") &"')"	
 
 	l_cm.activeconnection = Cn
 	l_cm.CommandText = l_sql
@@ -115,8 +115,8 @@ if l_tipo = "A" then
 			l_practicarealizada = codigogenerado("practicasrealizadas")				
 			
 			l_sql = "INSERT INTO pagos "
-			l_sql = l_sql & "( idpracticarealizada, idmediodepago, idobrasocial, fecha , importe ,created_by,creation_date,last_updated_by,last_update_date) "
-			l_sql = l_sql & "VALUES (" & l_practicarealizada  & "," & BuscarmediopagoOS( ) & "," & l_rs("idobrasocial") & ",'" & l_rs("FechaVisita") & "'," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+			l_sql = l_sql & "( idpracticarealizada, idmediodepago, idobrasocial, fecha , importe ,created_by,creation_date,last_updated_by,last_update_date,empnro) "
+			l_sql = l_sql & "VALUES (" & l_practicarealizada  & "," & BuscarmediopagoOS( ) & "," & l_rs("idobrasocial") & ",'" & l_rs("FechaVisita") & "'," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE(),'"& session("empnro") &"')"
 			l_cm.activeconnection = Cn
 			l_cm.CommandText = l_sql
 			cmExecute l_cm, l_sql, 0 

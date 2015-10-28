@@ -72,10 +72,13 @@ l_sql = l_sql & " FROM pagos "
 l_sql = l_sql & " LEFT JOIN  mediosdepago ON mediosdepago.id = pagos.idmediodepago "
 l_sql = l_sql & " LEFT JOIN  obrassociales ON obrassociales.id = pagos.idobrasocial "
 
-l_sql = l_sql & " WHERE idpracticarealizada = " & l_idpracticarealizada
 if l_filtro <> "" then
-  l_sql = l_sql & " AND " & l_filtro & " "
+  l_sql = l_sql & " WHERE " & l_filtro & " "
+  l_sql = l_sql & " and pagos.empnro = " & Session("empnro")   
+else
+	l_sql = l_sql & " where pagos.empnro = " & Session("empnro")   
 end if
+	
 l_sql = l_sql & " " & l_orden
 rsOpen l_rs, cn, l_sql, 0 
 if l_rs.eof then%>

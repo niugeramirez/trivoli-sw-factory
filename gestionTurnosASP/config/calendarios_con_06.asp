@@ -44,9 +44,9 @@ l_calhordes = l_calhordes1 & ":" & l_calhordes2 & ":00"
 l_calhorhas = l_calhorhas1 & ":" & l_calhorhas2 & ":00"
 l_calhorhasmasint = DateAdd("n", cint(l_intervaloTurnoMinutos), l_calhorhas)
 
-response.write "l_calhorhas " & l_calhorhas & "<br>"
-response.write "l_intervaloTurnoMinutos " & l_intervaloTurnoMinutos & "<br>"
-response.write "hora sumada " & l_calhorhasmasint & "<br>"
+'response.write "l_calhorhas " & l_calhorhas & "<br>"
+'response.write "l_intervaloTurnoMinutos " & l_intervaloTurnoMinutos & "<br>"
+'response.write "hora sumada " & l_calhorhasmasint & "<br>"
 'response.end
 
 
@@ -60,6 +60,7 @@ l_sql = l_sql & " WHERE idrecursoreservable=" & l_id
 'l_sql = l_sql & " AND estado='ACTIVO'"
 l_sql = l_sql & " AND CONVERT(VARCHAR(10), calendarios.fechahorafin, 101)  = " & cambiafecha (l_calfec,  "mm/dd/yyyy","" )  
 l_sql = l_sql & " AND calendarios.fechahorafin > " & cambiaformato (l_calfec,l_calhordes )  
+l_sql = l_sql & " AND empnro = " & Session("empnro")
 l_sql = l_sql & " order by fechahorafin desc "
 'response.write l_sql
 
@@ -78,6 +79,7 @@ l_sql = l_sql & " WHERE idrecursoreservable=" & l_id
 'l_sql = l_sql & " AND estado='ACTIVO'"
 l_sql = l_sql & " AND CONVERT(VARCHAR(10), calendarios.fechahorafin, 101)  = " & cambiafecha (l_calfec,  "mm/dd/yyyy","" )  
 l_sql = l_sql & " AND calendarios.fechahorainicio < " & cambiaformato (l_calfec,l_calhorhasmasint )  
+l_sql = l_sql & " AND empnro = " & Session("empnro")
 l_sql = l_sql & " order by fechahorafin asc "
 'response.write l_sql
 

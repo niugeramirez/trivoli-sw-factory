@@ -57,6 +57,7 @@ function BuscarPrecio(idobrasocial, idpractica )
 	l_sql = l_sql & " WHERE flag_activo = -1 " 
 	l_sql = l_sql & " AND idobrasocial = " & idobrasocial
 	l_sql = l_sql & " AND idpractica = " & idpractica
+	l_sql = l_sql & " and listaprecioscabecera.empnro = " & Session("empnro")
 	rsOpen l_rs, cn, l_sql, 0
 	if not l_rs.eof then
 		BuscarPrecio = Replace(l_rs("precio"), ",", ".")
@@ -74,6 +75,7 @@ function BuscarmediopagoOS( )
 	l_sql = "SELECT * "
 	l_sql = l_sql & " FROM mediosdepago "
 	l_sql = l_sql & " WHERE flag_obrasocial = -1 " 
+	l_sql = l_sql & " and empnro = " & Session("empnro")
 	rsOpen l_rs, cn, l_sql, 0
 	if not l_rs.eof then
 		BuscarmediopagoOS = l_rs("id")
@@ -110,6 +112,7 @@ set l_cm = Server.CreateObject("ADODB.Command")
 	  l_sql = l_sql & " INNER JOIN clientespacientes ON clientespacientes.id = turnos.idclientepaciente "	  
 	  l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "	  	  
 	  l_sql = l_sql & " WHERE turnos.id= " & l_lista(i)
+	  l_sql = l_sql & " and turnos.empnro = " & Session("empnro")
 
 	  'Response.write "<script>alert('Operación"& l_sql &" Realizada.');</script>"		  
 
@@ -119,8 +122,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 	  'Response.write "<script>alert('Operación"& l_rs("idsolicitadapor") &" Realizada.');</script>"	 
 	  
 		l_sql = "INSERT INTO visitas "
-		l_sql = l_sql & "(idturno, idpaciente, idrecursoreservable, fecha ,created_by,creation_date,last_updated_by,last_update_date ) "
-		l_sql = l_sql & "VALUES (" & l_lista(i) & "," & l_rs("idclientepaciente") & "," & l_rs("idrecursoreservable") & ",'" & l_rs("FechaVisita") & "'"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & "(idturno, idpaciente, idrecursoreservable, fecha ,created_by,creation_date,last_updated_by,last_update_date,empnro ) "
+		l_sql = l_sql & "VALUES (" & l_lista(i) & "," & l_rs("idclientepaciente") & "," & l_rs("idrecursoreservable") & ",'" & l_rs("FechaVisita") & "'"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE(),'"& session("empnro") &"')"
 		l_cm.activeconnection = Cn
 		l_cm.CommandText = l_sql
 		cmExecute l_cm, l_sql, 0  		
@@ -130,8 +133,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 		l_precio = buscarprecio(l_rs("idobrasocial") , l_rs("idpractica") )			
 		
 		l_sql = "INSERT INTO practicasrealizadas "
-		l_sql = l_sql & "(idvisita, idpractica, idsolicitadapor, precio ,created_by,creation_date,last_updated_by,last_update_date ) "
-		l_sql = l_sql & "VALUES (" & l_nuevavisita & "," & l_rs("idpractica") & "," & l_rs("idsolicitadapor") & "," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & "(idvisita, idpractica, idsolicitadapor, precio ,created_by,creation_date,last_updated_by,last_update_date,empnro ) "
+		l_sql = l_sql & "VALUES (" & l_nuevavisita & "," & l_rs("idpractica") & "," & l_rs("idsolicitadapor") & "," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE(),'"& session("empnro") &"')"
 		l_cm.activeconnection = Cn
 		l_cm.CommandText = l_sql
 		cmExecute l_cm, l_sql, 0  		
@@ -141,8 +144,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 			l_practicarealizada = codigogenerado("practicasrealizadas")	
 			
 			l_sql = "INSERT INTO pagos "
-			l_sql = l_sql & "( idpracticarealizada, idmediodepago, idobrasocial, fecha , importe ,created_by,creation_date,last_updated_by,last_update_date) "
-			l_sql = l_sql & "VALUES (" & l_practicarealizada  & "," & BuscarmediopagoOS( ) & "," & l_rs("idobrasocial") & ",'" & l_rs("FechaVisita") & "'," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+			l_sql = l_sql & "( idpracticarealizada, idmediodepago, idobrasocial, fecha , importe ,created_by,creation_date,last_updated_by,last_update_date,empnro) "
+			l_sql = l_sql & "VALUES (" & l_practicarealizada  & "," & BuscarmediopagoOS( ) & "," & l_rs("idobrasocial") & ",'" & l_rs("FechaVisita") & "'," & l_precio &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE(),'"& session("empnro") &"')"
 			l_cm.activeconnection = Cn
 			l_cm.CommandText = l_sql
 			cmExecute l_cm, l_sql, 0 
@@ -176,6 +179,7 @@ set l_cm = Server.CreateObject("ADODB.Command")
 	  l_sql = l_sql & " INNER JOIN clientespacientes ON clientespacientes.id = turnos.idclientepaciente "	  
 	  l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "	  	  
 	  l_sql = l_sql & " WHERE turnos.id= " & l_lista(i)
+	  l_sql = l_sql & " and turnos.empnro = " & Session("empnro")
 
 	  'Response.write "<script>alert('Operación"& l_sql &" Realizada.');</script>"		  
 
@@ -185,8 +189,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 	  'Response.write "<script>alert('Operación"& l_rs("idsolicitadapor") &" Realizada.');</script>"	 
 	  
 		l_sql = "INSERT INTO visitas "
-		l_sql = l_sql & "(idturno, idpaciente, idrecursoreservable, fecha, flag_ausencia ,created_by,creation_date,last_updated_by,last_update_date ) "
-		l_sql = l_sql & "VALUES (" & l_lista(i) & "," & l_rs("idclientepaciente") & "," & l_rs("idrecursoreservable") & ",'" & l_rs("FechaVisita") & "'"&",-1,'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & "(idturno, idpaciente, idrecursoreservable, fecha, flag_ausencia ,created_by,creation_date,last_updated_by,last_update_date,empnro ) "
+		l_sql = l_sql & "VALUES (" & l_lista(i) & "," & l_rs("idclientepaciente") & "," & l_rs("idrecursoreservable") & ",'" & l_rs("FechaVisita") & "'"&",-1,'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE(),'"& session("empnro") &"')"
 		l_cm.activeconnection = Cn
 		l_cm.CommandText = l_sql
 		cmExecute l_cm, l_sql, 0  		

@@ -161,6 +161,7 @@ l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespaciente
 l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = turnos.idpractica "
 l_sql = l_sql & " WHERE calendarios.idrecursoreservable =  " & l_idrecursoreservable
 l_sql = l_sql & " AND CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  = " & cambiafecha(l_calfec,true,1)  & ""
+l_sql = l_sql & " AND turnos.empnro = " & Session("empnro") 
 l_sql = l_sql & " AND turnos.id NOT IN ( select distinct(idturno) from visitas ) " 
 l_sql = l_sql & " " & l_orden
 

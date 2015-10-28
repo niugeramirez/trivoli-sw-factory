@@ -57,8 +57,8 @@ set l_cm = Server.CreateObject("ADODB.Command")
 Do While DATEDIFF("n", cdate( l_horafin ), cdate( l_calhorhas )) >= 0
 
 	l_sql = "INSERT INTO calendarios "
-	l_sql = l_sql & "(fechahorainicio, fechahorafin, estado, idrecursoreservable, tipo ,created_by,creation_date,last_updated_by,last_update_date ) "
-	l_sql = l_sql & "VALUES (" & cambiaformato (l_calfec,l_hora )  & "," & cambiaformato (l_calfec,l_horafin )  & ",'ACTIVO'," & l_id & ",'MANUAL'"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	l_sql = l_sql & "(fechahorainicio, fechahorafin, estado, idrecursoreservable, tipo ,created_by,creation_date,last_updated_by,last_update_date,empnro ) "
+	l_sql = l_sql & "VALUES (" & cambiaformato (l_calfec,l_hora )  & "," & cambiaformato (l_calfec,l_horafin )  & ",'ACTIVO'," & l_id & ",'MANUAL'"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE(),'"& session("empnro") &"')"
 	l_cm.activeconnection = Cn
 	l_cm.CommandText = l_sql
 	cmExecute l_cm, l_sql, 0
@@ -68,19 +68,6 @@ Do While DATEDIFF("n", cdate( l_horafin ), cdate( l_calhorhas )) >= 0
 Loop
 
 
-
-
-'set l_cm = Server.CreateObject("ADODB.Command")
-'if l_tipo = "A" then 
-'	l_sql = "INSERT INTO calendarios "
-'	l_sql = l_sql & " (fechahoraInicio, fechahoraFin, idrecursoreservable, estado )"
-'	l_sql = l_sql & " VALUES (" & cambiaformato (l_calfec,l_calhordes )  & "," & cambiaformato (l_calfec,l_calhorhas )  & "," & l_id & ",'ACTIVO'" & ")"
-
-'end if
-'response.write l_sql & "<br>"
-'l_cm.activeconnection = Cn
-'l_cm.CommandText = l_sql
-'cmExecute l_cm, l_sql, 0
 Set l_cm = Nothing
 
 Response.write "<script>alert('Operación Realizada.');window.parent.opener.ifrm.location.reload();window.parent.close();</script>"

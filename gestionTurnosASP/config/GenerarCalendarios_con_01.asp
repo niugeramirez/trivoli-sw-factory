@@ -226,7 +226,9 @@ else
 	l_sql = l_sql & " WHERE calendarios.empnro = " & Session("empnro")   
 end if
 
-' response.write l_sql
+l_sql = l_sql & l_orden
+
+'response.write l_sql
 rsOpen l_rs, cn, l_sql, 0 
 if l_rs.eof then
 	l_primero = 0

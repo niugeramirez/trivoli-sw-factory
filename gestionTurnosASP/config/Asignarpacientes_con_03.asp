@@ -66,10 +66,16 @@ if l_tipo = "A" then
 	
 	l_sql = "INSERT INTO turnos "
 	'l_sql = l_sql & " (idcalendario, idclientepaciente, idpractica, comentario , idrecursoreservable, iduseringresoturno)"
-	l_sql = l_sql & " (idcalendario, idclientepaciente, idpractica, comentario , idrecursoreservable, iduseringresoturno,created_by,creation_date,last_updated_by,last_update_date)"
-	'l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ",'" & l_iduser & "')"
-	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ",'" & l_iduser & "'"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	
+	' Multiempresa
+	' Se elimina esta linea y se reemplaza por el codigo de abajo
+	'l_sql = l_sql & " (idcalendario, idclientepaciente, idpractica, comentario , idrecursoreservable, iduseringresoturno,created_by,creation_date,last_updated_by,last_update_date)"
+	l_sql = l_sql & " (idcalendario, idclientepaciente, idpractica, comentario , idrecursoreservable, iduseringresoturno, empnro, created_by,creation_date,last_updated_by,last_update_date)"
+	
+	'l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ",'" & l_iduser & "')"
+	' Se elimina esta linea y se reemplaza por el codigo de abajo
+	'l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ",'" & l_iduser & "'"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ",'" & l_iduser & "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	
 	'end if
 else
