@@ -40,6 +40,7 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 l_sql = "SELECT * "
 l_sql = l_sql & " FROM mediosdepago "
 l_sql  = l_sql  & " WHERE flag_obrasocial = -1 " 
+l_sql = l_sql & " AND empnro = " & Session("empnro")
 rsOpen l_rs, cn, l_sql, 0 
 l_mediodepagoos = 0
 if not l_rs.eof then
@@ -55,6 +56,7 @@ l_sql = l_sql & " inner join visitas on practicasrealizadas.idvisita = visitas.i
 l_sql = l_sql & " inner join clientespacientes on clientespacientes.id = visitas.idpaciente "
 l_sql = l_sql & " inner join obrassociales on obrassociales.id = clientespacientes.idobrasocial "
 l_sql  = l_sql  & " WHERE practicasrealizadas.id =  " &l_idpracticarealizada
+l_sql = l_sql & " AND practicasrealizadas.empnro = " & Session("empnro")
 
 'response.write l_sql&"</BR>"
 
@@ -242,6 +244,7 @@ end select
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM mediosdepago "
+								l_sql = l_sql & " where empnro = " & Session("empnro")
 								l_sql  = l_sql  & " ORDER BY titulo "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	
@@ -262,7 +265,8 @@ end select
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM obrassociales "
-								l_sql  = l_sql  & " WHERE isnull(obrassociales.flag_particular,0) = 0 "								
+								l_sql  = l_sql  & " WHERE isnull(obrassociales.flag_particular,0) = 0 "	
+								l_sql = l_sql & " AND empnro = " & Session("empnro")								
 								l_sql  = l_sql  & " ORDER BY descripcion "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	

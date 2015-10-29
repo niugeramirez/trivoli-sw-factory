@@ -46,8 +46,8 @@ end if
 set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO pagos "
-	l_sql = l_sql & " (idmediodepago, fecha, idpracticarealizada, idobrasocial, nro, importe ,created_by,creation_date,last_updated_by,last_update_date)"
-	l_sql = l_sql & " VALUES (" & l_idmediodepago & "," & l_fecha & "," & l_idpracticarealizada & "," & l_idobrasocial & ",'" & l_nro & "'," & l_importe &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
+	l_sql = l_sql & " (idmediodepago, fecha, idpracticarealizada, idobrasocial, nro, importe ,created_by,creation_date,last_updated_by,last_update_date,empnro)"
+	l_sql = l_sql & " VALUES (" & l_idmediodepago & "," & l_fecha & "," & l_idpracticarealizada & "," & l_idobrasocial & ",'" & l_nro & "'," & l_importe &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE(),'"& session("empnro") &"')"	
 	
 else
 	l_sql = "UPDATE pagos "
