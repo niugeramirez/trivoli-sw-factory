@@ -101,6 +101,8 @@ l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = turnos.idpractica "
 l_sql = l_sql & " WHERE calendarios.idrecursoreservable = " & l_idrecursoreservable
 l_sql = l_sql & " AND  CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  = " & cambiafecha(l_fechadesde,"YMD",true) 
 
+l_sql = l_sql & " and calendarios.empnro = " & Session("empnro")   
+
 'if l_filtro <> "" then
 '  l_sql = l_sql & " WHERE " & l_filtro & " "
 'end if

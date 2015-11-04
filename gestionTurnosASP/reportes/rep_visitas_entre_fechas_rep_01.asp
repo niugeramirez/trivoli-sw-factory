@@ -153,6 +153,8 @@ l_sql = l_sql & " WHERE visitas.idpaciente = " & l_idpaciente
 l_sql = l_sql & " AND  visitas.fecha  >= " & cambiafecha(l_fechadesde,"YMD",true) 
 l_sql = l_sql & " AND  visitas.fecha <= " & cambiafecha(l_fechahasta,"YMD",true) 
 
+l_sql = l_sql & " and visitas.empnro = " & Session("empnro")   
+
 'if l_filtro <> "" then
 '  l_sql = l_sql & " WHERE " & l_filtro & " "
 'end if

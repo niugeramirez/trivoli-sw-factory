@@ -138,6 +138,7 @@ function Ayuda_Fecha(txt){
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM mediosdepago  "
+								l_sql =  l_sql & " where mediosdepago.empnro = " & Session("empnro") 
 								l_sql  = l_sql  & " ORDER BY titulo "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	
@@ -155,6 +156,7 @@ function Ayuda_Fecha(txt){
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM recursosreservables  "
+							    l_sql =  l_sql & " where recursosreservables.empnro = " & Session("empnro") 
 								l_sql  = l_sql  & " ORDER BY descripcion "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	

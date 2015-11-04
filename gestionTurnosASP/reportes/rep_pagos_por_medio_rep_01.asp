@@ -173,6 +173,8 @@ if l_idrecursoreservable <> "0" then
 	l_sql = l_sql & " AND recursosreservables.id = " & l_idrecursoreservable
 end if	
 
+l_sql = l_sql & " and pagos.empnro = " & Session("empnro")   
+
 'if l_filtro <> "" then
 '  l_sql = l_sql & " WHERE " & l_filtro & " "
 'end if
