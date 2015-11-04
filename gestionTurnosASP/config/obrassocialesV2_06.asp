@@ -28,6 +28,7 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 l_sql = "SELECT descripcion"
 l_sql = l_sql & " FROM obrassociales "
 l_sql = l_sql & " WHERE descripcion='" & l_descripcion & "'"
+l_sql = l_sql & " and obrassociales.empnro = " & Session("empnro")   
 if l_tipo = "M" then
 	l_sql = l_sql & " AND id <> " & l_id
 end if

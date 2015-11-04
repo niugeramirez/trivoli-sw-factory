@@ -23,9 +23,9 @@ l_descripcion = request.Form("descripcion")
 	set l_cm = Server.CreateObject("ADODB.Command")
 	if l_tipo = "A" then 
 		l_sql = "INSERT INTO obrassociales"
-		l_sql = l_sql & " (descripcion,created_by,creation_date,last_updated_by,last_update_date)"
+		l_sql = l_sql & " (descripcion,empnro,created_by,creation_date,last_updated_by,last_update_date)"
 		l_sql = l_sql & " VALUES (" 
-		l_sql = l_sql &  "'" & l_descripcion & "'"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql &  "'" & l_descripcion & "','" & session("empnro") & "','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 		
 	else
 		l_sql = "UPDATE obrassociales"

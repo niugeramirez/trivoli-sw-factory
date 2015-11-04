@@ -69,6 +69,7 @@ l_sql = l_sql & " WHERE idtemplatereserva = " & l_idtemplatereserva
 if l_filtro <> "" then
   l_sql = l_sql & " AND " & l_filtro & " "
 end if
+l_sql = l_sql & " and templatereservasdetalleresumido.empnro = " & Session("empnro")   
 l_sql = l_sql & " " & l_orden
 rsOpen l_rs, cn, l_sql, 0 
 if l_rs.eof then%>

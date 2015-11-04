@@ -27,9 +27,9 @@ l_idprovincia 	  = request.Form("idprovincia")
 	set l_cm = Server.CreateObject("ADODB.Command")
 	if l_tipo = "A" then 
 		l_sql = "INSERT INTO ciudades "
-		l_sql = l_sql & " (ciudad, codigo_postal, idprovincia,created_by,creation_date,last_updated_by,last_update_date)"
+		l_sql = l_sql & " (ciudad, codigo_postal, idprovincia,empnro,created_by,creation_date,last_updated_by,last_update_date)"
 		l_sql = l_sql & " VALUES (" 
-		l_sql = l_sql &  "'" & l_ciudad & "','" & l_codigo_postal & "'," & l_idprovincia  &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql &  "'" & l_ciudad & "','" & l_codigo_postal & "'," & l_idprovincia  & ",'" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 		
 	else
 		l_sql = "UPDATE ciudades"

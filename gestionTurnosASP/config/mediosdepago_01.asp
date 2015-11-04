@@ -59,6 +59,9 @@ l_sql = "SELECT * "
 l_sql = l_sql & " FROM mediosdepago "
 if l_filtro <> "" then
   l_sql = l_sql & " WHERE " & l_filtro & " "
+  l_sql = l_sql & " and mediosdepago.empnro = " & Session("empnro")   
+else
+  l_sql = l_sql & " where mediosdepago.empnro = " & Session("empnro")   
 end if
 l_sql = l_sql & " " & l_orden
 rsOpen l_rs, cn, l_sql, 0 

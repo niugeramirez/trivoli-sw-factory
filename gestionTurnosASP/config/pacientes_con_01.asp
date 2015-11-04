@@ -78,6 +78,9 @@ l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespaciente
 
 if l_filtro <> "" then
   l_sql = l_sql & " WHERE " & l_filtro & " "
+  l_sql = l_sql & " and clientespacientes.empnro = " & Session("empnro")   
+else
+  l_sql = l_sql & " where clientespacientes.empnro = " & Session("empnro")   
 end if
 l_sql = l_sql & " " & l_orden
 

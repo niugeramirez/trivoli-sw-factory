@@ -76,8 +76,8 @@ l_observaciones = request.Form("observaciones")
 set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO clientespacientes "
-	l_sql = l_sql & " (apellido, nombre, nrohistoriaclinica , dni,domicilio, telefono,idobrasocial, fecha_ingreso, fechanacimiento, nro_obra_social, sexo, idciudad , observaciones ,created_by,creation_date,last_updated_by,last_update_date)"
-	l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "','" & l_nrohistoriaclinica & "'," & l_dni & ",'" & l_domicilio & "','" & l_telefono & "'," & l_idobrasocial & "," & l_fecha_ingreso & "," & l_fechanacimiento & ",'" & l_nro_obra_social & "','" & l_sexo & "'," & l_ciudad & ",'" & l_observaciones & "','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	l_sql = l_sql & " (apellido, nombre, nrohistoriaclinica , dni,domicilio, telefono,idobrasocial, fecha_ingreso, fechanacimiento, nro_obra_social, sexo, idciudad , observaciones ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
+	l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "','" & l_nrohistoriaclinica & "'," & l_dni & ",'" & l_domicilio & "','" & l_telefono & "'," & l_idobrasocial & "," & l_fecha_ingreso & "," & l_fechanacimiento & ",'" & l_nro_obra_social & "','" & l_sexo & "'," & l_ciudad & ",'" & l_observaciones & "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 else
 	l_sql = "UPDATE clientespacientes "
 	l_sql = l_sql & " SET apellido    = '" & l_apellido & "'"

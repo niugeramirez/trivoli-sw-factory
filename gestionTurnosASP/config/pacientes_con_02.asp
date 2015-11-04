@@ -161,6 +161,7 @@ function Ayuda_Fecha(txt)
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 l_sql = "SELECT  idciudad "
 l_sql = l_sql & " FROM config "
+l_sql = l_sql & " where config.empnro = " & Session("empnro")   
 rsOpen l_rs, cn, l_sql, 0 
 if not l_rs.eof then
 	l_ciudad     = l_rs("idciudad")
@@ -277,6 +278,7 @@ end select
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM ciudades "
+								l_sql = l_sql & " where ciudades.empnro = " & Session("empnro")   
 								l_sql  = l_sql  & " ORDER BY ciudad "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	
@@ -296,6 +298,7 @@ end select
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM obrassociales "
+								l_sql = l_sql & " where obrassociales.empnro = " & Session("empnro")   
 								l_sql  = l_sql  & " ORDER BY descripcion "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	
