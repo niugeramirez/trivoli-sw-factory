@@ -1,7 +1,7 @@
 <% Option Explicit %>
-<!--#include virtual="/intranet/shared/inc/sec.inc"-->
-<!--#include virtual="/intranet/shared/inc/const.inc"-->
-<!--#include virtual="/intranet/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/sec.inc"-->
+<!--#include virtual="/turnos/shared/inc/const.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <% 
 
 
@@ -28,6 +28,7 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 l_sql = "SELECT descripcion"
 l_sql = l_sql & " FROM practicas "
 l_sql = l_sql & " WHERE descripcion='" & l_descripcion & "'"
+l_sql = l_sql & " and practicas.empnro = " & Session("empnro")  
 if l_tipo = "M" then
 	l_sql = l_sql & " AND id <> " & l_id
 end if

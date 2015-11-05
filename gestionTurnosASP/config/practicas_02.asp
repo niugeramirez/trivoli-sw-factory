@@ -38,28 +38,11 @@ if (Trim(document.datos.descripcion.value) == ""){
 	alert("Debe ingresar la Descripción de la Practica.");
 	document.datos.descripcion.focus();
 	}
-	/*
-else if(!stringValido(document.datos.balcod.value)){
-	alert("El Código contiene caracteres inválidos.");
-	document.datos.balcod.focus();
-	}
-else if(Trim(document.datos.baldes.value) == ""){
-	alert("Debe ingresar la Descripción.");
-	document.datos.baldes.focus();
-	}
-else if(!stringValido(document.datos.baldes.value)){
-	alert("La Descripción contiene caracteres inválidos.");
-	document.datos.baldes.focus();
-	}
-else if(Trim(document.datos.planro.value) == ""){
-	alert("Debe ingresar una Planta.");
-	document.datos.planro.focus();
-	} 
 else{
 	var d=document.datos;
 	document.valida.location = "practicas_06.asp?tipo=<%= l_tipo%>&id="+document.datos.id.value + "&descripcion="+document.datos.descripcion.value;
-	}	*/
-	valido();
+	}	
+	//valido();
 }
 
 function valido(){
