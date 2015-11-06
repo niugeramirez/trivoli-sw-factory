@@ -240,7 +240,7 @@ end select
 					<tr>
 						<td  align="right" nowrap><b>Medio de Pago: </b></td>
 						<td colspan="3"><select name="idmediodepago" size="1" style="width:200;" onchange="ctrolmetodopago();">
-								<option value=0 selected>Seleccione una OS</option>
+								<option value=0 selected>Seleccione Medio de Pago</option>
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM mediosdepago "
