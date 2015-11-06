@@ -180,7 +180,7 @@ do while cdate(l_fechaaux) <= cdate(l_fechahasta)
 	  l_sql3 = l_sql3 & " AND calendarios.id not in (select turnos.idcalendario from turnos)"
 	  l_sql3 = l_sql3 & " AND calendarios.estado = 'ACTIVO'"
       l_sql3 = l_sql3 & " AND CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  = " & cambiafecha( l_fechaaux ,true,1)	  
-	  l_sql3 = l_sql3 & " ORDER BY recursosreservables.descripcion "
+	  l_sql3 = l_sql3 & " ORDER BY recursosreservables.descripcion, calendarios.fechahorainicio "
       'response.write "sql3 "& l_sql3	&"<br/>" &"<br/>"  
 	  
 	  rsOpen l_rs3, cn, l_sql3, 0

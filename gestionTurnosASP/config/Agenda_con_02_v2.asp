@@ -157,6 +157,7 @@ do while cdate(l_fechaaux) <= cdate(l_fechahasta)
   l_sql2 = l_sql2 & " AND CONVERT(VARCHAR(5), fechahorainicio, 108) <= '" & l_horahasta & "'"
   l_sql2 = l_sql2 & " GROUP BY recursosreservables.descripcion , recursosreservables.id"
   l_sql2 = l_sql2 & " ORDER BY recursosreservables.descripcion "
+  'response.write l_sql2
   rsOpen l_rs2, cn, l_sql2, 0
   l_primeravez = true
   do until l_rs2.eof
@@ -183,7 +184,7 @@ do while cdate(l_fechaaux) <= cdate(l_fechahasta)
 	  l_sql3 = l_sql3 & " AND calendarios.id not in (select turnos.idcalendario from turnos)"
 	  l_sql3 = l_sql3 & " AND calendarios.estado = 'ACTIVO'"
       l_sql3 = l_sql3 & " AND CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  = " & cambiafecha( l_fechaaux ,true,1)	  
-	  l_sql3 = l_sql3 & " ORDER BY recursosreservables.descripcion "
+	  l_sql3 = l_sql3 & " ORDER BY recursosreservables.descripcion , calendarios.fechahorainicio "
 	  'response.write l_sql3
 	  rsOpen l_rs3, cn, l_sql3, 0
 	  
