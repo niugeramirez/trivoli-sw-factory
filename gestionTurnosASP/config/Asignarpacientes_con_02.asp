@@ -227,6 +227,8 @@ select Case l_tipo
 			
 			l_sql = "SELECT  * "
 			l_sql = l_sql & " FROM config "
+			l_sql  = l_sql  & " WHERE config.empnro = " & Session("empnro")
+			
 			rsOpen l_rs, cn, l_sql, 0 
 			if not l_rs.eof then
 		    	l_idpractica = l_rs("idpractica")
@@ -387,6 +389,7 @@ end select
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM practicas "
+								l_sql  = l_sql  & " WHERE practicas.empnro = " & Session("empnro")
 								l_sql  = l_sql  & " ORDER BY descripcion "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	
@@ -413,6 +416,7 @@ end select
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM recursosreservables "
+								l_sql  = l_sql  & " WHERE recursosreservables.empnro = " & Session("empnro")
 								l_sql  = l_sql  & " ORDER BY descripcion "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	
@@ -433,7 +437,8 @@ end select
 								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM user_per "
-								l_sql  = l_sql  & " WHERE iduser <> 'sa' "								
+								l_sql  = l_sql  & " WHERE iduser <> 'sa' "	
+								l_sql  = l_sql  & " AND user_per.empnro = " & Session("empnro")								
 								l_sql  = l_sql  & " ORDER BY iduser "
 								rsOpen l_rs, cn, l_sql, 0
 								do until l_rs.eof		%>	

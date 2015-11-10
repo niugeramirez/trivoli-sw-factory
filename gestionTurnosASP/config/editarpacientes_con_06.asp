@@ -35,6 +35,7 @@ else
 	if l_tipo = "M" then
 		l_sql = l_sql & " AND id <> " & l_id
 	end if
+	l_sql  = l_sql  & " AND clientespacientes.empnro = " & Session("empnro")
 	rsOpen l_rs, cn, l_sql, 0
 	if not l_rs.eof then
 	    texto =  "Ya existe otro Paciente con el Nro de DNI ingresado."

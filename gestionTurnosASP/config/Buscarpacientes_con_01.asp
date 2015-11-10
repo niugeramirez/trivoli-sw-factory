@@ -87,11 +87,17 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 l_sql = "SELECT    clientespacientes.id id, clientespacientes.* , obrassociales.id osid , obrassociales.descripcion "
 l_sql = l_sql & " FROM clientespacientes "
 l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
-'l_sql = l_sql & " LEFT JOIN ser_medida       ON ser_legajo.mednro = ser_medida.mednro "
+
 
 if l_filtro <> "" then
   l_sql = l_sql & " WHERE " & l_filtro & " "
+  l_sql  = l_sql  & " AND clientespacientes.empnro = " & Session("empnro")
 end if
+
+if l_filtro = "" then
+  l_sql  = l_sql  & " WHERE clientespacientes.empnro = " & Session("empnro")
+end if
+
 l_sql = l_sql & " " & l_orden
 
 'response.write l_sql

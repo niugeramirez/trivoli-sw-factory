@@ -70,12 +70,12 @@ set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then
 	if l_dni <> "" then
 		l_sql = "INSERT INTO clientespacientes "
-		l_sql = l_sql & " (apellido, nombre, dni,domicilio, telefono, idobrasocial,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & " (apellido, nombre, dni,domicilio, telefono, idobrasocial,empnro,created_by,creation_date,last_updated_by,last_update_date)"
+		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial & ",'" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	else
 		l_sql = "INSERT INTO clientespacientes "
-		l_sql = l_sql & " (apellido, nombre, domicilio, telefono, idobrasocial,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "','" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & " (apellido, nombre, domicilio, telefono, idobrasocial,empnro,created_by,creation_date,last_updated_by,last_update_date)"
+		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "','" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial & ",'" & session("empnro") & "','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	
 	end if
 	'response.write l_sql & "<br>"
