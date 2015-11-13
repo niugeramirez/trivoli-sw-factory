@@ -223,7 +223,7 @@ if l_rs.eof then
 			
 			
 				<% if l_rs("idclientepaciente") <> -1 then ' si esta asignado a un paciente: cancelar el paciente , transferir %>
-			    <td <%= l_fondo  %> width="10%" nowrap><% If clng(l_rs("nrohistoriaclinica")) = 0 or isnull(l_rs("nrohistoriaclinica")) then %>  <img src="/turnos/shared/images/mas.png" border="0" title="Paciente Nuevo"> <% End If %> <%= l_rs("apellido")%>,&nbsp;<%= l_rs("nombre")%></td>	
+			    <td <%= l_fondo  %> width="10%" nowrap><% If l_rs("nrohistoriaclinica") = "0" or isnull(l_rs("nrohistoriaclinica")) then %>  <img src="/turnos/shared/images/mas.png" border="0" title="Paciente Nuevo"> <% End If %> <%= l_rs("apellido")%>,&nbsp;<%= l_rs("nombre")%></td>	
 				<td <%= l_fondo  %> width="10%" nowrap><%= l_rs("telefono")%></td>
 				<td <%= l_fondo  %> width="10%" nowrap><%= l_rs("practicanombre")%></td>					
 				<td <%= l_fondo  %> width="10%" nowrap><%= l_rs("osnombre")%></td>		
