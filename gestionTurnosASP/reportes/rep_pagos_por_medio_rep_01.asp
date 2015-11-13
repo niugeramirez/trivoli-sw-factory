@@ -35,7 +35,7 @@ l_filtro = request("filtro")
 l_orden  = request("orden")
 
 if l_orden = "" then
-  l_orden = " ORDER BY pagos.idmediodepago , pagos.fecha "
+  l_orden = " ORDER BY pagos.idmediodepago , obrassociales.descripcion , pagos.fecha "
 end if
 
 
@@ -150,7 +150,7 @@ else
 end if
 
 
-l_sql = "SELECT  pagos.fecha, clientespacientes.apellido, clientespacientes.nombre, practicas.descripcion,  pagos.importe,  recursosreservables.descripcion medico, pagos.idmediodepago, mediosdepago.titulo " 'calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
+l_sql = "SELECT  pagos.fecha, clientespacientes.apellido, clientespacientes.nombre, practicas.descripcion,  pagos.importe,  recursosreservables.descripcion medico, pagos.idmediodepago, mediosdepago.titulo + ' ' +  (case when mediosdepago.flag_obrasocial=-1 then obrassociales.descripcion else ' ' end) titulo " 'calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
 'l_sql = l_sql & " ,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono"
 'l_sql = l_sql & " ,  obrassociales.descripcion osnombre, practicas.descripcion practicanombre"
 'l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente, turnos.apellido turnoapellido , turnos.nombre turnonombre, turnos.dni turnodni , turnos.domicilio turnodomicilio , turnos.telefono turnotelefono, turnos.comentario turnocomentario"
@@ -162,7 +162,7 @@ l_sql = l_sql & " LEFT JOIN clientespacientes ON clientespacientes.id = visitas.
 l_sql = l_sql & " LEFT JOIN recursosreservables ON recursosreservables.id = visitas.idrecursoreservable "
 l_sql = l_sql & " LEFT JOIN mediosdepago ON mediosdepago.id = pagos.idmediodepago "
 
-'l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
+l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
 l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = practicasrealizadas.idpractica "
 l_sql = l_sql & " WHERE  pagos.fecha  >= " & cambiafecha(l_fechadesde,"YMD",true) 
 l_sql = l_sql & " AND  pagos.fecha <= " & cambiafecha(l_fechahasta,"YMD",true) 
@@ -202,11 +202,11 @@ if l_rs.eof then
 </tr>
 <%else
 	encabezado
-    l_primero = l_rs("idmediodepago")
+    l_primero = l_rs("titulo")
 	l_cant = 0
 	do until l_rs.eof
-		if l_primero <> l_rs("idmediodepago") then
-			l_primero = l_rs("idmediodepago")
+		if l_primero <> l_rs("titulo") then
+			l_primero = l_rs("titulo")
 			totales
 			encabezado
 			l_cant = 0
