@@ -218,7 +218,7 @@ if l_rs.eof then
 			<td <%= l_fondo %> align="center" width="10%" nowrap>&nbsp;</td>
 			<td <%= l_fondo %> align="center" width="10%" nowrap>
 			<% if isnull(l_rs("flag_ausencia")) then %>
-			<a href="Javascript:parent.abrirVentana('AgregarPractica_con_02.asp?tipo=A&idobrasocial=<%= l_rs("idobrasocial") %>&cabnro=<%= l_rs("visitaid") %>' ,'',400,200);"><img src="/turnos/shared/images/Agregar_24.png" border="0" title="Agregar Practica"></a>
+			<a href="Javascript:parent.abrirVentana('AgregarPractica_con_02.asp?tipo=A&idobrasocial=<%= l_rs("idobrasocial") %>&cabnro=<%= l_rs("visitaid") %>' ,'',500,300);"><img src="/turnos/shared/images/Agregar_24.png" border="0" title="Agregar Practica"></a>
 			<% End If %>
 			<a href="Javascript:parent.abrirVentana('EliminarVisita_con_02.asp?cabnro=<%= l_rs("visitaid") %>' ,'',400,200);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Eliminar Visita"></a>			
 			</td>
