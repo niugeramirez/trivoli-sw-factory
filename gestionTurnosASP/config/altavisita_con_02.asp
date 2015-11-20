@@ -177,7 +177,7 @@ function EncontrePacienteAlta(id,apellido, nombre, dni,tel,domicilio,osid, os){
 }
 
 function BuscarPaciente(){
-	abrirVentana('Buscarpacientes_con_00.asp?Tipo=A','',600,250);
+	abrirVentana('Buscarpacientes_con_00.asp?Tipo=A&Alta=S&dni=S&hc=S','',600,250);
 }
 
 

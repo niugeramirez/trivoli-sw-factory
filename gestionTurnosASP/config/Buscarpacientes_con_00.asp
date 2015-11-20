@@ -34,6 +34,14 @@ on error goto 0
   Dim l_rs
   Dim l_sql
   
+  Dim l_alta
+  Dim l_dni
+  Dim l_hc
+  
+  l_alta  = request("Alta")
+  l_dni  = request("dni")
+  l_hc  = request("hc")
+  
 %>
 <html>
 <head>
@@ -233,7 +241,7 @@ function Ayuda_Fecha(txt)
 }
 
 function AltaPaciente(){
-	abrirVentana('Editarpacientes_con_02.asp?Tipo=A&ventana=3','',600,250);
+	abrirVentana('Editarpacientes_con_02.asp?Tipo=A&ventana=3&dni=<%= l_dni %>&hc=<%= l_hc %>','',600,250);
 }
 
 function Limpiar(){
@@ -274,8 +282,9 @@ function fnctrnum(valor){
         <tr style="border-color :CadetBlue;">
           <td align="left" class="barra">&nbsp;</td>
           <td nowrap align="right" class="barra">
-
+			<% if l_alta = "S" then %>
 			<a href="Javascript:AltaPaciente();"><img src="/turnos/shared/images/Agregar_24.png" border="0" title="Alta Paciente"></a>	
+			<% End If %>
 		  	  
 		  <!--
 		  <a class=sidebtn href="Javascript:orden('../../config/contracts_con_01.asp');">Orden</a>

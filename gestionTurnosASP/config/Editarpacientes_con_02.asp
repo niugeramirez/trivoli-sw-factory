@@ -28,6 +28,12 @@ Dim l_rs
 l_tipo = request.querystring("tipo")
 l_id = request.querystring("cabnro")
 
+  Dim l_dnioblig
+  Dim l_hc
+  
+  l_dnioblig  = request("dni")
+  l_hc  = request("hc")
+
 l_ventana = request.querystring("ventana")
 
 'response.write l_tipo
@@ -61,7 +67,7 @@ if (document.datos.nombre.value == ""){
 	document.datos.nombre.focus();
 	return;
 }
-<% If l_tipo = "M" then %>
+<% If l_dnioblig = "S" then %>
 if (document.datos.dni.value == ""){
 	alert("Debe ingresar el DNI del Paciente.");
 	document.datos.dni.focus();
@@ -97,6 +103,18 @@ if (document.datos.tel.value == ""){
 	document.datos.tel.focus();
 	return;
 }
+<% if l_hc = "S" then %>
+if (document.datos.nrohistoriaclinica.value == ""){
+	alert("Debe ingresar el Nro de Historia Clinica.");
+	document.datos.nrohistoriaclinica.focus();
+	return;
+}
+if (document.datos.nrohistoriaclinica.value == "0"){
+	alert("Debe ingresar el Nro de Historia Clinica.");
+	document.datos.nrohistoriaclinica.focus();
+	return;
+}
+<% End If %>
 
 // Texto seleccionado:  s.options[s.selectedIndex].text;
 //alert(s.options[s.selectedIndex].text);
@@ -217,7 +235,7 @@ end select
 						</td>						
 					</tr>					
 					<tr>
-					    <td align="right"><b>D.N.I.:<% If l_tipo = "M" then %> (*)<% End If %></b></td>
+					    <td align="right"><b>D.N.I.:<% If l_dnioblig = "S" then %> (*)<% End If %></b></td>
 						<td>
 							<input type="text" name="dni" size="20" maxlength="20" value="<%= l_dni %>">
 						</td>
@@ -256,6 +274,14 @@ end select
 							<script>document.datos.osid.value="<%= l_idobrasocial %>"</script>
 						</td>					
 					</tr>
+					<tr>
+					    <td align="right"><b> Historia Cl&iacute;nica <% If l_hc = "S" then %> (*)<% End If %>:</b></td>
+						<td>
+							<input type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%= l_nrohistoriaclinica %>">
+						</td>					
+
+									
+					</tr>					
 											
 					</table>
 				</td>

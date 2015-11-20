@@ -20,7 +20,7 @@ dim l_pacienteid
 dim l_apellido
 dim l_nombre  
 dim l_dni     
-'dim l_nrohistoriaclinica
+dim l_nrohistoriaclinica
 dim l_domicilio
 dim l_tel
 dim l_idobrasocial
@@ -35,7 +35,7 @@ l_apellido       = request.Form("apellido")
 l_nombre         = request.Form("nombre")
 l_dni            = request.Form("dni")
 l_domicilio      = request.Form("domicilio")
-'l_nrohistoriaclinica = request.Form("nrohistoriaclinica")
+l_nrohistoriaclinica = request.Form("nrohistoriaclinica")
 l_tel            = request.Form("tel")
 l_idobrasocial   = request.Form("osid")
 l_os             = request.Form("os")
@@ -46,6 +46,9 @@ if isnull(l_dni) or l_dni = "" then
 	l_dni = 0
 end if
 
+if isnull(l_nrohistoriaclinica) or l_nrohistoriaclinica = "" then
+	l_nrohistoriaclinica = 0
+end if
 
 ' ------------------------------------------------------------------------------------------------------------------
 ' codigogenerado() :
@@ -70,12 +73,12 @@ set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then
 	if l_dni <> "" then
 		l_sql = "INSERT INTO clientespacientes "
-		l_sql = l_sql & " (apellido, nombre, dni,domicilio, telefono, idobrasocial,empnro,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial & ",'" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & " (apellido, nombre, dni,domicilio, telefono, idobrasocial, nrohistoriaclinica, empnro,created_by,creation_date,last_updated_by,last_update_date)"
+		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial & ",'" & l_nrohistoriaclinica & "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	else
 		l_sql = "INSERT INTO clientespacientes "
-		l_sql = l_sql & " (apellido, nombre, domicilio, telefono, idobrasocial,empnro,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "','" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial & ",'" & session("empnro") & "','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & " (apellido, nombre, domicilio, telefono, idobrasocial, nrohistoriaclinica, empnro,created_by,creation_date,last_updated_by,last_update_date)"
+		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "','" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial & ",'" & l_nrohistoriaclinica & "','" & session("empnro") & "','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	
 	end if
 	'response.write l_sql & "<br>"
@@ -99,7 +102,7 @@ else
 	l_sql = "UPDATE clientespacientes "
 	l_sql = l_sql & " SET apellido    = '" & l_apellido & "'"
 	l_sql = l_sql & "    ,nombre    = '" & l_nombre & "'"
-	'l_sql = l_sql & "    ,nrohistoriaclinica    = " & l_nrohistoriaclinica & ""	
+	l_sql = l_sql & "    ,nrohistoriaclinica    = '" & l_nrohistoriaclinica & "'"	
 	if l_dni <> "" then
 		l_sql = l_sql & "    ,dni    =    " & l_dni & ""
 	end if
