@@ -196,7 +196,7 @@ function Ayuda_Fecha(txt)
 }
 
 function BuscarPaciente(){
-	abrirVentana('Buscarpacientes_con_00.asp?Tipo=A','',600,250);
+	abrirVentana('Buscarpacientes_con_00.asp?Tipo=A&Alta=S&dni=N&hc=N','',600,250);
 }
 
 function Editar(){ 
