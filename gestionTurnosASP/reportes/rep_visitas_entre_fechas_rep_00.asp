@@ -129,7 +129,7 @@ function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicil
 }
 
 function BuscarPaciente(){
-	abrirVentana('../config/Buscarpacientes_con_00.asp?Tipo=A','',600,250);
+	abrirVentana('../config/Buscarpacientes_con_00.asp?Tipo=A&Alta=N','',600,250);
 }
 
 </script>
