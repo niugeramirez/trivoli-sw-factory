@@ -51,6 +51,8 @@ l_idobrasocial=request("idobrasocial")
 <script>
 function Validar_Formulario(){
 
+
+
 if (document.datos.practicaid.value == "0"){
 	alert("Debe ingresar la Practica.");
 	document.datos.practicaid.focus();
@@ -65,12 +67,19 @@ if (!validanumero(document.datos.precio2, 15, 4)){
 		  return;
 }
 
+<% if l_tipo = "A" then %>
 if (document.datos.mediodepagoos.value == document.datos.idmediodepago.value)  {
 	if (Trim(document.datos.idobrasocial.value) == "0"){
 		alert("Debe ingresar la Obra Social.");
 		document.datos.idobrasocial.focus();
 		return;
 	}
+}
+
+if (document.datos.importe.value == ""){
+	alert("Debe ingresar un Importe mayor o igual a 0.");
+	document.datos.importe.focus();
+	return;
 }
 
 document.datos.importe2.value = document.datos.importe.value.replace(",", ".");
@@ -81,6 +90,23 @@ if (!validanumero(document.datos.importe2, 15, 4)){
 		  document.datos.importe.select();
 		  return;
 }	
+
+if (document.datos.importe.value != 0)  {
+	if (Trim(document.datos.idmediodepago.value) == "0"){
+		alert("Debe ingresar el Medio de Pago.");
+		document.datos.idmediodepago.focus();
+		return;
+	}
+}
+
+if (document.datos.idmediodepago.value != "0")  {
+	if (Trim(document.datos.importe.value) == "0"){
+		alert("Debe ingresar el Importe.");
+		document.datos.importe.focus();
+		return;
+	}
+}
+<% End If %>
 
 valido();
 }
@@ -135,6 +161,15 @@ function calcularprecio(){
 
 function actualizarprecio(p_precio){	
 	document.datos.precio.value = p_precio;
+	
+
+	// Si el medio de Pago es Obra social, copio el precio al importe
+	if (document.datos.idmediodepago.value == document.datos.mediodepagoos.value ) { 
+		document.datos.importe.value = p_precio;
+	} 
+ 	else document.datos.importe.value = 0;
+	
+	
 
 }	
 
@@ -267,7 +302,7 @@ end select
 							<input type="hidden" name="precio2" value="">							
 						</td>
 					</tr>		
-						
+					<% if l_tipo = "A" then %>	
 					<tr>
 					    
 						<td colspan="4">
@@ -327,12 +362,12 @@ end select
 					<tr>
 					    <td align="right"><b>Importe:</b></td>
 						<td>
-							<input align="right" type="text" name="importe" size="20" maxlength="20" value="<%'= l_importe %>">
+							<input align="right" type="text" name="importe" size="20" maxlength="20" value="0">
 							<input type="hidden" name="importe2" value="">
 						</td>					
 					</tr>												
 					
-
+					<% End If %>
 					
 					</table>
 				</td>

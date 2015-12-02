@@ -228,7 +228,7 @@ if l_rs.eof then
 			
 			if l_rs("practicasrealizadasid") <> 0 then
 			%>
-			<tr ondblclick="Javascript:abrirVentana('AgregarPractica_con_02.asp?tipo=M&idobrasocial=<%= l_rs("idobrasocial") %>&cabnro=<%= l_rs("visitaid") %>&idpracticarealizada=<%= l_rs("practicasrealizadasid") %>' ,'',400,200);">
+			<tr ondblclick="Javascript:abrirVentana('AgregarPractica_con_02.asp?tipo=M&idobrasocial=<%= l_rs("idobrasocial") %>&cabnro=<%= l_rs("visitaid") %>&idpracticarealizada=<%= l_rs("practicasrealizadasid") %>' ,'',500,300);">
 			<% 
 			l_PrecioPractica = PrecioPractica(l_rs("practicaid") ,l_rs("idobrasocial") )
 			l_Pagos = Pagos(l_rs("practicasrealizadasid") )
