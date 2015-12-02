@@ -87,17 +87,20 @@ else
 	l_sql = l_sql & " SET motivo    = '" & l_motivo & "'"
 	l_sql = l_sql & "    ,estado    = '" & l_estado & "' "
 	l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"
-	l_sql = l_sql & "    ,last_update_date = GETDATE()" 
-	
-	l_sql = l_sql & " WHERE fechahorainicio >=" & cambiaformato (l_fechadesde,l_horadesde )
-	l_sql = l_sql & " AND fechahorainicio<=" & cambiaformato (l_fechahasta,l_horahasta )
+	l_sql = l_sql & "    ,last_update_date = GETDATE()" 	
+	l_sql = l_sql & " WHERE CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101) >=" & cambiafecha (l_fechadesde,true,1 )
+	l_sql = l_sql & " AND CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101) <=" & cambiafecha (l_fechahasta,true,1 )	  
+	l_sql = l_sql & " AND CONVERT(VARCHAR(5), fechahorainicio, 108) >= '" & l_horadesde & "'"   
+	l_sql = l_sql & " AND CONVERT(VARCHAR(5), fechahorainicio, 108) <= '" & l_horahasta & "'"
+  
 	if l_tipo = "B" then ' Bloquear
 		l_sql = l_sql & " AND estado='ACTIVO'"
 	else
 		l_sql = l_sql & " AND estado='ANULADO'"
 	end if
 	l_sql = l_sql & " AND idrecursoreservable=" & l_idrecursoreservable
-	l_sql = l_sql & " and calendarios.empnro = " & Session("empnro")  
+	l_sql = l_sql & " and calendarios.empnro = " & Session("empnro") 
+
 	l_cm.activeconnection = Cn
 	l_cm.CommandText = l_sql
 	cmExecute l_cm, l_sql, 0		
@@ -108,5 +111,6 @@ end if
 Set l_cm = Nothing
 
 Response.write "<script>alert('Operación Realizada.');window.parent.opener.ifrm.location.reload();window.parent.close();</script>"
+
 %>
 
