@@ -77,9 +77,11 @@ if (document.datos.mediodepagoos.value == document.datos.idmediodepago.value)  {
 }
 
 if (document.datos.importe.value == ""){
-	alert("Debe ingresar un Importe mayor o igual a 0.");
-	document.datos.importe.focus();
-	return;
+	if	(document.datos.idmediodepago.value != "0") {
+		alert("Debe ingresar un Importe mayor o igual a 0.");
+		document.datos.importe.focus();
+		return;
+	}
 }
 
 document.datos.importe2.value = document.datos.importe.value.replace(",", ".");
