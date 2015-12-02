@@ -13,6 +13,7 @@ dim l_nombre
 dim l_dni     
 dim l_domicilio
 dim l_idobrasocial
+Dim l_descripcion
 'ADO
 Dim l_tipo
 Dim l_sql
@@ -153,7 +154,9 @@ switch (opc.value) {
       document.datos.hd.disabled  = true;
 	  document.datos.md.disabled  = true;
       document.datos.hh.disabled  = true;
-	  document.datos.mh.disabled  = true;	
+	  document.datos.mh.disabled  = true;		  
+	  document.datos.fechadesde.disabled  = true;
+	  document.datos.fechahasta.disabled  = true;
 	  
 	  document.datos.hd.readOnly = true;  
 	  document.datos.hd.className="deshabinp"
@@ -165,7 +168,15 @@ switch (opc.value) {
 	  document.datos.hh.className="deshabinp"
 	  
 	  document.datos.mh.readOnly = true;  
-	  document.datos.mh.className="deshabinp"	  	  	  
+	  document.datos.mh.className="deshabinp"	  	  	 
+	  
+	  document.datos.fechadesde.readOnly = true;  
+	  document.datos.fechadesde.className="deshabinp"		
+	  
+	  document.datos.fechahasta.readOnly = true;  
+	  document.datos.fechahasta.className="deshabinp"	
+	  
+     
 	    	  
 	  break;
    case '2' :
@@ -173,6 +184,8 @@ switch (opc.value) {
 	  document.datos.md.disabled  = false;
       document.datos.hh.disabled  = false;
 	  document.datos.mh.disabled  = false;	
+	  document.datos.fechadesde.disabled  = false;
+	  document.datos.fechahasta.disabled  = false;	  
 	  
 	  document.datos.hd.readOnly = false;  
 	  document.datos.hd.className="habinp"
@@ -185,6 +198,13 @@ switch (opc.value) {
 	  
 	  document.datos.mh.readOnly = false;  
 	  document.datos.mh.className="habinp"	
+	  
+	  document.datos.fechadesde.readOnly = false;  
+	  document.datos.fechadesde.className="habinp"		
+	  
+	  document.datos.fechahasta.readOnly = false;  
+	  document.datos.fechahasta.className="habinp"		  
+	  
 	  break;
 } 
 
@@ -226,14 +246,15 @@ function Ayuda_Fecha(txt)
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 'l_id = request.querystring("cabnro")
-l_sql = "SELECT fechahorainicio,  CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly , idrecursoreservable "
+l_sql = "SELECT fechahorainicio,  CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly , idrecursoreservable, descripcion "
 l_sql = l_sql & " FROM calendarios "
-'l_sql = l_sql & " INNER JOIN ser_servicio ON ser_servicio.sercod = ser_legajo.legpar1 "
-l_sql  = l_sql  & " WHERE id = " & l_id
+l_sql = l_sql & " INNER JOIN recursosreservables ON recursosreservables.id = calendarios.idrecursoreservable "
+l_sql  = l_sql  & " WHERE calendarios.id = " & l_id
 rsOpen l_rs, cn, l_sql, 0 
 if not l_rs.eof then
    	l_fecha      = left(l_rs("fechahorainicio"),10)
 	l_idrecursoreservable = l_rs("idrecursoreservable")
+	l_descripcion = l_rs("descripcion")
 end if
 l_rs.Close
 
@@ -246,9 +267,15 @@ l_rs.Close
 
 <table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
 <tr>
+    <td class="th2" nowrap>Medico: <%= l_descripcion %></td>
+	<td class="th2" align="right">
+		&nbsp;
+	</td>
+</tr>
+<tr>
     <td class="th2" nowrap><% if l_tipo = "B" then response.write "Bloquear un Calendario o Rango de Calendarios" else response.write "Desbloquear un Calendario o Rango de Calendarios" end if%></td>
 	<td class="th2" align="right">
-		<a class=sidebtnHLP href="Javascript:ayuda('<%= Request.ServerVariables("SCRIPT_NAME")%>');">Ayuda</a>
+		&nbsp;
 	</td>
 </tr>
 <tr>
@@ -257,26 +284,27 @@ l_rs.Close
 			<tr>
 				<td>
 					<table cellspacing="0" cellpadding="0" border="0">
-					 
-					<tr>
-						<td align="right"><b>Fecha Desde: </b></td>
-						<td align="left"><input id="fechadesde" type="text" name="fechadesde" value="<%= l_fecha %>"></td>
-						
-						
-						<td align="right"><b>Fecha Hasta: </b></td>
-						<td align="left"><input id="fechahasta" type="text" name="fechahasta" value="<%= l_fecha %>"></td>	
-																				
-					</tr>  
-					
-					 <tr> 
-					  	<td colspan="4" align="center">	&nbsp;	</td>
-					 </tr>						
 					
 					 <tr> 
 					  	<td colspan="4" align="center"> 	
 								<input type=radio name=rbopc value=1 CHECKED onclick="Habilitar(this)"> <b>Calendario Actual</b>
 					   			<input type=radio name=rbopc value=2 onclick="Habilitar(this)"> <b>Rango de Calendarios</b>	</td>
-					  </tr>		
+					  </tr>							
+					 
+					<tr>
+						<td align="right" nowrap><b>Fecha Desde: </b></td>
+						<td align="left"><input disabled class="deshabinp" id="fechadesde" type="text" name="fechadesde" value="<%= l_fecha %>"></td>
+						
+						
+						<td align="right" nowrap><b>Fecha Hasta: </b></td>
+						<td align="left"><input disabled class="deshabinp" id="fechahasta" type="text" name="fechahasta" value="<%= l_fecha %>"></td>	
+																				
+					</tr>  
+					
+					 <tr> 
+					  	<td colspan="4" align="center">	&nbsp;	</td>
+					 </tr>								
+
 					  
 					 <tr> 
 					  	<td colspan="4" align="center">	&nbsp;	</td>

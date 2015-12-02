@@ -59,7 +59,7 @@ end if
 
 set l_cm = Server.CreateObject("ADODB.Command")
 
-Response.write "<script>alert('Operación " &l_opc&" Realizada.');</script>"
+' Response.write "<script>alert('Operación " &l_opc&" Realizada.');</script>"
 
 if l_opc = 1 then
 
@@ -77,11 +77,11 @@ if l_opc = 1 then
 	
 else
 
-Response.write "<script>alert('Operación " &l_fechadesde&" Realizada.');</script>"
-Response.write "<script>alert('Operación " &l_horadesde&" Realizada.');</script>"
+' Response.write "<script>alert('Operación " &l_fechadesde&" Realizada.');</script>"
+' Response.write "<script>alert('Operación " &l_horadesde&" Realizada.');</script>"
 
-Response.write "<script>alert('Operación " &l_fechahasta&" Realizada.');</script>"
-Response.write "<script>alert('Operación " &l_horahasta&" Realizada.');</script>"
+' Response.write "<script>alert('Operación " &l_fechahasta&" Realizada.');</script>"
+' Response.write "<script>alert('Operación " &l_horahasta&" Realizada.');</script>"
 
 	l_sql = "UPDATE calendarios "
 	l_sql = l_sql & " SET motivo    = '" & l_motivo & "'"
