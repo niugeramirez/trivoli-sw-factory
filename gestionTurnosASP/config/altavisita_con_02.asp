@@ -101,8 +101,14 @@ if (document.datos.mediodepagoos.value == document.datos.idmediodepago.value)  {
 	}
 }
 
+if (document.datos.importe.value == ""){
+	alert("Debe ingresar un Importe mayor o igual a 0.");
+	document.datos.importe.focus();
+	return;
+}
+
 document.datos.importe2.value = document.datos.importe.value.replace(",", ".");
-  
+
 if (!validanumero(document.datos.importe2, 15, 4)){
 		  alert("El Monto no es válido. Se permite hasta 15 enteros y 4 decimales.");	
 		  document.datos.importe.focus();
@@ -110,6 +116,21 @@ if (!validanumero(document.datos.importe2, 15, 4)){
 		  return;
 }	
 
+if (document.datos.importe.value != 0)  {
+	if (Trim(document.datos.idmediodepago.value) == "0"){
+		alert("Debe ingresar el Medio de Pago.");
+		document.datos.idmediodepago.focus();
+		return;
+	}
+}
+
+if (document.datos.idmediodepago.value != "0")  {
+	if (Trim(document.datos.importe.value) == "0"){
+		alert("Debe ingresar el Importe.");
+		document.datos.importe.focus();
+		return;
+	}
+}
 
 
 var d=document.datos;
@@ -188,6 +209,12 @@ function calcularprecio(){
 
 function actualizarprecio(p_precio){	
 	document.datos.precio.value = p_precio;
+	
+	// Si el medio de Pago es Obra social, copio el precio al importe
+	if (document.datos.idmediodepago.value == document.datos.mediodepagoos.value ) { 
+		document.datos.importe.value = p_precio;
+	} 
+ 	else document.datos.importe.value = 0;	
 
 }	
 
@@ -435,7 +462,7 @@ end select
 					<tr>
 					    <td align="right"><b>Importe:</b></td>
 						<td>
-							<input align="right" type="text" name="importe" size="20" maxlength="20" value="<%'= l_importe %>">
+							<input align="right" type="text" name="importe" size="20" maxlength="20" value="0">
 							<input type="hidden" name="importe2" value="">
 						</td>					
 					</tr>								
