@@ -39,7 +39,12 @@ l_idrecursoreservable  = request.Form("idrecursoreservable")
 l_pacienteid     	   = request.Form("pacienteid")
 l_calfec               = request("calfec")
 l_practicaid           = request("practicaid")
-l_solicitadopor        = request("idrecursoreservable_solpor")
+l_solicitadopor        = request("idmedicoderivador")
+
+if l_solicitadopor = "" then
+	l_solicitadopor = 0
+end if
+
 l_precio 			   = request.Form("precio2")
 l_osid 				   = request.Form("osid")
 

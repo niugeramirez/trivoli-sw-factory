@@ -20,6 +20,7 @@ Dim l_rs
 
 dim l_idpractica 
 dim l_idsolicitadapor
+dim l_med_derivador
 dim l_precio
 
 Dim l_idvisita
@@ -28,6 +29,7 @@ Dim l_idpracticarealizada
 Dim l_mediodepagoos
 Dim l_idmediodepago
 Dim l_osparticular
+
 
 l_tipo = request.querystring("tipo")
 l_idvisita = request("cabnro")
@@ -38,82 +40,160 @@ l_idobrasocial=request("idobrasocial")
 %>
 <html>
 <head>
-<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
-<!--<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Agregar Practica</title>
-</head>
+
+
+
+<link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css" />
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<!--
+<script src="../js/jquery-1.8.0.js"></script>
+<script src="../js/jquery-ui.js"></script>  
+-->
+<script src="../js/jquery.ui.datepicker-es.js"></script>
+<link href="../ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<!--Inicio Autocomplete derivador -->
+
+  <style>
+  .ui-autocomplete-loading {
+    background: white url("../images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+.ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+  }
+  </style>
+<script type="text/javascript" language="javascript">
+
+    $(function() {
+        $( "#med_derivador" ).bind( "keydown", function( event ) {
+									if ( event.keyCode === $.ui.keyCode.TAB &&
+										$( this ).autocomplete( "instance" ).menu.active ) {
+									  event.preventDefault();
+									}
+								  })							  
+		.autocomplete({
+			source: function( request, response ) {
+						  $.getJSON( "JSON_medicos_derivadores.asp", {
+							term: request.term
+						  }, response );
+						},
+            minLength: 0,
+			select: function( event, ui ) {
+					$( "#med_derivador" ).val( ui.item.label );
+					$( "#idmedicoderivador" ).val( ui.item.id );			 
+					return false;
+				  },
+			change: function(event,ui){
+				  $(this).val((ui.item ? ui.item.label : ""));
+				  ui.item ? $( "#idmedicoderivador" ).val( ui.item.id ) : $( "#idmedicoderivador" ).val( "" );
+				}			  
+		});
+		
+		$("#but_display_med_deirv")
+			.button({
+				  icons: {
+					primary: "ui-icon-triangle-1-s"
+				  },
+				  text: false
+			})
+			.removeClass( "ui-corner-all" )
+			.addClass( "ui-corner-right ui-button-icon" )
+			.click(function() {
+				$( "#med_derivador" ).autocomplete("search", "");
+				$( "#med_derivador" ).focus();
+			});
+	
+    });
+
+
+</script>
+<!--Fin Autocomplete derivador -->
 <script src="/turnos/shared/js/fn_valida.js"></script>
 <script src="/turnos/shared/js/fn_fechas.js"></script>
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_numeros.js"></script>
+
+<!--Inicio ventanas modales-->
 <script>
-function Validar_Formulario(){
-
-
-
-if (document.datos.practicaid.value == "0"){
-	alert("Debe ingresar la Practica.");
-	document.datos.practicaid.focus();
-	return;
+//Esto va antes de la importacion de ventanas_modales_custom.js
+function Validaciones_locales(){
+	//devuelvo siempre verdadero en este caso de modo de hacer los controles en el 06
+	return true;
 }
+</script>
+<script src="../js/ventanas_modales_custom.js"></script>
+<!--Fin ventanas modales-->
 
-document.datos.precio2.value = document.datos.precio.value.replace(",", ".");
-if (!validanumero(document.datos.precio2, 15, 4)){
-		  alert("El Precio no es válido. Se permite hasta 15 enteros y 4 decimales.");	
-		  document.datos.precio.focus();
-		  document.datos.precio.select();
-		  return;
-}
+</head>
+<script>
+function Validar_Formulario_visita(){
 
-<% if l_tipo = "A" then %>
-if (document.datos.mediodepagoos.value == document.datos.idmediodepago.value)  {
-	if (Trim(document.datos.idobrasocial.value) == "0"){
-		alert("Debe ingresar la Obra Social.");
-		document.datos.idobrasocial.focus();
+	if (document.datos.practicaid.value == "0"){
+		alert("Debe ingresar la Practica.");
+		document.datos.practicaid.focus();
 		return;
 	}
-}
 
-if (document.datos.importe.value == ""){
-	if	(document.datos.idmediodepago.value != "0") {
-		alert("Debe ingresar un Importe mayor o igual a 0.");
-		document.datos.importe.focus();
-		return;
+	document.datos.precio2.value = document.datos.precio.value.replace(",", ".");
+	if (!validanumero(document.datos.precio2, 15, 4)){
+			  alert("El Precio no es válido. Se permite hasta 15 enteros y 4 decimales.");	
+			  document.datos.precio.focus();
+			  document.datos.precio.select();
+			  return;
 	}
-}
 
-document.datos.importe2.value = document.datos.importe.value.replace(",", ".");
-
-if (!validanumero(document.datos.importe2, 15, 4)){
-		  alert("El Monto no es válido. Se permite hasta 15 enteros y 4 decimales.");	
-		  document.datos.importe.focus();
-		  document.datos.importe.select();
-		  return;
-}	
-
-if (document.datos.importe.value != 0)  {
-	if (Trim(document.datos.idmediodepago.value) == "0"){
-		alert("Debe ingresar el Medio de Pago.");
-		document.datos.idmediodepago.focus();
-		return;
+	<% if l_tipo = "A" then %>
+	if (document.datos.mediodepagoos.value == document.datos.idmediodepago.value)  {
+		if (Trim(document.datos.idobrasocial.value) == "0"){
+			alert("Debe ingresar la Obra Social.");
+			document.datos.idobrasocial.focus();
+			return;
+		}
 	}
-}
 
-if (document.datos.idmediodepago.value != "0")  {
-	if (Trim(document.datos.importe.value) == "0"){
-		alert("Debe ingresar el Importe.");
-		document.datos.importe.focus();
-		return;
+	if (document.datos.importe.value == ""){
+		if	(document.datos.idmediodepago.value != "0") {
+			alert("Debe ingresar un Importe mayor o igual a 0.");
+			document.datos.importe.focus();
+			return;
+		}
 	}
-}
-<% End If %>
 
-valido();
+	document.datos.importe2.value = document.datos.importe.value.replace(",", ".");
+
+	if (!validanumero(document.datos.importe2, 15, 4)){
+			  alert("El Monto no es válido. Se permite hasta 15 enteros y 4 decimales.");	
+			  document.datos.importe.focus();
+			  document.datos.importe.select();
+			  return;
+	}	
+
+	if (document.datos.importe.value != 0)  {
+		if (Trim(document.datos.idmediodepago.value) == "0"){
+			alert("Debe ingresar el Medio de Pago.");
+			document.datos.idmediodepago.focus();
+			return;
+		}
+	}
+
+	if (document.datos.idmediodepago.value != "0")  {
+		if (Trim(document.datos.importe.value) == "0"){
+			alert("Debe ingresar el Importe.");
+			document.datos.importe.focus();
+			return;
+		}
+	}
+	<% End If %>
+
+	valido_visita();
 }
 
-function valido(){
+function valido_visita(){
 	document.datos.submit();
 }
 
@@ -209,7 +289,6 @@ else
 	l_idmediodepago = 	l_mediodepagoos
 end if
 
-
 select Case l_tipo
 	Case "A":
 			l_idpractica = 0
@@ -218,14 +297,17 @@ select Case l_tipo
 	Case "M":
 		
 		l_id = request.querystring("cabnro")
-		l_sql = "SELECT * "
+		l_sql = "SELECT practicasrealizadas.idpractica ,practicasrealizadas.idsolicitadapor ,practicasrealizadas.precio "
+		l_sql = l_sql & " , medicos_derivadores.nombre as med_derivador "
 		l_sql = l_sql & " FROM practicasrealizadas "
-		l_sql  = l_sql  & " WHERE id = " & l_idpracticarealizada
+		l_sql = l_sql & " LEFT JOIN medicos_derivadores ON medicos_derivadores.id = practicasrealizadas.idsolicitadapor "
+		l_sql  = l_sql  & " WHERE practicasrealizadas.id = " & l_idpracticarealizada
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
 			l_idpractica = l_rs("idpractica")
 			l_idsolicitadapor = l_rs("idsolicitadapor") 
 			l_precio = l_rs("precio")
+			l_med_derivador = l_rs("med_derivador")
 		end if
 		l_rs.Close
 end select
@@ -278,23 +360,16 @@ end select
 					
 					<tr>
 						<td  align="right" nowrap><b>Solicitado por : </b></td>
-						<td colspan="3"><select name="idrecursoreservable" size="1" style="width:200;">
-								<option value=0 selected>Ningun Profesional</option>
-								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-								l_sql = "SELECT  * "
-								l_sql  = l_sql  & " FROM recursosreservables "
-								l_sql = l_sql & " where empnro = " & Session("empnro")
-								l_sql  = l_sql  & " ORDER BY descripcion "
-								rsOpen l_rs, cn, l_sql, 0
-								do until l_rs.eof		%>	
-								<option value= <%= l_rs("id") %> > 
-								<%= l_rs("descripcion") %> </option>
-								<%	l_rs.Movenext
-								loop
-								l_rs.Close %>
-							</select>
-							<script>document.datos.idrecursoreservable.value="<%= l_idsolicitadapor %>"</script>							
-						</td>					
+						<td colspan="3">
+							<div class="ui-widget">
+								<input type="text" id="med_derivador" name="med_derivador">					
+								<a id ="but_display_med_deirv" tabindex="-1" class="ui-button ui-widget ui-state-default ui-button-icon-only custom-combobox-toggle ui-corner-right" role="button" title="Show All Items"><span class="ui-button-icon-primary ui-icon ui-icon-triangle-1-s"></span><span class="ui-button-text"></span></a>
+								<input type="hidden" name="idmedicoderivador" id="idmedicoderivador">
+								<script>document.datos.idmedicoderivador.value="<%= l_idsolicitadapor %>"</script>	
+								<script>document.datos.med_derivador.value="<%= l_med_derivador %>"</script>	
+								<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('medicos_derivadores_02.asp?Tipo=A')"><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Agragar Medico Derivador"></a> 
+							</div>
+						</td>						
 					</tr>		
 
 					<tr>
@@ -379,18 +454,37 @@ end select
 </tr>
 <tr>
     <td colspan="2" align="right" class="th">
-		<a class=sidebtnABM href="Javascript:Validar_Formulario()">Aceptar</a>
+		<a class=sidebtnABM href="Javascript:Validar_Formulario_visita()">Aceptar</a>
 		<a class=sidebtnABM href="Javascript:window.close()">Cancelar</a>
 	</td>
 </tr>
 
 </table>
-<iframe name="valida" style="visibility=hidden;" src="" width="100%" height="100%"></iframe> 
+<iframe name="valida" style="visibility=hidden;" src="" width="0%" height="0%"></iframe> 
 </form>
 <%
 set l_rs = nothing
 cn.Close
 set cn = nothing
 %>
+		<!--	PARAMETRIZACION DE VENTANAS MODALES        -->
+		<!--	URL´s        -->
+		<input type="hidden" id="url_AM" value="medicos_derivadores_03.asp">
+		<input type="hidden" id="url_valid_06" value="medicos_derivadores_06.asp">	
+		<input type="hidden" id="url_baja" value="0">	
+		<input type="hidden" id="url_base_baja" value="medicos_derivadores_04.asp?">	
+		
+		<!--	DIV´s Dialogos       -->
+		<input type="hidden" id="id_dialog" value="dialog">
+		<input type="hidden" id="width_dialog" value="300">
+		<input type="hidden" id="height_dialog" value="auto">		
+		<div id="dialog" title="Nuevo Medico Derivador"> 			</div>	  
+		
+		<input type="hidden" id="id_dialogAlert" value="dialogAlert">
+		<div id="dialogAlert" title="Mensaje">				</div>	
+		
+		<input type="hidden" id="id_dialogConfirmDelete" value="dialogConfirmDelete">
+		<div id="dialogConfirmDelete" title="Consulta">		</div>		
+		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->	
 </body>
 </html>

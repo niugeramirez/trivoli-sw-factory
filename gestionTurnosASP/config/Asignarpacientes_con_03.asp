@@ -22,7 +22,7 @@ dim l_tel
 dim l_idobrasocial
 dim l_idpractica
 dim l_comentario
-dim l_idrecursoreservable
+dim l_idmedicoderivador
 dim l_iduser
 Dim l_agenda
 
@@ -38,7 +38,7 @@ l_tel            = request.Form("tel")
 l_idobrasocial   = request.Form("osid")
 l_idpractica     = request.Form("practicaid")
 l_comentario     = request.Form("comentario")
-l_idrecursoreservable = request.Form("idrecursoreservable")
+l_idmedicoderivador = request.Form("idmedicoderivador")
 l_iduser         = request.Form("iduser")
 l_agenda         = request.Form("agenda")
 
@@ -46,49 +46,28 @@ l_agenda         = request.Form("agenda")
 if l_pacienteid = "" then
 	l_pacienteid = -1
 end if
-'else 
-'	l_legfecing = cambiafecha(l_legfecing,"YMD",true)	
-'end if 
-'if len(l_legfecnac) = 0 then
-'	l_legfecnac = "null"
-'else 
-'	l_legfecnac = cambiafecha(l_legfecnac,"YMD",true)	
-'end if 
+if l_idmedicoderivador = "" then
+	l_idmedicoderivador = 0
+end if
 
 set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
-    'if l_pacienteid = -1 then
-	'l_sql = "INSERT INTO turnos "
-	'l_sql = l_sql & " (idcalendario, idclientepaciente, idpractica, apellido, nombre, dni, domicilio, telefono, comentario, idrecursoreservable)"
-	'l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idobrasocial & "," & l_idpractica & ",'" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel & "','" & l_comentario  & "'," & l_idrecursoreservable & ")"	
-	
-	'else
 	
 	l_sql = "INSERT INTO turnos "
-	'l_sql = l_sql & " (idcalendario, idclientepaciente, idpractica, comentario , idrecursoreservable, iduseringresoturno)"
-	
-	' Multiempresa
-	' Se elimina esta linea y se reemplaza por el codigo de abajo
-	'l_sql = l_sql & " (idcalendario, idclientepaciente, idpractica, comentario , idrecursoreservable, iduseringresoturno,created_by,creation_date,last_updated_by,last_update_date)"
-	l_sql = l_sql & " (idcalendario, idclientepaciente, idpractica, comentario , idrecursoreservable, iduseringresoturno, empnro, created_by,creation_date,last_updated_by,last_update_date)"
-	
-	'l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ",'" & l_iduser & "')"
-	' Se elimina esta linea y se reemplaza por el codigo de abajo
-	'l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ",'" & l_iduser & "'"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
-	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idrecursoreservable & ",'" & l_iduser & "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
-	
-	'end if
+	l_sql = l_sql & " (idcalendario, idclientepaciente, idpractica, comentario , idmedicoderivador, iduseringresoturno, empnro, created_by,creation_date,last_updated_by,last_update_date)"
+	l_sql = l_sql & " VALUES (" & l_id & "," & l_pacienteid & "," & l_idpractica & ",'" & l_comentario &  "'," & l_idmedicoderivador & ",'" & l_iduser & "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+
 else
 	l_sql = "UPDATE turnos "
 	l_sql = l_sql & " SET idpractica    = " & l_idpractica
 	l_sql = l_sql & "    ,comentario    = '" & l_comentario & "'"
-	l_sql = l_sql & "    ,idrecursoreservable  = " & l_idrecursoreservable
+	l_sql = l_sql & "    ,idmedicoderivador  = " & l_idmedicoderivador
 	l_sql = l_sql & "    ,iduseringresoturno  = '" & l_iduser & "'"
 	l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"
 	l_sql = l_sql & "    ,last_update_date = GETDATE()" 
 	l_sql = l_sql & " WHERE id = " & l_id
 end if
-response.write l_sql & "<br>"
+'response.write l_sql & "<br>"
 Response.write "<script>alert('Operación "&l_sql&" Realizada.');</script>"
 
 l_cm.activeconnection = Cn

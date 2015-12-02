@@ -18,7 +18,8 @@ dim l_domicilio
 dim l_idobrasocial
 dim l_descripcion
 dim l_comentario
-dim l_idrecursoreservable
+dim l_idmedicoderivador
+dim l_med_derivador
 Dim l_idpractica
 Dim l_ventana
 Dim l_iduser
@@ -45,20 +46,97 @@ end if
 %>
 <html>
 <head>
-<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
-<!--<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Asignar Pacientes</title>
-</head>
+
+<link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css" />
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<link href="../ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+
+
+
+<!--Inicio Autocomplete derivador -->
+
+  <style>
+  .ui-autocomplete-loading {
+    background: white url("../images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+.ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+  }
+  </style>
+<script type="text/javascript" language="javascript">
+
+    $(function() {
+        $( "#med_derivador" ).bind( "keydown", function( event ) {
+									if ( event.keyCode === $.ui.keyCode.TAB &&
+										$( this ).autocomplete( "instance" ).menu.active ) {
+									  event.preventDefault();
+									}
+								  })							  
+		.autocomplete({
+			source: function( request, response ) {
+						  $.getJSON( "JSON_medicos_derivadores.asp", {
+							term: request.term
+						  }, response );
+						},
+            minLength: 0,
+			select: function( event, ui ) {
+					$( "#med_derivador" ).val( ui.item.label );
+					$( "#idmedicoderivador" ).val( ui.item.id );			 
+					return false;
+				  },
+			change: function(event,ui){
+				  $(this).val((ui.item ? ui.item.label : ""));
+				  ui.item ? $( "#idmedicoderivador" ).val( ui.item.id ) : $( "#idmedicoderivador" ).val( "" );
+				}			  
+		});
+		
+		$("#but_display_med_deirv")
+			.button({
+				  icons: {
+					primary: "ui-icon-triangle-1-s"
+				  },
+				  text: false
+			})
+			.removeClass( "ui-corner-all" )
+			.addClass( "ui-corner-right ui-button-icon" )
+			.click(function() {
+				$( "#med_derivador" ).autocomplete("search", "");
+				$( "#med_derivador" ).focus();
+			});
+	
+    });
+
+
+</script>
+<!--Fin Autocomplete derivador -->
 <script src="/turnos/shared/js/fn_valida.js"></script>
 <script src="/turnos/shared/js/fn_fechas.js"></script>
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_numeros.js"></script>
+
+<!--Inicio ventanas modales-->
 <script>
+//Esto va antes de la importacion de ventanas_modales_custom.js
+function Validaciones_locales(){
+	//devuelvo siempre verdadero en este caso de modo de hacer los controles en el 06
+	return true;
+}
+</script>
+<script src="../js/ventanas_modales_custom.js"></script>
+<!--Fin ventanas modales-->
 
 
-function Validar_Formulario(){
+</head>
+
+
+<script>
+function Validar_Formulario_turno(){
 
 if (document.datos.apellido.value == ""){
 	alert("Debe ingresar el Apellido del Paciente.");
@@ -71,18 +149,7 @@ if (document.datos.nombre.value == ""){
 	document.datos.nombre.focus();
 	return;
 }
-/*
-if (document.datos.dni.value == ""){
-	alert("Debe ingresar el DNI del Paciente.");
-	document.datos.dni.focus();
-	return;
-}
-if (document.datos.domicilio.value == ""){
-	alert("Debe ingresar el Domicilio del Paciente.");
-	document.datos.domicilio.focus();
-	return;
-}
-*/
+
 if (document.datos.tel.value == ""){
 	alert("Debe ingresar el Telefono del Paciente.");
 	document.datos.tel.focus();
@@ -101,51 +168,10 @@ if (document.datos.iduser.value == "0"){
 	return;
 }
 
-/*
-if (document.datos.tipopenro.value == 0){
-	alert("Debe ingresar el Tipo de Operación.");
-	document.datos.tipopenro.focus();
-	return;
-}
-if (document.datos.tipbuqnro.value == 0){
-	alert("Debe ingresar el Tipo de Buque.");
-	document.datos.tipbuqnro.focus();
-	return;
-}
-if (document.datos.agenro.value == 0){
-	alert("Debe ingresar la Agencia.");
-	document.datos.agenro.focus();
-	return;
+valido_turno();
 }
 
-if ((document.datos.buqfecdes.value != "")&&(!validarfecha(document.datos.buqfecdes))){
-	 document.datos.buqfecdes.focus();
-	 return;
-}
-
-if ((document.datos.buqfechas.value != "")&&(!validarfecha(document.datos.buqfechas))){
-	 document.datos.buqfechas.focus();
-	 return;
-}
-
-if ((document.datos.buqfecdes.value != "")&&(document.datos.buqfechas.value != "") ){
-
-	if (!(menorque(document.datos.buqfecdes.value,document.datos.buqfechas.value))) {
-			alert("La Fecha de Comienzo debe ser menor o igual que la Fecha de Termino.");
-			document.datos.buqfecdes.focus();
-		    return;			
-	}		
-}	
-*/
-
-/*
-var d=document.datos;
-document.valida.location = "pacientes_con_06.asp?tipo=<%= l_tipo%>&counro="+document.datos.counro.value + "&coudes="+document.datos.coudes.value;
-*/
-valido();
-}
-
-function valido(){
+function valido_turno(){
 	document.datos.submit();
 }
 
@@ -222,7 +248,7 @@ select Case l_tipo
 	    	l_domicilio     = ""
 			l_tel           = ""
 			l_idobrasocial  = ""
-			l_idrecursoreservable = "0"
+			l_idmedicoderivador = "0"
 			l_clientepacienteid = "0"
 			
 			l_sql = "SELECT  * "
@@ -242,14 +268,16 @@ select Case l_tipo
 	Case "M":
 		
 		l_id = request.querystring("cabnro")
-		l_sql = "SELECT  turnos.id id , turnos.idpractica, turnos.idrecursoreservable, turnos.comentario, turnos.iduseringresoturno "
+		l_sql = "SELECT  turnos.id id , turnos.idpractica, turnos.idmedicoderivador, turnos.comentario, turnos.iduseringresoturno "
 		l_sql = l_sql & " , clientespacientes.id clientepacienteid, clientespacientes.apellido, clientespacientes.nombre , clientespacientes.nrohistoriaclinica "
 		l_sql = l_sql & " , clientespacientes.dni , clientespacientes.domicilio, clientespacientes.telefono , clientespacientes.idobrasocial "
-		l_sql = l_sql & " , obrassociales.id idobrasocial , obrassociales.descripcion "
+		l_sql = l_sql & " , obrassociales.id idobrasocial , obrassociales.descripcion , medicos_derivadores.nombre as med_derivador "
 		l_sql = l_sql & " FROM turnos "
 		l_sql = l_sql & " INNER JOIN clientespacientes ON clientespacientes.id = turnos.idclientepaciente" 
 		l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
+		l_sql = l_sql & " LEFT JOIN medicos_derivadores ON medicos_derivadores.id = turnos.idmedicoderivador "
 		l_sql  = l_sql  & " WHERE turnos.id = " & l_id
+		'response.write l_sql
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
 			l_id            = l_rs("id")
@@ -263,8 +291,9 @@ select Case l_tipo
 			l_idobrasocial  = l_rs("idobrasocial")
 			l_descripcion   = l_rs("descripcion")
 			l_idpractica    = l_rs("idpractica")
-			l_idrecursoreservable = l_rs("idrecursoreservable")
-			'response.write l_idrecursoreservable
+			l_idmedicoderivador = l_rs("idmedicoderivador")
+			l_med_derivador = l_rs("med_derivador")
+			'response.write l_idmedicoderivador
 			l_comentario    = l_rs("comentario")
 			l_iduser        = l_rs("iduseringresoturno")
 			
@@ -343,40 +372,6 @@ end select
 					    					
 					</tr>				
 					
-					<!--
-					<tr>
-					    <td align="right" ><b>Fec. Nac.:</b></td>
-						<td align="left"  >
-						    <input type="text" name="legfecnac" size="10" maxlength="10" value="<%'= l_legfecnac %>">
-							<a href="Javascript:Ayuda_Fecha(document.datos.legfecnac)"><img src="/turnos/shared/images/cal.gif" border="0"></a>
-						</td>
-						<td align="right"><b>Teléfono:</b></td>
-						<td>
-							<input type="text" name="legtel" size="20" maxlength="20" value="<%'= l_legtel %>">
-						</td>						
-					</tr>
-					
-					
-					<tr>
-						<td  align="right" nowrap><b>Obra Social: </b></td>
-						<td colspan="3"><select class="deshabinp"  name="osid" size="1" style="width:200;">
-								<option value=0 selected>Seleccione una OS</option>
-								<%'Set l_rs = Server.CreateObject("ADODB.RecordSet")
-								'l_sql = "SELECT  * "
-								'l_sql  = l_sql  & " FROM obrassociales "
-								'l_sql  = l_sql  & " ORDER BY descripcion "
-								'rsOpen l_rs, cn, l_sql, 0
-								'do until l_rs.eof		%>	
-								<option value= <%'= l_rs("id") %> > 
-								<%'= l_rs("descripcion") %> </option>
-								<%'	l_rs.Movenext
-								'loop
-								'l_rs.Close %>
-							</select>
-							<script>document.datos.osid.value=0 "<%'= l_pronro %>"</script>
-						</td>					
-					</tr>
-					-->
 					<tr>
 						<td>&nbsp;
 						</td>
@@ -411,22 +406,15 @@ end select
 					</tr>						
 					<tr>
 						<td  align="right" nowrap><b>Solicitado por : </b></td>
-						<td colspan="3"><select name="idrecursoreservable" size="1" style="width:200;">
-								<option value=0 selected>Ningun Profesional</option>
-								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-								l_sql = "SELECT  * "
-								l_sql  = l_sql  & " FROM recursosreservables "
-								l_sql  = l_sql  & " WHERE recursosreservables.empnro = " & Session("empnro")
-								l_sql  = l_sql  & " ORDER BY descripcion "
-								rsOpen l_rs, cn, l_sql, 0
-								do until l_rs.eof		%>	
-								<option value= <%= l_rs("id") %> > 
-								<%= l_rs("descripcion") %> </option>
-								<%	l_rs.Movenext
-								loop
-								l_rs.Close %>
-							</select>
-							<script>document.datos.idrecursoreservable.value="<%= l_idrecursoreservable %>"</script>
+						<td colspan="3">
+							<div class="ui-widget">
+								<input type="text" id="med_derivador" name="med_derivador">					
+								<a id ="but_display_med_deirv" tabindex="-1" class="ui-button ui-widget ui-state-default ui-button-icon-only custom-combobox-toggle ui-corner-right" role="button" title="Show All Items"><span class="ui-button-icon-primary ui-icon ui-icon-triangle-1-s"></span><span class="ui-button-text"></span></a>
+								<input type="hidden" name="idmedicoderivador" id="idmedicoderivador">
+								<script>document.datos.idmedicoderivador.value="<%= l_idmedicoderivador %>"</script>	
+								<script>document.datos.med_derivador.value="<%= l_med_derivador %>"</script>	
+								<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('medicos_derivadores_02.asp?Tipo=A')"><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Agragar Medico Derivador"></a> 
+							</div>
 						</td>					
 					</tr>			
 					
@@ -452,73 +440,7 @@ end select
 						</td>					
 					</tr>								
 					
-									<!-- 
-					<tr>
-					    <td align="right"><b>Madre - Apellido y Nombre:</b></td>
-						<td>
-							<input type="text" name="legapenommad" size="20" maxlength="20" value="<%'= l_legapenommad %>">
-						</td>
-						<td align="right"><b>Dom:</b></td>						
-						<td>
-							<input type="text" name="legdommad" size="20" maxlength="20" value="<%'= l_legdommad %>">
-							<b>Tel:</b> <input type="text" name="legtelmad" size="10" maxlength="20" value="<%'= l_legtelmad %>">						
-						</td>							
-					</tr>																				
-					<tr>
-					    <td align="right"><b>Padre - Apellido y Nombre:</b></td>
-						<td>
-							<input type="text" name="legapenompad" size="20" maxlength="20" value="<%'= l_legapenompad  %>">
-						</td>
-						<td align="right"><b>Dom:</b></td>												
-						<td>
-							<input type="text" name="legdompad" size="20" maxlength="20" value="<%'= l_legdompad %>">
-							<b>Tel:</b> <input type="text" name="legtelpad" size="10" maxlength="20" value="<%'= l_legtelpad %>">
-						</td>						
-					</tr>					
-					<tr>
-					    <td align="right"><b>Instituciones Intervinientes:</b></td>
-						<td colspan="3">
-							<input type="text" name="legins" size="80" maxlength="20" value="<%'= l_legins %>">
-						</td>
-					</tr>																				
-					<tr>
-					    <td align="right"><b>Instituciones Educativas:</b></td>
-						<td colspan="3">
-							<input type="text" name="leginsedu" size="80" maxlength="20" value="<%'= l_leginsedu %>">
-						</td>
-					</tr>																									
-					<tr>
-					    <td align="right"><b>Cobertura Social de la Familia:</b></td>
-						<td colspan="3">
-							<input type="text" name="legcobsoc" size="80" maxlength="20" value="<%'= l_legcobsoc %>">
-						</td>
-					</tr>																														
-					<tr>
-					    <td align="right"><b>Estrategias de Intervención:</b></td>
-						<td colspan="3">
-							<input type="text" name="legabo" size="80" maxlength="20" value="<%'= l_legabo %>">
-						</td>
-					</tr>					
-					<tr>
-						<td align="right"><b>Medidas Protección:</b></td>
-						<td colspan="3"><select name="mednro" size="1" style="width:150;">
-								<option value=0 selected>&nbsp;</option>
-								<%'Set l_rs = Server.CreateObject("ADODB.RecordSet")
-								'l_sql = "SELECT  * "
-								'l_sql  = l_sql  & " FROM ser_medida "
-								'l_sql  = l_sql  & " ORDER BY meddes "
-								'rsOpen l_rs, cn, l_sql, 0
-								'do until l_rs.eof		%>	
-								<option value= <%'= l_rs("mednro") %> > 
-								<%'= l_rs("meddes") %> (<%'=l_rs("mednro")%>) </option>
-								<%'	l_rs.Movenext
-								'loop
-								'l_rs.Close %>
-							</select>
-							<script>document.datos.mednro.value= "<%'= l_mednro %>"</script>
-						</td>					
-					</tr>					
-					 -->						
+														
 					</table>
 				</td>
 			</tr>
@@ -527,18 +449,38 @@ end select
 </tr>
 <tr>
     <td colspan="2" align="right" class="th">
-		<a class=sidebtnABM href="Javascript:Validar_Formulario()">Aceptar</a>
+		<a class=sidebtnABM href="Javascript:Validar_Formulario_turno()">Aceptar</a>
 		<a class=sidebtnABM href="Javascript:window.close()">Cancelar</a>
 	</td>
 </tr>
 
 </table>
-<iframe name="valida" style="visibility=hidden;" src="" width="100%" height="100%"></iframe> 
+<iframe name="valida" style="visibility=hidden;" src="" width="0%" height="0%"></iframe> 
 </form>
 <%
 set l_rs = nothing
 cn.Close
 set cn = nothing
 %>
+
+		<!--	PARAMETRIZACION DE VENTANAS MODALES        -->
+		<!--	URL´s        -->
+		<input type="hidden" id="url_AM" value="medicos_derivadores_03.asp">
+		<input type="hidden" id="url_valid_06" value="medicos_derivadores_06.asp">	
+		<input type="hidden" id="url_baja" value="0">	
+		<input type="hidden" id="url_base_baja" value="medicos_derivadores_04.asp?">	
+		
+		<!--	DIV´s Dialogos       -->
+		<input type="hidden" id="id_dialog" value="dialog">
+		<input type="hidden" id="width_dialog" value="300">
+		<input type="hidden" id="height_dialog" value="auto">		
+		<div id="dialog" title="Nuevo Medico Derivador"> 			</div>	  
+		
+		<input type="hidden" id="id_dialogAlert" value="dialogAlert">
+		<div id="dialogAlert" title="Mensaje">				</div>	
+		
+		<input type="hidden" id="id_dialogConfirmDelete" value="dialogConfirmDelete">
+		<div id="dialogConfirmDelete" title="Consulta">		</div>		
+		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->	
 </body>
 </html>

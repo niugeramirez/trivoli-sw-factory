@@ -83,7 +83,10 @@ end function
 l_tipo 		               = request.querystring("tipo")
 l_idvisita                 = request.Form("idvisita")
 l_practicaid 			   = request.Form("practicaid")
-l_solicitadopor			   = request.Form("idrecursoreservable")
+l_solicitadopor			   = request.Form("idmedicoderivador")
+if l_solicitadopor = "" then
+	l_solicitadopor = 0
+end if
 
 l_idpracticarealizada      = request.Form("idpracticarealizada") 
 l_precio 				   = request.Form("precio2")
