@@ -66,12 +66,12 @@ else
 	l_sql = l_sql & " WHERE fechahorainicio >=" & cambiaformato (l_fechadesde,l_horadesde )
 	l_sql = l_sql & " AND fechahorainicio<=" & cambiaformato (l_fechahasta,l_horahasta )
 	
-	if l_tipo = "B" then ' Bloquear
+	'if l_tipo = "B" then ' Bloquear
 		l_sql = l_sql & " AND estado='ACTIVO'"
 		l_sql = l_sql & " AND calendarios.id in (SELECT idcalendario FROM turnos )" 
-	else
-		l_sql = l_sql & " AND estado='ACTIVO'"
-	end if
+	'else
+	'	l_sql = l_sql & " AND estado='ACTIVO'"
+	'end if
 	l_sql = l_sql & " AND idrecursoreservable=" & l_idrecursoreservable
 	l_sql = l_sql & " and calendarios.empnro = " & Session("empnro")  
 								
@@ -81,7 +81,7 @@ else
 	'l_sql = l_sql & " and clientespacientes.empnro = " & Session("empnro")   
 	rsOpen l_rs, cn, l_sql, 0
 	if not l_rs.eof then
-	    texto =  "Tiene Calendarios asignados para el Rango de Fechas ingresado." & l_rs("id") 
+	    texto =  "Tiene Calendarios asignados para el Rango de Fechas ingresado." '& l_rs("id") 
 	end if 
 	l_rs.close
 	
