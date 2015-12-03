@@ -61,13 +61,14 @@ $(function () {
 	//$("#dialog").dialog({
 	$("#"+$("#id_dialog").val()).dialog({
 		autoOpen: false,
-		modal: true,
+		modal: true,		
 		buttons: {
 					"Aceptar": function () {
 											Validar_Formulario();											
 											},
 					"Cerrar": function () {
 											$(this).dialog("close");
+											$(this).empty();
 											}
 			}
 	});
@@ -131,7 +132,8 @@ function valido(){
 	$.post($("#url_AM").val(), $( "#datos" ).serialize(),
 			function(data) {     
 								if(data=="OK") {
-									$("#"+$("#id_dialog").val()).dialog("close");  
+									$("#"+$("#id_dialog").val()).dialog("close"); 
+									$("#"+$("#id_dialog").val()).empty();									
 									window.parent.ifrm.location.reload();
 								}
 								else {
