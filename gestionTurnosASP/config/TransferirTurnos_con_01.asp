@@ -116,7 +116,7 @@ function Seleccionar(fila,cabnro){
 <% 
 
 l_filtro = replace (l_filtro, "*", "%")
-
+'response.write "l_filtro "&l_filtro&"<br/>"
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 Set l_rs2 = Server.CreateObject("ADODB.RecordSet")
