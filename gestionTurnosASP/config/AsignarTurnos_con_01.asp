@@ -76,6 +76,9 @@ function Seleccionar(fila,cabnro, turnoid){
 <%
 l_filtro = replace (l_filtro, "*", "%")
 l_idrecursoreservable = request("idrecursoreservable")
+if l_idrecursoreservable = "" then
+  l_idrecursoreservable = "0"
+end if
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 

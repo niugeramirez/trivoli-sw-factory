@@ -233,20 +233,15 @@ function Ayuda_Fecha(txt)
 
 function Limpiar(){
 
-	document.datos.fechadesde.value = "<%= date() - 1 %>";
-	document.datos.fechahasta.value = "<%= date() %>";
+	//document.datos.fechadesde.value = "<%= date() - 1 %>";
+	document.datos.fechadesde.value = "<%= l_fecha %>";
+	
+	//document.datos.fechahasta.value = "<%= date() %>";
 
-	document.datos.sernro.value     = 0;
-	document.datos.pronro.value     = 0;	
-/*	
-	document.datos.pronro.value     = 0;
-	document.datos.ternro.value     = 0;
-	document.datos.pornro.value     = 0;
-	document.datos.clinro.value     = 0;	
-	document.datos.ctrnum.value     = 0;	
-	document.datos.txtctrnum.value  = "";	
-*/	
-	window.ifrm.location = 'buques_con_01.asp';
+	//document.datos.sernro.value     = 0;
+	//document.datos.pronro.value     = 0;	
+
+	window.ifrm.location = 'AsignarTurnos_con_01.asp';
 }
 
 function Contenido(){ 
