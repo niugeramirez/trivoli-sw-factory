@@ -116,7 +116,7 @@ function Buscar(){
 			tieneotro = "si";
 		}
 		if (validarfecha(document.datos.fechadesde)){
-			document.datos.filtro.value += " CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  >= " + cambiafecha(document.datos.fechadesde.value,true,1) + "";
+			document.datos.filtro.value += " CONVERT(VARCHAR(10), calendarios.fechahorainicio, 111)  >= " + cambiafechaYYYYMMDD(document.datos.fechadesde.value,true,1) + "";
 			tieneotro = "si";
 		}else{
 			estado = "no";
@@ -130,7 +130,7 @@ function Buscar(){
 			tieneotro = "si";
 		}
 		if (validarfecha(document.datos.fechahasta)){
-			document.datos.filtro.value += " CONVERT(VARCHAR(10), calendarios.fechahorainicio, 101)  <= " + cambiafecha(document.datos.fechahasta.value,true,1) + "";
+			document.datos.filtro.value += " CONVERT(VARCHAR(10), calendarios.fechahorainicio, 111)  <= " + cambiafechaYYYYMMDD(document.datos.fechahasta.value,true,1) + "";
 			tieneotro = "si";
 		}else{
 			estado = "no";

@@ -272,6 +272,17 @@ auxi  = actual.substr(3,2) + "/" + actual.substr(0,2) + "/" + actual.substr(6,4)
   return auxi;
 }
 
+function cambiafechaYYYYMMDD(actual,ctf,base){
+//devuelve la fecha en orden YYYY/MM/DD 
+  var auxi;
+
+auxi  = actual.substr(6,4) + "/" + actual.substr(3,2) + "/" +actual.substr(0,2) ;
+
+  if (ctf)
+  	auxi= "'"+auxi+"'";
+  return auxi;
+}
+
 function menorque(fecha1,fecha2){
 	var f1= new Date(); 
 	f1.setFullYear(fecha1.substr(6,4),fecha1.substr(3,2)-1,fecha1.substr(0,2));
