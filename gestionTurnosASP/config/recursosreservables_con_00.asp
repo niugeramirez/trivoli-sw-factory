@@ -16,34 +16,91 @@ Dim l_sql
 
 <html>
 <head>
-<style  type="text/css">
-    .title {background-color:#009999;
-            color:white;
-            text-align:left;
-            padding:5px;
-            font-weight:bold;}
-    .colWidth25{width:25%}
-</style>
-
-<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 
 <title>Administracion de Medicos</title>
+
+<link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css" />
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery-ui.js"></script>
+
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 
 <script src="/turnos/shared/js/fn_windows.js"></script>
 <script src="/turnos/shared/js/fn_confirm.js"></script>
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
 <script src="/turnos/shared/js/fn_fechas.js"></script>
+
+<!--	VENTANAS MODALES        -->
+<script src="../js/ventanas_modales_custom_V2.js"></script>
+
+<script>
+function Validaciones_locales(){
+	if (document.datos_02.descripcion.value == ""){
+		alert("Debe ingresar el Apellido del Medico.");
+		document.datos_02.descripcion.focus();
+		return false;
+	}
+
+	if (document.datos_02.idtemplatereserva.value == 0){
+		alert("Debe ingresar el Modelo.");
+		document.datos_02.idtemplatereserva.focus();
+		return false;
+	}
+
+	if (document.datos_02.cantturnossimult.value == ""){
+		alert("Debe ingresar la Cantidad de Turnos Simultaneos.");
+		document.datos_02.cantturnossimult.focus();
+		return false;
+	}
+	
+	return true;
+}
+
+function Submit_Formulario() {
+	Validar_Formulario(	'dialog'								//id_dialog
+						,'recursosreservables_con_06.asp'		//url_valid_06
+						,'recursosreservables_con_03.asp'		//url_AM
+						,'dialogAlert'							//id_dialogAlert
+						,'datos_02'								//id_form_datos
+						,window.parent.ifrm.location			//location_reload
+						,Validaciones_locales					//funcion_Validaciones_locales
+					);
+} 
+
+$(document).ready(function() { 
+								inicializar_dialogAlert("dialogAlert"									//id_dialogAlert
+														);
+								inicializar_dialogConfirmDelete(	"dialogConfirmDelete"				//id_dialogConfirmDelete
+																	,"recursosreservables_con_04.asp"	//url_baja
+																	,"dialogAlert"						//id_dialogAlert
+																	,"detalle_01"						//id_form_datos
+																	,"ifrm"								//id_ifrm_form_datos
+																	,window.parent.ifrm.location		//location_reload
+																	);
+								inicializar_dialogoABM(	"dialog" 										//id_dialog
+														,"recursosreservables_con_06.asp"				//url_valid_06
+														,"recursosreservables_con_03.asp"				//url_AM
+														,"dialogAlert"									//id_dialogAlert	
+														,"datos_02"										//id_form_datos		
+														,window.parent.ifrm.location					//location_reload
+														,Validaciones_locales							//funcion_Validaciones_locales														
+														); 
+							});
+</script>
+<!--	FIN VENTANAS MODALES    -->
+
 <script>
 
 function Buscar(){
-	document.datos.filtro.value = "";
+
+	$("#filtro_00").val("");
 
 	// Apellido
-	if (document.datos.inpapellido.value != 0){
-		document.datos.filtro.value += " recursosreservables.descripcion like '*" + document.datos.inpapellido.value + "*'";
+	if ($("#inpapellido").val() != 0){
+		$("#filtro_00").val(" recursosreservables.descripcion like '*" + $("#inpapellido").val() + "*'");
 	}		
     
-    window.ifrm.location = 'recursosreservables_con_01.asp?asistente=0&filtro=' + document.datos.filtro.value;
+	window.ifrm.location = 'recursosreservables_con_01.asp?asistente=0&filtro=' + $("#filtro_00").val();
 }
 
 function Limpiar(){
@@ -53,7 +110,6 @@ function Limpiar(){
 </head>
 
 <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
-    <form name="datos">
     <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
         <tr>
             <td align="left">
@@ -68,7 +124,7 @@ function Limpiar(){
         </tr>
         <tr>
 			<td>
-                <input type="hidden" name="filtro" value="">
+                <input type="hidden" id="filtro_00" name="filtro_00" value="">
 				<table border="0" width="100%">
                     <colgroup>
                         <col class="colWidth25">
@@ -79,12 +135,12 @@ function Limpiar(){
                     <tbody>
 				    <tr>
 					    <td><b>Apellido: </b></td>
-						<td><input  type="text" name="inpapellido" size="21" maxlength="21" value="" ></td>
+						<td><input  type="text" id="inpapellido" name="inpapellido" size="21" maxlength="21" value="" ></td>
 					    <td></td>
                         <td align="center">
                             <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar">
-                            <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/turnos/shared/images/Limpiar_24.png" border="0" title="Limpiar">
-                            <a class="sidebtnABM" href="Javascript:abrirVentana('recursosreservables_con_02.asp?Tipo=A','',650,250);" ><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Agregar Medico">
+                            <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/turnos/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
+							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','recursosreservables_con_02.asp?Tipo=A',650,250)"><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Agregar Medico"></a>    
                         </td>
                     </tr>
 					</tbody>
@@ -93,11 +149,18 @@ function Limpiar(){
 		</tr>		
 		<tr valign="top" height="100%">
             <td>
-      	        <iframe scrolling="yes" name="ifrm" src="recursosreservables_con_01.asp" width="100%" height="100%"></iframe> 
+      	        <iframe id="ifrm" name="ifrm" src="recursosreservables_con_01.asp" width="100%" height="100%"></iframe> 
 	        </td>
         </tr>		
 	</table>
-    </form>
+	
+		<!--	PARAMETRIZACION DE VENTANAS MODALES        -->				
+		<div id="dialog" title="Medicos"> 			</div>	  
+				
+		<div id="dialogAlert" title="Mensaje">				</div>	
+		
+		<div id="dialogConfirmDelete" title="Consulta">		</div>		
+		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 
 <script>

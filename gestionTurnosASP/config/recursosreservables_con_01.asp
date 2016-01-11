@@ -36,22 +36,6 @@ end if
 <title>Administracion de Medicos</title>
 </head>
 
-<script>
-var jsSelRow = null;
-
-function Deseleccionar(fila){
-	fila.className = "MouseOutRow";
-}
-
-function Seleccionar(fila,cabnro){
-	if (jsSelRow != null){
-		Deseleccionar(jsSelRow);
-	};
-	document.datos.cabnro.value = cabnro;
-	fila.className = "SelectedRow";
-	jsSelRow = fila;
-}
-</script>
 
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar();">
 <table>
@@ -69,10 +53,6 @@ function Seleccionar(fila,cabnro){
     l_sql = l_sql & " FROM recursosreservables "
     l_sql = l_sql & " LEFT JOIN templatereservas ON templatereservas.id = recursosreservables.idtemplatereserva "
 	' Multiempresa
-	' Se elimina este filtro y se reemplaza por el codigo de abajo
-    'if l_filtro <> "" then
-    '  l_sql = l_sql & " WHERE " & l_filtro & " "
-    'end if
 	if l_filtro <> "" then
 	  l_sql = l_sql & " WHERE " & l_filtro & " "
 	  l_sql = l_sql & " and recursosreservables.empnro = " & Session("empnro")   
@@ -99,14 +79,14 @@ function Seleccionar(fila,cabnro){
 	    do until l_rs.eof
 		    l_cant = l_cant + 1
 	    %>
-	    <tr ondblclick="Javascript:parent.abrirVentana('recursosreservables_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',650,250)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
-	        <td width="10%" nowrap><%= l_rs("descripcion")%></td>
+	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','recursosreservables_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
+			<td width="10%" nowrap><%= l_rs("descripcion")%></td>
 			<td width="10%" nowrap><%= l_rs("titulo")%></td>
 	        <td width="10%" nowrap align="center"><%= l_rs("cantturnossimult")%></td>						
-	        <td align="center" width="10%" nowrap>    
-                <a href="Javascript:parent.abrirVentana('recursosreservables_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',650,250);"><img src="/turnos/shared/images/Modificar_16.png" border="0" title="Editar Medico"></a>						
-                <a href="Javascript:eliminarRegistro(parent.document.ifrm,'recursosreservables_con_04.asp?cabnro=' + datos.cabnro.value);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Eliminar Medico"></a>						
-            </td>
+	        <td align="center" width="10%" nowrap>                    
+                <a href="Javascript:parent.abrirDialogo('dialog','recursosreservables_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
+				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
+			</td>
         </tr>
 	    <%
 		    l_rs.MoveNext
@@ -119,8 +99,8 @@ function Seleccionar(fila,cabnro){
     set cn = Nothing
     %>
 </table>
-<form name="datos" method="post">
-    <input type="hidden" name="cabnro" value="0">
+<form name="detalle_01" id="detalle_01" method="post">
+    <input type="hidden" id="cabnro" name="cabnro" value="0">
     <input type="hidden" name="orden" value="<%= l_orden %>">
     <input type="hidden" name="filtro" value="<%= l_filtro %>">
 </form>
