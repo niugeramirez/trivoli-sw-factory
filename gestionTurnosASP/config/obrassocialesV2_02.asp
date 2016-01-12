@@ -42,9 +42,8 @@ select Case l_tipo
 		l_rs.Close
 end select
 %>
-<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="JavaScript:document.datos.descripcion.focus()">
-	<!--<form name="datos" action="obrassociales_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">-->
-	<form name="datos" id="datos" action = "Javascript:Validar_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Validar_Formulario();}"  target="valida">
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="JavaScript:document.datos_02.descripcion.focus()">
+	<form name="datos_02" id="datos_02" action = "Javascript:Submit_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario();}"  target="valida">
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
 

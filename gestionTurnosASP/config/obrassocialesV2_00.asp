@@ -26,21 +26,53 @@
 <script src="../shared/js/fn_confirm.js"></script>
 <script src="../shared/js/fn_ayuda.js"></script>
 
+<!--	VENTANAS MODALES        -->
+<script src="../js/ventanas_modales_custom_V2.js"></script>
 
 <script>
-//Esto va antes de la importacion de ventanas_modales_custom.js
 function Validaciones_locales(){
-	if (Trim(document.datos.descripcion.value) == ""){
+	if (Trim(document.datos_02.descripcion.value) == ""){
 		abrirAlert("Debe ingresar la Descripci&oacute;n de la Obra Social.");
-		document.datos.descripcion.focus();
+		document.datos_02.descripcion.focus();
 		return false;
 		}
 	else{
 		return true;
 	}
 }
+
+function Submit_Formulario() {
+	Validar_Formulario(	'dialog'								//id_dialog
+						,'obrassocialesV2_06.asp'		//url_valid_06
+						,'obrassocialesV2_03.asp'		//url_AM
+						,'dialogAlert'							//id_dialogAlert
+						,'datos_02'								//id_form_datos
+						,window.parent.ifrm.location			//location_reload
+						,Validaciones_locales					//funcion_Validaciones_locales
+					);
+} 
+
+$(document).ready(function() { 
+								inicializar_dialogAlert("dialogAlert"									//id_dialogAlert
+														);
+								inicializar_dialogConfirmDelete(	"dialogConfirmDelete"				//id_dialogConfirmDelete
+																	,"obrassocialesV2_04.asp"	//url_baja
+																	,"dialogAlert"						//id_dialogAlert
+																	,"detalle_01"						//id_form_datos
+																	,"ifrm"								//id_ifrm_form_datos
+																	,window.parent.ifrm.location		//location_reload
+																	);
+								inicializar_dialogoABM(	"dialog" 										//id_dialog
+														,"obrassocialesV2_06.asp"				//url_valid_06
+														,"obrassocialesV2_03.asp"				//url_AM
+														,"dialogAlert"									//id_dialogAlert	
+														,"datos_02"										//id_form_datos		
+														,window.parent.ifrm.location					//location_reload
+														,Validaciones_locales							//funcion_Validaciones_locales														
+														); 
+							});
 </script>
-<script src="../js/ventanas_modales_custom.js"></script>
+<!--	FIN VENTANAS MODALES    -->
 
 </head>
 <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
@@ -55,7 +87,7 @@ function Validaciones_locales(){
           <td align="left" class="barra"></td>
 		  
           <td nowrap align="right" class="barra">          		  
-			<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('obrassocialesV2_02.asp?Tipo=A')"><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Alta"></a>          
+			<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','obrassocialesV2_02.asp?Tipo=A',600,300)"><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Alta"></a>          
 		  </td>
 		  
         </tr>
@@ -67,23 +99,11 @@ function Validaciones_locales(){
 		
       </table>
 		
-		<!--	PARAMETRIZACION DE VENTANAS MODALES        -->
-		<!--	URL´s        -->
-		<input type="hidden" id="url_AM" value="obrassocialesV2_03.asp">
-		<input type="hidden" id="url_valid_06" value="obrassocialesV2_06.asp">	
-		<input type="hidden" id="url_baja" value="0">	
-		<input type="hidden" id="url_base_baja" value="obrassocialesV2_04.asp?">	
-		
-		<!--	DIV´s Dialogos       -->
-		<input type="hidden" id="id_dialog" value="dialog">
-		<input type="hidden" id="width_dialog" value="600">
-		<input type="hidden" id="height_dialog" value="300">		
+		<!--	PARAMETRIZACION DE VENTANAS MODALES        -->		
 		<div id="dialog" title="Obras Sociales"> 			</div>	  
 		
-		<input type="hidden" id="id_dialogAlert" value="dialogAlert">
 		<div id="dialogAlert" title="Mensaje">				</div>	
 		
-		<input type="hidden" id="id_dialogConfirmDelete" value="dialogConfirmDelete">
 		<div id="dialogConfirmDelete" title="Consulta">		</div>		
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>

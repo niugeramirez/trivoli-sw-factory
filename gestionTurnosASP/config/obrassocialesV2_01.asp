@@ -30,23 +30,6 @@ end if
 <title>Obras Sociales</title>
 </head>
 
-<script>
-var jsSelRow = null;
-
-function Deseleccionar(fila){
-	fila.className = "MouseOutRow";
-}
-
-function Seleccionar(fila,cabnro){
-	if (jsSelRow != null){
-		Deseleccionar(jsSelRow);
-	};
-	document.datos.cabnro.value = cabnro;
-	fila.className = "SelectedRow";
-	jsSelRow = fila;
-}
-</script>
-
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0">
 <table>
     <tr>
@@ -73,12 +56,12 @@ if l_rs.eof then%>
 <%else
 	do until l_rs.eof
 	%>
-	    <tr ondblclick="Javascript:parent.abrirDialogo('obrassocialesV2_02.asp?Tipo=M&cabnro=' + datos.cabnro.value)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
+	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','obrassocialesV2_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,600,300)" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">
             <td width="20%" nowrap><%= l_rs("descripcion")%></td>
 	        <td align="center" width="10%" nowrap>                    
-				<a href="Javascript:parent.abrirDialogo('obrassocialesV2_02.asp?Tipo=M&cabnro=' + document.datos.cabnro.value);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                								
-				<a href="Javascript:parent.eliminarRegistroAJAX(document);"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
-				<a href="Javascript:parent.abrirVentanaVerif('listadeprecios_con_00.asp?id=' + document.datos.cabnro.value,'',520,200);"><img src="../shared/images/Ecommerce-Price-Tag-icon.png" border="0" title="Lista de Precios"></a>								  
+				<a href="Javascript:parent.abrirDialogo('dialog','obrassocialesV2_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,600,300);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                								
+				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
+				<a href="Javascript:parent.abrirVentana('listadeprecios_con_00.asp?id=' + document.detalle_01.cabnro.value,'',520,200);"><img src="../shared/images/Ecommerce-Price-Tag-icon.png" border="0" title="Lista de Precios"></a>								  
 			</td>			
 	    </tr>
 	<%
@@ -91,10 +74,10 @@ cn.Close
 set cn = Nothing
 %>
 </table>
-<form name="datos" method="post">
-<input type="hidden" id="cabnro" name="cabnro" value="0">
-<input type="hidden" name="orden" value="<%= l_orden %>">
-<input type="hidden" name="filtro" value="<%= l_filtro %>">
+<form name="detalle_01" id="detalle_01" method="post">
+	<input type="hidden" id="cabnro" name="cabnro" value="0">
+	<input type="hidden" name="orden" value="<%= l_orden %>">
+	<input type="hidden" name="filtro" value="<%= l_filtro %>">
 </form>
 </body>
 </html>

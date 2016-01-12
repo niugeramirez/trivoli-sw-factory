@@ -10,7 +10,7 @@ Dim l_rs
 Dim l_sql
 Dim l_id
 	
-l_id = request.querystring("cabnro")
+l_id = request.Form("cabnro")
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 set l_cm = Server.CreateObject("ADODB.Command")
 l_rs.close
