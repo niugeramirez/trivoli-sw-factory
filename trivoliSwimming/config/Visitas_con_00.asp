@@ -1,0 +1,310 @@
+<% Option Explicit %>
+<!--#include virtual="/turnos/shared/inc/sec.inc"-->
+<!--#include virtual="/turnos/shared/inc/const.inc"-->
+<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<% 
+'Archivo: contracts_con_00.asp
+'Descripción: ABM de Contracts
+'Autor : Raul Chinestra
+'Fecha: 27/11/2007
+
+' Son las listas de parametros a pasarle a los programas de filtro y orden
+' En las mismas se deberan poner los valores, separados por un punto y coma
+
+on error goto 0
+
+' Filtro
+  Dim l_Etiquetas  ' Son los nombres que deben aparecer en la ventana para que el usuario seleccione
+  Dim l_Campos     ' Son los campos de la base que apareceran en la clausula where, que deben estar asociados a las etiquetas
+  Dim l_Tipos      ' Son los tipos de datos que tienen los campos (N=Numerico, T=Texto y F=Fecha)
+
+' Orden
+  Dim l_Orden      ' Son las etiquetas que aparecen en el orden
+  Dim l_CamposOr   ' Son los campos para el orden
+  
+' Filtro
+  l_etiquetas = "Descripción:;Area"
+  l_Campos    = "coudes;aredes"
+  l_Tipos     = "T;T"
+
+' Orden
+  l_Orden     = "P/S:;Ctr Num:;Date:;Client:;Quality:;Volumen:;Port:;Term:;Company:;Product:"
+  l_CamposOr  = "conpursal;ctrnum;confec;clidesabr;quadesabr;conquantity;pordes;terdes;comdesabr;prodesabr"
+
+  Dim l_rs
+  Dim l_sql
+  
+  Dim l_dia
+  Dim l_mes
+  Dim l_anio
+  Dim l_id
+  Dim l_fecha
+  
+  Dim l_buscar
+  
+l_dia = Request.Querystring("day")  
+l_mes = Request.Querystring("Month")
+l_anio = Request.Querystring("Year")
+l_id = Request.Querystring("id")
+
+If IsEmpty(l_dia) then 
+	l_fecha = date()
+else
+	l_fecha = cstr(l_dia) & "/" & cstr(l_mes) & "/" & cstr(l_anio)
+end if 
+
+l_buscar = true
+If IsEmpty(l_id) then   
+	l_buscar = false
+	l_id = 0
+end if
+%>
+<html>
+<head>
+<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<!--<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
+<title>Visitas</title>
+<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/turnos/shared/js/fn_confirm.js"></script>
+<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/turnos/shared/js/fn_fechas.js"></script>
+<!-- Comienzo Datepicker -->
+<link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css">
+<script src="../js/jquery-1.8.0.js"></script>
+<script src="../js/jquery-ui.js"></script>  
+<script src="../js/jquery.ui.datepicker-es.js"></script>
+<script>
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1
+});
+
+		
+$( "#fechadesde" ).datepicker({
+	showOn: "button",
+	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+
+});
+</script>
+<!-- Final Datepicker -->
+
+<script>
+
+function orden(pag){
+	abrirVentana('../shared/asp/orden_browse.asp?pagina='+pag+'&lista=<%= l_orden %>&campos=<%= l_camposOr%>&filtro='+escape(document.ifrm.datos.filtro.value),'',350,160)
+}
+
+function filtro(pag){
+	abrirVentana('../shared/asp/filtro_browse.asp?pagina='+pag+'&campos=<%= l_campos%>&tipos=<%=l_tipos%>&etiquetas=<%=l_etiquetas%>&orden='+document.ifrm.datos.orden.value,'',250,160);
+}
+
+function llamadaexcel(){ 
+	if (filtro == "")
+		Filtro(true);
+	else
+		abrirVentana("contracts_con_excel.asp?orden=" + document.ifrm.datos.orden.value + "&filtro=" + escape(document.ifrm.datos.filtro.value),'execl',250,150);
+}
+
+
+function Buscar(){
+	var tieneotro;
+	var estado;
+	document.datos.filtro.value = "";
+	tieneotro = "no";
+	estado = "si";
+
+	// fec. desde
+	if (document.datos.fechadesde.value != ""){
+		if (tieneotro == "si"){
+			document.datos.filtro.value += " AND " ;
+			tieneotro = "si";
+		}
+		if (validarfecha(document.datos.fechadesde)){
+			document.datos.filtro.value += " CONVERT(VARCHAR(10), visitas.fecha, 101)  = " + cambiafecha(document.datos.fechadesde.value,true,1) + "";
+			tieneotro = "si";
+		}else{
+			estado = "no";
+		}
+	}
+
+	
+	if (document.datos.id.value == "0"){
+		alert("Debe ingresar un Medico.");
+		document.datos.id.focus();
+		return;
+	}	
+	
+	
+	if (document.datos.id.value != 0){
+		if (tieneotro == "si"){
+			document.datos.filtro.value += " AND visitas.idrecursoreservable = " + document.datos.id.value + "";
+		}else{
+			document.datos.filtro.value += " visitas.idrecursoreservable = " + document.datos.id.value + "";
+		}
+		tieneotro = "si";
+	}	
+
+	if (estado == "si"){
+		window.ifrm.location = 'visitas_con_01.asp?idrecursoreservable=' + document.datos.id.value + '&filtro=' + document.datos.filtro.value;
+	}
+}
+
+
+function Nuevo_Dialogo(w_in, pagina, ancho, alto)
+{
+ return w_in.showModalDialog(pagina,'', 'center:yes;dialogWidth:' + ancho.toString() + ';dialogHeight:' + alto.toString() + ';');
+}
+function Ayuda_Fecha(txt)
+{
+ var jsFecha = Nuevo_Dialogo(window, '/turnos/shared/js/calendar.html', 16, 15);
+
+ if (jsFecha == null) txt.value = ''
+ else txt.value = jsFecha;
+}
+
+function Limpiar(){
+
+	document.datos.fechadesde.value = "<%= date() - 1 %>";
+	//document.datos.fechahasta.value = "<%= date() %>";
+
+	document.datos.id.value     = 0;
+
+	window.ifrm.location = 'visitas_con_01.asp';
+}
+
+function Contenido(){ 
+	if (document.ifrm.datos.cabnro.value == 0) {
+		alert("Debe seleccionar un Buque")
+		return;
+	}		
+	else {
+		abrirVentana("contenidos_con_00.asp?buqnro=" + document.ifrm.datos.cabnro.value,'',780,580);	
+	}		
+	
+}
+
+function fnctrnum(valor){
+	if (valor == 0){
+		document.datos.txtctrnum.disabled = true;
+		document.datos.txtctrnum.className = "deshabinp";
+	}else{
+		document.datos.txtctrnum.disabled = false;
+		document.datos.txtctrnum.className = "habinp";
+	}
+}
+
+function TotalVolumen(valor){
+	document.datos.totvol.value =  valor;
+}
+
+
+function AltaVisita(){ 
+
+	if (document.datos.id.value == 0) {
+		alert("Debe seleccionar un Medico")
+		return;
+	}		
+	else {
+		//abrirVentana("contenidos_con_00.asp?buqnro=" + document.ifrm.datos.cabnro.value,'',780,580);	
+		abrirVentana("altavisita_con_02.asp?Tipo=A&fechadesde="+ document.datos.fechadesde.value + "&idrecursoreservable="+ document.datos.id.value,'',650,350);
+	}		
+	
+}
+
+function AltaVisitaconTurno(){ 
+
+	if (document.datos.id.value == 0) {
+		alert("Debe seleccionar un Medico")
+		return;
+	}		
+	else {
+		//abrirVentana("contenidos_con_00.asp?buqnro=" + document.ifrm.datos.cabnro.value,'',780,580);	
+		abrirVentana("altavisitaconturno_con_00.asp?Tipo=A&fechadesde="+ document.datos.fechadesde.value + "&idrecursoreservable="+ document.datos.id.value,'',800,600);
+	}		
+	
+}
+
+</script>
+</head>
+<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" onload="Javascript:document.datos.fechadesde.focus();">
+      <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+        <tr style="border-color :CadetBlue;">
+          <td align="left" class="barra">&nbsp;</td>
+          <td nowrap align="right" class="barra">
+		  		  
+          
+		  <a class="sidebtnABM" href="Javascript:AltaVisita();" ><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Agregar Visitas sin Turno">
+		  &nbsp;&nbsp;		  
+		  
+		  <a class="sidebtnABM" href="Javascript:AltaVisitaconTurno();"><img  src="/turnos/shared/images/Add-Appointment-icon_24.png" border="0" title="Agregar Visitas con Turno"></a>
+		  &nbsp;&nbsp;
+          &nbsp;&nbsp;
+          &nbsp;&nbsp;
+          &nbsp;&nbsp;
+          
+		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		  
+		  </td>
+        </tr>		
+		<tr>
+			<td align="center" colspan="2">
+				<table border="0">
+					<form name="datos">
+					<input type="hidden" name="filtro" value="">
+
+					<tr>
+						<td align="right"><b>Fecha: </b></td>
+						<td><input  type="text" id="fechadesde"  name="fechadesde" size="10" maxlength="10" value="<%= l_fecha%>" >							
+						</td>
+						<td  align="right" nowrap><b>M&eacute;dico: </b></td>
+						<td><select name="id" size="1" style="width:200;">
+								<option value=0 selected>Seleccionar un M&eacute;dico</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT  * "
+								l_sql  = l_sql  & " FROM recursosreservables  "
+								l_sql = l_sql & " where empnro = " & Session("empnro")
+								l_sql  = l_sql  & " ORDER BY descripcion "
+								rsOpen l_rs, cn, l_sql, 0
+								do until l_rs.eof		%>	
+								<option value= <%= l_rs("id") %> > 
+								<%= l_rs("descripcion") %> </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>
+							</select>
+							<script>document.datos.id.value= "<%= l_id %>"</script>
+						</td>			
+						
+
+										<td ><a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar"></a></td>					
+								
+					</tr>
+
+
+
+					<tr>
+
+						
+					</tr>					
+
+				</table>
+			</td>
+		</tr>		
+		
+        <tr valign="top" height="100%">
+          <td colspan="2" style="" width="100%">
+      	  <iframe scrolling="yes" name="ifrm" src="" width="100%" height="100%"></iframe> 
+	      </td>
+        </tr>		
+			</form>		
+      </table>
+</body>
+
+
+</html>
