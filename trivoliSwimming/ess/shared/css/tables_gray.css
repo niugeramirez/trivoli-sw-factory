@@ -1,0 +1,219 @@
+BODY{
+	scrollbar-3dlight-color : Silver;
+	scrollbar-arrow-color : Silver;
+	scrollbar-face-color : White;
+	scrollbar-highlight-color : White;
+	scrollbar-shadow-color : Silver;
+	scrollbar-track-color : White;
+	scrollbar-darkshadow-color : White;
+	scrollbar-base-color : Silver;
+	border: none;
+}
+TABLE
+{
+	border : thick solid 1;
+	width : 100%;
+}
+TH
+{
+	background-color: #D0D2D5; /*#C0C2C6;*/
+	COLOR: #ffffff;
+	FONT-FAMILY: "Arial";
+	FONT-SIZE: 9pt;
+	FONT-WEIGHT: bold;
+	padding : 2 2 2 5;
+	width : auto;
+}
+.th2
+{
+	background-color: Navy;
+	COLOR: #ffffff;
+	FONT-FAMILY: "Arial";
+	FONT-SIZE: 9pt;
+	FONT-WEIGHT: bold;
+	padding : 2 2 2 5;
+}
+TR
+{
+	COLOR: #55739C; /*black;*/
+	FONT-FAMILY: Verdana;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: #F1F2F2; /* #F8F8F7;*/
+	padding : 2;
+	padding-left : 5;
+}
+.td3
+{
+	COLOR: black;
+	FONT-FAMILY: Verdana;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: #FFDEAD;
+	padding : 2;
+	padding-left : 5;
+}
+.tddef
+{
+	COLOR: Black;
+	FONT-FAMILY: Verdana;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: #CDCDCD;
+	padding : 2;
+	padding-left : 5;
+}
+A
+{
+	COLOR: Navy;
+	FONT-WEIGHT: bold;
+	TEXT-DECORATION: none;
+}
+TEXTAREA
+{
+	background : White;
+}
+.SelectedRow
+{
+	COLOR: Black;
+	FONT-FAMILY: Verdana;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: #DDDFE2;
+	padding : 2;
+	padding-left : 5;
+}
+h4
+{
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size : smaller;
+	font-style : normal;
+	color : Maroon;
+}
+.tr
+{
+	COLOR: black;
+	FONT-FAMILY: Verdana;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: #D2D2D5;
+	padding : 2;
+	padding-left : 5;
+}
+.tr2
+{
+	COLOR: black;
+	FONT-FAMILY: Verdana;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: #F0F8FF;
+	padding : 2;
+	padding-left : 5;
+}
+.tr3
+{
+	COLOR: black;
+	FONT-FAMILY: Verdana;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: #FFFAF2;
+	text-align : right;
+	vertical-align : middle;
+	height : 30px;
+}
+.box
+{
+	background-color : Navy;
+	color : White;
+	text-align : center;
+	font-family : Arial, Helvetica, sans-serif;
+	height : 20px;
+	width : 20px;
+	font-size : medium;
+}
+/* Aqui */
+A.sidebtn:hover {
+	BACKGROUND-COLOR: #8C0036;
+	BORDER-BOTTOM: #ffffff thin solid;
+	BORDER-LEFT: #ffffff thin solid;
+	BORDER-RIGHT: #ffffff thin solid;
+	BORDER-TOP: #ffffff thin solid;
+	COLOR: White;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	FONT-SIZE: 8pt;
+	HEIGHT: 12px;
+	LETTER-SPACING: -1;
+	LINE-HEIGHT: 8pt;
+	PADDING-LEFT: 2px;
+	PADDING-RIGHT: 2px;
+	PADDING-TOP: 2px;
+	PADDING-BOTTOM: 2px;
+	TEXT-ALIGN: center;
+	TEXT-DECORATION: none;
+	WIDTH: 75px;
+}
+.sidebtn {
+	
+}
+A.sidebtn {
+	BACKGROUND-COLOR: transparent;
+	BORDER-BOTTOM: thin solid Silver;
+	BORDER-LEFT: #ffffff thin solid;
+	BORDER-RIGHT: thin solid Silver;
+	BORDER-TOP: #ffffff thin solid;
+	COLOR: White;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	FONT-SIZE: 8pt;
+	HEIGHT: 12px;
+	LETTER-SPACING: -1;
+	LINE-HEIGHT: 8pt;
+	PADDING-LEFT: 2px;
+	PADDING-RIGHT: 2px;
+	PADDING-TOP: 2px;
+	PADDING-BOTTOM: 2px;
+	TEXT-ALIGN: center;
+	TEXT-DECORATION: none;
+	WIDTH: 75px;
+	white-space : nowrap;
+}
+
+.deshabinp
+{
+	background: #e0e0de;
+}
+
+/* Tooltips */
+.aToolTip  {
+	background:#5f870e;
+	color:#fff;
+	margin:0;
+	padding:4px 10px 3px;
+	font-size:12px;
+	line-height:1.0em;
+	position:absolute;
+	font-family : Arial, Helvetica, sans-serif;
+}
+.aToolTip .aToolTipContent  {position:relative;	margin:0;padding:0}
+/* ============================= forms ============================= */
+
+/* ======================== dialogos JQuery ======================== */
+.ui-dialog {
+background: #F1F2F2;
+}
+.ui-dialog-buttonpane {
+background: #F1F2F2;
+}
+.ui-dialog-titlebar  {
+background: Navy;
+background-color:#009999;
+}
+.ui-dialog-title {
+COLOR: #ffffff;
+}
+.ui-button-text{
+COLOR: Navy;
+}
+
+/* ======================== dialogos JQuery ======================== */
+
+/* ======================== Estilos de Javi ======================== */
+    .title {background-color:#009999;
+            color:white;
+            text-align:left;
+            padding:5px;
+            font-weight:bold;}
+    .colWidth25{width:25%}
+/* ======================== Estilos de Javi ======================== */	

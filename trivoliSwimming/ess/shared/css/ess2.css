@@ -1,0 +1,136 @@
+@define {
+	color:Green;
+	/*ColorFondo:  Silver;
+	ColorTexto: Red;
+	ColorMenu:Silver;*/
+	
+/*	Color2: Silver;
+	Color3: Green;*/
+	
+}
+
+body{
+	background-color: Color1;	
+}
+body, table {
+	font-size: 11px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	scrollbar-3dlight-color : Silver;
+	scrollbar-arrow-color : Silver;
+	scrollbar-face-color : White;
+	scrollbar-highlight-color : White;
+	scrollbar-shadow-color : Silver;
+	scrollbar-track-color : White;
+	scrollbar-darkshadow-color : White;
+	scrollbar-base-color : Silver;
+}
+
+a {
+	text-decoration: none;
+	color: White;
+	width: 100%;
+	border: 1px solid Silver;
+}
+a:hover{
+	background-color: White;
+	border: 1px solid Silver;
+}
+
+
+table{
+	border : none;
+}
+
+th{
+	background:#9999CC;
+	color: white;
+	height: 20px;
+	text-align : left;
+	padding : 5px 5px;
+}
+
+td{
+	vertical-align: top;
+	word-wrap : break-word;
+	/*height: 30px;
+	*/
+
+}
+
+input{
+	border : 1px solid Silver;
+}
+
+img{
+	margin : 0px 0px 0px 0px;
+	padding : 0px 0px 0px 0px;
+}
+
+.Tmenu{
+	border : 1px solid Silver;
+	margin : 0px 0px 0px 0px;
+	padding : 0px 0px 0px 0px;
+}
+.menu{
+	/*border : 1px solid #E6E6FA;
+	*/
+	/*background: white;
+	*/
+	background-color : #E6E6FA;
+	vertical-align : top;
+	text-align : right;
+	height: 100%;
+}
+.imgmenu{
+	height: 25px;
+	width: 25px;
+}
+iframe{
+	/*width: 100%;*/
+	height: 100%;
+	/*border : none;*/
+}
+.index{
+	border : 1px solid Silver;
+}
+
+.tabla{
+	border : 1px solid #9999CC;
+	margin : 10px 10px 10px 10px;
+	padding : 5px 5px 5px 5px;
+}
+
+.barramenu{
+	height: 20px;
+	background-color : #E6E6FA;
+	/*background-image : url(../images/barra.gif);*/
+	/*border: 1px solid silver;	*/
+	border-bottom : 1px solid Silver;
+	border-top : 1px solid Silver;
+	vertical-align: middle;
+}
+.barralink{
+	/*background-image : url(../images/barra.gif);*/
+	/*height: 20%;*/
+	width:  100%;
+	color:   #9999CC;
+	/*font : bold;
+	*/
+	vertical-align: middle;
+	/*border: thin solid White;
+	*/
+	padding-left : 5px;
+	padding-right : 5px;
+}
+.barralink:hover{
+	background-color: white;
+	color: silver;
+}
+
+.barrasepara{
+	background-image : url(../images/barra.gif);
+}

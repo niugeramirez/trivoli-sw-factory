@@ -1,0 +1,394 @@
+
+body{
+	text-align: center;
+	background-color: lightblue;
+	margin : 0px;
+	padding : 0px;
+}
+
+body, table {
+	font-size: 11px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	/*margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;*/
+	scrollbar-3dlight-color : Silver;
+	scrollbar-arrow-color : Silver;
+	scrollbar-face-color : White;
+	scrollbar-highlight-color : White;
+	scrollbar-shadow-color : Silver;
+	scrollbar-track-color : White;
+	scrollbar-darkshadow-color : White;
+	scrollbar-base-color : Silver;
+
+/* SCROLLBAR-FACE-COLOR: #583323; 
+ SCROLLBAR-HIGHLIGHT-COLOR: #EBAA58;
+ SCROLLBAR-SHADOW-COLOR: #EBAA58; 
+ SCROLLBAR-3DLIGHT-COLOR: #EBAA58;
+ SCROLLBAR-ARROW-COLOR: #EBAA58; 
+ SCROLLBAR-TRACK-COLOR: #583323;
+ SCROLLBAR-DARKSHADOW-COLOR: #EBAA58;*/
+
+}
+table{
+	width: 100%;
+	/*height: 100%;*/
+	margin: 0px;
+	padding: 0px;
+	background-color: orange;
+	cellpadding="0";
+	cellspacing="0";
+}
+
+div{
+	border: 0px;
+	vertical-align: top;
+}
+a {
+	text-decoration: none;
+	color: lightSilver;
+}
+
+a:hover{
+	color: Blue;
+	/*border: 1px solid Silver;*/
+}
+
+th{
+	background:#9999CC;
+	color: white;
+	height: 20px;
+	text-align : left;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin: 0px;
+}
+
+td{
+	vertical-align: middle;
+	/*text-align: left;*/
+	/*word-wrap : break-word;*/
+	/*height: 50%;*/
+	margin: 0px;
+	/*margin-top : 5px;***/
+	padding: 0px;
+}
+tr{
+
+}
+li{
+	/*list-style:none;*/
+	margin:0;
+	/*border-bottom:1px solid silver; */
+}
+
+input{
+	border: 1px solid #6495ED;
+}
+
+img{
+	/*margin : 0px 0px 0px 0px;*/
+	/*padding : 0px 0px 0px 0px;*/
+}
+iframe{
+	width: 100%;
+	height: 100%;
+	border: 0px solid White;
+}
+h3{
+	font-size: 17px;
+	text-align: left;
+	color: #6495ED;
+	/*text-decoration: underline;*/
+	vertical-align: top;
+	height: 20px;
+	margin: 0px;
+	padding: 0px;	
+}
+select{
+	border: 1px solid #6495ED;
+}
+/***************************************************************************/
+.Tmenu{
+	width: 100%;
+	/*height: 100%;*/
+	border : 1px solid Silver;
+	margin: 0px;
+	background-color: White;	
+	/*margin: 10px 10px 10px 10px;*/
+	/*padding : 0px 0px 0px 0px;*/
+	vertical-align: top;
+}
+.Tprincipal{
+	width: 100%;
+	height: 100%;
+	border : 1px solid Silver;
+	margin: 0px;
+	padding: 0px;
+}
+.Tterceros{
+	height: 100%;
+	width: 100%;
+}
+
+.centro{
+	width: 610px;
+	height: 100%;
+	vertical-align: top;
+}
+.fondo{
+	vertical-align: top;
+	border: medium;
+	background-color: White;
+	padding: 5px;
+	/*width: 100%;*/
+	height: 100%;
+}
+.tdprincipal{
+	vertical-align: top;
+	margin: 0px;
+	padding: 0px;
+	/*width: 100%;*/
+	/*height: 100%;*/
+}
+.menu{
+	width: 150px;
+	height: 100%;
+	/*border : 1px solid #E6E6FA;
+	*/
+	/*background: white;
+	*/
+	/*background-color : #E6E6FA;*/
+	/*vertical-align : top;*/
+	/*text-align : right;
+	height: 100%;*/
+}
+.divmenu{
+	height: 100%;
+}
+.menutexto{
+	margin: 5px; /*padding : 0px 0px 0px 0px;*/
+	text-align: left;
+	/*background-color: White;*/ 	
+	 /*height: 90%;
+	
+	width: 100%;*/
+	padding-left: 10px;
+	vertical-align:bottom;
+}
+.menutitulo{
+	
+}
+.menumenu{
+	height: 100%;
+	width: 100%;
+	background-color: White;
+	vertical-align: top;
+}
+.imgmenu{
+	/*height: 25px;
+	width: 25px;*/
+}
+.index{
+	border: 1px solid Silver;
+	/*margin: 0px 0px 0px 0px;
+	padding : 0px 0px 0px 0px;*/
+	width: 760px;
+	height: 100%;
+	vertical-align: top;	
+}
+.indexmenu{
+	margin: 0px;
+	background-color: #FAEBD7;
+	height: 100%;
+	padding: 0px;
+}
+.indexprincipal{
+	height: 100%;
+	margin: 0px;
+	background-color: #ADD8E6;
+	padding: 0px;
+}
+.tabla{
+	height: 100%;
+	border : 0px solid #9999CC;
+	/*margin : 10px 10px 10px 10px;
+	padding : 5px 5px 5px 5px;*/
+	margin: 0px;
+	padding: 0px;
+	vertical-align: top;
+	background-color: White;
+}
+.barsup{
+	text-align: right;
+}
+.barinf{
+	text-align: center;
+}
+.barmenu{
+	height: 20px;
+	background-color: #E6E6FA;
+	padding-left: 5px;
+	padding-right: 5px;
+	vertical-align: middle;
+	color: #0000CD; /*margin: 5px;*/
+	/*text-align: left;*/
+	/*font-weight: bold;*/
+}
+
+.btnmenu{
+	/*padding-right : 5px;*/
+	/*width: 100%;*/
+	color: Blue;
+	background-color: white;
+	text-align: left;
+	display: block;
+	padding: 3px;
+}
+
+.btnbar{
+	border: 1px solid red;
+	margin: 10px;
+	background-color: orange;
+	/*color: #9999CC;*/
+	/*height: 10px;*/
+	/*margin-left: 5px;*/
+}
+.btnbar:hover{
+	/*border: 1px solid #00BFFF;*/
+	color: Silver; 
+	background-color: Aqua;
+}
+.tdbtn{
+	background-color: none;
+}
+.tdbtnhover{
+	background-color: White;
+}
+
+.barrasepara{
+	/*background-image : url(../images/barra.gif);*/
+}
+.encabezado{
+	border: 0px solid White;
+	height: 90px;
+}
+.logo{
+	border: 0px solid White;
+	height: 90px;
+}
+.personas{
+	border: 0px solid White;
+	width: 450px;
+	height: 90px;
+}
+
+.imgbienvenida{
+	float: left;
+	margin-right: 15px;
+}
+.imgtercero{
+	border: 1px solid #00BFFF;
+	height: 90px;
+	vertical-align: middle;
+	filter: shape characteristics of opacity gradient. 0 (uniform), 1 (linear), 2 (radial), 3 (rectangular);
+}
+.imgflechas{
+	border: 0px none White;
+	/*filter:XRay();*/
+	/*Filter: Chroma(Color = #FFFFFF);*/
+	filter:gray();
+	/*filter: Chroma(Color=#00FF00); */
+ 	/*color: Red;	*/
+	/*filter:glow(color=#ff0000, strength=15);*/
+}
+.limenu{
+	list-style: square inside none;
+	background-color: White; /*width: 100%;*/
+	cursor: hand;
+	margin: 0px;
+	padding: 0px;
+}
+.limenu:hover{
+	list-style: square inside none;
+	background-color: Silver; /*width: 100%;*/
+	cursor: hand;
+	margin: 0px;
+	padding: 0px; /*display: block;*/
+}
+
+.ulmenu{
+	margin: 10px;
+	padding: 0px;
+}
+.reloj{
+	 border:0px;
+	 background-color:transparent; 
+	 text-align:right;
+	 color: #0000CD;
+}
+.btnrhpro{
+	color:Blue;
+}
+.boton{
+	color:blue;
+	border: 1px solid #E6E6FA;
+	background-color: none; /*height: 100%;*/
+	text-align: center;
+	PADDING-LEFT: 5px;
+	PADDING-RIGHT: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	vertical-align: middle;
+	font-weight: normal;
+}
+.boton:hover{
+	color:blue;
+	border: 1px solid white; 
+	background-color: White;
+	/*height: 100%;*/
+	text-align: center;
+	PADDING-LEFT: 5px;
+	PADDING-RIGHT: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	vertical-align: middle;
+	font-weight: normal;
+}
+.botonsel{
+	color:blue;
+	border: 1px solid White; 
+	background-color: White;
+	/*height: 100%;*/
+	text-align: center;
+	PADDING-LEFT: 5px;
+	PADDING-RIGHT: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	vertical-align: middle;
+	font-weight: normal;
+}
+
+/*****Originales de X2**********************************************/
+.sidebtnABM{
+	border: 1px solid red; /*text-align: center;*/
+	/*PADDING-LEFT: 5px;
+	PADDING-RIGHT: 5px;
+	padding-top: 0px;
+	padding-bottom: 0px; /*padding: 0px;*/
+	/*vertical-align: super;
+	font-weight: normal;
+	margin: 0px;*/
+}
+.sidebtnABM:hover{
+	border: 1px solid Yellow;
+}
+
+.th2{
+	height: 40px;
+	background-color: Silver;
+	text-align: left;
+	padding-left: 5px;
+	margin: 0px;
+}

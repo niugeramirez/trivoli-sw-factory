@@ -1,0 +1,58 @@
+BODY{
+	scrollbar-3dlight-color : Silver;
+	scrollbar-arrow-color : Silver;
+	scrollbar-face-color : White;
+	scrollbar-highlight-color : White;
+	scrollbar-shadow-color : Silver;
+	scrollbar-track-color : White;
+	scrollbar-darkshadow-color : White;
+	scrollbar-base-color : Silver;
+	border: none;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	/*font-family: font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;*/
+}
+TABLE{
+	border : thick solid 1;
+	width : 100%;
+}
+TH{
+	color: white;
+	background-color: #D0D2D5;
+	/*FONT-SIZE: 08pt;*/
+	/*FONT-SIZE: 9pt;*/
+	padding : 2px;
+	width : auto;
+}
+.th2{
+	background-color: #C4CCD8;
+	COLOR: #ffffff;
+	FONT-SIZE: 9pt;
+	FONT-WEIGHT: bold;
+	padding : 2 2 2 5;
+}
+
+TR{
+	COLOR: #55739C;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: #F1F2F2;
+	padding : 2;
+	padding-left : 5;
+}
+
+TEXTAREA{
+	background : White;
+}
+.SelectedRow{
+	COLOR: #203A6C;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: #EAEBEC;
+	padding : 2;
+	padding-left : 5;
+}
+.tr{
+	COLOR: black;
+	FONT-SIZE: 08pt;
+	BACKGROUND-COLOR: #D2D2D5;
+	padding : 2;
+	padding-left : 5;
+}
