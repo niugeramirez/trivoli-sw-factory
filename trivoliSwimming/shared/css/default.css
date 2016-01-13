@@ -1,0 +1,39 @@
+TD {
+	FONT-FAMILY: Lucida,Helvetica,sans-serif; FONT-SIZE: 11px
+}
+BLOCKQUOTE {
+	FONT-FAMILY: Lucida,Helvetica,sans-serif; FONT-SIZE: 11px
+}
+BIG {
+	FONT-FAMILY: Lucida,Helvetica,sans-serif; FONT-SIZE: 11px
+}
+H1 {
+	FONT-FAMILY: Lucida,Helvetica,sans-serif; FONT-SIZE: 11px
+}
+H2 {
+	FONT-FAMILY: Lucida,Helvetica,sans-serif; FONT-SIZE: 11px
+}
+SMALL {
+	FONT-FAMILY: Lucida,Helvetica,sans-serif; FONT-SIZE: 11px
+}
+.text
+{
+	height : 16px;
+	font : xx-small sans-serif;
+	border : none;
+	background : Gray;
+	color : White;
+}
+.hora
+{
+	color : White;
+	border : none;
+	text-align : left;
+	FONT-FAMILY: Lucida,Helvetica,sans-serif;
+	FONT-SIZE: 11px;
+	background-color : #993333;
+}
+td
+{
+	vertical-align : top;
+}

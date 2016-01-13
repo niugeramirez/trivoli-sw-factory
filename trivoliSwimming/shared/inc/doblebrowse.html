@@ -1,0 +1,26 @@
+<body bottommargin="0" leftmargin="0" rightmargin="0" topmargin="0" onload="Javascript:CargarArreglo();" >
+<input type=hidden name=radio>
+<input type=hidden name=fi-grupo value="">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+    <td class="th2">
+	<script>document.write(document.title);</script>
+	</td>
+</tr>
+</table>
+<table width=100% border=0>
+<tr>
+    <td><b>No Seleccionados</b><br>
+    <select class="doblebrowse" size=20 name=nselfil ondblclick="Uno(nselfil,selfil);"></select>
+    </td>
+    <td align=left width=40>
+	<a class=sidebtnSHW href="javascript:Todos(nselfil,selfil);">>></a></a>
+	<a class=sidebtnSHW href="javascript:Uno(nselfil,selfil);">></a></a>
+	<a class=sidebtnSHW href="javascript:Uno(selfil,nselfil);"><</a></a></a>
+	<a class=sidebtnSHW href="javascript:Todos(selfil,nselfil);"><<</a></a>
+    </td>
+    <td><b>Seleccionados</b><br>
+    <select class="doblebrowse" size=20 name=selfil ondblclick="Uno(selfil,nselfil);"></select>
+    </td>
+</tr>
+</table>
