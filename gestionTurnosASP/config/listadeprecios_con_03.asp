@@ -56,8 +56,8 @@ end if
 set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO listaprecioscabecera "
-	l_sql = l_sql & " (titulo, fecha, idobrasocial, flag_activo ,created_by,creation_date,last_updated_by,last_update_date)"
-	l_sql = l_sql & " VALUES ('" & l_titulo & "'," & l_fecha & "," & l_idobrasocial & "," & l_flag_activo &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	l_sql = l_sql & " (titulo, fecha, idobrasocial, flag_activo ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
+	l_sql = l_sql & " VALUES ('" & l_titulo & "'," & l_fecha & "," & l_idobrasocial & "," & l_flag_activo &"," & session("empnro") &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	
 	'response.write l_sql & "<br>"
 	l_cm.activeconnection = Cn
@@ -75,8 +75,8 @@ if l_tipo = "A" then
 	do while not l_rs.eof 	
 	
 		l_sql = "INSERT INTO listapreciosdetalle "
-		l_sql = l_sql & " (idpractica, precio, idlistaprecioscabecera ,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " VALUES (" & l_rs("idpractica") & "," & l_rs("precio")  & "," & l_nueva_lpcab &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
+		l_sql = l_sql & " (idpractica, precio, idlistaprecioscabecera ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
+		l_sql = l_sql & " VALUES (" & l_rs("idpractica") & "," & l_rs("precio")  & "," & l_nueva_lpcab &"," & session("empnro") &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
 	
 		l_cm.activeconnection = Cn
 		l_cm.CommandText = l_sql
@@ -112,8 +112,8 @@ else
 	do while not l_rs.eof 	
 	
 		l_sql = "INSERT INTO listapreciosdetalle "
-		l_sql = l_sql & " (idpractica, precio, idlistaprecioscabecera ,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " VALUES (" & l_rs("idpractica") & "," & l_rs("precio")  & "," & l_id &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
+		l_sql = l_sql & " (idpractica, precio, idlistaprecioscabecera ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
+		l_sql = l_sql & " VALUES (" & l_rs("idpractica") & "," & l_rs("precio")  & "," & l_id &"," & session("empnro") &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
 	
 		l_cm.activeconnection = Cn
 		l_cm.CommandText = l_sql

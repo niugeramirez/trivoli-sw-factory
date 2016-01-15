@@ -29,8 +29,8 @@ l_idcab = request.Form("idcab")
 set l_cm = Server.CreateObject("ADODB.Command")
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO listapreciosdetalle "
-	l_sql = l_sql & " (idpractica, precio, idlistaprecioscabecera ,created_by,creation_date,last_updated_by,last_update_date)"
-	l_sql = l_sql & " VALUES (" & l_idpractica & "," & l_precio & "," & l_idcab &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	l_sql = l_sql & " (idpractica, precio, idlistaprecioscabecera ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
+	l_sql = l_sql & " VALUES (" & l_idpractica & "," & l_precio & "," & l_idcab &"," & session("empnro") &",'"  &session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 else
 	l_sql = "UPDATE listapreciosdetalle "
 	l_sql = l_sql & " SET idpractica = " & l_idpractica 

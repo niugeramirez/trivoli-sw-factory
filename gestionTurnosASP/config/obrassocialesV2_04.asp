@@ -14,25 +14,52 @@ l_id = request.Form("cabnro")
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 set l_cm = Server.CreateObject("ADODB.Command")
 l_rs.close
-'l_sql = "SELECT depnro"
-'l_sql = l_sql & " FROM tkt_pro_dep"
-'l_sql  = l_sql  & " WHERE depnro = " & l_depnro
-'rsOpen l_rs, cn, l_sql, 0 
-'if not l_rs.eof then
-'	Response.write "<script>alert('Existen Productos asociados a este Depósito.\nNo es posible dar de baja.');window.close();</script>"
-'else
-	l_sql = " DELETE FROM obrassociales WHERE id = " & l_id
-'end if
-'l_rs.close
+l_sql = "SELECT id"
+l_sql = l_sql & " FROM clientespacientes"
+l_sql  = l_sql  & " WHERE idobrasocial = " & l_id
+l_sql = l_sql & " and empnro = " & Session("empnro") 
+ 
+rsOpen l_rs, cn, l_sql, 0 
+if not l_rs.eof then
+	Response.write "Existen pacientes asociados a la Obra Social. No se permite eliminar."
+	l_rs.close
+else
+	l_rs.close
+	l_sql = "SELECT id"
+	l_sql = l_sql & " FROM pagos"
+	l_sql  = l_sql  & " WHERE idobrasocial = " & l_id
+	l_sql = l_sql & " and empnro = " & Session("empnro") 
+	 
+	rsOpen l_rs, cn, l_sql, 0 
+	if not l_rs.eof then
+		Response.write "Existen pagos asociados a la Obra Social. No se permite eliminar."
+		l_rs.close
+	else
+		l_rs.close
+		l_sql = "SELECT id"
+		l_sql = l_sql & " FROM listaprecioscabecera"
+		l_sql  = l_sql  & " WHERE idobrasocial = " & l_id
+		l_sql = l_sql & " and empnro = " & Session("empnro") 
+		 
+		rsOpen l_rs, cn, l_sql, 0 
+		if not l_rs.eof then
+			Response.write "Existen Listas de precios asociados a la Obra Social. No se permite eliminar."
+			l_rs.close
+		else	
+			l_sql = " DELETE FROM obrassociales WHERE id = " & l_id
+			
+			l_cm.activeconnection = Cn
+			l_cm.CommandText = l_sql
+			cmExecute l_cm, l_sql, 0
 
-l_cm.activeconnection = Cn
-l_cm.CommandText = l_sql
-cmExecute l_cm, l_sql, 0
+			cn.Close
+			Set cn = Nothing
 
-cn.Close
-Set cn = Nothing
+			Response.write "OK"
+		end if
+	end if
+end if
 
-Response.write "OK"
 
 %>
 
