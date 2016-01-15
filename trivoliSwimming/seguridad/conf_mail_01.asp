@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <%
 'Archivo        : conf_mil_01.asp
 'Descripcion    : Modulo que se encarga de admin. los servidores de mail
@@ -28,7 +28,7 @@ end if
 <html>
 
 <head>
-<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" http-equiv="refresh" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Configuraci&oacute;n se Servicios de Mail - RHPro &reg;</title>
 </head>

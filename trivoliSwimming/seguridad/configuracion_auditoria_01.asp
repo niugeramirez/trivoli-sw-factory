@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <% 
 Dim l_rs
 Dim l_sql
@@ -30,7 +30,7 @@ end if%>
 <html>
 
 <head>
-<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" http-equiv="refresh" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Configuraci&oacute;n de Auditor&iacute;s - Ticket</title>
 </head>

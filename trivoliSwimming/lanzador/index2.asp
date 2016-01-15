@@ -27,7 +27,7 @@ end if
 <head>
 <title> Sistema  Turnos </title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="/turnos/shared/css/tables4.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/shared/css/tables4.css" rel="StyleSheet" type="text/css">
 <style type="text/css">
 <!--
 a {
@@ -68,7 +68,7 @@ a {
 -->
 </style>
 </head>
-<script src="/turnos/shared/js/fn_windows.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_windows.js"></script>
 <script>
 var usertmp;
 var loguser;

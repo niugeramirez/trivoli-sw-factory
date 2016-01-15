@@ -87,12 +87,12 @@ end sub
 '------------------------------------------------------------------------------------------------- 
 
 %>
- <!--#include virtual="/turnos/shared/inc/encrypt.inc"-->
- <!--#include virtual="/turnos/shared/db/conn.inc"-->
+ <!--#include virtual="/trivoliSwimming/shared/inc/encrypt.inc"-->
+ <!--#include virtual="/trivoliSwimming/shared/db/conn.inc"-->
 <%
 
- Session("UserName") = "wi521535_clinica" 	'"sa" ' l_iduser'
- Session("Password") = "Clinica2015" 		'"" 'l_pass	'""
+ Session("UserName") = "wi791471_swimming" 	'"sa" ' l_iduser'
+ Session("Password") = "Swimming2016" 		'"" 'l_pass	'""
 
 
 ' if Cint(l_baseBD) = 2 then
@@ -105,7 +105,7 @@ end sub
  Session("Time") = now
  
 %>
- <!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+ <!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <%
   
  l_seguir = true
@@ -134,7 +134,7 @@ ON ERROR resume next
 	
 	if l_seg_NT = 0 then
 		%>
-		<!--#include virtual="/turnos/shared/inc/password.inc"-->
+		<!--#include virtual="/trivoliSwimming/shared/inc/password.inc"-->
 		<%
 		
 	 	if not usuariovalido(l_iduser) then

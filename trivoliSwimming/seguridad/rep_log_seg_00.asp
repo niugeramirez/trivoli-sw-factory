@@ -1,10 +1,10 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
-<!--#include virtual="/turnos/shared/inc/sec.inc"-->
-<!--#include virtual="/turnos/shared/inc/const.inc"-->
-<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
-<!--#include virtual="/turnos/shared/inc/antigfec.inc"-->
-<!--#include virtual="/turnos/shared/inc/sqls.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/sec.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/const.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/fecha.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/antigfec.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/sqls.inc"-->
 <!--
 -----------------------------------------------------------------------------
 Archivo: rep_log_seg_00.asp
@@ -15,13 +15,13 @@ Descripcion: Reporte de Log
 -->
 <html>
 <head>
-<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <title><%= Session("Titulo")%> Reporte de Log - Ticket </title>
-<script src="/turnos/shared/js/fn_windows.js"></script>
-<script src="/turnos/shared/js/fn_confirm.js"></script>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
-<script src="/turnos/shared/js/fn_fechas.js"></script>
-<script src="/turnos/shared/js/fn_ay_generica.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_windows.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_confirm.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_fechas.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_ay_generica.js"></script>
 <script>
 
 <%
@@ -81,7 +81,7 @@ function Actualizar(destino){
 }
 
 function Ayuda_Fecha(txt){
- var jsFecha = Nuevo_Dialogo(window, '/turnos/shared/js/calendar.html', 16, 15);
+ var jsFecha = Nuevo_Dialogo(window, '/trivoliSwimming/shared/js/calendar.html', 16, 15);
  if (jsFecha == null){
  	//txt.value = '';
  }else{
@@ -176,14 +176,14 @@ function HabDet(){
 		</td>
 		<td>
 			<input  type="text" name="fecini" size="10" maxlength="10" value="" >
-			<a href="Javascript:Ayuda_Fecha(document.datos.fecini);"><img src="/turnos/shared/images/cal.gif" border="0"></a>
+			<a href="Javascript:Ayuda_Fecha(document.datos.fecini);"><img src="/trivoliSwimming/shared/images/cal.gif" border="0"></a>
 		</td>
 		<td align="right">
 			<b>Fecha Hasta:</b>
 		</td>
 		<td>			
 			<input  type="text" name="fecfin" size="10" maxlength="10" value="">
-				<a href="Javascript:Ayuda_Fecha(document.datos.fecfin);"><img src="/turnos/shared/images/cal.gif" border="0"></a>
+				<a href="Javascript:Ayuda_Fecha(document.datos.fecfin);"><img src="/trivoliSwimming/shared/images/cal.gif" border="0"></a>
 		</td>
 	</tr>		
 	<tr>

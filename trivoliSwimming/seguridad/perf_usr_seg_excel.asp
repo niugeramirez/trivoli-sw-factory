@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <% Response.AddHeader "Content-Disposition", "attachment;filename=Perfiles de Usuarios.xls" %>
 <%
 

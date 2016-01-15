@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 
 <% 
 'Archivo: procesamiento_seg_10.asp
@@ -35,12 +35,12 @@ l_bpronro = request("bpronro")
 %>
 <html>
 <head>
-<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Procesamiento - Gesti&oacute;n de Tiempos - RHPro &reg;</title>
 </head>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
-<script src="/turnos/shared/js/fn_fechas.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_fechas.js"></script>
 <script>
 function Validar_Formulario(){
 	if (document.datos.bprcterminar.checked){
@@ -63,7 +63,7 @@ function Nuevo_Dialogo(w_in, pagina, ancho, alto){
 }
 
 function Ayuda_Fecha(txt){
-	var jsFecha = Nuevo_Dialogo(window, '/turnos/shared/js/calendar.html', 16, 15);
+	var jsFecha = Nuevo_Dialogo(window, '/trivoliSwimming/shared/js/calendar.html', 16, 15);
 	if (jsFecha == null)
 		txt.value = ''
 	else
@@ -162,14 +162,14 @@ set l_rs = nothing
 								<td nowrap>
 								<input  type="text" name="bprcfecdesde" size="10" maxlength="10" value="<%= l_bprcfecdesde %>" <%if l_bprcestado <> "Pendiente" then%>readonly class="deshabinp"<%end if%>>
 								<%if l_bprcestado = "Pendiente" then%>
-									<a href="Javascript:Ayuda_Fecha(document.datos.bprcfecdesde);"><img src="/turnos/shared/images/cal.gif" border="0"></a>	
+									<a href="Javascript:Ayuda_Fecha(document.datos.bprcfecdesde);"><img src="/trivoliSwimming/shared/images/cal.gif" border="0"></a>	
 								<%end if%>	
 								</td>
 							    <td align="right"><b>Hasta:</b></td>
 								<td nowrap>
 								<input type="text" <%if l_bprcestado <> "Pendiente" then%>readonly class="deshabinp"<%end if%> name="bprcfechasta" size="10" maxlength="10" value="<%= l_bprcfechasta %>" >
 								<%if l_bprcestado = "Pendiente" then%>
-								<a href="Javascript:Ayuda_Fecha(document.datos.bprcfechasta);"><img src="/turnos/shared/images/cal.gif" border="0"></a>	
+								<a href="Javascript:Ayuda_Fecha(document.datos.bprcfechasta);"><img src="/trivoliSwimming/shared/images/cal.gif" border="0"></a>	
 								<%end if%>
 								</td>
 							</tr>

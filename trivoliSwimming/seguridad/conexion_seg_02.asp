@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <% 
 'Archivo: conexion_seg_00.asp
 'Descripción: 
@@ -21,11 +21,11 @@ l_tipo = request("tipo")
 %>
 <html>
 <head>
-<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Mantenimiento Conexiones - Supervisor - RHPro &reg;</title>
 </head>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
 <script>
 function Validar_Formulario(){
 	if (document.datos.cndesc.value == ""){

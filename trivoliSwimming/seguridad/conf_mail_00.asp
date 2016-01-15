@@ -1,7 +1,7 @@
 <%Option Explicit %>
-<!--#include virtual="/turnos/shared/inc/sec.inc"-->
-<!--#include virtual="/turnos/shared/inc/const.inc"-->
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/sec.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/const.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <%
 'Archivo        : conf_mil_00.asp
 'Descripcion    : Modulo que se encarga de admin. los servidores de mail
@@ -36,12 +36,12 @@ dim l_tiptabdesc
 %>
 <html>
 <head>
-<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Configuraci&oacute;n de Servicios de Mail</title>
-<script src="/turnos/shared/js/fn_windows.js"></script>
-<script src="/turnos/shared/js/fn_confirm.js"></script>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_windows.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_confirm.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
 <script>
 function Alta(){
   abrirVentana('conf_mail_02.asp?Tipo=A','',320,220);
@@ -88,8 +88,8 @@ function salidaExcel(){
     &nbsp;&nbsp;&nbsp;
     <a class=sidebtnSHW href="Javascript:salidaExcel();">Excel</a>		  		  	
     &nbsp;&nbsp;&nbsp;
-	<a class=sidebtnSHW href="Javascript:orden('/turnos/seguridad/conf_mail_01.asp');">Orden</a>
-	<a class=sidebtnSHW href="Javascript:filtro('/turnos/seguridad/conf_mail_01.asp');">Filtro</a>
+	<a class=sidebtnSHW href="Javascript:orden('/trivoliSwimming/seguridad/conf_mail_01.asp');">Orden</a>
+	<a class=sidebtnSHW href="Javascript:filtro('/trivoliSwimming/seguridad/conf_mail_01.asp');">Filtro</a>
     &nbsp;&nbsp;&nbsp;	
     <a class=sidebtnHLP href="Javascript:ayuda('<%= Request.ServerVariables("SCRIPT_NAME")%>');">Ayuda</a>
 

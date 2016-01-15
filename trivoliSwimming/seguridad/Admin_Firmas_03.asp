@@ -1,6 +1,6 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
-<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/fecha.inc"-->
 <% 
 Dim l_proximo
 Dim l_anterior

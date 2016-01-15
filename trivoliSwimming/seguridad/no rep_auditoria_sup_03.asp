@@ -1,6 +1,6 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
-<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/fecha.inc"-->
 <!--
 '-----------------------------------------------------------------------------------
 Archivo	    : rep_libro_ley_liq_03.asp

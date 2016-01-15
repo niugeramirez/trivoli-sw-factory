@@ -7,7 +7,7 @@ sub incluirEstilo(filesystem,archivo,nombreestilo)
   Dim archestilo
   Dim str
 
-  pathestilo = Server.MapPath("/turnos/shared/css/") 
+  pathestilo = Server.MapPath("/trivoliSwimming/shared/css/") 
   pathestilo = replace(pathestilo,"\","\\")  
 
   Set archestilo = filesystem.OpenTextFile(pathestilo & "\\" & nombreestilo,1,false) 
@@ -80,7 +80,7 @@ if not m_rs.eof then
 	
 	nombrearch = "mail_" & genGuid & ".msg"
 	
-	archpath = Server.MapPath("/turnos/log/")
+	archpath = Server.MapPath("/trivoliSwimming/log/")
 	archpath = replace(archpath,"\","\\")
 	archpath = archpath & "\\" & nombrearch
 	

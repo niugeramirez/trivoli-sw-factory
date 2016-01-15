@@ -1,7 +1,7 @@
 <%Option Explicit %>
-<!--#include virtual="/turnos/shared/inc/sec.inc"-->
-<!--#include virtual="/turnos/shared/inc/const.inc"-->
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/sec.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/const.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 
 <% 
 
@@ -119,14 +119,14 @@ end select
 
 <html>
 <head>
-<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Configuraci&oacute;n del reporte</title>
-<script src="/turnos/shared/js/fn_windows.js"></script>
-<script src="/turnos/shared/js/fn_confirm.js"></script>
-<script src="/turnos/shared/js/fn_hora.js"></script>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
-<script src="/turnos/shared/js/fn_valida.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_windows.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_confirm.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_hora.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_valida.js"></script>
 <script>
 function Validar_Formulario()
 {

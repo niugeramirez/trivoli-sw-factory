@@ -1,8 +1,8 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/inc/sec.inc"-->
-<!--#include virtual="/turnos/shared/inc/const.inc"-->
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
-<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/sec.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/const.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/fecha.inc"-->
 <% 
 'Archivo: transferirturnos_con_00.asp
 'Descripción: Transferir Turnos
@@ -336,13 +336,13 @@ End Function
 %>
 <html>
 <head>
-<link href="/turnos/ess/shared/css/tables_grayr.css" rel="StyleSheet" type="text/css">
-<!--<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
+<link href="/trivoliSwimming/ess/shared/css/tables_grayr.css" rel="StyleSheet" type="text/css">
+<!--<link href="/trivoliSwimming/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
 <title>Asignar Turnos</title>
-<script src="/turnos/shared/js/fn_windows.js"></script>
-<script src="/turnos/shared/js/fn_confirm.js"></script>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
-<script src="/turnos/shared/js/fn_fechas.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_windows.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_confirm.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_fechas.js"></script>
 
 
 </head>

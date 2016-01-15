@@ -1,7 +1,7 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/inc/sec.inc"-->
-<!--#include virtual="/turnos/shared/inc/const.inc"-->
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/sec.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/const.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <% 
 
 on error goto 0
@@ -17,12 +17,12 @@ on error goto 0
 %>
 <html>
 <head>
-<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <title>Agenda</title>
-<script src="/turnos/shared/js/fn_windows.js"></script>
-<script src="/turnos/shared/js/fn_confirm.js"></script>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
-<script src="/turnos/shared/js/fn_fechas.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_windows.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_confirm.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_fechas.js"></script>
 
 
 
@@ -41,13 +41,13 @@ firstDay: 1
 		
 $( "#fechadesde" ).datepicker({
 	showOn: "button",
-	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImage: "/trivoliSwimming/shared/images/calendar1.png",
 	buttonImageOnly: true
 });
 
 $( "#fechahasta" ).datepicker({
 	showOn: "button",
-	buttonImage: "/turnos/shared/images/calendar1.png",
+	buttonImage: "/trivoliSwimming/shared/images/calendar1.png",
 	buttonImageOnly: true
 });
 
@@ -299,8 +299,8 @@ function TotalVolumen(valor){
 								%>
 							</select>							
 						</td>							
-						<td ><a class="sidebtnABM" href="Javascript:Buscar();" ><img class="normaltip"  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar"></a></td>
-						<td ><a class="sidebtnABM" href="Javascript:Limpiar();"><img class="normaltip" src="/turnos/shared/images/Limpiar_24.png" border="0" title="Limpiar"></a></td>
+						<td ><a class="sidebtnABM" href="Javascript:Buscar();" ><img class="normaltip"  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar"></a></td>
+						<td ><a class="sidebtnABM" href="Javascript:Limpiar();"><img class="normaltip" src="/trivoliSwimming/shared/images/Limpiar_24.png" border="0" title="Limpiar"></a></td>
 						<td >&nbsp;&nbsp;</td>
 					</tr>
 			

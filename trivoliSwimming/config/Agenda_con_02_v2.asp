@@ -1,6 +1,6 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
-<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/fecha.inc"-->
 <% 
 'Archivo: contracts_con_01.asp
 'Descripción: ABM de Contracts
@@ -83,11 +83,11 @@ End Function
 %>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
-<script src="/turnos/shared/js/fn_windows.js"></script>
-<script src="/turnos/shared/js/fn_confirm.js"></script>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_windows.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_confirm.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
 <head>
-<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Transferir Turnos</title>
 </head>

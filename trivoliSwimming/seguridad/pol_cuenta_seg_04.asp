@@ -1,6 +1,6 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
-<!--#include virtual="/turnos/shared/inc/const.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/const.inc"-->
 <!-----------------------------------------------------------------------------
 Archivo     : pol_cuenta_seg_04.asp
 Descripcion	: ABM politicas de cuentas de usuarios

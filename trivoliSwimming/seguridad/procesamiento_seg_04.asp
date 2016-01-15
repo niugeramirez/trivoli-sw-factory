@@ -1,8 +1,8 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
-<!--#include virtual="/turnos/shared/inc/sec.inc"-->
-<!--#include virtual="/turnos/shared/inc/const.inc"-->
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/fecha.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/sec.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/const.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <% 
 'Archivo: procesamiento_seg_04.asp
 'Descripción: Se encarga de mostrar los procesos del sistema
@@ -23,19 +23,19 @@
 %>
 <html>
 <head>
-<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Servidor de Aplicaciones</title>
 </head>
-<script src="/turnos/shared/js/fn_windows.js"></script>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_windows.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
 <script>
 function Nuevo_Dialogo(w_in, pagina, ancho, alto){
 	return w_in.showModalDialog(pagina,'', 'center:yes;dialogWidth:' + ancho.toString() + ';dialogHeight:' + alto.toString() + ';');
 }
 
 function Ayuda_Fecha(txt){
-	var jsFecha = Nuevo_Dialogo(window, '/turnos/shared/js/calendar.html', 16, 15);
+	var jsFecha = Nuevo_Dialogo(window, '/trivoliSwimming/shared/js/calendar.html', 16, 15);
 	if (jsFecha == null)
 		txt.value = ''
 	else

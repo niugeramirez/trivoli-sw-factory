@@ -1,11 +1,11 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
-<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
-<!--#include virtual="/turnos/shared/inc/sec.inc"-->
-<!--#include virtual="/turnos/shared/inc/const.inc"-->
-<!--#include virtual="/turnos/shared/inc/sqls.inc"-->
-<!--#include virtual="/turnos/shared/inc/util.inc"-->
-<!--#include virtual="/turnos/shared/inc/adovbs.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/fecha.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/sec.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/const.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/sqls.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/util.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/adovbs.inc"-->
 <!--
 Archivo        : rep_auditoria_sup_01.asp
 Descripción    : Reporte Auditoría - Generar Proceso

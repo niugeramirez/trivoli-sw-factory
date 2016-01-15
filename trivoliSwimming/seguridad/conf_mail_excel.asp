@@ -2,7 +2,7 @@
 <%
 Response.AddHeader "Content-Disposition", "attachment;filename=Configuración email.xls" 
 Response.ContentType = "application/vnd.ms-excel" %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <%
 'Archivo        : conf_mil_00.asp
 'Descripcion    : Modulo que se encarga de admin. los servidores de mail

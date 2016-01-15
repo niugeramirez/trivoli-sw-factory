@@ -1,4 +1,4 @@
-<!--#include virtual="/turnos/shared/inc/antigfec.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/antigfec.inc"-->
 <% 
 '-----------------------------------------------------------------------------------
 'Archivo	: campcalc.inc

@@ -1,6 +1,6 @@
-<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
-<!--#include virtual="/turnos/shared/inc/adovbs.inc"-->
-<!--#include virtual="/turnos/shared/inc/encrypt.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/fecha.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/adovbs.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/encrypt.inc"-->
 <%
 
 on error goto 0

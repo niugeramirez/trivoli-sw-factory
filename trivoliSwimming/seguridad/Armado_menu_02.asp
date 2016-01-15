@@ -1,4 +1,4 @@
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <!------------------------------------------------------------------------------
 Archivo        : alcance_estructura_02.asp
 Descripcion    : 
@@ -26,7 +26,7 @@ l_tipo = request.QueryString("tipo")
 <html>
 <head>
 <title><%= Session("Titulo")%>Ticket - Usuario: <%= l_username %></title>
-<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <script>
 var jsSelRow = null;
 

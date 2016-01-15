@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <% 
 
 'Archivo: pol_cuenta_seg_02.asp
@@ -29,14 +29,14 @@
 %>
 <html>
 <head>
-<link href="/turnos/shared/css/tables3.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/shared/css/tables3.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title><%= Session("Titulo")%>Pol&iacute;ticas de Cuentas - Ticket</title>
 </head>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
-<script src="/turnos/shared/js/fn_valida.js"></script>
-<script src="/turnos/shared/js/fn_windows.js"></script>
-<script src="/turnos/shared/js/fn_numeros.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_valida.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_windows.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>
 <script>
 function Validar_Formulario(){
 	if (Trim(document.datos.pol_desc.value) == ""){
@@ -197,7 +197,7 @@ function Nuevo_Dialogo(w_in, pagina, ancho, alto){
 }
 
 function Ayuda_Fecha(txt){
- var jsFecha = Nuevo_Dialogo(window, '/turnos/shared/js/calendar.html', 16, 15);
+ var jsFecha = Nuevo_Dialogo(window, '/trivoliSwimming/shared/js/calendar.html', 16, 15);
 
 	if (jsFecha == null) txt.value = ''
 	else txt.value = jsFecha;

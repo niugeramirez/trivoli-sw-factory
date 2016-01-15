@@ -1,7 +1,7 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/inc/sec.inc"-->
-<!--#include virtual="/turnos/shared/inc/const.inc"-->
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/sec.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/const.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <!--
 -->
 <% 
@@ -59,16 +59,16 @@
 		<link rel="stylesheet" href="css/style2.css" type="text/css" media="all">
 
 <title><%'= Session("Titulo")%> Gesti&oacute;n M&eacute;dica</title>
-<script src="/turnos/shared/js/fn_windows.js"></script>
-<script src="/turnos/shared/js/fn_confirm.js"></script>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_windows.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_confirm.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
 
 
 
 <script>
 function ActPasos(codigo, clabel, nombre){
 	//alert(codigo);
-	document.pasos.location = "/turnos/shared/asp/asistente_01_RH.asp?wiznro=<%=l_wiznro%>&codigo="+codigo+"&label="+clabel+"&nombre="+nombre;
+	document.pasos.location = "/trivoliSwimming/shared/asp/asistente_01_RH.asp?wiznro=<%=l_wiznro%>&codigo="+codigo+"&label="+clabel+"&nombre="+nombre;
 }
 
 function RefrescarPasos() {

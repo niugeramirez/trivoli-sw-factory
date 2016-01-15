@@ -1,4 +1,4 @@
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <%
 Set rs = Server.CreateObject("ADODB.RecordSet")
 Set rs2 = Server.CreateObject("ADODB.RecordSet")
@@ -26,7 +26,7 @@ l_rs = nothing
 <html>
 <head>
 <title><%= Session("Titulo")%>Ticket - Usuario: <%= l_username %></title>
-<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <script>
 var jsSelRow = null;
 

@@ -1,6 +1,6 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
-<!--#include virtual="/turnos/shared/inc/adovbs.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/adovbs.inc"-->
 <% 
 'Archivo: permisos_seg_01.asp
 'Descripción: Asignacion de modelos de liquidacion para un concepto

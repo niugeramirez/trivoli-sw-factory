@@ -1,5 +1,5 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <!-- -----------------------------------------------------------------------------
 Archivo     : verifica_campos.asp
 Descripcion : Ejecuta una sql. Si no encuentra datos llama a Verif_sql_Valido(), sino Verif_sql_Invalido()

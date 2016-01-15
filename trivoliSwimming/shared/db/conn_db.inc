@@ -158,7 +158,7 @@ Select Case l_base
   		   cn.ConnectionString = "Provider=SQLOLEDB.1;Password=" & Session("password") & ";Persist Security Info=true;User ID=" & Session("username") & ";Data Source=bb-omh-sis012;Initial Catalog=ticketMM"				
         Case "2" 
 
-			cn.ConnectionString = "Provider=SQLOLEDB.1;Password=" & Session("password") & ";Persist Security Info=true;User ID=" & Session("username") & ";Data Source=127.0.0.1;Initial Catalog=turnos"
+			cn.ConnectionString = "Provider=SQLOLEDB.1;Password=" & Session("password") & ";Persist Security Info=true;User ID=" & Session("username") & ";Data Source=127.0.0.1;Initial Catalog=wi791471_swimming"
 			'cn.ConnectionString = "Driver={SQL Server Native Client 10.0};Server=localhost;Database=wi521535_turnos;User ID=" & Session("username") & ";Password=" & Session("password")
 			'cn.ConnectionString = "Driver={SQL Server Native Client 10.0};Server=localhost;Database=wi521535_turnos;Trusted_Connection=yes;"
 			'cn.ConnectionString = "Provider=SQLOLEDB.1;Password=" & Session("password") & ";Persist Security Info=true;User ID=" & Session("username") & ";Data Source=bb-omh-pc009;Initial Catalog=ticketprueba"

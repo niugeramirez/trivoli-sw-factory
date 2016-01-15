@@ -1,11 +1,11 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/inc/sec.inc"-->
-<!--#include virtual="/turnos/shared/inc/const.inc"-->
-<!--#include virtual="/turnos/shared/inc/sqls.inc"-->
-<!--#include virtual="/turnos/shared/inc/encrypt.inc"-->
-<!--#include virtual="/turnos/shared/inc/password.inc"-->
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
-<!--#include virtual="/turnos/shared/inc/fecha.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/sec.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/const.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/sqls.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/encrypt.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/password.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/fecha.inc"-->
 <%
 
 'Archivo: usuarios_seg_03.asp

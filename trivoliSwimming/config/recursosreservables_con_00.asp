@@ -23,12 +23,12 @@ Dim l_sql
 <script src="../js/jquery.min.js"></script>
 <script src="../js/jquery-ui.js"></script>
 
-<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+<link href="/trivoliSwimming/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 
-<script src="/turnos/shared/js/fn_windows.js"></script>
-<script src="/turnos/shared/js/fn_confirm.js"></script>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
-<script src="/turnos/shared/js/fn_fechas.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_windows.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_confirm.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_fechas.js"></script>
 
 <!--	VENTANAS MODALES        -->
 <script src="../js/ventanas_modales_custom_V2.js"></script>
@@ -138,9 +138,9 @@ function Limpiar(){
 						<td><input  type="text" id="inpapellido" name="inpapellido" size="21" maxlength="21" value="" ></td>
 					    <td></td>
                         <td align="center">
-                            <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar">
-                            <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/turnos/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
-							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','recursosreservables_con_02.asp?Tipo=A',650,250)"><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Agregar Medico"></a>    
+                            <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar">
+                            <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/trivoliSwimming/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
+							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','recursosreservables_con_02.asp?Tipo=A',650,250)"><img  src="/trivoliSwimming/shared/images/Agregar_24.png" border="0" title="Agregar Medico"></a>    
                         </td>
                     </tr>
 					</tbody>

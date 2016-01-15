@@ -1,8 +1,8 @@
 <% Option Explicit %>
-<!--#include virtual="/turnos/shared/inc/sec.inc"-->
-<!--#include virtual="/turnos/shared/inc/encrypt.inc"-->
-<!--#include virtual="/turnos/shared/inc/password.inc"-->
-<!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/sec.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/encrypt.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/password.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <!-- ------------------------------------------------------------------------------------------
 Archivo     : cambio_clave_seg_01.asp
 Descripcion : Valida datos.

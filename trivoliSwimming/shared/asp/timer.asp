@@ -1,5 +1,5 @@
 <meta http-equiv="refresh" content="50">
-<!--#include virtual="/turnos/shared/inc/const.inc"-->
+<!--#include virtual="/trivoliSwimming/shared/inc/const.inc"-->
 <%
 Seg = 1 / (24 * 3600)
 Plazo = seg * (cTimeOut * 60)
@@ -11,9 +11,9 @@ If (Session("Time") + Plazo < now) and (UCase(Session("Username")) <> "SUPER") t
 	'parent.parent.location = 'intro.html'
 	'Response.write "<script>window.parent.parent.opener.location.reload();</script>"
 	if request("menu") = "no" then
-		Response.write "<script>window.parent.location = '/turnos/lanzador/lanzador2.asp';</script>"
+		Response.write "<script>window.parent.location = '/trivoliSwimming/lanzador/lanzador2.asp';</script>"
 	else
-		'Response.write "<script>window.parent.parent.opener.location = '/turnos/lanzador/lanzador2.asp';</script>"
+		'Response.write "<script>window.parent.parent.opener.location = '/trivoliSwimming/lanzador/lanzador2.asp';</script>"
 		Response.write "<script>window.parent.parent.opener.location.reload();</script>"
 	end if
 end if
