@@ -71,24 +71,24 @@
 		<li><a target="ifrm"  href="../../config/Agenda_con_00_v2.asp">Agenda</a></li>
 	</ul>
 </li>
-<li><a href="#">Turnos</a>
+<li><a href="#">Ventas</a>
 	<ul>		
-		<li><a target="ifrm"  href="../../config/AsignarTurnos_con_00.asp">Turnos</a></li>
+		<li><a target="ifrm"  href="../../config/ventas_con_00.asp">Ventas</a></li>
 	</ul>
 </li>
-<li><a href="#">Pacientes</a>
+<li><a href="#">Clientes</a>
 	<ul>		
-		<li><a target="ifrm"  href="../../config/pacientes_con_00.asp">Pacientes</a></li>
+		<li><a target="ifrm"  href="../../config/clientes_con_00.asp">Clientes</a></li>
 	</ul>
 </li>
-<li><a href="#">Medicos</a>
+<li><a href="#">Proveedores</a>
 	<ul>		
-		<li><a target="ifrm"  href="../../config/recursosreservables_con_00.asp">Medicos</a></li>
+		<li><a target="ifrm"  href="../../config/proveedores_con_00.asp">Proveedores</a></li>
 	</ul>
 </li>
-<li><a href="#">Calendarios</a>
+<li><a href="#">Pueba detalle de ventas</a>
 	<ul>		
-		<li><a target="ifrm"  href="../../config/generarcalendarios_con_00.asp">Generar Calendarios</a></li>
+		<li><a target="ifrm"  href="../../config/detalleventa_con_00.asp?id=1">id 1</a></li>
 	</ul>
 </li>
 
@@ -107,7 +107,7 @@
 </li>
 <li><a href="#">Configuraci&oacute;n</a>
 	<ul>				
-		<li><a target="ifrm"  href="../../config/obrassocialesV2_00.asp">Obras Sociales</a></li>
+		<li><a target="ifrm"  href="../../config/bancos_con_00.asp">Bancos</a></li>
 		<li><a target="ifrm"  href="../../config/practicas_00.asp">Practicas Medicas</a></li>
 		<li><a target="ifrm"  href="../../config/templatereservas_con_00.asp">Modelo de Turnos</a></li>
 		<li><a target="ifrm"  href="../../config/mediosdepago_00.asp">Medios de Pago</a></li>
