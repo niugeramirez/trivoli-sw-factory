@@ -35,6 +35,12 @@ Dim l_sql
 
 <script>
 function Validaciones_locales(){
+
+	if (document.datos_02.idcliente.value == "0"){
+		alert("Debe ingresar el Cliente.");
+		document.datos_02.idcliente.focus();
+		return false;
+	}
 /*
 	if (document.datos_02.nombre.value == ""){
 		alert("Debe ingresar el Nombre del Cliente.");

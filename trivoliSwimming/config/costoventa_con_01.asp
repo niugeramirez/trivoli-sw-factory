@@ -1,8 +1,8 @@
 <% Option Explicit %>
 <!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <% 
-'Archivo: detalleventa_con_01.asp
-'Descripción: Grilla Administración de Detalle de ventas
+'Archivo: costoVenta_con_01.asp
+'Descripción: Grilla Administración de Costos de ventas
 'Autor : Trivoli
 'Fecha: 31/05/2015
 
@@ -35,7 +35,7 @@ end if
 <head>
 <link href="/trivoliSwimming/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>Administracion de Detalle de Ventas</title>
+<title>Administracion de Costos de Ventas</title>
 </head>
 
 
@@ -51,17 +51,17 @@ end if
     l_filtro = replace (l_filtro, "*", "%")
 
     Set l_rs = Server.CreateObject("ADODB.RecordSet")
-    l_sql = "SELECT    detalleVentas.*  , conceptosCompraVenta.descripcion "
-    l_sql = l_sql & " FROM detalleVentas "
-    l_sql = l_sql & " LEFT JOIN conceptosCompraVenta ON conceptosCompraVenta.id = detalleVentas.idconceptoCompraVenta "
+    l_sql = "SELECT    costosVentas.*  , conceptosCompraVenta.descripcion "
+    l_sql = l_sql & " FROM costosVentas "
+    l_sql = l_sql & " LEFT JOIN conceptosCompraVenta ON conceptosCompraVenta.id = costosVentas.idconceptoCompraVenta "
 	' Multiempresa
 	if l_filtro <> "" then
 	  l_sql = l_sql & " WHERE " & l_filtro & " "
-	  l_sql = l_sql & " and detalleVentas.empnro = " & Session("empnro")   
+	  l_sql = l_sql & " and costosVentas.empnro = " & Session("empnro")   
 	else
-		l_sql = l_sql & " where detalleVentas.empnro = " & Session("empnro")   		
+		l_sql = l_sql & " where costosVentas.empnro = " & Session("empnro")   		
 	end if
-	l_sql = l_sql & " and detalleVentas.idventa = " & l_idventa  
+	l_sql = l_sql & " and costosVentas.idventa = " & l_idventa  
 	
 	
 	
@@ -73,7 +73,7 @@ end if
     %>
     
     <tr>
-	    <td colspan="4" >No existen Detalle de Ventas cargados para el filtro ingresado.</td>
+	    <td colspan="4" >No existen Costos de Ventas cargados para el filtro ingresado.</td>
     </tr>
     <%
     else
@@ -82,12 +82,12 @@ end if
 	    do until l_rs.eof
 		    l_cant = l_cant + 1
 	    %>
-	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','detalleVentas_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
+	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','costoVenta_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
 			<td width="10%" nowrap><%= l_rs("descripcion")%></td>
 			<td width="10%" align="center" nowrap><%= l_rs("cantidad")%></td>
 			<td width="10%" align="center" nowrap><%= l_rs("precio_unitario")%></td>
 	        <td align="center" width="10%" nowrap>                    
-                <a href="Javascript:parent.abrirDialogo('dialog','detalleventa_con_02.asp?idventa=' + document.detalle_01.idventa.value + '&Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
+                <a href="Javascript:parent.abrirDialogo('dialog','costoVenta_con_02.asp?idventa=' + document.detalle_01.idventa.value + '&Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
 			</td>
         </tr>

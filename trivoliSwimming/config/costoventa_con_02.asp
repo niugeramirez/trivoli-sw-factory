@@ -43,7 +43,7 @@ select Case l_tipo
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
 		l_sql = "SELECT  * "
-		l_sql = l_sql & " FROM detalleVentas  "
+		l_sql = l_sql & " FROM costosVentas  "
 		l_sql  = l_sql  & " WHERE id = " & l_id
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
@@ -102,8 +102,8 @@ end select
 							<tr>
 								<td align="right"><b>Cantidad:</b></td>
 								<td colspan="3">
-									<input type="text" name="cantidad" size="50" maxlength="50" value="<%= l_cantidad %>">
-									<input type="hidden" name="cantidad2" value="">								
+									<input type="text" name="cantidad" size="50" maxlength="50" value="<%= l_cantidad %>">		
+									<input type="hidden" name="cantidad2" value="">						
 								</td>
 				
 							</tr>		

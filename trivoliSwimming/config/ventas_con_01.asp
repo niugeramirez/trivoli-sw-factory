@@ -86,13 +86,11 @@ end if
                 <a href="Javascript:parent.abrirDialogo('dialog','ventas_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
 				
-				<!--
-		        <a href="Javascript:abrirVentanaVerif('detalleventa_con_00.asp?id=' + document.ifrm.datos.cabnro.value,'',520,200);"><img src="/turnos/shared/images/Data-List-icon_16.png" border="0" title="Detalle"></a>						
-				-->
-				<a target="_blank" href="detalleventa_con_00.asp?id='" + document.ifrm.datos.cabnro.value;"><img src="/turnos/shared/images/Data-List-icon_16.png" border="0" title="Detalle"></a>										
+							 
+				<a href="Javascript:parent.abrirVentana('detalleventa_con_00.asp?id=' + document.detalle_01.cabnro.value,'',620,400);"><img src="../shared/images/Data-List-icon_16.png" border="0" title="Detalle de Venta"></a>
+				<a href="Javascript:parent.abrirVentana('costoventa_con_00.asp?id=' + document.detalle_01.cabnro.value,'',620,400);"><img src="../shared/images/Ecommerce-Price-Tag-icon.png" border="0" title="Costo de Venta"></a>
 				
-				 <a target="_blank" href="Javascript:parent.abrirVentana('listadepreciosdetalle_con_00.asp?id=' + document.ifrm.datos.cabnro.value,'',520,200);"><img src="/turnos/shared/images/Data-List-icon_16.png" border="0" title="Detalle"></a>								  
-
+				
 
 				
 			</td>
@@ -109,9 +107,9 @@ end if
     %>
 </table>
 <form name="detalle_01" id="detalle_01" method="post">
-    <input type="text" id="cabnro" name="cabnro" value="0">
+    <input type="hidden" id="cabnro" name="cabnro" value="0">
     <input type="hidden" name="orden" value="<%= l_orden %>">
-    <input type="text" name="filtro" value="<%= l_filtro %>">
+    <input type="hidden" name="filtro" value="<%= l_filtro %>">
 </form>
 </body>
 </html>

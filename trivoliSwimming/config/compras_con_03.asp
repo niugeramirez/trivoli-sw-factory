@@ -3,6 +3,7 @@
 <!--#include virtual="/trivoliSwimming/shared/inc/const.inc"-->
 <!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <!--#include virtual="/trivoliSwimming/shared/inc/fecha.inc"-->
+
 <% 
 
 
@@ -14,14 +15,13 @@ Dim l_sql
 
 dim l_id
 dim l_fecha
-dim l_idcliente
-
+dim l_idproveedor
 
 
 l_tipo 		               = request.Form("tipo")
 l_id                       = request.Form("id")
 l_fecha  	               = request.Form("fecha")
-l_idcliente  		       = request.Form("idcliente")
+l_idproveedor		       = request.Form("idproveedor")
 
 if len(l_fecha) = 0 then
 	l_fecha = "null"
@@ -31,20 +31,20 @@ end if
 
 	set l_cm = Server.CreateObject("ADODB.Command")
 	if l_tipo = "A" then 
-		l_sql = "INSERT INTO ventas  "
+		l_sql = "INSERT INTO compras  "
 		' Multiempresa
 		' Se elimina est linea y se reemplaza por el codigo de abajo
 		'l_sql = l_sql & " (descripcion, idtemplatereserva, cantturnossimult, cantsobreturnos,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " (fecha,idcliente, empnro, created_by,creation_date,last_updated_by,last_update_date)"
+		l_sql = l_sql & " (fecha,idproveedor, empnro, created_by,creation_date,last_updated_by,last_update_date)"
 
 		' Se elimina est linea y se reemplaza por el codigo de abajo
 		'l_sql = l_sql & " VALUES ('" & l_descripcion & "'," & l_idtemplatereserva & "," & l_cantturnossimult & "," & l_cantsobreturnos  &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
-		l_sql = l_sql & " VALUES (" & l_fecha & ",'" & l_idcliente & "','" & session("empnro") &"','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & " VALUES (" & l_fecha & ",'" & l_idproveedor & "','" & session("empnro") &"','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 		
 	else
-		l_sql = "UPDATE ventas "
-		l_sql = l_sql & " SET fecha    = " & l_fecha & ""
-		l_sql = l_sql & "    ,idcliente  = '" & l_idcliente & "'"	
+		l_sql = "UPDATE compras "
+		l_sql = l_sql & " SET fecha        =  " & l_fecha & ""
+		l_sql = l_sql & "    ,idproveedor  = '" & l_idproveedor & "'"	
 
 		l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"
 		l_sql = l_sql & "    ,last_update_date = GETDATE()" 	

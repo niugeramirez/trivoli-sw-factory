@@ -13,7 +13,7 @@ dim l_cantidad
 dim l_precio_unitario
 dim l_observaciones
 
-Dim l_idventa
+Dim l_idcompra
 
 'ADO
 Dim l_tipo
@@ -21,7 +21,7 @@ Dim l_sql
 Dim l_rs
 
 l_tipo = request.querystring("tipo")
-l_idventa = request.querystring("idventa")
+l_idcompra = request.querystring("idcompra")
 
 'response.write l_tipo
 
@@ -43,7 +43,7 @@ select Case l_tipo
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
 		l_sql = "SELECT  * "
-		l_sql = l_sql & " FROM detalleVentas  "
+		l_sql = l_sql & " FROM detallecompras  "
 		l_sql  = l_sql  & " WHERE id = " & l_id
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
@@ -61,7 +61,7 @@ end select
 	<form name="datos_02" id="datos_02" action = "Javascript:Submit_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario();}"  target="valida">
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
-		<input type="Hidden" name="idventa" value="<%= l_idventa %>">
+		<input type="Hidden" name="idcompra" value="<%= l_idcompra %>">
 		
 
 		<table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">

@@ -26,8 +26,8 @@ l_tipo 		               = request.Form("tipo")
 l_id                       = request.Form("id")
 
 l_idconceptoCompraVenta    = request.Form("idconceptoCompraVenta")
-l_cantidad				   = request.Form("cantidad")
-l_precio_unitario		   = request.Form("precio_unitario")
+l_cantidad				   = request.Form("cantidad2")
+l_precio_unitario		   = request.Form("precio_unitario2")
 l_observaciones            = request.Form("observaciones")
 
 l_idventa				   = request.Form("idventa")

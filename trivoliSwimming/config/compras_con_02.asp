@@ -9,7 +9,7 @@ on error goto 0
 
 dim l_id
 dim l_fecha
-dim l_idcliente
+dim l_idproveedor
 
 'ADO
 Dim l_tipo
@@ -29,19 +29,19 @@ l_tipo = request.querystring("tipo")
 <% 
 select Case l_tipo
 	Case "A":
- 	    	l_fecha      = ""
-			l_idcliente    = "0"
+ 	    	l_fecha          = ""
+			l_idproveedor    = "0"
 
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
 		l_sql = "SELECT  * "
-		l_sql = l_sql & " FROM ventas  "
+		l_sql = l_sql & " FROM compras  "
 		l_sql  = l_sql  & " WHERE id = " & l_id
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
  	    	l_fecha      		= l_rs("fecha")
-			l_idcliente         = l_rs("idcliente")
+			l_idproveedor       = l_rs("idproveedor")
 			
 		end if
 		l_rs.Close
@@ -72,15 +72,15 @@ end select
 												
 							
 						    <tr>
-								<td align="right"><b>Cliente:</b></td>
-								<td colspan="3"><select name="idcliente" size="1" style="width:450;">
-										<option value="0" selected>&nbsp;Seleccione un Cliente</option>
+								<td align="right"><b>Proveedor:</b></td>
+								<td colspan="3"><select name="idproveedor" size="1" style="width:450;">
+										<option value="0" selected>&nbsp;Seleccione un Proveedor</option>
 										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 										l_sql = "SELECT  * "
-										l_sql  = l_sql  & " FROM clientes "
+										l_sql  = l_sql  & " FROM proveedores "
 										' Multiempresa
 										' Se agrega este filtro 
-										l_sql = l_sql & " where clientes.empnro = " & Session("empnro")   
+										l_sql = l_sql & " where proveedores.empnro = " & Session("empnro")   
 										
 										l_sql  = l_sql  & " ORDER BY nombre "
 										rsOpen l_rs, cn, l_sql, 0
@@ -91,7 +91,7 @@ end select
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02.idcliente.value= "<%= l_idcliente %>"</script>
+									<script>document.datos_02.idproveedor.value= "<%= l_idproveedor %>"</script>
 								</td>					
 							</tr>
 
