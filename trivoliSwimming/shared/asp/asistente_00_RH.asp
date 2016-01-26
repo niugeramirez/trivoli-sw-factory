@@ -58,7 +58,7 @@
 		<link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
 		<link rel="stylesheet" href="css/style2.css" type="text/css" media="all">
 
-<title><%'= Session("Titulo")%> Gesti&oacute;n M&eacute;dica</title>
+<title><%'= Session("Titulo")%> Gesti&oacute;n Ventas</title>
 <script src="/trivoliSwimming/shared/js/fn_windows.js"></script>
 <script src="/trivoliSwimming/shared/js/fn_confirm.js"></script>
 <script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
@@ -178,7 +178,7 @@ function logout(arg){
 			<iframe name="pasos" src="menu1.asp" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" align="left"></iframe> 
 		</td>
     	<td nowrap align="right" width="100%" height="100%">
-			<iframe name="ifrm" src="../../config/Agenda_con_00_v2.asp" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no"></iframe>
+			<iframe name="ifrm" src="../../config/ventas_con_00.asp" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no"></iframe>
 		</td>
 	</tr>
 </table>

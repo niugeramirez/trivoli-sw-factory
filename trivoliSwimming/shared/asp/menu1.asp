@@ -65,15 +65,22 @@
 <body bgcolor="#F1F2F2">
 <ul id="menu">
 
-
+<!--
 <li><a href="#">Agenda</a>
 	<ul>		
 		<li><a target="ifrm"  href="../../config/Agenda_con_00_v2.asp">Agenda</a></li>
 	</ul>
 </li>
+
+-->
 <li><a href="#">Ventas</a>
 	<ul>		
 		<li><a target="ifrm"  href="../../config/ventas_con_00.asp">Ventas</a></li>
+	</ul>
+</li>
+<li><a href="#">Compras</a>
+	<ul>		
+		<li><a target="ifrm"  href="../../config/compras_con_00.asp">Compras</a></li>
 	</ul>
 </li>
 <li><a href="#">Clientes</a>
@@ -81,41 +88,31 @@
 		<li><a target="ifrm"  href="../../config/clientes_con_00.asp">Clientes</a></li>
 	</ul>
 </li>
+
 <li><a href="#">Proveedores</a>
 	<ul>		
 		<li><a target="ifrm"  href="../../config/proveedores_con_00.asp">Proveedores</a></li>
 	</ul>
 </li>
-<li><a href="#">Pueba detalle de ventas</a>
+
+<li><a href="#">Cheques</a>
 	<ul>		
-		<li><a target="ifrm"  href="../../config/detalleventa_con_00.asp?id=1">id 1</a></li>
+		<li><a target="ifrm"  href="../../config/cheques_con_00.asp">Cheques</a></li>
 	</ul>
 </li>
 
-<li><a href="#">Visitas</a>
-	<ul>		
-		<li><a target="ifrm"  href="../../config/visitas_con_00.asp">Visitas</a></li>
-	</ul>
-</li>
 <li><a href="#">Reportes</a>
 	<ul>
-		<li><a target="ifrm"  href="../../reportes/rep_planilla_turnos_rep_00.asp">Planilla de Turnos</a></li>
+		<li><a target="ifrm"  href="">A definir</a></li>
+		<!--
 		<li><a target="ifrm"  href="../../reportes/rep_visitas_entre_fechas_rep_00.asp">Visitas entre Fechas</a></li>
 		<li><a target="ifrm"  href="../../reportes/rep_pagos_por_medio_rep_00.asp">Pago entre Fechas</a></li>
-		
+		-->
 	</ul>
 </li>
 <li><a href="#">Configuraci&oacute;n</a>
 	<ul>				
 		<li><a target="ifrm"  href="../../config/bancos_con_00.asp">Bancos</a></li>
-		<li><a target="ifrm"  href="../../config/practicas_00.asp">Practicas Medicas</a></li>
-		<li><a target="ifrm"  href="../../config/templatereservas_con_00.asp">Modelo de Turnos</a></li>
-		<li><a target="ifrm"  href="../../config/mediosdepago_00.asp">Medios de Pago</a></li>
-		<li><a target="ifrm"  href="../../seguridad/usuarios_seg_00.asp">Usuarios</a></li>
-		<li><a target="ifrm"  href="../../seguridad/armado_menu_00.asp">Menues</a></li>
-		<li><a target="ifrm"  href="../../config/provincias_00.asp">Provincias</a></li>
-		<li><a target="ifrm"  href="../../config/ciudades_00.asp">Ciudades</a></li>
-		
 		
 	</ul>
 </li>
