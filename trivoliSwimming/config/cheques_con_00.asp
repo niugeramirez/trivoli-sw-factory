@@ -29,12 +29,53 @@ Dim l_sql
 <script src="/trivoliSwimming/shared/js/fn_confirm.js"></script>
 <script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
 <script src="/trivoliSwimming/shared/js/fn_fechas.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>
 
 <!--	VENTANAS MODALES        -->
 <script src="../js/ventanas_modales_custom_V2.js"></script>
 
 <script>
 function Validaciones_locales(){
+
+	
+	if (document.datos_02.numero.value == ""){
+		alert("Debe ingresar un Numero.");
+		document.datos_02.numero.focus();
+		return false;
+	}	
+
+	if (document.datos_02.idbanco.value == "0"){
+		alert("Debe ingresar un Banco.");
+		document.datos_02.idbanco.focus();
+		return false;
+	}
+
+	if (document.datos_02.importe.value == ""){
+		alert("Debe ingresar un Importe.");
+		document.datos_02.importe.focus();
+		return false;
+	}		
+	
+	if (document.datos_02.importe.value == "0"){
+		alert("El Importe debe ser distinto de Cero.");
+		document.datos_02.importe.focus();
+		return false;
+	}		
+	
+	document.datos_02.importe2.value = document.datos_02.importe.value.replace(",", ".");
+	if (!validanumero(document.datos_02.importe2, 15, 4)){
+		  alert("El Importe no es válido. Se permite hasta 15 enteros y 4 decimales.");	
+		  document.datos.importe.focus();
+		  document.datos.importe.select();
+		  return;
+	}		
+	
+	if (document.datos_02.emisor.value == "0"){
+		alert("Debe ingresar un Emisor.");
+		document.datos_02.emisor.focus();
+		return false;
+	}	
+
 /*
 	if (document.datos_02.nombre.value == ""){
 		alert("Debe ingresar el Nombre del Cliente.");

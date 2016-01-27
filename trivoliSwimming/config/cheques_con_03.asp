@@ -14,24 +14,40 @@ Dim l_sql
 
 dim l_id
 dim l_numero
-dim l_telefono
-dim l_celular  
-dim l_mail  
-dim l_direccion
-dim l_idciudad
+dim l_fecha_emision
+dim l_fecha_vencimiento  
+dim l_idbanco  
+dim l_importe
+dim l_flag_propio
+dim l_emisor
 
 
 
 l_tipo 		               = request.Form("tipo")
 l_id                       = request.Form("id")
 l_numero                   = request.Form("numero")
-'l_telefono		           = request.Form("telefono")
-'l_celular		           = request.Form("celular")
-'l_mail  		           = request.Form("mail")
-'l_direccion		           = request.Form("direccion")
-'l_idciudad				   = request.Form("idciudad")
-'l_cantturnossimult         = request.Form("cantturnossimult")
+l_fecha_emision	           = request.Form("fecha_emision")
+l_fecha_vencimiento        = request.Form("fecha_vencimiento")
+l_idbanco  		           = request.Form("idbanco")
+l_importe		           = request.Form("importe2")
+l_flag_propio			   = request.Form("flag_propio")
+l_emisor			       = request.Form("emisor")
 'l_cantsobreturnos          = 0 ' request.Form("cantsobreturnos") se elimino esta campo
+
+
+if len(l_fecha_emision) = 0 then
+	l_fecha_emision = "null"
+else 
+	l_fecha_emision = cambiafecha(l_fecha_emision,"YMD",true)	
+end if 
+
+if len(l_fecha_vencimiento) = 0 then
+	l_fecha_vencimiento = "null"
+else 
+	l_fecha_vencimiento = cambiafecha(l_fecha_vencimiento,"YMD",true)	
+end if 
+
+
 
 'response.write "l_tipo"&l_tipo & "<br>"
 'response.write "l_id"&l_id & "<br>"
@@ -42,20 +58,21 @@ l_numero                   = request.Form("numero")
 		' Multiempresa
 		' Se elimina est linea y se reemplaza por el codigo de abajo
 		'l_sql = l_sql & " (descripcion, idtemplatereserva, cantturnossimult, cantsobreturnos,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " (numero, empnro, created_by,creation_date,last_updated_by,last_update_date)"
+		l_sql = l_sql & " (numero, fecha_emision, fecha_vencimiento, id_banco , importe, flag_propio, emisor,  empnro, created_by,creation_date,last_updated_by,last_update_date)"
 
 		' Se elimina est linea y se reemplaza por el codigo de abajo
 		'l_sql = l_sql & " VALUES ('" & l_descripcion & "'," & l_idtemplatereserva & "," & l_cantturnossimult & "," & l_cantsobreturnos  &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
-		l_sql = l_sql & " VALUES ('" & l_numero & "','" & session("empnro") &"','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & " VALUES ('" & l_numero & "'," & l_fecha_emision & "," & l_fecha_vencimiento & "," & l_idbanco & "," & l_importe & "," & l_flag_propio & ",'" & l_emisor & "','" & session("empnro") &"','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 		
 	else
 		l_sql = "UPDATE cheques "
 		l_sql = l_sql & " SET numero    = '" & l_numero & "'"
-		'l_sql = l_sql & "    ,telefono  = '" & l_telefono & "'"	
-		'l_sql = l_sql & "    ,celular   = '" & l_celular & "'"
-		'l_sql = l_sql & "    ,mail      = '" & l_mail & "'"
-		'l_sql = l_sql & "    ,direccion = '" & l_direccion & "'"
-		'l_sql = l_sql & "    ,idciudad  =  " & l_idciudad & ""		
+		l_sql = l_sql & "    ,fecha_emision  = " & l_fecha_emision & ""	
+		l_sql = l_sql & "    ,fecha_vencimiento  = " & l_fecha_vencimiento & ""	
+		l_sql = l_sql & "    ,id_banco   = " & l_idbanco & ""
+		l_sql = l_sql & "    ,importe      = " & l_importe & ""
+		l_sql = l_sql & "    ,flag_propio = " & l_flag_propio & ""
+		l_sql = l_sql & "    ,emisor  =  '" & l_emisor & "'"		
 		'l_sql = l_sql & "    ,cantturnossimult    = " & l_cantturnossimult & ""
 		'l_sql = l_sql & "    ,cantsobreturnos    =    " & l_cantsobreturnos & ""
 		l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"

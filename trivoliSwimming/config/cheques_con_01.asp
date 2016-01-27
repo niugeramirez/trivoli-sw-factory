@@ -40,12 +40,15 @@ end if
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar();">
 <table>
     <tr>
-        <th>Numero</th>
-		<!--
-        <th>Tel</th>	
-        <th>Celular</th>		
-        <th>Mail</th>
-		<th>Direccion</th>
+        <th>Numero</th>		
+        <th>Fecha Emision</th>			
+        <th>Fecha vencimiento</th>			
+        <th>Banco</th>
+		
+		<th>Importe</th>
+		<th>Propio</th>
+		<th>Emisor</th>
+		<!--	
 		<th>Ciudad</th> 	
 		-->
 		<th>Acciones</th>		
@@ -54,9 +57,9 @@ end if
     l_filtro = replace (l_filtro, "*", "%")
 
     Set l_rs = Server.CreateObject("ADODB.RecordSet")
-    l_sql = "SELECT    cheques.*  "
+    l_sql = "SELECT    cheques.* , bancos.nombre_banco "
     l_sql = l_sql & " FROM cheques "
-    'l_sql = l_sql & " LEFT JOIN ciudades ON ciudades.id = clientes.idciudad "
+    l_sql = l_sql & " LEFT JOIN bancos ON cheques.id_banco = bancos.id "
 	' Multiempresa
 	if l_filtro <> "" then
 	  l_sql = l_sql & " WHERE " & l_filtro & " "
@@ -86,14 +89,18 @@ end if
 	    %>
 	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','cheques_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
 			<td width="10%" nowrap><%= l_rs("numero")%></td>
-			<!--
-			<td width="10%" align="center" nowrap><%'= l_rs("numero")%></td>
-			<td width="10%" align="center" nowrap><%'= l_rs("celular")%></td>
-			<td width="10%" align="left" nowrap><%'= l_rs("mail")%></td>			
-	        <td width="10%" nowrap align="left"><%'= l_rs("direccion")%></td>			
-			<td width="10%" nowrap align="left"><%'= l_rs("ciudad")%></td>	-->			
+			
+			<td width="10%" align="center" nowrap><%= l_rs("fecha_emision")%></td>			
+			<td width="10%" align="center" nowrap><%= l_rs("fecha_vencimiento")%></td>
+			
+			<td width="10%" align="left" nowrap><%= l_rs("nombre_banco")%></td>	
+				
+	        <td width="10%" nowrap align="center"><%= l_rs("importe")%></td>			
+			
+			<td width="10%" nowrap align="center"><% if l_rs("flag_propio") = 0 then response.write "NO" else response.write "SI" end if %></td>	
+			  <td width="10%" nowrap align="left"><%= l_rs("emisor")%></td>			
 	        <td align="center" width="10%" nowrap>                    
-                <a href="Javascript:parent.abrirDialogo('dialog','cheques_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
+                <a href="Javascript:parent.abrirDialogo('dialog','cheques_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
 			</td>
         </tr>

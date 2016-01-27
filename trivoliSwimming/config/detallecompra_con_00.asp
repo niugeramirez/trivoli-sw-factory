@@ -74,7 +74,7 @@ function Validaciones_locales(){
 		return false;
 	}		
 	
-	if (document.datos_02.precio_unitario.value == ""){
+	if (document.datos_02.precio_unitario.value == "0"){
 		alert("El Precio Unitario debe ser distinto de Cero.");
 		document.datos_02.precio_unitario.focus();
 		return false;
