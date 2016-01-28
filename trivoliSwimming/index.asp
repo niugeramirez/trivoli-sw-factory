@@ -25,7 +25,7 @@ end if
  %>
 <html lang="en">
 	<head>
-		<title></title>
+		<title>Gestion de Ventas - IGUI</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="css/reset2.css" type="text/css" media="all">
 		<link rel="stylesheet" href="css/layout2.css" type="text/css" media="all">
@@ -284,19 +284,27 @@ function logout(arg){
 				<div id="slider">
 					<ul class="items">
 						<li>
-							<img src="images/img1.jpg" alt="">
+							<img src="images/img1.png" alt="">
 							<div class="banner">
-								<span class="title"><span class="color2">Megavision</span><span class="color1">Centro Privado</span><span>Oftalmologia</span></span>
+								<span class="title"><span class="color2">IGUI Piscinas</span>
+								<!--
+								<span class="color1">Centro Privado</span><span>Oftalmologia</span></span>
 								<p>Nuestro Centro se especializa en el tratamientos de patologias de retina y vitreo</p>
+								
 								<a href="#" class="button1">Mas</a>
+								-->
 							</div>
 						</li>
 						<li>
-							<img src="images/img2.jpg" alt="">
+							<img src="images/img2.png" alt="">
 							<div class="banner">
-								<span class="title"><span class="color2">Consultorios</span><span class="color1"> de Ultima</span><span>Generacion</span></span>
+								<span class="title"><span class="color2">IGUI Piscinas</span>
+								<!--
+								<span class="color1"> de Ultima</span><span>Generacion</span></span>
 								<p>Contamos con un Quirofano especialmente disenado para cirugia de alta complejidad.</p>
+								
 								<a href="#" class="button1">Mas</a>
+								-->
 							</div>
 						</li>
 						<!--
@@ -325,7 +333,7 @@ function logout(arg){
 					<!--<li><a href="#" class="normaltip" title="Picasa"><img src="images/icon3.jpg" alt=""></a></li>-->
 					<li><a href="#" class="normaltip" title="YouTube"><img src="images/icon4.jpg" alt=""></a></li>
 				</ul>
-				Megavision.com.ar &copy; 2015 <br>Desarrollado por <a rel="nofollow" href="trivoli.asp" target="_blank">Trivoli</a><br>
+				igui.com.ar &copy; 2015 <br>Desarrollado por <a rel="nofollow" href="trivoli.asp" target="_blank">Trivoli</a><br>
 				<!-- {%FOOTER_LINK} -->
 			</footer>
 <!--footer end-->
