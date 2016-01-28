@@ -101,6 +101,12 @@
 	</ul>
 </li>
 
+<li><a href="#">Caja</a>
+	<ul>		
+		<li><a target="ifrm"  href="../../config/cajamovimientos_con_00.asp">Cajas</a></li>
+	</ul>
+</li>
+
 <li><a href="#">Reportes</a>
 	<ul>
 		<li><a target="ifrm"  href="">A definir</a></li>
