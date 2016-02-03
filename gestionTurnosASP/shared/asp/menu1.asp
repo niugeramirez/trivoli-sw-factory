@@ -79,6 +79,7 @@
 <li><a href="#">Pacientes</a>
 	<ul>		
 		<li><a target="ifrm"  href="../../config/pacientes_con_00.asp">Pacientes</a></li>
+		<li><a target="ifrm"  href="../../config/historia_clinica_resum_con_00.asp">Historia Clinica</a></li>
 	</ul>
 </li>
 <li><a href="#">Medicos</a>
