@@ -29,6 +29,30 @@ l_tipo = request.querystring("tipo")
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- Comienzo Datepicker -->
+<script>
+$(function () {
+/*$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1
+});*/
+
+		
+$( "#fecha_emision" ).datepicker({
+	showOn: "button",
+	buttonImage: "../shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+$( "#fecha_vencimiento" ).datepicker({
+	showOn: "button",
+	buttonImage: "../shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+});
+</script>
+<!-- Final Datepicker -->
 </head>
 
 <% 
@@ -93,7 +117,7 @@ end select
 							<tr>
 								<td align="right"><b>Fecha Emision:</b></td>
 								<td colspan="3">
-									<input type="text" name="fecha_emision" size="50" maxlength="50" value="<%= l_fecha_emision %>">							
+									<input type="text" id="fecha_emision" name="fecha_emision" size="50" maxlength="50" value="<%= l_fecha_emision %>">							
 								</td>
 				
 							</tr>		
@@ -101,7 +125,7 @@ end select
 							<tr>
 								<td align="right"><b>Fecha Vencimiento:</b></td>
 								<td colspan="3">
-									<input type="text" name="fecha_vencimiento" size="50" maxlength="50" value="<%= l_fecha_vencimiento %>">							
+									<input type="text" id="fecha_vencimiento" name="fecha_vencimiento" size="50" maxlength="50" value="<%= l_fecha_vencimiento %>">							
 								</td>
 				
 							</tr>		

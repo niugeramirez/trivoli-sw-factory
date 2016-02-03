@@ -33,6 +33,24 @@ l_tipo = request.querystring("tipo")
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- Comienzo Datepicker -->
+<script>
+$(function () {
+/*$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1
+});*/
+
+		
+$( "#fecha" ).datepicker({
+	showOn: "button",
+	buttonImage: "../shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+});
+</script>
+<!-- Final Datepicker -->
 </head>
 
 <% 
@@ -92,7 +110,7 @@ end select
 							<tr>
 								<td align="right"><b>Fecha:</b></td>
 								<td colspan="3">
-									<input type="text" name="fecha" size="10" maxlength="10" value="<%= l_fecha %>">							
+									<input type="text" id="fecha" name="fecha" size="10" maxlength="10" value="<%= l_fecha %>">							
 								</td>
 				
 							</tr>					

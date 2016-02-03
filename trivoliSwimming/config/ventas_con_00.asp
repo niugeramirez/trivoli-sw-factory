@@ -22,6 +22,7 @@ Dim l_sql
 <link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css" />
 <script src="../js/jquery.min.js"></script>
 <script src="../js/jquery-ui.js"></script>
+<script src="../js/jquery.ui.datepicker-es.js"></script>
 
 <link href="/trivoliSwimming/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 
