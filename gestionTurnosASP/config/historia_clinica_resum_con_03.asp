@@ -13,41 +13,48 @@ Dim l_cm
 Dim l_sql
 
 dim l_id
-dim l_descripcion
-dim l_idtemplatereserva
-dim l_cantturnossimult  
-dim l_cantsobreturnos     
+
+dim l_fecha
+dim l_idclientepaciente  
+dim l_idrecursoreservable
+dim l_detalle
 
 
 
 l_tipo 		               = request.Form("tipo")
 l_id                       = request.Form("id")
-l_descripcion              = request.Form("descripcion")
-l_idtemplatereserva        = request.Form("idtemplatereserva")
-l_cantturnossimult         = request.Form("cantturnossimult")
-l_cantsobreturnos          = 0 ' request.Form("cantsobreturnos") se elimino esta campo
+l_fecha			           = request.Form("fecha")
+l_detalle 		           = request.Form("detalle")
+l_idrecursoreservable 	   = request.Form("idrecursoreservable")
 
-'response.write "l_tipo"&l_tipo & "<br>"
-'response.write "l_id"&l_id & "<br>"
+l_idclientepaciente = 199624
+
+
+
+if len(l_fecha) = 0 then
+	l_fecha = "null"
+else 
+	l_fecha = cambiafecha(l_fecha,"YMD",true)	
+end if 
 
 	set l_cm = Server.CreateObject("ADODB.Command")
 	if l_tipo = "A" then 
-		l_sql = "INSERT INTO recursosreservables  "
+		l_sql = "INSERT INTO historia_clinica_resumida  "
 		' Multiempresa
 		' Se elimina est linea y se reemplaza por el codigo de abajo
 		'l_sql = l_sql & " (descripcion, idtemplatereserva, cantturnossimult, cantsobreturnos,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " (descripcion, idtemplatereserva, cantturnossimult, cantsobreturnos,empnro, created_by,creation_date,last_updated_by,last_update_date)"
+		l_sql = l_sql & " (fecha, idclientepaciente, idrecursoreservable, detalle,empnro, created_by,creation_date,last_updated_by,last_update_date)"
 
 		' Se elimina est linea y se reemplaza por el codigo de abajo
 		'l_sql = l_sql & " VALUES ('" & l_descripcion & "'," & l_idtemplatereserva & "," & l_cantturnossimult & "," & l_cantsobreturnos  &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
-		l_sql = l_sql & " VALUES ('" & l_descripcion & "'," & l_idtemplatereserva & "," & l_cantturnossimult & "," & l_cantsobreturnos & ",'"& session("empnro") &"','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & " VALUES (" & l_fecha & "," & l_idclientepaciente & "," & l_idrecursoreservable & ",'" & l_detalle & "','"& session("empnro") &"','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 		
 	else
-		l_sql = "UPDATE recursosreservables "
-		l_sql = l_sql & " SET descripcion    = '" & l_descripcion & "'"
-		l_sql = l_sql & "    ,idtemplatereserva    = " & l_idtemplatereserva & ""	
-		l_sql = l_sql & "    ,cantturnossimult    = " & l_cantturnossimult & ""
-		l_sql = l_sql & "    ,cantsobreturnos    =    " & l_cantsobreturnos & ""
+		l_sql = "UPDATE historia_clinica_resumida "
+		l_sql = l_sql & " SET idclientepaciente    = " & l_idclientepaciente & ""
+		l_sql = l_sql & "    ,fecha    			   = " & l_fecha & ""	
+		l_sql = l_sql & "    ,idrecursoreservable    = " & l_idrecursoreservable & ""
+		l_sql = l_sql & "    ,detalle    =    '" & l_detalle & "'"
 		l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"
 		l_sql = l_sql & "    ,last_update_date = GETDATE()" 	
 		l_sql = l_sql & " WHERE id = " & l_id

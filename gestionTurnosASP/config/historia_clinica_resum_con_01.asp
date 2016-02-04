@@ -21,7 +21,7 @@ l_filtro = request("filtro")
 l_orden  = request("orden")
 
 if l_orden = "" then
-  l_orden = " ORDER BY clientespacientes.apellido "
+  l_orden = " ORDER BY historia_clinica_resumida.id "
 end if
 %>
 
@@ -40,6 +40,7 @@ end if
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar();">
 <table>
     <tr>
+        <th>Fecha</th>	
         <th>Apellido</th>
         <th>Nombre</th>	
         <th>Medico</th>		
@@ -49,7 +50,7 @@ end if
     l_filtro = replace (l_filtro, "*", "%")
 
     Set l_rs = Server.CreateObject("ADODB.RecordSet")
-    l_sql = "SELECT    historia_clinica_resumida.* , clientespacientes.apellido, clientespacientes.nombre, recursosreservables.descripcion "
+    l_sql = "SELECT    historia_clinica_resumida.*, clientespacientes.apellido, clientespacientes.nombre, recursosreservables.descripcion "
     l_sql = l_sql & " FROM historia_clinica_resumida "
     l_sql = l_sql & " LEFT JOIN clientespacientes ON clientespacientes.id = historia_clinica_resumida.idclientepaciente "
     l_sql = l_sql & " LEFT JOIN recursosreservables ON recursosreservables.id = historia_clinica_resumida.idrecursoreservable "
@@ -81,14 +82,15 @@ end if
 	    do until l_rs.eof
 		    l_cant = l_cant + 1
 	    %>
-	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','historia_clinica_resum_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
+	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','historia_clinica_resum_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,950,650);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
+			<td width="10%" nowrap><%= l_rs("fecha")%></td>
 			<td width="10%" nowrap><%= l_rs("apellido")%></td>
 			<td width="10%" nowrap><%= l_rs("nombre")%></td>
 	        <td width="10%" nowrap align="center"><%= l_rs("descripcion")%></td>						
 	        <td align="center" width="10%" nowrap>                    
-                <a href="Javascript:parent.abrirDialogo('dialog','recursosreservables_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
+                <a href="Javascript:parent.abrirDialogo('dialog','historia_clinica_resum_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,950,650);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
-				<a href="Javascript:parent.abrirVentana('historia_clinica_resum_con_07.asp?Tipo=A&cabnro=<%= l_rs("id") %>' ,650,250)"><img  src="/turnos/shared/images/Data-List-icon_16.png" border="0" title="Ver Historia Clinica"></a>    											
+				<a href="Javascript:parent.abrirVentana('historia_clinica_resum_con_08.asp?Tipo=A&id=<%= l_rs("id") %>' ,850,800)"><img  src="/turnos/shared/images/Data-List-icon_16.png" border="0" title="Ver Historia Clinica"></a>    											
 			</td>
         </tr>
 	    <%

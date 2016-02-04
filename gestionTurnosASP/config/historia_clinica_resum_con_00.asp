@@ -35,18 +35,19 @@ Dim l_sql
 
 <script>
 function Validaciones_locales(){
-/*
-	if (document.datos_02.descripcion.value == ""){
-		alert("Debe ingresar el Apellido del Medico.");
-		document.datos_02.descripcion.focus();
+
+	if (document.datos_02.idrecursoreservable.value == "0"){
+		alert("Debe ingresar un Medico.");
+		document.datos_02.idrecursoreservable.focus();
 		return false;
 	}
 
-	if (document.datos_02.idtemplatereserva.value == 0){
-		alert("Debe ingresar el Modelo.");
-		document.datos_02.idtemplatereserva.focus();
+	if (document.datos_02.detalle.value == ""){
+		alert("Debe ingresar el Detalle.");
+		document.datos_02.detalle.focus();
 		return false;
 	}
+	/*
 
 	if (document.datos_02.cantturnossimult.value == ""){
 		alert("Debe ingresar la Cantidad de Turnos Simultaneos.");
@@ -141,7 +142,7 @@ function Limpiar(){
                         <td align="center">
                             <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar">
                             <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/turnos/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
-							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','historia_clinica_resum_con_02.asp?Tipo=A',650,250)"><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Agregar Historia Clinica"></a>    
+							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','historia_clinica_resum_con_02.asp?Tipo=A',850,800)"><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Agregar Historia Clinica"></a>    
 
 
                         </td>
