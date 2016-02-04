@@ -1,6 +1,6 @@
 /////
 
-function Validar_Formulario(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form_datos,location_reload,funcion_Validaciones_locales){
+function Validar_Formulario(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form_datos,location_reload,funcion_Validaciones_locales,id_ifrm_form_datos){
 
 	if (!funcion_Validaciones_locales()){
 		return;
@@ -10,7 +10,7 @@ function Validar_Formulario(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form
 				function(data) {     
 									
 									if(data=="OK") {
-										valido(id_dialog,url_AM,id_dialogAlert,id_form_datos,location_reload);
+										valido(id_dialog,url_AM,id_dialogAlert,id_form_datos,location_reload,id_ifrm_form_datos);
 									}
 									else {
 										abrirAlert(id_dialogAlert,"ERROR: " + data);
@@ -46,7 +46,7 @@ function inicializar_dialogConfirmDelete(id_dialogConfirmDelete,url_baja,id_dial
 													function(data) {     
 																		
 																		if(data=="OK") {																			
-																			location_reload.reload();
+																			$("#"+id_ifrm_form_datos).get(0).contentWindow.location.reload();//location_reload.reload();																		
 																		}
 																		else {
 																			abrirAlert(id_dialogAlert,"ERROR: " + data);
@@ -63,14 +63,14 @@ function inicializar_dialogConfirmDelete(id_dialogConfirmDelete,url_baja,id_dial
 	});
 	
 };
-function inicializar_dialogoABM(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form_datos,location_reload,funcion_Validaciones_locales) {
+function inicializar_dialogoABM(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form_datos,location_reload,funcion_Validaciones_locales,id_ifrm_form_datos) {
 		
 	$("#"+id_dialog).dialog({		
 		autoOpen: false,
 		modal: true,		
 		buttons: {
 					"Aceptar": function () {
-											Validar_Formulario(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form_datos,location_reload,funcion_Validaciones_locales);											
+											Validar_Formulario(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form_datos,location_reload,funcion_Validaciones_locales,id_ifrm_form_datos);											
 											},
 					"Cerrar": function () {
 											$(this).dialog("close");
@@ -144,14 +144,14 @@ function eliminarRegistroAJAX(obj_id,id_dialogAlert,id_dialogConfirmDelete)
 		}
 }
 
-function valido(id_dialog,url_AM,id_dialogAlert,id_form_datos,location_reload){
+function valido(id_dialog,url_AM,id_dialogAlert,id_form_datos,location_reload,id_ifrm_form_datos){
 	
 	$.post(url_AM, $( "#"+id_form_datos ).serialize(),
 			function(data) {     
 								if(data=="OK") {
 									$("#"+id_dialog).dialog("close"); 
 									$("#"+id_dialog).empty();									
-									location_reload.reload();
+									$("#"+id_ifrm_form_datos).get(0).contentWindow.location.reload();//location_reload.reload();
 								}
 								else {
 									abrirAlert(id_dialogAlert,"ERROR: " + data);

@@ -97,8 +97,9 @@ function Submit_Formulario() {
 						,'detallecompra_con_03.asp'					//url_AM
 						,'dialogAlert'							//id_dialogAlert
 						,'datos_02'								//id_form_datos
-						,window.parent.ifrm.location			//location_reload
+						,null //window.parent.ifrm.location			//location_reload
 						,Validaciones_locales					//funcion_Validaciones_locales
+						,"ifrm"											//id_ifrm_form_datos
 					);
 } 
 
@@ -110,15 +111,16 @@ $(document).ready(function() {
 																	,"dialogAlert"						//id_dialogAlert
 																	,"detalle_01"						//id_form_datos
 																	,"ifrm"								//id_ifrm_form_datos
-																	,window.parent.ifrm.location		//location_reload
+																	,null //window.parent.ifrm.location		//location_reload
 																	);
 								inicializar_dialogoABM(	"dialog" 										//id_dialog
 														,"detallecompra_con_06.asp"							//url_valid_06
 														,"detallecompra_con_03.asp"							//url_AM
 														,"dialogAlert"									//id_dialogAlert	
 														,"datos_02"										//id_form_datos		
-														,window.parent.ifrm.location					//location_reload
-														,Validaciones_locales							//funcion_Validaciones_locales														
+														,null //window.parent.ifrm.location					//location_reload
+														,Validaciones_locales							//funcion_Validaciones_locales		
+														,"ifrm"											//id_ifrm_form_datos														
 														); 
 							});
 </script>

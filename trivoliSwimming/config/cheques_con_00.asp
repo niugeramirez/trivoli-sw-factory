@@ -77,25 +77,6 @@ function Validaciones_locales(){
 		return false;
 	}	
 
-/*
-	if (document.datos_02.nombre.value == ""){
-		alert("Debe ingresar el Nombre del Cliente.");
-		document.datos_02.nombre.focus();
-		return false;
-	}
-
-	if (document.datos_02.idtemplatereserva.value == 0){
-		alert("Debe ingresar el Modelo.");
-		document.datos_02.idtemplatereserva.focus();
-		return false;
-	}
-
-	if (document.datos_02.cantturnossimult.value == ""){
-		alert("Debe ingresar la Cantidad de Turnos Simultaneos.");
-		document.datos_02.cantturnossimult.focus();
-		return false;
-	}
-	*/
 	return true;
 }
 
@@ -105,8 +86,9 @@ function Submit_Formulario() {
 						,'cheques_con_03.asp'					//url_AM
 						,'dialogAlert'							//id_dialogAlert
 						,'datos_02'								//id_form_datos
-						,window.parent.ifrm.location			//location_reload
+						,null //window.parent.ifrm.location			//location_reload
 						,Validaciones_locales					//funcion_Validaciones_locales
+						,"ifrm"											//id_ifrm_form_datos
 					);
 } 
 
@@ -118,15 +100,16 @@ $(document).ready(function() {
 																	,"dialogAlert"						//id_dialogAlert
 																	,"detalle_01"						//id_form_datos
 																	,"ifrm"								//id_ifrm_form_datos
-																	,window.parent.ifrm.location		//location_reload
+																	,null //window.parent.ifrm.location		//location_reload
 																	);
 								inicializar_dialogoABM(	"dialog" 										//id_dialog
 														,"cheques_con_06.asp"							//url_valid_06
 														,"cheques_con_03.asp"							//url_AM
 														,"dialogAlert"									//id_dialogAlert	
 														,"datos_02"										//id_form_datos		
-														,window.parent.ifrm.location					//location_reload
-														,Validaciones_locales							//funcion_Validaciones_locales														
+														,null //window.parent.ifrm.location					//location_reload
+														,Validaciones_locales							//funcion_Validaciones_locales	
+														,"ifrm"											//id_ifrm_form_datos														
 														); 
 							});
 </script>

@@ -18,7 +18,7 @@ Dim l_cant
 Dim l_primero
 
 l_filtro = request("filtro")
-response.write l_filtro 
+'response.write l_filtro 
 l_orden  = request("orden")
 
 if l_orden = "" then

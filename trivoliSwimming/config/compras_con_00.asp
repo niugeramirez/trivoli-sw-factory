@@ -65,8 +65,9 @@ function Submit_Formulario() {
 						,'compras_con_03.asp'					//url_AM
 						,'dialogAlert'							//id_dialogAlert
 						,'datos_02'								//id_form_datos
-						,window.parent.ifrm.location			//location_reload
+						,null //window.parent.ifrm.location			//location_reload
 						,Validaciones_locales					//funcion_Validaciones_locales
+						,"ifrm"											//id_ifrm_form_datos
 					);
 } 
 
@@ -78,15 +79,16 @@ $(document).ready(function() {
 																	,"dialogAlert"						//id_dialogAlert
 																	,"detalle_01"						//id_form_datos
 																	,"ifrm"								//id_ifrm_form_datos
-																	,window.parent.ifrm.location		//location_reload
+																	,null //window.parent.ifrm.location		//location_reload
 																	);
 								inicializar_dialogoABM(	"dialog" 										//id_dialog
 														,"compras_con_06.asp"							//url_valid_06
 														,"compras_con_03.asp"							//url_AM
 														,"dialogAlert"									//id_dialogAlert	
 														,"datos_02"										//id_form_datos		
-														,window.parent.ifrm.location					//location_reload
-														,Validaciones_locales							//funcion_Validaciones_locales														
+														,null //window.parent.ifrm.location					//location_reload
+														,Validaciones_locales							//funcion_Validaciones_locales	
+														,"ifrm"											//id_ifrm_form_datos
 														); 
 							});
 </script>
@@ -165,7 +167,7 @@ function Limpiar(){
 		</tr>		
 		<tr valign="top" height="100%">
             <td>
-      	        <iframe id="ifrm" name="ifrm" src="ventas_con_01.asp" width="100%" height="100%"></iframe> 
+      	        <iframe id="ifrm" name="ifrm" src="compras_con_01.asp" width="100%" height="100%"></iframe> 
 	        </td>
         </tr>		
 	</table>
