@@ -28,7 +28,7 @@ Set l_cm = Server.CreateObject("ADODB.Command")
 '	Response.write "Existen calendarios asociados al M&eacute;dico. No se permite eliminar."
 '	l_rs.close
 'else
-	l_sql = "DELETE FROM clientes  WHERE id = " & l_id
+	l_sql = "DELETE FROM ventas  WHERE id = " & l_id
 
 	l_cm.activeconnection = Cn
 	l_cm.CommandText = l_sql
