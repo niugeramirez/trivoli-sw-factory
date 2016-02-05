@@ -38,7 +38,11 @@ Dim l_sql
 <script>
 function Validaciones_locales(){
 
-
+	if (document.datos_02.fecha.value == ""){
+		alert("Debe ingresar la fecha del movimiento.");
+		document.datos_02.fecha.focus();
+		return false;
+	}	
 	if (document.datos_02.tipoes.value == ""){
 		alert("Debe ingresar el Tipo.");
 		document.datos_02.tipoes.focus();

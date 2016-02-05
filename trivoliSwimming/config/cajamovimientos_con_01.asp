@@ -96,7 +96,7 @@ end if
 	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','cajamovimientos_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
 			<td width="10%" nowrap><%= l_rs("fecha")%></td>
 			
-			<td width="10%" align="center" nowrap><%= l_rs("tipo")%></td>			
+			<td width="10%" align="left" nowrap><% if l_rs("tipo") = "E" then response.write "Entrada" else response.write  "Salida" end if%></td>			
 			<td width="10%" align="left" nowrap><%= l_rs("descripcion")%></td>
 			<td width="10%" align="left" ><%= l_rs("detalle")%></td>			
 			

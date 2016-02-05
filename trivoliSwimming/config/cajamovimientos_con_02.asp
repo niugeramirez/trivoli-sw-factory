@@ -118,7 +118,12 @@ end select
 							<tr>
 								<td align="right"><b>Tipo:</b></td>
 								<td colspan="3">
-									<input type="text" name="tipoes" size="70" maxlength="200" value="<%= l_tipoes %>">							
+										
+									<select name="tipoes" size="1" style="width:250;">		
+										<option value= "E" >Entrada</option>
+										<option value= "S" >Salida</option>
+									</select>
+									<script>document.datos_02.tipoes.value= "<%= l_tipoes%>"</script>									
 								</td>
 				
 							</tr>	

@@ -44,7 +44,21 @@ function Validaciones_locales(){
 		document.datos_02.numero.focus();
 		return false;
 	}	
-
+	if (document.datos_02.fecha_emision.value == ""){
+		alert("Debe ingresar Fecha Emision.");
+		document.datos_02.fecha_emision.focus();
+		return false;
+	}	
+	if (document.datos_02.fecha_vencimiento.value == ""){
+		alert("Debe ingresar Fecha Vencimiento.");
+		document.datos_02.fecha_vencimiento.focus();
+		return false;
+	}		
+	if (document.datos_02.numero.value == ""){
+		alert("Debe ingresar un Numero.");
+		document.datos_02.numero.focus();
+		return false;
+	}		
 	if (document.datos_02.idbanco.value == "0"){
 		alert("Debe ingresar un Banco.");
 		document.datos_02.idbanco.focus();
