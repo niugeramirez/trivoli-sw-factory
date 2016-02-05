@@ -47,7 +47,6 @@ select Case l_tipo
  	    	l_fecha     = l_rs("fecha")
 			l_detalle   = l_rs("detalle")
 	    	l_idrecursoreservable = l_rs("idrecursoreservable")
-	    	'l_cantsobreturnos  = l_rs("cantsobreturnos")
 			
 		end if
 		l_rs.Close
@@ -55,7 +54,7 @@ end select
 
 %>
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos_02.fecha.focus();">	
-	<form name="datos_02" id="datos_02" action = "Javascript:Submit_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario();}"  target="valida">
+	<form name="datos_02" id="datos_02" action = "Javascript:Submit_Formulario();"   target="valida">
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
 
@@ -101,7 +100,7 @@ end select
 							<tr>
 							    <td align="right"><b>Detalle:</b></td>
 								<td>
-								    <textarea name="detalle" rows="20" cols="100" ><%= l_detalle %></textarea> 
+								    <textarea name="detalle" rows="20" cols="100" ><%= replace(l_detalle,"</br>" , vbCrLf) %></textarea> 
 									
 								</td>
 							</tr>									
