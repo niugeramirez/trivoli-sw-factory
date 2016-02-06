@@ -19,15 +19,15 @@ l_id = request.Form("cabnro")
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 Set l_cm = Server.CreateObject("ADODB.Command")
 
-'l_sql = "SELECT id"
-'l_sql = l_sql & " FROM calendarios"
-'l_sql  = l_sql  & " WHERE idrecursoreservable = " & l_id
-'rsOpen l_rs, cn, l_sql, 0 
+l_sql = "SELECT id"
+l_sql = l_sql & " FROM ventas"
+l_sql  = l_sql  & " WHERE idcliente = " & l_id
+rsOpen l_rs, cn, l_sql, 0 
 
-'if not l_rs.eof then
-'	Response.write "Existen calendarios asociados al M&eacute;dico. No se permite eliminar."
-'	l_rs.close
-'else
+if not l_rs.eof then
+	Response.write "Existen ventas asociados al cliente. No se permite eliminar."
+	l_rs.close
+else
 	l_sql = "DELETE FROM clientes  WHERE id = " & l_id
 
 	l_cm.activeconnection = Cn
@@ -38,7 +38,7 @@ Set l_cm = Server.CreateObject("ADODB.Command")
 	Set cn = Nothing
 	
 	Response.write "OK"
-'end if
+end if
 
 
 

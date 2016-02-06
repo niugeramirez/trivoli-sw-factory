@@ -75,35 +75,21 @@
 -->
 <li><a href="#">Ventas</a>
 	<ul>		
+		<li><a target="ifrm"  href="../../config/clientes_con_00.asp">Clientes</a></li>
 		<li><a target="ifrm"  href="../../config/ventas_con_00.asp">Ventas</a></li>
 	</ul>
 </li>
 <li><a href="#">Compras</a>
 	<ul>		
-		<li><a target="ifrm"  href="../../config/compras_con_00.asp">Compras</a></li>
-	</ul>
-</li>
-<li><a href="#">Clientes</a>
-	<ul>		
-		<li><a target="ifrm"  href="../../config/clientes_con_00.asp">Clientes</a></li>
-	</ul>
-</li>
-
-<li><a href="#">Proveedores</a>
-	<ul>		
 		<li><a target="ifrm"  href="../../config/proveedores_con_00.asp">Proveedores</a></li>
-	</ul>
-</li>
-
-<li><a href="#">Cheques</a>
-	<ul>		
-		<li><a target="ifrm"  href="../../config/cheques_con_00.asp">Cheques</a></li>
+		<li><a target="ifrm"  href="../../config/compras_con_00.asp">Compras</a></li>
 	</ul>
 </li>
 
 <li><a href="#">Caja</a>
 	<ul>		
-		<li><a target="ifrm"  href="../../config/cajamovimientos_con_00.asp">Cajas</a></li>
+		<li><a target="ifrm"  href="../../config/cheques_con_00.asp">Cheques</a></li>
+		<li><a target="ifrm"  href="../../config/cajamovimientos_con_00.asp">Movimientos Caja</a></li>
 	</ul>
 </li>
 
