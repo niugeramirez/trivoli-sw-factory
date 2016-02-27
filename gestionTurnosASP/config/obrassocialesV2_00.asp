@@ -49,6 +49,7 @@ function Submit_Formulario() {
 						,'datos_02'								//id_form_datos
 						,window.parent.ifrm.location			//location_reload
 						,Validaciones_locales					//funcion_Validaciones_locales
+						,"ifrm"											//id_ifrm_form_datos
 					);
 } 
 
@@ -60,7 +61,7 @@ $(document).ready(function() {
 																	,"dialogAlert"						//id_dialogAlert
 																	,"detalle_01"						//id_form_datos
 																	,"ifrm"								//id_ifrm_form_datos
-																	,window.parent.ifrm.location		//location_reload
+																	,null //window.parent.ifrm.location		//location_reload
 																	);
 								inicializar_dialogoABM(	"dialog" 										//id_dialog
 														,"obrassocialesV2_06.asp"				//url_valid_06
@@ -68,7 +69,8 @@ $(document).ready(function() {
 														,"dialogAlert"									//id_dialogAlert	
 														,"datos_02"										//id_form_datos		
 														,window.parent.ifrm.location					//location_reload
-														,Validaciones_locales							//funcion_Validaciones_locales														
+														,Validaciones_locales							//funcion_Validaciones_locales	
+														,"ifrm"											//id_ifrm_form_datos														
 														); 
 
 								inicializar_dialogoContenedor(	"dialogLP" 										//id_dialog
