@@ -70,6 +70,9 @@ $(document).ready(function() {
 														,window.parent.ifrm.location					//location_reload
 														,Validaciones_locales							//funcion_Validaciones_locales														
 														); 
+
+								inicializar_dialogoContenedor(	"dialogLP" 										//id_dialog
+																); 														
 							});
 </script>
 <!--	FIN VENTANAS MODALES    -->
@@ -105,6 +108,8 @@ $(document).ready(function() {
 		<div id="dialogAlert" title="Mensaje">				</div>	
 		
 		<div id="dialogConfirmDelete" title="Consulta">		</div>		
+		
+		<div id="dialogLP" title="Lista de Precios">		</div>	
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 </html>

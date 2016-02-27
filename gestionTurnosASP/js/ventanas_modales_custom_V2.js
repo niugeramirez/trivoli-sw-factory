@@ -27,6 +27,7 @@ function inicializar_dialogAlert(id_dialogAlert) {
 		buttons: {
 					"Aceptar": function () {							
 											$(this).dialog("close");
+											$(this).empty();
 											}
 			}
 	});	
@@ -39,7 +40,8 @@ function inicializar_dialogConfirmDelete(id_dialogConfirmDelete,url_baja,id_dial
 		modal: true,
 		buttons: {
 					"Aceptar": function () {
-											$(this).dialog("close");										
+											$(this).dialog("close");
+											$(this).empty();											
 											$.post(url_baja, $( "#"+id_form_datos,$("#"+id_ifrm_form_datos).contents()).serialize(),	
 													function(data) {     
 																		
@@ -55,6 +57,7 @@ function inicializar_dialogConfirmDelete(id_dialogConfirmDelete,url_baja,id_dial
 											},
 					"Cerrar": function () {
 											$(this).dialog("close");
+											$(this).empty();
 											}											
 			}
 	});
@@ -74,6 +77,16 @@ function inicializar_dialogoABM(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_
 											$(this).empty();
 											}
 			}
+	});
+	
+};
+
+function inicializar_dialogoContenedor(id_dialog) {
+		
+	$("#"+id_dialog).dialog({		
+		autoOpen: false,
+		modal: true,	
+		close: function () {$(this).empty();}
 	});
 	
 };
