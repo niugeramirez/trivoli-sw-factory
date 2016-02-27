@@ -106,7 +106,7 @@ l_rs.close
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar();">
 
 
- <a class=sidebtnSHW href="javascript:imprSelec('seleccion')"><img  src="/turnos/shared/images/eliminarvisita_24.png" border="0" title="Imprimir"></a>
+ <a align="center" class=sidebtnSHW href="javascript:imprSelec('seleccion')"><img  src="../shared/images/print-icon_72.png" border="0" title="Imprimir"></a>
   <div id="seleccion">
 <table>
 

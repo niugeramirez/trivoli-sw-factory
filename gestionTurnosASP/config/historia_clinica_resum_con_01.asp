@@ -33,7 +33,7 @@ end if
 <head>
 <link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>Administracion de Historias Clinicas</title>
+<title>Resumen de Historias Clinicas para Impresion</title>
 </head>
 
 
@@ -73,7 +73,7 @@ end if
     %>
     
     <tr>
-	    <td colspan="4" >No existen Historias Clinicas cargados para el filtro ingresado.</td>
+	    <td colspan="4" >No existen Resumenes de Historia Clinica cargados para el filtro ingresado.</td>
     </tr>
     <%
     else
@@ -90,7 +90,7 @@ end if
 	        <td align="center" width="10%" nowrap>                    
                 <a href="Javascript:parent.abrirDialogo('dialog','historia_clinica_resum_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,950,650);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
-				<a href="Javascript:parent.abrirVentana('historia_clinica_resum_con_08.asp?Tipo=A&id=<%= l_rs("id") %>' ,850,800)"><img  src="/turnos/shared/images/Data-List-icon_16.png" border="0" title="Ver Historia Clinica"></a>    											
+				<a href="Javascript:parent.abrirVentana('historia_clinica_resum_con_08.asp?Tipo=A&id=<%= l_rs("id") %>' ,850,800)"><img  src="../shared/images/preview_16.png" border="0" title="Vista Previa"></a>    											
 			</td>
         </tr>
 	    <%

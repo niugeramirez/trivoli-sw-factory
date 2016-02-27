@@ -11,7 +11,9 @@ dim l_id
 dim l_fecha
 dim l_detalle
 dim l_idrecursoreservable
-dim l_cantsobreturnos     
+dim l_idclientepaciente     
+dim l_apellidoclientepaciente 
+dim l_nombreclientepaciente
 
 'ADO
 Dim l_tipo
@@ -26,6 +28,24 @@ l_tipo = request.querystring("tipo")
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- Comienzo Datepicker -->
+<script>
+$(function () {
+/*$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1
+});*/
+
+		
+$( "#fecha" ).datepicker({
+	showOn: "button",
+	buttonImage: "../shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+});
+</script>
+<!-- Final Datepicker -->
 </head>
 
 <% 
@@ -34,20 +54,26 @@ select Case l_tipo
  	    	l_fecha			     = ""
 			l_detalle			 = ""
 	    	l_idrecursoreservable = "0"
-	    	l_cantsobreturnos  = ""
+	    	l_idclientepaciente  = ""
+			l_apellidoclientepaciente = ""
+			l_nombreclientepaciente = ""
 
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
-		l_sql = "SELECT  * "
+		l_sql = "SELECT  historia_clinica_resumida.id , historia_clinica_resumida.fecha ,historia_clinica_resumida.detalle ,historia_clinica_resumida.idrecursoreservable "
+		l_sql = l_sql & " ,historia_clinica_resumida.idclientepaciente , clientespacientes.apellido, clientespacientes.nombre "
 		l_sql = l_sql & " FROM historia_clinica_resumida  "
-		l_sql  = l_sql  & " WHERE id = " & l_id
+		l_sql = l_sql & " INNER JOIN clientespacientes ON clientespacientes.id = historia_clinica_resumida.idclientepaciente" 
+		l_sql  = l_sql  & " WHERE historia_clinica_resumida.id = " & l_id
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
  	    	l_fecha     = l_rs("fecha")
 			l_detalle   = l_rs("detalle")
 	    	l_idrecursoreservable = l_rs("idrecursoreservable")
-			
+	    	l_idclientepaciente  = l_rs("idclientepaciente")
+			l_apellidoclientepaciente = l_rs("apellido")
+			l_nombreclientepaciente = l_rs("nombre")			
 		end if
 		l_rs.Close
 end select
@@ -66,11 +92,20 @@ end select
 						<td>
 							<table cellspacing="0" cellpadding="0" border="0">
 				
-															
+							<tr>
+								<td align="right"><b>Paciente:</b></td>
+								<td>
+									<input class="deshabinp" readonly="" type="text" name="apellidoclientepaciente" id="apellidoclientepaciente" size="20" maxlength="20" value="<%=l_apellidoclientepaciente %>">							
+
+									<input class="deshabinp" readonly="" type="text" name="nombreclientepaciente" id="nombreclientepaciente" size="20" maxlength="20" value="<%=l_nombreclientepaciente %>">
+									<input type="hidden" name="idclientepaciente" id="idclientepaciente" size="10" maxlength="10" value="<%=l_idclientepaciente %>">					
+									<a href="Javascript:BuscarPaciente();"><img src="../shared/images/BuscarPaciente24.png" border="0" alt="Buscar Paciente"></a>										
+								</td>								
+							</tr>
 							<tr>
 								<td align="right"><b>Fecha:</b></td>
 								<td colspan="3">
-									<input type="text" name="fecha" size="10" maxlength="10" value="<%= l_fecha %>">							
+									<input type="text" id="fecha" name="fecha" size="10" maxlength="10" value="<%= l_fecha %>">							
 								</td>
 				
 							</tr>	

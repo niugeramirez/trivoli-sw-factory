@@ -1,7 +1,7 @@
 <% Option Explicit %>
 <% 
 'Archivo: historia_clinica_resum_con_00.asp
-'Descripción: Administración de Historias Clinicas
+'Descripción: Resumen de Historias Clinicas para Impresion
 'Autor : Trivoli
 'Fecha: 02/02/2016
 
@@ -17,11 +17,12 @@ Dim l_sql
 <html>
 <head>
 
-<title>Administracion de Historias Clinicas</title>
+<title>Resumen de Historias Clinicas para Impresion</title>
 
 <link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css" />
 <script src="../js/jquery.min.js"></script>
 <script src="../js/jquery-ui.js"></script>
+<script src="../js/jquery.ui.datepicker-es.js"></script>
 
 <link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 
@@ -108,6 +109,16 @@ function Buscar(){
 function Limpiar(){
 	window.ifrm.location = 'historia_clinica_resum_con_01.asp';
 }
+
+function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, tel, osid, os){
+	document.datos_02.idclientepaciente.value = id;
+	document.datos_02.apellidoclientepaciente.value = apellido;
+	document.datos_02.nombreclientepaciente.value = nombre;
+}
+
+function BuscarPaciente(){
+	abrirVentana('Buscarpacientes_con_00.asp?Tipo=A&Alta=N','',600,250);
+}
 </script>
 </head>
 
@@ -118,7 +129,7 @@ function Limpiar(){
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                         <td class="title">
-                            Administracion de Historias Clinicas
+                            Resumen de Historias Clinicas para Impresion
                         </td>
                     </tr>
                 </table>
