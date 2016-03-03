@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css" />
 <script src="../js/jquery.min.js"></script>
 <script src="../js/jquery-ui.js"></script>
+<script src="../js/jquery.ui.datepicker-es.js"></script>
 
 <link href="../ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 
@@ -47,7 +48,7 @@ function Submit_Formulario() {
 						,'obrassocialesV2_03.asp'		//url_AM
 						,'dialogAlert'							//id_dialogAlert
 						,'datos_02'								//id_form_datos
-						,window.parent.ifrm.location			//location_reload
+						,null //window.parent.ifrm.location			//location_reload
 						,Validaciones_locales					//funcion_Validaciones_locales
 						,"ifrm"											//id_ifrm_form_datos
 					);
@@ -68,12 +69,12 @@ $(document).ready(function() {
 														,"obrassocialesV2_03.asp"				//url_AM
 														,"dialogAlert"									//id_dialogAlert	
 														,"datos_02"										//id_form_datos		
-														,window.parent.ifrm.location					//location_reload
+														,null //window.parent.ifrm.location					//location_reload
 														,Validaciones_locales							//funcion_Validaciones_locales	
 														,"ifrm"											//id_ifrm_form_datos														
 														); 
 
-								inicializar_dialogoContenedor(	"dialogLP" 										//id_dialog
+								inicializar_dialogoContenedor(	"dialog_cont_LP" 										//id_dialog
 																); 														
 							});
 </script>
@@ -111,7 +112,7 @@ $(document).ready(function() {
 		
 		<div id="dialogConfirmDelete" title="Consulta">		</div>		
 		
-		<div id="dialogLP" title="Lista de Precios">		</div>	
+		<div id="dialog_cont_LP" title="Lista de Precios">		</div>	
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 </html>

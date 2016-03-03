@@ -13,7 +13,7 @@ Dim l_rs
 Dim l_sql
 Dim l_id
 	
-l_id = request.querystring("cabnro")
+l_id = request.Form("cabnro")
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 set l_cm = Server.CreateObject("ADODB.Command")
 
@@ -23,24 +23,29 @@ set l_cm = Server.CreateObject("ADODB.Command")
 'l_sql  = l_sql  & " WHERE counro = " & l_counro
 'rsOpen l_rs, cn, l_sql, 0 
 'if not l_rs.eof then
-'	Response.write "<script>alert('Existen Ports asociados a este Country.\nNo es posible dar de baja.');window.close();</script>"
+'	Response.write "Existen Ports asociados a este Country.\nNo es posible dar de baja."
 'else
 	l_sql = " DELETE FROM listaprecioscabecera WHERE id = " & l_id
+
+	l_cm.activeconnection = Cn
+	l_cm.CommandText = l_sql
+	cmExecute l_cm, l_sql, 0
+
+	'Borro el detalle de la lista de precios
+	l_sql = " DELETE FROM listapreciosdetalle WHERE idlistaprecioscabecera = " & l_id
+
+	l_cm.activeconnection = Cn
+	l_cm.CommandText = l_sql
+	cmExecute l_cm, l_sql, 0
+	
+	cn.Close
+	Set cn = Nothing
+
+	Response.write "OK"
 'end if
 'l_rs.close
-
-l_cm.activeconnection = Cn
-l_cm.CommandText = l_sql
-cmExecute l_cm, l_sql, 0
-
-cn.Close
-Set cn = Nothing
 %>
-<script>
-	alert('Operación Realizada.');
-	window.opener.ifrm.location.reload();
-	window.close();
-</script>
+
 	
 
 

@@ -60,9 +60,8 @@ if l_rs.eof then%>
             <td width="20%" nowrap><%= l_rs("descripcion")%></td>
 	        <td align="center" width="10%" nowrap>                    
 				<a href="Javascript:parent.abrirDialogo('dialog','obrassocialesV2_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,600,300);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                								
-				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
-				<a href="Javascript:parent.abrirVentana('listadeprecios_con_00.asp?id=' + document.detalle_01.cabnro.value,'',520,200);"><img src="../shared/images/Ecommerce-Price-Tag-icon.png" border="0" title="Lista de Precios"></a>								  
-<a href="Javascript:parent.abrirDialogo('dialogLP','listadeprecios_con_00.asp?id=' + document.detalle_01.cabnro.value,520,250);"><img src="../shared/images/Ecommerce-Price-Tag-icon.png" border="0" title="Lista de Precios"></a>								  				
+				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>				
+				<a href="Javascript:parent.abrirDialogo('dialog_cont_LP','listadeprecios_con_00.asp?id=' + document.detalle_01.cabnro.value,520,250);"><img src="../shared/images/Ecommerce-Price-Tag-icon.png" border="0" title="Lista de Precios"></a>								  				
 			</td>			
 	    </tr>
 	<%

@@ -32,55 +32,90 @@
 %>
 <html>
 <head>
-<link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+
 <title>Lista de Precios</title>
-<script src="/turnos/shared/js/fn_windows.js"></script>
-<script src="/turnos/shared/js/fn_confirm.js"></script>
-<script src="/turnos/shared/js/fn_ayuda.js"></script>
+<link href="../ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
+
+<!--	VENTANAS MODALES        -->
+<!-- <script src="../js/ventanas_modales_custom_V2.js"></script> -->
+
 <script>
-function orden(pag){
-	abrirVentana('../shared/asp/orden_browse.asp?pagina='+pag+'&lista=<%= l_orden %>&campos=<%= l_camposOr%>&filtro='+escape(document.ifrm.datos.filtro.value),'',350,160)
+function Validaciones_locales_lista(){
+	if ((document.datos_02_LP.fecha.value == "")&&(!validarfecha(document.datos_02_LP.fecha))){
+		 document.datos_02_LP.fecha.focus();
+		 return false;
+	}
+
+
+	if (Trim(document.datos_02_LP.titulo.value) == ""){
+		alert("Debe ingresar el Titulo.");
+		document.datos_02_LP.titulo.focus();
+		return false;
+	}
+
+	return true;
 }
 
-function filtro(pag){
-	abrirVentana('../shared/asp/filtro_browse.asp?pagina='+pag+'&campos=<%= l_campos%>&tipos=<%=l_tipos%>&etiquetas=<%=l_etiquetas%>&orden='+document.ifrm.datos.orden.value,'',250,160);
-}
+function Submit_Formulario_lista() {
+	Validar_Formulario(	'dialog_lista'								//id_dialog
+						,'listadeprecios_con_06.asp'		//url_valid_06
+						,'listadeprecios_con_03.asp'		//url_AM
+						,'dialogAlert_lista'							//id_dialogAlert
+						,'datos_02_LP'								//id_form_datos
+						,null //window.parent.ifrm_01_LP.location			//location_reload
+						,Validaciones_locales_lista					//funcion_Validaciones_locales
+						,"ifrm_01_LP"											//id_ifrm_form_datos
+					);
+} 
 
-function llamadaexcel(){ 
-	if (filtro == "")
-		Filtro(true);
-	else
-		abrirVentana("agencias_con_excel.asp?orden=" + document.ifrm.datos.orden.value + "&filtro=" + escape(document.ifrm.datos.filtro.value),'execl',250,150);
-}
-
+$(document).ready(function() { 
+								inicializar_dialogAlert("dialogAlert_lista"									//id_dialogAlert
+														);
+								inicializar_dialogConfirmDelete(	"dialogConfirmDelete_lista"				//id_dialogConfirmDelete
+																	,"listadeprecios_con_04.asp"	//url_baja
+																	,"dialogAlert_lista"						//id_dialogAlert
+																	,"detalle_01_LP"						//id_form_datos
+																	,"ifrm_01_LP"								//id_ifrm_form_datos
+																	,null //window.parent.ifrm_01_LP.location		//location_reload
+																	);
+								inicializar_dialogoABM(	"dialog_lista" 										//id_dialog
+														,"listadeprecios_con_06.asp"				//url_valid_06
+														,"listadeprecios_con_03.asp"				//url_AM
+														,"dialogAlert_lista"									//id_dialogAlert	
+														,"datos_02_LP"										//id_form_datos		
+														,null //window.parent.ifrm_01_LP.location					//location_reload
+														,Validaciones_locales_lista						//funcion_Validaciones_locales	
+														,"ifrm_01_LP"											//id_ifrm_form_datos														
+														); 
+													
+							});
 </script>
+<!--	FIN VENTANAS MODALES    -->
+
+
 </head>
 <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
       <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
         <tr style="border-color :CadetBlue;">
           <td align="left" class="barra">Lista de Precios</td>
-          <td nowrap align="right" class="barra">
-          <%'eugenio 29/06/2015, unificacion de iconos  call MostrarBoton ("sidebtnABM", "Javascript:abrirVentana('listadeprecios_con_02.asp?Tipo=A&idobrasocial="&l_id&"','',520,350);","Alta")%>		 
-		  <a class="sidebtnABM" href="Javascript:abrirVentana('listadeprecios_con_02.asp?Tipo=A&idobrasocial=<%= l_id%>','',520,350);" ><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Alta">
-		  &nbsp;
-          <%'eugenio 29/06/2015, unificacion de iconos  call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('listadeprecios_con_02.asp?Tipo=M&idobrasocial="&l_id&"&cabnro=' + document.ifrm.datos.cabnro.value,'',520,350);","Modifica")%>
-		  <a href="Javascript:abrirVentanaVerif('listadeprecios_con_02.asp?Tipo=M&idobrasocial=<%= l_id%>&cabnro=' + document.ifrm.datos.cabnro.value,'',520,350);"><img src="/turnos/shared/images/Modificar_16.png" border="0" title="Editar"></a>
-		  &nbsp;
-          <%'eugenio 29/06/2015, unificacion de iconos  call MostrarBoton ("sidebtnABM", "Javascript:eliminarRegistro(document.ifrm,'listadeprecios_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);","Baja")%>		  
-		  <a href="Javascript:eliminarRegistro(document.ifrm,'listadeprecios_con_04.asp?cabnro=' + document.ifrm.datos.cabnro.value);"><img src="/turnos/shared/images/Eliminar_16.png" border="0" title="Baja"></a>								  
-		  &nbsp;&nbsp;
-		  <%'eugenio 29/06/2015, unificacion de iconos  call MostrarBoton ("sidebtnABM", "Javascript:abrirVentanaVerif('listadepreciosdetalle_con_00.asp?id=' + document.ifrm.datos.cabnro.value,'',520,200);","Detalle")%>
-		  <a href="Javascript:abrirVentanaVerif('listadepreciosdetalle_con_00.asp?id=' + document.ifrm.datos.cabnro.value,'',520,200);"><img src="/turnos/shared/images/Data-List-icon_16.png" border="0" title="Detalle"></a>								  
-		  &nbsp;
-
-		  &nbsp;&nbsp;
+          <td nowrap align="right" class="barra">          
+			<a class="sidebtnABM" href="Javascript:abrirDialogo('dialog_lista','listadeprecios_con_02.asp?Tipo=A&idobrasocial=<%= l_id%>',520,350);" ><img  src="../shared/images/Agregar_24.png" border="0" title="Alta">
 		  </td>
         </tr>
         <tr valign="top" height="100%">
           <td colspan="2" style="" width="100%">
-      	  <iframe scrolling="Yes" name="ifrm" src="listadeprecios_con_01.asp?idobrasocial=<%= l_id  %>" width="100%" height="100%"></iframe> 
+      	  <iframe scrolling="Yes" id="ifrm_01_LP" name="ifrm_01_LP" src="listadeprecios_con_01.asp?idobrasocial=<%= l_id  %>" width="100%" height="100%"></iframe> 
 	      </td>
         </tr>		
       </table>
+
+		<!--	PARAMETRIZACION DE VENTANAS MODALES        -->		
+		<div id="dialog_lista" title="Lista de Precios"> 			</div>	  
+		
+		<div id="dialogAlert_lista" title="Mensaje">				</div>	
+		
+		<div id="dialogConfirmDelete_lista" title="Consulta">		</div>		
+		
+		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		  
 </body>
 </html>

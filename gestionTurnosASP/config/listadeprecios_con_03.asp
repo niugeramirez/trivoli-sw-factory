@@ -23,7 +23,7 @@ Dim l_idobrasocial
 Dim l_lpcab
 Dim l_nueva_lpcab
 
-l_tipo 		  = request.querystring("tipo")
+l_tipo 		  = request.Form("tipo")
 l_id 	      = request.Form("id")
 l_titulo	  = request.Form("titulo")
 l_fecha       = request.Form("fecha")
@@ -64,27 +64,29 @@ if l_tipo = "A" then
 	l_cm.CommandText = l_sql
 	cmExecute l_cm, l_sql, 0	
 	
-	'Copio la lista de precios recibida
-	l_nueva_lpcab = codigogenerado("listaprecioscabecera")	
-	
-	l_sql = "SELECT * "
-	l_sql = l_sql & " FROM listapreciosdetalle "
-	l_sql = l_sql & " WHERE idlistaprecioscabecera= " & l_lpcab
-
-	rsOpen l_rs, cn, l_sql, 0
-	do while not l_rs.eof 	
-	
-		l_sql = "INSERT INTO listapreciosdetalle "
-		l_sql = l_sql & " (idpractica, precio, idlistaprecioscabecera ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " VALUES (" & l_rs("idpractica") & "," & l_rs("precio")  & "," & l_nueva_lpcab &"," & session("empnro") &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
-	
-		l_cm.activeconnection = Cn
-		l_cm.CommandText = l_sql
-		cmExecute l_cm, l_sql, 0
+	if l_lpcab <> "" then
+		'Copio la lista de precios recibida
+		l_nueva_lpcab = codigogenerado("listaprecioscabecera")	
 		
-		l_rs.movenext	
-	loop
-	l_rs.close	
+		l_sql = "SELECT * "
+		l_sql = l_sql & " FROM listapreciosdetalle "
+		l_sql = l_sql & " WHERE idlistaprecioscabecera= " & l_lpcab
+
+		rsOpen l_rs, cn, l_sql, 0
+		do while not l_rs.eof 	
+		
+			l_sql = "INSERT INTO listapreciosdetalle "
+			l_sql = l_sql & " (idpractica, precio, idlistaprecioscabecera ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
+			l_sql = l_sql & " VALUES (" & l_rs("idpractica") & "," & l_rs("precio")  & "," & l_nueva_lpcab &"," & session("empnro") &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
+		
+			l_cm.activeconnection = Cn
+			l_cm.CommandText = l_sql
+			cmExecute l_cm, l_sql, 0
+			
+			l_rs.movenext	
+		loop
+		l_rs.close	
+	end if 'copiar lista
 	
 else
 	l_sql = "UPDATE listaprecioscabecera "
@@ -101,32 +103,34 @@ else
 	l_cm.CommandText = l_sql
 	cmExecute l_cm, l_sql, 0	
 
-	'Copio la lista de precios recibida
-	l_nueva_lpcab = codigogenerado("listaprecioscabecera")	
-	
-	l_sql = "SELECT * "
-	l_sql = l_sql & " FROM listapreciosdetalle "
-	l_sql = l_sql & " WHERE idlistaprecioscabecera= " & l_lpcab
-
-	rsOpen l_rs, cn, l_sql, 0
-	do while not l_rs.eof 	
-	
-		l_sql = "INSERT INTO listapreciosdetalle "
-		l_sql = l_sql & " (idpractica, precio, idlistaprecioscabecera ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " VALUES (" & l_rs("idpractica") & "," & l_rs("precio")  & "," & l_id &"," & session("empnro") &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
-	
-		l_cm.activeconnection = Cn
-		l_cm.CommandText = l_sql
-		cmExecute l_cm, l_sql, 0
+	if l_lpcab <> "" then
+		'Copio la lista de precios recibida
+		l_nueva_lpcab = codigogenerado("listaprecioscabecera")	
 		
-		l_rs.movenext	
-	loop
-	l_rs.close	
+		l_sql = "SELECT * "
+		l_sql = l_sql & " FROM listapreciosdetalle "
+		l_sql = l_sql & " WHERE idlistaprecioscabecera= " & l_lpcab
+
+		rsOpen l_rs, cn, l_sql, 0
+		do while not l_rs.eof 	
+		
+			l_sql = "INSERT INTO listapreciosdetalle "
+			l_sql = l_sql & " (idpractica, precio, idlistaprecioscabecera ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
+			l_sql = l_sql & " VALUES (" & l_rs("idpractica") & "," & l_rs("precio")  & "," & l_id &"," & session("empnro") &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
+		
+			l_cm.activeconnection = Cn
+			l_cm.CommandText = l_sql
+			cmExecute l_cm, l_sql, 0
+			
+			l_rs.movenext	
+		loop
+		l_rs.close	
+	end if 'copiar lista
 	
 end if
 
 Set l_cm = Nothing
 
-Response.write "<script>alert('Operación Realizada.');window.parent.opener.ifrm.location.reload();window.parent.close();</script>"
+Response.write "OK"
 %>
 
