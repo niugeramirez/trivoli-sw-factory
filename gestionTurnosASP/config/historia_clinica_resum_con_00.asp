@@ -115,7 +115,7 @@ $(document).ready(function() {
 																); 		
 								inicializar_dialogoABM(	"dialogHCR_cont_EditPac" 										//id_dialog
 														,"EditarpacientesV2_06.asp"				//url_valid_06
-														,"EditarpacientesV2_03.asp"				//url_AM
+														,"EditarpacientesV2_03_JSON.asp"				//url_AM
 														,"dialogAlert"									//id_dialogAlert															
 														,"datos_02_EditPac"										//id_form_datos															
 														,null //window.parent.ifrm.location					//location_reload														
