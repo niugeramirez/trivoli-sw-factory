@@ -35,6 +35,34 @@ Dim l_sql
 <script src="../js/ventanas_modales_custom_V2.js"></script>
 
 <script>
+///////////////////////////////////////EDICION PACIENTES   ///////////////////////////////////////
+function Validaciones_locales_EditPac_HCR(){
+	//como la pantalla 02 se usa en varios lugares (a diferencia del esquema general de ABM) ponemos la funcion de validacion local en el 02, y se invoca desde la ventana llamadora
+	return Validaciones_locales_EditPac_02()
+}
+function devolver_paciente_editado_HCR(){volver_AsignarPaciente
+	volver_AsignarPaciente(	document.datos_02_EditPac.id.value, 
+							document.datos_02_EditPac.apellido.value, 
+							document.datos_02_EditPac.nombre.value, 
+							document.datos_02_EditPac.nrohistoriaclinica.value, 
+							document.datos_02_EditPac.dni.value, 
+							document.datos_02_EditPac.domicilio.value, 
+							document.datos_02_EditPac.tel.value, 
+							document.datos_02_EditPac.osid.value, 
+							document.datos_02_EditPac.os.value
+							);
+}
+function Editar_Paciente(){ 
+
+	if (document.datos_02.idclientepaciente.value == 0){
+		alert("Debe ingresar el Paciente.");
+		document.datos_02.idclientepaciente.focus();
+		return;
+	}; 
+		 
+	abrirDialogo('dialogHCR_cont_EditPac','EditarpacientesV2_02.asp?Tipo=M&ventana=3&dnioblig=N&hcoblig=N&cabnro='+document.datos_02.idclientepaciente.value,600,300);
+}
+///////////////////////////////////////FIN EDICION PACIENTES///////////////////////////////////////
 function Validaciones_locales(){
 
 	if (document.datos_02.idrecursoreservable.value == "0"){
@@ -48,14 +76,7 @@ function Validaciones_locales(){
 		document.datos_02.detalle.focus();
 		return false;
 	}
-	/*
 
-	if (document.datos_02.cantturnossimult.value == ""){
-		alert("Debe ingresar la Cantidad de Turnos Simultaneos.");
-		document.datos_02.cantturnossimult.focus();
-		return false;
-	}
-	*/
 	return true;
 }
 
@@ -90,6 +111,18 @@ $(document).ready(function() {
 														,Validaciones_locales							//funcion_Validaciones_locales	
 														,"ifrm"											//id_ifrm_form_datos														
 														); 
+								inicializar_dialogoContenedor(	"dialog_cont_BusqPac" 										//id_dialog
+																); 		
+								inicializar_dialogoABM(	"dialogHCR_cont_EditPac" 										//id_dialog
+														,"EditarpacientesV2_06.asp"				//url_valid_06
+														,"EditarpacientesV2_03.asp"				//url_AM
+														,"dialogAlert"									//id_dialogAlert															
+														,"datos_02_EditPac"										//id_form_datos															
+														,null //window.parent.ifrm.location					//location_reload														
+														,Validaciones_locales_EditPac_HCR							//funcion_Validaciones_locales	
+														,"ifrm"											//id_ifrm_form_datos	
+														,devolver_paciente_editado_HCR //fn_post_AM														
+														); 		
 							});
 </script>
 <!--	FIN VENTANAS MODALES    -->
@@ -112,14 +145,17 @@ function Limpiar(){
 	window.ifrm.location = 'historia_clinica_resum_con_01.asp';
 }
 
-function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, tel, osid, os){
+
+function volver_AsignarPaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, tel, osid, os){
 	document.datos_02.idclientepaciente.value = id;
 	document.datos_02.apellidoclientepaciente.value = apellido;
 	document.datos_02.nombreclientepaciente.value = nombre;
+	
+	$("#dialog_cont_BusqPac").dialog("close");
 }
 
-function BuscarPaciente(){
-	abrirVentana('Buscarpacientes_con_00.asp?Tipo=A&Alta=N','',600,250);
+function BuscarPaciente(){	
+	abrirDialogo('dialog_cont_BusqPac','BuscarpacientesV2_00.asp?Tipo=A&Alta=S&fn_asign_pac=volver_AsignarPaciente&dnioblig=N&hcoblig=N',900,250);
 }
 </script>
 </head>
@@ -153,9 +189,9 @@ function BuscarPaciente(){
 						<td><input  type="text" id="inpapellido" name="inpapellido" size="21" maxlength="21" value="" ></td>
 					    <td></td>
                         <td align="center">
-                            <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar">
-                            <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/turnos/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
-							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','historia_clinica_resum_con_02.asp?Tipo=A',850,800)"><img  src="/turnos/shared/images/Agregar_24.png" border="0" title="Agregar Historia Clinica"></a>    
+                            <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="../shared/images/Buscar_24.png" border="0" title="Buscar">
+                            <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="../shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
+							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','historia_clinica_resum_con_02.asp?Tipo=A',850,600)"><img  src="../shared/images/Agregar_24.png" border="0" title="Agregar Historia Clinica"></a>    
 
 
                         </td>
@@ -176,7 +212,9 @@ function BuscarPaciente(){
 				
 		<div id="dialogAlert" title="Mensaje">				</div>	
 		
-		<div id="dialogConfirmDelete" title="Consulta">		</div>		
+		<div id="dialogConfirmDelete" title="Consulta">		</div>	
+		<div id="dialog_cont_BusqPac" title="Buscar Pacientes">		</div>	
+		<div id="dialogHCR_cont_EditPac" title="Editar Pacientes">		</div>	
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 

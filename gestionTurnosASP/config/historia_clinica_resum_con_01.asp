@@ -82,13 +82,13 @@ end if
 	    do until l_rs.eof
 		    l_cant = l_cant + 1
 	    %>
-	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','historia_clinica_resum_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,950,650);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
+	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','historia_clinica_resum_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,850,650);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
 			<td width="10%" nowrap><%= l_rs("fecha")%></td>
 			<td width="10%" nowrap><%= l_rs("apellido")%></td>
 			<td width="10%" nowrap><%= l_rs("nombre")%></td>
 	        <td width="10%" nowrap align="center"><%= l_rs("descripcion")%></td>						
 	        <td align="center" width="10%" nowrap>                    
-                <a href="Javascript:parent.abrirDialogo('dialog','historia_clinica_resum_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,950,650);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
+                <a href="Javascript:parent.abrirDialogo('dialog','historia_clinica_resum_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,850,650);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
 				<a href="Javascript:parent.abrirVentana('historia_clinica_resum_con_08.asp?Tipo=A&id=<%= l_rs("id") %>' ,850,800)"><img  src="../shared/images/preview_16.png" border="0" title="Vista Previa"></a>    											
 			</td>

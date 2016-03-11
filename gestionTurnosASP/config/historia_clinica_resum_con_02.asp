@@ -44,6 +44,7 @@ $( "#fecha" ).datepicker({
 });
 
 });
+
 </script>
 <!-- Final Datepicker -->
 </head>
@@ -99,7 +100,8 @@ end select
 
 									<input class="deshabinp" readonly="" type="text" name="nombreclientepaciente" id="nombreclientepaciente" size="20" maxlength="20" value="<%=l_nombreclientepaciente %>">
 									<input type="hidden" name="idclientepaciente" id="idclientepaciente" size="10" maxlength="10" value="<%=l_idclientepaciente %>">					
-									<a href="Javascript:BuscarPaciente();"><img src="../shared/images/BuscarPaciente24.png" border="0" alt="Buscar Paciente"></a>										
+									<a href="Javascript:BuscarPaciente();"><img src="../shared/images/Buscar_24.png" border="0" title="Buscar Paciente"></a>	
+									<a href="Javascript:Editar_Paciente();"><img src="../shared/images/Modificar_24.png" border="0" title="Editar Paciente"></a>									
 								</td>								
 							</tr>
 							<tr>
