@@ -155,7 +155,7 @@ function volver_AsignarPaciente(id, apellido, nombre, nrohistoriaclinica, dni, d
 }
 
 function BuscarPaciente(){	
-	abrirDialogo('dialog_cont_BusqPac','BuscarpacientesV2_00.asp?Tipo=A&Alta=S&fn_asign_pac=volver_AsignarPaciente&dnioblig=N&hcoblig=N',900,250);
+	abrirDialogo('dialog_cont_BusqPac','BuscarpacientesV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarPaciente&dnioblig=N&hcoblig=N',900,250);
 }
 </script>
 </head>
