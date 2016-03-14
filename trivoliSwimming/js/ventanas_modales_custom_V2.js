@@ -1,6 +1,6 @@
 /////
 
-function Validar_Formulario(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form_datos,location_reload,funcion_Validaciones_locales,id_ifrm_form_datos){
+function Validar_Formulario(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form_datos,location_reload,funcion_Validaciones_locales,id_ifrm_form_datos,fn_post_AM){
 
 	if (!funcion_Validaciones_locales()){
 		return;
@@ -10,7 +10,7 @@ function Validar_Formulario(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form
 				function(data) {     
 									
 									if(data=="OK") {
-										valido(id_dialog,url_AM,id_dialogAlert,id_form_datos,location_reload,id_ifrm_form_datos);
+										valido(id_dialog,url_AM,id_dialogAlert,id_form_datos,location_reload,id_ifrm_form_datos,fn_post_AM);										
 									}
 									else {
 										abrirAlert(id_dialogAlert,"ERROR: " + data);
@@ -63,14 +63,14 @@ function inicializar_dialogConfirmDelete(id_dialogConfirmDelete,url_baja,id_dial
 	});
 	
 };
-function inicializar_dialogoABM(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form_datos,location_reload,funcion_Validaciones_locales,id_ifrm_form_datos) {
+function inicializar_dialogoABM(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form_datos,location_reload,funcion_Validaciones_locales,id_ifrm_form_datos,fn_post_AM) {
 		
 	$("#"+id_dialog).dialog({		
 		autoOpen: false,
 		modal: true,		
 		buttons: {
 					"Aceptar": function () {
-											Validar_Formulario(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form_datos,location_reload,funcion_Validaciones_locales,id_ifrm_form_datos);											
+											Validar_Formulario(id_dialog,url_valid_06,url_AM,id_dialogAlert,id_form_datos,location_reload,funcion_Validaciones_locales,id_ifrm_form_datos,fn_post_AM);											
 											},
 					"Cerrar": function () {
 											$(this).dialog("close");
@@ -144,16 +144,39 @@ function eliminarRegistroAJAX(obj_id,id_dialogAlert,id_dialogConfirmDelete)
 		}
 }
 
-function valido(id_dialog,url_AM,id_dialogAlert,id_form_datos,location_reload,id_ifrm_form_datos){
+function EsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
+function valido(id_dialog,url_AM,id_dialogAlert,id_form_datos,location_reload,id_ifrm_form_datos,fn_post_AM){
 	
 	$.post(url_AM, $( "#"+id_form_datos ).serialize(),
 			function(data) {     
 								if(data=="OK") {
-									$("#"+id_dialog).dialog("close"); 
-									$("#"+id_dialog).empty();									
+									$("#"+id_dialog).dialog("close"); 									
 									$("#"+id_ifrm_form_datos).get(0).contentWindow.location.reload();//location_reload.reload();
+									if (fn_post_AM) {
+										fn_post_AM();
+									}
+									$("#"+id_dialog).empty();
 								}
-								else {
+								else if (EsJsonString(data)) {
+										if ($.parseJSON(data)[0].resultado=="OK"){
+											$("#"+id_dialog).dialog("close"); 									
+											$("#"+id_ifrm_form_datos).get(0).contentWindow.location.reload();//location_reload.reload();
+											if (fn_post_AM) { fn_post_AM($.parseJSON(data)[0].id);}
+											$("#"+id_dialog).empty();
+										}
+										else {
+											abrirAlert(id_dialogAlert,"ERROR: " + data);
+										}
+								}
+								else{
 									abrirAlert(id_dialogAlert,"ERROR: " + data);
 								}
 						
