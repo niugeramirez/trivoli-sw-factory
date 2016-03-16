@@ -11,7 +11,7 @@ body {background:#eee;border:0;font:12px Arial, Helvetica, sans-serif;color:#bab
 .css3{border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;box-shadow:0 0 4px rgba(0, 0, 0, .4);-moz-box-shadow:0 0 4px rgba(0, 0, 0, .4);-webkit-box-shadow:0 0 4px rgba(0, 0, 0, .4);position:relative}
 /* Global Structure */
 .main {	margin:0 auto;width:960px}
-.body1 {background:url(../images/bg_top11.gif) top repeat-x}
+.body1 {}
 .body2 {background:#2e2e2e}
 .body3 {background:#191919}
 .body4 {background:url(../images/bg_footer.gif) top repeat-x}
