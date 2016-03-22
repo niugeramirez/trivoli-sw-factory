@@ -22,7 +22,7 @@ l_filtro = request("filtro")
 l_orden  = request("orden")
 
 if l_orden = "" then
-  l_orden = " ORDER BY compras.fecha "
+  l_orden = " ORDER BY compras.fecha desc "
 end if
 %>
 
@@ -43,13 +43,24 @@ end if
     <tr>
         <th>Nombre</th>
         <th>Fecha</th>	
+		<th>Monto</th>
+		<th>Cobrado</th>	
+		<th>Saldo</th>		
 		<th>Acciones</th>		
     </tr>
     <%
     l_filtro = replace (l_filtro, "*", "%")
 
     Set l_rs = Server.CreateObject("ADODB.RecordSet")
-    l_sql = "SELECT    compras.* , proveedores.nombre "
+    l_sql = "SELECT    compras.* , proveedores.nombre "	
+    l_sql = l_sql & " ,( select SUM( detalleCompras.cantidad*detalleCompras.precio_unitario) "
+    l_sql = l_sql & " 	from detalleCompras "
+	l_sql = l_sql & " where detalleCompras.idcompra = compras.id "
+    l_sql = l_sql & " )	as monto_compra "
+    l_sql = l_sql & " ,(	select	SUM(cajaMovimientos.monto) "
+	l_sql = l_sql & " from	cajaMovimientos "
+	l_sql = l_sql & " where	cajaMovimientos.idcompraOrigen = compras.id "
+    l_sql = l_sql & " )	as  pagado "	
     l_sql = l_sql & " FROM compras "
     l_sql = l_sql & " LEFT JOIN proveedores ON proveedores.id = compras.idproveedor "
 	' Multiempresa
@@ -63,7 +74,8 @@ end if
 	
 	
     l_sql = l_sql & " " & l_orden
-
+	
+	'response.write l_sql & "</br>"
     rsOpen l_rs, cn, l_sql, 0 
     if l_rs.eof then
 	    l_primero = 0
@@ -81,7 +93,10 @@ end if
 	    %>
 	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','compras_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
 			<td width="10%" nowrap><%= l_rs("nombre")%></td>
-			<td width="10%" align="center" nowrap><%= l_rs("fecha")%></td>
+			<td width="10%" align="center" nowrap><%= l_rs("fecha")%></td>			
+			<td width="10%" align="center" nowrap><%= l_rs("monto_compra")%></td>
+			<td width="10%" align="center" nowrap><%= l_rs("pagado")%></td>
+			<td width="10%" align="center" nowrap><%= cdbl(l_rs("monto_compra")) - cdbl(l_rs("pagado"))%></td>				
 	        <td align="center" width="10%" nowrap>                    
                 <a href="Javascript:parent.abrirDialogo('dialog','compras_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>

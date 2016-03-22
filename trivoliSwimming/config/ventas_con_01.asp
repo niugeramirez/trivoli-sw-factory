@@ -22,7 +22,7 @@ l_filtro = request("filtro")
 l_orden  = request("orden")
 
 if l_orden = "" then
-  l_orden = " ORDER BY ventas.fecha "
+  l_orden = " ORDER BY ventas.fecha desc "
 end if
 %>
 
@@ -43,6 +43,11 @@ end if
     <tr>
         <th>Nombre</th>
         <th>Fecha</th>	
+		<th>Monto</th>
+		<th>Costo</th>
+		<th>Utilidad</th>
+		<th>Cobrado</th>	
+		<th>Saldo</th>
 		<th>Acciones</th>		
     </tr>
     <%
@@ -50,6 +55,18 @@ end if
 
     Set l_rs = Server.CreateObject("ADODB.RecordSet")
     l_sql = "SELECT    ventas.* , clientes.nombre "
+	l_sql = l_sql & " ,( select SUM( detalleVentas.cantidad*detalleVentas.precio_unitario) "
+	l_sql = l_sql & " 	from detalleVentas "
+	l_sql = l_sql & " 	where detalleVentas.idVenta = ventas.id "
+	l_sql = l_sql & " )	as monto_venta "
+	l_sql = l_sql & " ,(	select SUM( costosVentas.cantidad*costosVentas.precio_unitario) "
+	l_sql = l_sql & " 	from costosVentas "
+	l_sql = l_sql & " 	where costosVentas.idVenta = ventas.id "
+	l_sql = l_sql & " )	as costo_venta "
+	l_sql = l_sql & " ,(	select	SUM(cajaMovimientos.monto) "
+	l_sql = l_sql & " 	from	cajaMovimientos "
+	l_sql = l_sql & " 	where	cajaMovimientos.idventaOrigen = ventas.id "
+	l_sql = l_sql & " )	as  cobrado	"
     l_sql = l_sql & " FROM ventas "
     l_sql = l_sql & " LEFT JOIN clientes ON clientes.id = ventas.idcliente "
 	' Multiempresa
@@ -64,6 +81,7 @@ end if
 	
     l_sql = l_sql & " " & l_orden
 
+	'response.write l_sql & "</br>"
     rsOpen l_rs, cn, l_sql, 0 
     if l_rs.eof then
 	    l_primero = 0
@@ -82,6 +100,11 @@ end if
 	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','ventas_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
 			<td width="10%" nowrap><%= l_rs("nombre")%></td>
 			<td width="10%" align="center" nowrap><%= l_rs("fecha")%></td>
+			<td width="10%" align="center" nowrap><%= l_rs("monto_venta")%></td>
+			<td width="10%" align="center" nowrap><%= l_rs("costo_venta")%></td>
+			<td width="10%" align="center" nowrap><%= cdbl(l_rs("monto_venta")) - cdbl(l_rs("costo_venta"))%></td>
+			<td width="10%" align="center" nowrap><%= l_rs("cobrado")%></td>
+			<td width="10%" align="center" nowrap><%= cdbl(l_rs("monto_venta")) - cdbl(l_rs("cobrado"))%></td>			
 	        <td align="center" width="10%" nowrap>                    
                 <a href="Javascript:parent.abrirDialogo('dialog','ventas_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
