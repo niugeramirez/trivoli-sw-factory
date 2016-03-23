@@ -44,16 +44,19 @@ end if
     <tr>
         <th>Concepto</th>
         <th>Cantidad</th>	
-        <th>Precio Unitario</th>		
+		<th>Precio Unitario</th>
+		<th>Estado Instalacion</th>
+        <th>Fecha Programada Instalacion</th>		
 		<th>Acciones</th>		
     </tr>
     <%
     l_filtro = replace (l_filtro, "*", "%")
 
     Set l_rs = Server.CreateObject("ADODB.RecordSet")
-    l_sql = "SELECT    detalleVentas.*  , conceptosCompraVenta.descripcion "
+    l_sql = "SELECT    detalleVentas.*  , conceptosCompraVenta.descripcion , estadoinstalacion.descripcionEstadoInsta "
     l_sql = l_sql & " FROM detalleVentas "
     l_sql = l_sql & " LEFT JOIN conceptosCompraVenta ON conceptosCompraVenta.id = detalleVentas.idconceptoCompraVenta "
+	l_sql = l_sql & " LEFT JOIN estadoinstalacion ON  estadoinstalacion.id = detalleVentas.idestadoinstalacion "
 	' Multiempresa
 	if l_filtro <> "" then
 	  l_sql = l_sql & " WHERE " & l_filtro & " "
@@ -67,6 +70,7 @@ end if
 	
     l_sql = l_sql & " " & l_orden
 
+	'response.write l_sql&"</br>"
     rsOpen l_rs, cn, l_sql, 0 
     if l_rs.eof then
 	    l_primero = 0
@@ -86,8 +90,10 @@ end if
 			<td width="10%" nowrap><%= l_rs("descripcion")%></td>
 			<td width="10%" align="center" nowrap><%= l_rs("cantidad")%></td>
 			<td width="10%" align="center" nowrap><%= l_rs("precio_unitario")%></td>
+			<td width="10%" align="center" nowrap><%= l_rs("descripcionEstadoInsta")%></td>
+			<td width="10%" align="center" nowrap><%= l_rs("fechaProgramadaInstalacion")%></td>
 	        <td align="center" width="10%" nowrap>                    
-                <a href="Javascript:parent.abrirDialogo('dialog','detalleventa_con_02.asp?idventa=' + document.detalle_01.idventa.value + '&Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
+                <a href="Javascript:parent.abrirDialogo('dialog','detalleventa_con_02.asp?idventa=' + document.detalle_01.idventa.value + '&Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
 			</td>
         </tr>
