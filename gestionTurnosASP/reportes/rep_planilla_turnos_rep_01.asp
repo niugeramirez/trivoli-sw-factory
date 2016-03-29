@@ -89,7 +89,7 @@ l_rs.close
 
 
 l_sql = "SELECT  calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
-l_sql = l_sql & " ,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono"
+l_sql = l_sql & " ,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono , clientespacientes.nrohistoriaclinica "
 l_sql = l_sql & " ,  obrassociales.descripcion osnombre, practicas.descripcion practicanombre"
 'l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente, turnos.apellido turnoapellido , turnos.nombre turnonombre, turnos.dni turnodni , turnos.domicilio turnodomicilio , turnos.telefono turnotelefono, turnos.comentario turnocomentario"
 l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente, turnos.comentario turnocomentario"
@@ -128,6 +128,7 @@ rsOpen l_rs, cn, l_sql, 0
     <tr>
         <th width="100">Hora Desde</th>
         <th width="200">Paciente</th>	
+		<th width="200">Nro. Historia Clinica</th>
 		<th width="100">Tel&eacute;fono</th>
         <th width="200">Practica</th>	
         <th width="100">Obra Social</th>
@@ -174,7 +175,8 @@ if l_rs.eof then
 			
 			<% if isnull(l_rs("idclientepaciente")) then ' si no esta asignado: asignar, bloquear, borrar %>
 			    <td >&nbsp;</td>	
-				<td >&nbsp;</td>					
+				<td >&nbsp;</td>	
+				<td >&nbsp;</td>				
 				<td >&nbsp;</td>		
 				<td >&nbsp;</td>		
 				<td >&nbsp;</td>			
@@ -192,11 +194,13 @@ if l_rs.eof then
 			
 				<% if l_rs("idclientepaciente") <> -1 then ' si esta asignado a un paciente: cancelar el paciente , transferir %>
 			    <td <%= l_fondo  %> ><% If l_fondo <> "" then %>Sobreturno:<% End If %>&nbsp;<%= l_rs("apellido")%>,&nbsp;<%= l_rs("nombre")%></td>	
+				<td align="center" <%= l_fondo  %> ><%= l_rs("nrohistoriaclinica")%></td>
 				<td <%= l_fondo  %> ><%= l_rs("telefono")%></td>
 				<td <%= l_fondo  %> ><%= l_rs("practicanombre")%></td>					
 				<td <%= l_fondo  %> ><%= l_rs("osnombre")%></td>		
 				<% Else  ' si esta asignado a un paciente Externo (pedir info): cancelar el paciente , transferir  %>
 			    <td <%= l_fondo  %> valign="middle"><!--<img src="/turnos/shared/images/mas.png" border="0" alt="Nuevo Paciente">--><% If l_fondo <> "" then %>Sobreturno:<% End If %>&nbsp;<%= l_rs("turnoapellido")%>,&nbsp;<%= l_rs("turnonombre")%></td>	
+				<td <%= l_fondo  %> >&nbsp;</td>				
 				<td <%= l_fondo  %> ><%= l_rs("turnotelefono")%></td>
 				<td <%= l_fondo  %> ><%= l_rs("practicanombre")%></td>					
 				<td <%= l_fondo  %> ><%= l_rs("osnombre")%></td>					
