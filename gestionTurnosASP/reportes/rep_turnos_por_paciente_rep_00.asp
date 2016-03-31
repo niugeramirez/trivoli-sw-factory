@@ -99,9 +99,9 @@ function Actualizar(destino){
 	param = "qfechadesde=" + document.all.fechadesde.value + "&qfechahasta=" + document.all.fechahasta.value + "&idpaciente=" + document.all.pacienteid.value; // + document.all.repnro.value;
 	
 	if (destino== "exel")
-    	abrirVentana("rep_turnos_por_empleado_rep_01.asp?" + param + "&excel=true",'execl',250,150);
+    	abrirVentana("rep_turnos_por_paciente_rep_01.asp?" + param + "&excel=true",'execl',250,150);
 	else
-		document.ifrm.location = "rep_turnos_por_empleado_rep_01.asp?" + param;			
+		document.ifrm.location = "rep_turnos_por_paciente_rep_01.asp?" + param;			
 	
 }
 
@@ -158,7 +158,7 @@ function BuscarPaciente(){
 					<tr>
 						<td align="right"><b>Fecha Desde: </b><input id="fechadesde" type="text" name="fechadesde" value="<%= date() - 30 %>"></td>
 						
-						<td align="right"><b>Fecha Hasta: </b><input id="fechahasta" type="text" name="fechahasta" value="<%= date()%>"></td>
+						<td align="right"><b>Fecha Hasta: </b><input id="fechahasta" type="text" name="fechahasta" value="<%= date()+365%>"></td>
 												
 						
 						<td align="right"><b>Paciente:</b></td>

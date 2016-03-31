@@ -30,11 +30,12 @@ Dim l_fechahasta
 Dim l_descripcion
 Dim l_apeynom
 
+
 l_filtro = request("filtro")
 l_orden  = request("orden")
 
 if l_orden = "" then
-  l_orden = " ORDER BY calendarios.fechahorainicio DESC "
+  l_orden = " ORDER BY calendarios.fechahorainicio "
 end if
 
 
@@ -138,7 +139,7 @@ l_rs.close
 
 
 
-l_sql = "SELECT  CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio , CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly ,  recursosreservables.descripcion  " 'calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
+l_sql = "SELECT  CONVERT(VARCHAR(5), fechahorainicio, 108) AS horainicio , fechahorainicio AS fechainicio ,  recursosreservables.descripcion  " 'calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
 'l_sql = l_sql & " ,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono"
 'l_sql = l_sql & " ,  obrassociales.descripcion osnombre, practicas.descripcion practicanombre"
 'l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente, turnos.apellido turnoapellido , turnos.nombre turnonombre, turnos.dni turnodni , turnos.domicilio turnodomicilio , turnos.telefono turnotelefono, turnos.comentario turnocomentario"
@@ -192,12 +193,11 @@ if l_rs.eof then
 	l_cant = 0
 	do until l_rs.eof
 		l_cant = l_cant + 1
-		
 	%>
 	    <tr>
 			
-	        <td align="center"><%= l_rs("DateOnly") %>&nbsp;-&nbsp;<%= l_rs("fechahorainicio") %></td>	
-			<td <%'= l_fondo  %> ><%= l_rs("descripcion")%></td>														   
+	        <td align="center"><%= FormatDateTime(l_rs("fechainicio"), 2)  %>&nbsp;-&nbsp;<%= l_rs("horainicio") %></td>	
+			<td </td>														   
 	    </tr>
 	<%
 		l_rs.MoveNext
