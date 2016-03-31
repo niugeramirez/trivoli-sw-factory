@@ -78,6 +78,7 @@
 		<li><a target="ifrm"  href="../../config/clientes_con_00.asp">Clientes</a></li>
 		<li><a target="ifrm"  href="../../config/ventas_con_00.asp">Ventas</a></li>
 		<li><a target="ifrm"  href="../../config/conceptoscompraventa_con_00.asp">Stock</a></li>
+		<li><a target="ifrm"  href="../../config/proyeccionventas_con_00.asp">Proyeccion</a></li>		
 	</ul>
 </li>
 <li><a href="#">Compras</a>
