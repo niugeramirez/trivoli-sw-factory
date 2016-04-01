@@ -77,7 +77,7 @@ if l_tipo = "A" then
 		
 			l_sql = "INSERT INTO listapreciosdetalle "
 			l_sql = l_sql & " (idpractica, precio, idlistaprecioscabecera ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
-			l_sql = l_sql & " VALUES (" & l_rs("idpractica") & "," & l_rs("precio")  & "," & l_nueva_lpcab &"," & session("empnro") &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
+			l_sql = l_sql & " VALUES (" & l_rs("idpractica") & "," &Replace(l_rs("precio"), ",", ".")   & "," & l_nueva_lpcab &"," & session("empnro") &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
 		
 			l_cm.activeconnection = Cn
 			l_cm.CommandText = l_sql
@@ -116,7 +116,7 @@ else
 		
 			l_sql = "INSERT INTO listapreciosdetalle "
 			l_sql = l_sql & " (idpractica, precio, idlistaprecioscabecera ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
-			l_sql = l_sql & " VALUES (" & l_rs("idpractica") & "," & l_rs("precio")  & "," & l_id &"," & session("empnro") &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
+			l_sql = l_sql & " VALUES (" & l_rs("idpractica") & "," & Replace(l_rs("precio"), ",", ".")  & "," & l_id &"," & session("empnro") &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
 		
 			l_cm.activeconnection = Cn
 			l_cm.CommandText = l_sql
