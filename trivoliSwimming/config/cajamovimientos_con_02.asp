@@ -261,12 +261,12 @@ end select
 								<td colspan="3"><select name="idcompraorigen" size="1" style="width:250;">
 										<option value="0" selected>&nbsp;Seleccione una Compra</option>
 										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-										l_sql = "SELECT  * "
+										l_sql = "SELECT  compras.fecha , compras.id , proveedores.nombre "
 										l_sql  = l_sql  & " FROM compras "
 										l_sql  = l_sql  & " LEFT JOIN proveedores ON proveedores.id = compras.idproveedor  "
 										l_sql = l_sql & " where compras.empnro = " & Session("empnro")   
 										
-										l_sql  = l_sql  & " ORDER BY nombre "
+										l_sql  = l_sql  & " ORDER BY compras.fecha desc "
 										rsOpen l_rs, cn, l_sql, 0
 										do until l_rs.eof		%>	
 										<option value= <%= l_rs("id") %> > 
@@ -286,12 +286,12 @@ end select
 								<td colspan="3"><select name="idventaorigen" size="1" style="width:250;">
 										<option value="0" selected>&nbsp;Seleccione una Venta</option>
 										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-										l_sql = "SELECT  * "
+										l_sql = "SELECT  ventas.fecha , ventas.id , clientes.nombre "
 										l_sql  = l_sql  & " FROM ventas "
 										l_sql  = l_sql  & " LEFT JOIN clientes ON clientes.id = ventas.idcliente  "
 										l_sql = l_sql & " where ventas.empnro = " & Session("empnro")   
 										
-										l_sql  = l_sql  & " ORDER BY nombre "
+										l_sql  = l_sql  & " ORDER BY ventas.fecha desc "
 										rsOpen l_rs, cn, l_sql, 0
 										do until l_rs.eof		%>	
 										<option value= <%= l_rs("id") %> > 
