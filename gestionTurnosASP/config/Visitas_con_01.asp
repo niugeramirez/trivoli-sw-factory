@@ -34,7 +34,7 @@ l_filtro = request("filtro")
 l_orden  = request("orden")
 
 if l_orden = "" then
-  l_orden = " "
+  l_orden = " ORDER BY calendarios.fechahorainicio "
 end if
 
 
@@ -168,7 +168,8 @@ l_sql = l_sql & " LEFT JOIN clientespacientes ON clientespacientes.id = visitas.
 l_sql = l_sql & " LEFT JOIN practicasrealizadas ON practicasrealizadas.idvisita = visitas.id "
 l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = practicasrealizadas.idpractica "
 l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
-'l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = turnos.idpractica "
+l_sql = l_sql & " LEFT JOIN turnos ON turnos.id = visitas.idturno "
+l_sql = l_sql & " LEFT JOIN calendarios ON calendarios.id = turnos.idcalendario "
 
 
 if l_filtro <> "" then
