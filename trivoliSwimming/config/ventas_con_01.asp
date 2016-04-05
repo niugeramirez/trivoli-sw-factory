@@ -10,9 +10,9 @@ Dim l_rs
 Dim l_sql
 Dim l_filtro
 Dim l_orden
-Dim l_sqlfiltro
-Dim l_sqlorden
-Dim l_totvol
+Dim l_saldo
+Dim l_cobrado
+Dim l_monto_venta
 Dim l_cant
 
 Dim l_primero
@@ -104,7 +104,25 @@ end if
 			<td width="10%" align="center" nowrap><%= l_rs("costo_venta")%></td>
 			<td width="10%" align="center" nowrap><%= cdbl(l_rs("monto_venta")) - cdbl(l_rs("costo_venta"))%></td>
 			<td width="10%" align="center" nowrap><%= l_rs("cobrado")%></td>
-			<td width="10%" align="center" nowrap><%= cdbl(l_rs("monto_venta")) - cdbl(l_rs("cobrado"))%></td>			
+			<% 
+				if isnull(l_rs("monto_venta")) then					 
+					l_monto_venta = 0
+				else					
+					l_monto_venta = cdbl(l_rs("monto_venta"))
+				end if
+
+				if isnull(l_rs("cobrado")) then
+					l_cobrado = 0
+				else 
+					l_cobrado = cdbl(l_rs("cobrado"))
+				end if
+				
+				l_saldo = l_monto_venta - l_cobrado 
+				if l_saldo = 0 then
+					l_saldo = ""
+				end if
+			%>
+			<td width="10%" align="center" nowrap><%= l_saldo %></td>			
 	        <td align="center" width="10%" nowrap>                    
                 <a href="Javascript:parent.abrirDialogo('dialog','ventas_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>

@@ -21,7 +21,7 @@ l_filtro = request("filtro")
 l_orden  = request("orden")
 
 if l_orden = "" then
-  l_orden = " ORDER BY cajamovimientos.fecha "
+  l_orden = " ORDER BY cajamovimientos.fecha desc "
 end if
 %>
 
@@ -49,9 +49,8 @@ end if
 		<th>Cheque</th>
 		<th>Monto</th>
 		<th>Responsable</th>
-		<!--	
-		<th>Ciudad</th> 	
-		-->
+		<th>Venta</th>
+		<th>Compra</th>		
 		<th>Acciones</th>		
     </tr>
     <%
@@ -59,13 +58,21 @@ end if
 
     Set l_rs = Server.CreateObject("ADODB.RecordSet")
     l_sql = "SELECT    cajamovimientos.* , tiposmovimientocaja.descripcion , unidadesNegocio.descripcion unidadnegocio , mediosdepago.titulo , bancos.nombre_banco, cheques.numero, responsablesCaja.nombre responsable "
-    l_sql = l_sql & " FROM cajamovimientos "
+	l_sql = l_sql & " ,compras.fecha as fecha_compra "
+	l_sql = l_sql & " ,proveedores.nombre as nombre_proveedor "
+	l_sql = l_sql & " ,ventas.fecha as fecha_venta "
+	l_sql = l_sql & " ,clientes.nombre as nombre_cliente "    
+	l_sql = l_sql & " FROM cajamovimientos "
     l_sql = l_sql & " LEFT JOIN tiposmovimientocaja ON tiposmovimientocaja.id = cajamovimientos.idtipoMovimiento "
     l_sql = l_sql & " LEFT JOIN unidadesNegocio ON unidadesNegocio.id = cajamovimientos.idunidadnegocio "
     l_sql = l_sql & " LEFT JOIN mediosdepago ON mediosdepago.id = cajamovimientos.idmediopago "	
     l_sql = l_sql & " LEFT JOIN cheques ON cheques.id = cajamovimientos.idcheque "		
 	l_sql = l_sql & " LEFT JOIN bancos ON bancos.id = cheques.id_banco "
-    l_sql = l_sql & " LEFT JOIN responsablesCaja ON responsablesCaja.id = cajamovimientos.idresponsable "		
+    l_sql = l_sql & " LEFT JOIN responsablesCaja ON responsablesCaja.id = cajamovimientos.idresponsable "	
+    l_sql = l_sql & " LEFT JOIN compras ON compras.id = cajaMovimientos.idcompraOrigen "
+    l_sql = l_sql & " LEFT JOIN proveedores ON proveedores.id = compras.idproveedor "
+    l_sql = l_sql & " LEFT JOIN ventas ON ventas.id = cajaMovimientos.idventaOrigen "
+    l_sql = l_sql & " LEFT JOIN clientes ON clientes.id = ventas.idcliente "	
 	' Multiempresa
 	if l_filtro <> "" then
 	  l_sql = l_sql & " WHERE " & l_filtro & " "
@@ -78,6 +85,7 @@ end if
 	
     l_sql = l_sql & " " & l_orden
 
+	'response.write l_sql & "</br>"
     rsOpen l_rs, cn, l_sql, 0 
     if l_rs.eof then
 	    l_primero = 0
@@ -105,8 +113,11 @@ end if
 	        <td width="10%" nowrap align="center"><%= l_rs("titulo")%></td>			
 			
 			<td width="10%" nowrap align="center"><%= l_rs("nombre_banco") %> &nbsp;-&nbsp;<%= l_rs("numero") %></td>	
-			  <td width="10%" nowrap align="left"><%= l_rs("monto")%></td>		
-			  <td width="10%" nowrap align="left"><%= l_rs("responsable")%></td>					  
+			<td width="10%" nowrap align="left"><%= l_rs("monto")%></td>		
+			<td width="10%" nowrap align="left"><%= l_rs("responsable")%></td>
+
+			<td width="10%" nowrap align="left"><%= l_rs("nombre_cliente")%> </br> <%= l_rs("fecha_venta")%></td>
+			<td width="10%" nowrap align="left"><%= l_rs("nombre_proveedor")%> </br> <%= l_rs("fecha_compra")%></td>			
 			  	
 	        <td align="center" width="10%" nowrap>                    
                 <a href="Javascript:parent.abrirDialogo('dialog','cajamovimientos_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
