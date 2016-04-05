@@ -25,9 +25,33 @@
   l_Orden     = "Descripción:;"
   l_CamposOr  = "agedes"
 
+  Dim l_rs
+  Dim l_sql
   Dim l_idpracticarealizada
+  Dim l_apellido
+  Dim l_nro
+  Dim l_os
+  Dim l_practica
   
   l_idpracticarealizada = request("cabnro")
+  
+  
+
+	Set l_rs = Server.CreateObject("ADODB.RecordSet")
+	l_sql = "SELECT  clientespacientes.apellido, clientespacientes.nombre, clientespacientes.nrohistoriaclinica , obrassociales.descripcion , practicas.descripcion practica"
+	l_sql = l_sql & " FROM practicasrealizadas "
+	l_sql = l_sql & " INNER JOIN visitas ON visitas.id = practicasrealizadas.idvisita "
+	l_sql = l_sql & " INNER JOIN clientespacientes ON clientespacientes.id = visitas.idpaciente "
+	l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
+	l_sql = l_sql & " LEFT JOIN practicas ON practicas.id = practicasrealizadas.idpractica "
+	l_sql = l_sql & " where practicasrealizadas.id = " & l_idpracticarealizada 
+	rsOpen l_rs, cn, l_sql, 0 
+	if not l_rs.eof then  
+		l_apellido = l_rs("apellido") & " " & l_rs("nombre")
+		l_nro = l_rs("nrohistoriaclinica")
+		l_os = l_rs("descripcion")
+		l_practica = l_rs("practica")
+	end if
   
 
 %>
@@ -82,6 +106,26 @@ function llamadaexcel(){
 		  -->
 		  </td>
         </tr>
+		<tr>
+			<td align="right"><b>Paciente: </b></td>
+			<td><input  type="text" name="legape" size="41" maxlength="21" value="<%= l_apellido %>" readonly   class="deshabinp" >
+			</td>
+		</tr>		
+		<tr>
+			<td align="right"><b>Nro. Historia Cl&iacute;nica: </b></td>
+			<td><input  type="text" name="legape" size="41" maxlength="21" value="<%= l_nro %>" readonly   class="deshabinp">
+			</td>
+		</tr>		
+		<tr>
+			<td align="right"><b>Obra Social: </b></td>
+			<td><input  type="text" name="legape" size="41" maxlength="21" value="<%= l_os %>" readonly   class="deshabinp">
+			</td>
+		</tr>	
+		<tr>
+			<td align="right"><b>Practica: </b></td>
+			<td><input  type="text" name="legape" size="41" maxlength="21" value="<%= l_practica %>" readonly   class="deshabinp">
+			</td>
+		</tr>						
         <tr valign="top" height="100%">
           <td colspan="2" style="" width="100%">
       	  <iframe scrolling="Yes" name="ifrm" src="pagos_con_01.asp?idpracticarealizada=<%= l_idpracticarealizada  %>" width="100%" height="100%"></iframe> 
