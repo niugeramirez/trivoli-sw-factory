@@ -1,7 +1,7 @@
 <meta http-equiv="refresh" content="50">
 <!--#include virtual="/turnos/shared/inc/const.inc"-->
 <%
-Seg = 1 / (24 * 36000000)
+Seg = 1 / (24 * 36000)
 Plazo = seg * (cTimeOut * 60)
 If (Session("Time") + Plazo < now) and (UCase(Session("Username")) <> "SUPER") then
 	Session("UserName") = ""
