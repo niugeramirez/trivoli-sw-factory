@@ -42,7 +42,6 @@ if l_orden = "" then
   l_orden = " ORDER BY pagos.idmediodepago , obrassociales.descripcion , pagos.fecha "
 end if
 
-
 sub encabezado
  %>
  <!--
@@ -64,6 +63,7 @@ end sub
 
 
 %>
+%>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
 <script src="/turnos/shared/js/fn_windows.js"></script>
@@ -76,17 +76,16 @@ end sub
 <% End If %>
 
 
-
 <%
 	'We've included ../Includes/FusionCharts.asp, which contains functions
 	'to help us easily embed the charts.
 	%>
-<!-- #INCLUDE FILE="../Includes/FusionCharts.asp" -->
+<!-- #INCLUDE virtual="/turnos/Includes/FusionCharts.asp" -->
 	<%
 	'We've also included ../Includes/FC_Colors.asp, having a list of colors
 	'to apply different colors to the chart's columns. We provide a function for it - getFCColor()
 	%>
-<!-- #INCLUDE FILE="../Includes/FC_Colors.asp" -->
+<!-- #INCLUDE virtual="/turnos/Includes/FC_Colors.asp" -->
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
@@ -111,6 +110,7 @@ function Seleccionar(fila,cabnro, turnoid){
 }
 </script>
 <% 
+
 
 l_filtro = replace (l_filtro, "*", "%")
 l_idmedio = request("idmedio")
@@ -309,5 +309,3 @@ set cn = Nothing
 <input type="hidden" name="orden" value="<%= l_orden %>">
 <input type="hidden" name="filtro" value="<%= l_filtro %>">
 </form>
-</body>
-</html>
