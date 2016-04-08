@@ -97,11 +97,7 @@
 
 <li><a href="#">Reportes</a>
 	<ul>
-		<li><a target="ifrm"  href="">A definir</a></li>
-		<!--
-		<li><a target="ifrm"  href="../../reportes/rep_visitas_entre_fechas_rep_00.asp">Visitas entre Fechas</a></li>
-		<li><a target="ifrm"  href="../../reportes/rep_pagos_por_medio_rep_00.asp">Pago entre Fechas</a></li>
-		-->
+		<li><a target="ifrm"  href="../../reportes/rep_estadisticas_rep_00.asp">Estadisticas</a></li>
 	</ul>
 </li>
 <li><a href="#">Configuraci&oacute;n</a>
