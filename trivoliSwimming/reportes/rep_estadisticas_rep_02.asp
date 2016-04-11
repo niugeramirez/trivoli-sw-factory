@@ -295,50 +295,54 @@ l_sql = l_sql & " ,( select ISNULL(SUM( detalleCompras.cantidad) ,0) "
 l_sql = l_sql & " from detalleCompras "
 l_sql = l_sql & " inner join compras on compras.id = detalleCompras.idcompra "
 l_sql = l_sql & " where detalleCompras.idconceptoCompraVenta = conceptosCompraVenta.id "
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) >= '2015/01/01' " 'tomar de un parametro de la ventana
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana				
+l_sql = l_sql & " AND compras.fecha >=  " & cambiafecha(l_fechadesde,"YMD",true) 
+l_sql = l_sql & " AND compras.fecha <=  " & cambiafecha(l_fechahasta ,"YMD",true) 
+			
 l_sql = l_sql & " ) as cantidad_compra "
 l_sql = l_sql & " ,( select ISNULL(SUM( detalleVentas.cantidad),0) "
 l_sql = l_sql & " from detalleVentas "
 l_sql = l_sql & " inner join ventas on ventas.id = detalleVentas.idVenta "
 l_sql = l_sql & " where detalleVentas.idconceptoCompraVenta = conceptosCompraVenta.id "
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) >= '2015/01/01' " 'tomar de un parametro de la ventana
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana			
+
+
+l_sql = l_sql & " AND ventas.fecha >=  " & cambiafecha(l_fechadesde,"YMD",true) 
+l_sql = l_sql & " AND ventas.fecha <=  " & cambiafecha(l_fechahasta ,"YMD",true) 
+		
 l_sql = l_sql & " )	as cantidad_venta "
 l_sql = l_sql & " ,( select ISNULL(SUM( detalleCompras.cantidad),0) "
 l_sql = l_sql & " from detalleCompras "
 l_sql = l_sql & " inner join compras on  compras.id = detalleCompras.idcompra " 
 l_sql = l_sql & " where detalleCompras.idconceptoCompraVenta = conceptosCompraVenta.id "
-l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) >= '2015/01/01' " '--tomar de un parametro de la ventana
-l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana				
+l_sql = l_sql & " AND compras.fecha >=  " & cambiafecha(l_fechadesde,"YMD",true) 
+l_sql = l_sql & " AND compras.fecha <=  " & cambiafecha(l_fechahasta ,"YMD",true) 		
 l_sql = l_sql & " ) - "
 l_sql = l_sql & " (select ISNULL(SUM( detalleVentas.cantidad),0) "
 l_sql = l_sql & " from detalleVentas " 
 l_sql = l_sql & " inner join ventas on ventas.id = detalleVentas.idVenta "
 l_sql = l_sql & " where detalleVentas.idconceptoCompraVenta = conceptosCompraVenta.id "
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) >= '2015/01/01' " '--tomar de un parametro de la ventana
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana			
+l_sql = l_sql & " AND ventas.fecha >=  " & cambiafecha(l_fechadesde,"YMD",true) 
+l_sql = l_sql & " AND ventas.fecha <=  " & cambiafecha(l_fechahasta ,"YMD",true) 		
 l_sql = l_sql & " ) as stock "
 l_sql = l_sql & " FROM conceptosCompraVenta "
-l_sql = l_sql & " where conceptosCompraVenta.empnro = 1 " '--tomar de la variable de session
+l_sql = l_sql & " where conceptosCompraVenta.empnro =  " & Session("empnro")
 l_sql = l_sql & " group by conceptosCompraVenta.id "
 l_sql = l_sql & "  ,conceptosCompraVenta.descripcion "
 l_sql = l_sql & " having ( select ISNULL(SUM( detalleCompras.cantidad),0) "
 l_sql = l_sql & " from detalleCompras "
 l_sql = l_sql & " inner join compras on compras.id = detalleCompras.idcompra "
 l_sql = l_sql & " where detalleCompras.idconceptoCompraVenta = conceptosCompraVenta.id "
-'l_sql = l_sql & " AND	CONVERT(VARCHAR(10), compras.fecha, 111) >= '2015/01/01' " '--tomar de un parametro de la ventana
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana				
+l_sql = l_sql & " AND compras.fecha >=  " & cambiafecha(l_fechadesde,"YMD",true) 
+l_sql = l_sql & " AND compras.fecha <=  " & cambiafecha(l_fechahasta ,"YMD",true) 					
 l_sql = l_sql & " ) - "
 l_sql = l_sql & " ( select ISNULL(SUM( detalleVentas.cantidad),0) "
 l_sql = l_sql & " from detalleVentas "
 l_sql = l_sql & " inner join ventas on ventas.id = detalleVentas.idVenta "
 l_sql = l_sql & " where detalleVentas.idconceptoCompraVenta = conceptosCompraVenta.id "
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) >= '2015/01/01' " '--tomar de un parametro de la ventana
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana			
+l_sql = l_sql & " AND ventas.fecha >=  " & cambiafecha(l_fechadesde,"YMD",true) 
+l_sql = l_sql & " AND ventas.fecha <=  " & cambiafecha(l_fechahasta ,"YMD",true) 		
 l_sql = l_sql & " ) <> 0 ORDER BY conceptosCompraVenta.descripcion "
 
-
+'response.write l_sql&"</br>"
 rsOpen l_rs, cn, l_sql, 0 
 
 
@@ -458,8 +462,8 @@ l_sql = l_sql & " ,estadoInstalacion.orden,COUNT(*) as cantidad "
 l_sql = l_sql & " from estadoInstalacion "
 l_sql = l_sql & " left join detalleVentas on detalleVentas.idestadoInstalacion = estadoInstalacion.id "
 l_sql = l_sql & " left join ventas on ventas.id = detalleVentas.idVenta "
-'l_sql = l_sql & " WHERE CONVERT(VARCHAR(10),ventas.fecha, 111) >= '2015/01/01' " 
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) <= '2016/12/31' --tomar de un parametro de la ventana
+l_sql = l_sql & " AND ventas.fecha >=  " & cambiafecha(l_fechadesde,"YMD",true) 
+l_sql = l_sql & " AND ventas.fecha <=  " & cambiafecha(l_fechahasta ,"YMD",true) 
 l_sql = l_sql & " AND estadoInstalacion.empnro = " & Session("empnro")			
 l_sql = l_sql & " group by estadoInstalacion.descripcionEstadoInsta "
 l_sql = l_sql & " ,estadoInstalacion.orden " 
@@ -473,12 +477,12 @@ l_sql = l_sql & " inner join ventas on ventas.id = detalleVentas.idVenta "
 l_sql = l_sql & " WHERE  (detalleVentas.fechaProgramadaInstalacion is null " 
 l_sql = l_sql & " or detalleVentas.fechaProgramadaInstalacion < GETDATE() )"
 l_sql = l_sql & " and estadoInstalacion.codigo <> 'F'"
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10),ventas.fecha, 111) >= '2015/01/01' --tomar de un parametro de la ventana "
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) <= '2016/12/31' --tomar de un parametro de la ventana"
+l_sql = l_sql & " AND ventas.fecha >=  " & cambiafecha(l_fechadesde,"YMD",true) 
+l_sql = l_sql & " AND ventas.fecha <=  " & cambiafecha(l_fechahasta ,"YMD",true) 
 l_sql = l_sql & " AND detalleVentas.empnro = " & Session("empnro")
 l_sql = l_sql & " order by orden "
 
-
+'response.write l_sql&"</br>"
 rsOpen l_rs, cn, l_sql, 0 
 
 
@@ -605,7 +609,7 @@ l_sql = l_sql & " FROM compras "
 l_sql = l_sql & " LEFT JOIN proveedores ON proveedores.id = compras.idproveedor "
 'l_sql = l_sql & " where  CONVERT(VARCHAR(10),compras.fecha, 111) >= '2015/01/01' " '--tomar de un parametro de la ventana
 'l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana
-l_sql = l_sql & " where compras.empnro = 1 " '--tomar de la variable de session
+l_sql = l_sql & " where compras.empnro =  " & Session("empnro") '--tomar de la variable de session
 l_sql = l_sql & " ) tab_agrup "
 
 
