@@ -138,6 +138,7 @@ function Ayuda_Fecha(txt){
 								<option value=1 >Ventas Proyectadas Vs Reales</option>
 								<option value=2 >Stock</option>
 								<option value=3 >Instalaciones</option>
+								<!--<option value=4 >Obligaciones a Pagar</option> -->
 							</select>
 							
 						</td>			

@@ -178,7 +178,9 @@ function logout(arg){
 			<iframe name="pasos" src="menu1.asp" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" align="left"></iframe> 
 		</td>
     	<td nowrap align="right" width="100%" height="100%">
-			<iframe name="ifrm" src="../../config/ventas_con_00.asp" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no"></iframe>
+			<!--<iframe name="ifrm" src="../../config/ventas_con_00.asp" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no"></iframe> -->
+			<iframe name="ifrm" src="../../reportes/rep_estadisticas_rep_02.asp?qfechadesde=01/01/2010&qfechahasta=01/01/2020&idrecursoreservable=1" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no"></iframe>			
+
 		</td>
 	</tr>
 </table>

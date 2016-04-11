@@ -73,9 +73,11 @@ sub encabezado2
 
     <tr>
         <th width="100">Articulo</th>
-        <th width="200">Cantidad Compra</th>	
-        <th width="200">Cantidad Venta</th>			
-		<!--<th width="200">Visitas sin Turno</th> -->
+		<th width="200">Cantidad Compras</th>	
+		<th width="200">Cantidad Venta</th>	
+        <th width="200">Stock</th>	
+        <!--<th width="200">Cantidad Venta</th>			
+		<th width="200">Visitas sin Turno</th> -->
 
 	
     </tr>
@@ -283,25 +285,57 @@ rsOpen l_rs, cn, l_sql, 0
 	
 case 2
 
+reDim arrData(7,7)
+
 l_sql = " SELECT conceptosCompraVenta.id "
 l_sql = l_sql & " ,conceptosCompraVenta.descripcion as articulo "
-l_sql = l_sql & " , isnull(( select SUM( detalleCompras.cantidad) "
+l_sql = l_sql & " ,( select ISNULL(SUM( detalleCompras.cantidad) ,0) "
 l_sql = l_sql & " from detalleCompras "
-l_sql = l_sql & " inner join compras on  compras.id = detalleCompras.idcompra "
-l_sql = l_sql & " where detalleCompras.idconceptoCompraVenta = conceptosCompraVenta.id  " 
-'l_sql = l_sql & " AND	CONVERT(VARCHAR(10), compras.fecha, 111) >= '2015/01/01' --tomar de un parametro de la ventana
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) <= '2016/12/31' --tomar de un parametro de la ventana				
-l_sql = l_sql & " ) , 0) cantidad_compra "
-l_sql = l_sql & " , isnull(( select SUM( detalleVentas.cantidad) " 
-l_sql = l_sql & " from detalleVentas  "
+l_sql = l_sql & " inner join compras on compras.id = detalleCompras.idcompra "
+l_sql = l_sql & " where detalleCompras.idconceptoCompraVenta = conceptosCompraVenta.id "
+'l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) >= '2015/01/01' " 'tomar de un parametro de la ventana
+'l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana				
+l_sql = l_sql & " ) as cantidad_compra "
+l_sql = l_sql & " ,( select ISNULL(SUM( detalleVentas.cantidad),0) "
+l_sql = l_sql & " from detalleVentas "
 l_sql = l_sql & " inner join ventas on ventas.id = detalleVentas.idVenta "
-l_sql = l_sql & " where detalleVentas.idconceptoCompraVenta = conceptosCompraVenta.id " 
-'l_sql = l_sql & " AND	CONVERT(VARCHAR(10), ventas.fecha, 111) >= '2015/01/01' --tomar de un parametro de la ventana
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) <= '2016/12/31' --tomar de un parametro de la ventana			
-l_sql = l_sql & " ) ,0) cantidad_venta "
+l_sql = l_sql & " where detalleVentas.idconceptoCompraVenta = conceptosCompraVenta.id "
+'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) >= '2015/01/01' " 'tomar de un parametro de la ventana
+'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana			
+l_sql = l_sql & " )	as cantidad_venta "
+l_sql = l_sql & " ,( select ISNULL(SUM( detalleCompras.cantidad),0) "
+l_sql = l_sql & " from detalleCompras "
+l_sql = l_sql & " inner join compras on  compras.id = detalleCompras.idcompra " 
+l_sql = l_sql & " where detalleCompras.idconceptoCompraVenta = conceptosCompraVenta.id "
+l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) >= '2015/01/01' " '--tomar de un parametro de la ventana
+l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana				
+l_sql = l_sql & " ) - "
+l_sql = l_sql & " (select ISNULL(SUM( detalleVentas.cantidad),0) "
+l_sql = l_sql & " from detalleVentas " 
+l_sql = l_sql & " inner join ventas on ventas.id = detalleVentas.idVenta "
+l_sql = l_sql & " where detalleVentas.idconceptoCompraVenta = conceptosCompraVenta.id "
+'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) >= '2015/01/01' " '--tomar de un parametro de la ventana
+'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana			
+l_sql = l_sql & " ) as stock "
 l_sql = l_sql & " FROM conceptosCompraVenta "
-l_sql = l_sql & " where conceptosCompraVenta.empnro = " & Session("empnro")
-l_sql = l_sql & " ORDER BY  conceptosCompraVenta.descripcion "
+l_sql = l_sql & " where conceptosCompraVenta.empnro = 1 " '--tomar de la variable de session
+l_sql = l_sql & " group by conceptosCompraVenta.id "
+l_sql = l_sql & "  ,conceptosCompraVenta.descripcion "
+l_sql = l_sql & " having ( select ISNULL(SUM( detalleCompras.cantidad),0) "
+l_sql = l_sql & " from detalleCompras "
+l_sql = l_sql & " inner join compras on compras.id = detalleCompras.idcompra "
+l_sql = l_sql & " where detalleCompras.idconceptoCompraVenta = conceptosCompraVenta.id "
+'l_sql = l_sql & " AND	CONVERT(VARCHAR(10), compras.fecha, 111) >= '2015/01/01' " '--tomar de un parametro de la ventana
+'l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana				
+l_sql = l_sql & " ) - "
+l_sql = l_sql & " ( select ISNULL(SUM( detalleVentas.cantidad),0) "
+l_sql = l_sql & " from detalleVentas "
+l_sql = l_sql & " inner join ventas on ventas.id = detalleVentas.idVenta "
+l_sql = l_sql & " where detalleVentas.idconceptoCompraVenta = conceptosCompraVenta.id "
+'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) >= '2015/01/01' " '--tomar de un parametro de la ventana
+'l_sql = l_sql & " AND CONVERT(VARCHAR(10), ventas.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana			
+l_sql = l_sql & " ) <> 0 ORDER BY conceptosCompraVenta.descripcion "
+
 
 rsOpen l_rs, cn, l_sql, 0 
 
@@ -335,12 +369,15 @@ rsOpen l_rs, cn, l_sql, 0
 	    arrData(i,1) = l_rs("articulo")
 		arrData(i,2) = l_rs("cantidad_compra")
 		arrData(i,3) = l_rs("cantidad_venta")
+		arrData(i,4) = l_rs("stock")
 	%>
 	    <tr>
 			
 	        <td align="center"><%= l_rs("articulo") %></td>	
 			<td align="center"><%= l_rs("cantidad_compra")%></td>
-			<td align="center"><%= l_rs("cantidad_venta") %></td>												   
+			<td align="center"><%= l_rs("cantidad_venta")%></td>
+			<td align="center"><%= l_rs("stock")%></td>
+													   
 	    </tr>
 		
 		 <tr>
@@ -356,11 +393,12 @@ rsOpen l_rs, cn, l_sql, 0
 	Dim strXML_C1
 	Dim strXML_1P
 	Dim strXML_R1
+	Dim strXML_s1
 	'Initialize <graph> element
 	'strXML = "<graph caption='Estadísticas de Pedidos' numberPrefix='$' formatNumberScale='0' decimalPrecision='0'>"
 	strXML = "<graph caption='' subCaption='' yaxisname='Cantidad' xaxisname='' formatNumberScale='0' decimalPrecision='2' showNames='1' showValues='1' showPercentageInLabel ='1' showAlternateVGridColor='1' alternateVGridAlpha='10' alternateVGridColor='AFD8F8' numDivLines='4' decimalPrecision='0' canvasBorderThickness='1' canvasBorderColor='114B78' baseFontColor='114B78' hoverCapBorderColor='114B78' hoverCapBgColor='E7EFF6'> "
 	
-	strXML = "<graph xaxisname='Articulos' yaxisname='Cantidad' hovercapbg='DEDEBE' hovercapborder='889E6D' rotateNames='0' animation='1' yAxisMaxValue='100' numdivlines='9' divLineColor='CCCCCC' divLineAlpha='80' decimalPrecision='0' showAlternateVGridColor='1' AlternateVGridAlpha='30' AlternateVGridColor='CCCCCC' caption='Ventas' subcaption='Proyectadas Vs Reales' > "
+	strXML = "<graph xaxisname='Articulos' yaxisname='Cantidad' hovercapbg='DEDEBE' hovercapborder='889E6D' rotateNames='0' animation='1' yAxisMaxValue='100' numdivlines='9' divLineColor='CCCCCC' divLineAlpha='80' decimalPrecision='0' showAlternateVGridColor='1' AlternateVGridAlpha='30' AlternateVGridColor='CCCCCC' caption='Stock' subcaption='' > "
 
 	
 	'Convert data to XML and append
@@ -371,6 +409,7 @@ rsOpen l_rs, cn, l_sql, 0
    		strXML_C1 = strXML_C1 & "   <category name='" & arrData(i,1) & "' hoverText=' "& arrData(i,1) &"'/> "		
 		strXML_1P = strXML_1P & "    <set value='" & arrData(i,2) & "' /> "
 		strXML_R1 = strXML_R1 & "    <set value='" & arrData(i,3) & "' /> "
+		strXML_s1 = strXML_s1 & "    <set value='" & arrData(i,4) & "' /> "
 	Next
 	'Close <graph> element
 	'strXML = strXML & "</graph>"
@@ -389,12 +428,15 @@ rsOpen l_rs, cn, l_sql, 0
    strXML = strXML & "<categories font='tahoma' fontSize='11' fontColor='000000'> "	
    strXML = strXML & strXML_C1
    strXML = strXML & "</categories> "
-  strXML = strXML & " <dataset seriesname='Proyectado' color='FDC12E' alpha='70'> " 
+  strXML = strXML & " <dataset seriesname='Compra' color='FDC12E' alpha='70'> " 
     strXML = strXML & strXML_1P
   strXML = strXML & " </dataset> "
-  strXML = strXML & " <dataset seriesname='Real' color='56B9F9' showValues='1' alpha='70'> "
+  strXML = strXML & " <dataset seriesname='Venta' color='8E468E' showValues='1' alpha='70'> "
   strXML = strXML & strXML_R1
   strXML = strXML & " </dataset> "
+  strXML = strXML & " <dataset seriesname='Stock' color='B3AA00' showValues='1' alpha='70'> "
+  strXML = strXML & strXML_s1
+  strXML = strXML & " </dataset> "  
   strXML = strXML & " </graph>" 
 	
 '	'Create the chart - Column 3D Chart with data contained in strXML
@@ -540,6 +582,141 @@ strXML = " <graph caption='Instalaciones' decimalPrecision='0' showPercentageVal
 	set l_rs = Nothing
 	cn.Close
 	set cn = Nothing	
+	
+case 4
+
+
+l_sql = " select sum(tab_agrup.monto_compra) as  monto_compra "
+l_sql = l_sql & " ,sum(tab_agrup.pagado) as pagado "
+l_sql = l_sql & " from ( "
+l_sql = l_sql & " SELECT compras.id "
+l_sql = l_sql & " ,compras.fecha "
+l_sql = l_sql & " ,proveedores.nombre as nombre_proveedor "
+l_sql = l_sql & " ,( select SUM( detalleCompras.cantidad*detalleCompras.precio_unitario) "
+l_sql = l_sql & " from detalleCompras "
+l_sql = l_sql & " where detalleCompras.idcompra = compras.id "
+l_sql = l_sql & " ) as monto_compra "
+l_sql = l_sql & " ,( select SUM(cajaMovimientos.monto) "
+l_sql = l_sql & " from cajaMovimientos "
+l_sql = l_sql & " where cajaMovimientos.idcompraOrigen = compras.id "
+l_sql = l_sql & " ) as pagado "
+l_sql = l_sql & " FROM compras "
+l_sql = l_sql & " LEFT JOIN proveedores ON proveedores.id = compras.idproveedor "
+'l_sql = l_sql & " where  CONVERT(VARCHAR(10),compras.fecha, 111) >= '2015/01/01' " '--tomar de un parametro de la ventana
+'l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana
+l_sql = l_sql & " where compras.empnro = 1 " '--tomar de la variable de session
+l_sql = l_sql & " ) tab_agrup "
+
+
+rsOpen l_rs, cn, l_sql, 0 
+
+
+ %>
+
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar();">
+<table>
+    <tr>
+        <td colspan="6">&nbsp;</td>
+    </tr>
+	<tr>
+        <td  colspan="6" align="center" ><h3>Estadisticas de Cantidades desde:&nbsp;<%= l_fechadesde %>&nbsp; al <%= l_fechahasta %>&nbsp;&nbsp;</h3></td>	
+    </tr>
+
+<% 	
+
+	encabezado2
+
+
+		
+	
+		i = 0
+    do while not l_rs.eof
+	
+		'response.write l_rs(1) & "<br>"
+		'response.write l_rs(2) & "<br>"
+		'response.write l_rs(3) & "<br>"
+		'response.end
+	
+	    arrData(i,1) = l_rs("articulo")
+		arrData(i,2) = l_rs("monto_compra")
+		arrData(i,3) = l_rs("pagado")
+		
+	%>
+	    <tr>
+			
+	        <td align="center"><%= l_rs("articulo") %></td>	
+			<td align="center"><%= l_rs("monto_compra")%></td>
+			<td align="center"><%= l_rs("pagado")%></td>
+												   
+	    </tr>
+		
+		 <tr>
+		 <td align="center" colspan=15>
+	<%
+		i = i + 1	
+		l_rs.movenext
+	loop
+	
+
+	'Now, we need to convert this data into XML. We convert using string concatenation.
+	Dim strXML14
+	Dim strXML_C14
+	Dim strXML_1P4
+	Dim strXML_R14
+	Dim strXML_s14
+	'Initialize <graph> element
+	'strXML = "<graph caption='Estadísticas de Pedidos' numberPrefix='$' formatNumberScale='0' decimalPrecision='0'>"
+	strXML = "<graph caption='' subCaption='' yaxisname='Cantidad' xaxisname='' formatNumberScale='0' decimalPrecision='2' showNames='1' showValues='1' showPercentageInLabel ='1' showAlternateVGridColor='1' alternateVGridAlpha='10' alternateVGridColor='AFD8F8' numDivLines='4' decimalPrecision='0' canvasBorderThickness='1' canvasBorderColor='114B78' baseFontColor='114B78' hoverCapBorderColor='114B78' hoverCapBgColor='E7EFF6'> "
+	
+	strXML = "<graph xaxisname='Articulos' yaxisname='Cantidad' hovercapbg='DEDEBE' hovercapborder='889E6D' rotateNames='0' animation='1' yAxisMaxValue='100' numdivlines='9' divLineColor='CCCCCC' divLineAlpha='80' decimalPrecision='0' showAlternateVGridColor='1' AlternateVGridAlpha='30' AlternateVGridColor='CCCCCC' caption='Stock' subcaption='' > "
+
+	
+	'Convert data to XML and append
+	For i=0 to UBound(arrData)-1
+		'add values using <set name='...' value='...' color='...'/>
+		'strXML = strXML & "<set name='" & arrData(i,1) & "' value='" & replace(arrData(i,2),",",".") & "' color='" & getFCColor() & "' />"
+		'strXML = strXML & "<set name='" & arrData(i,1) & "' value='" & replace(arrData(i,3),",",".") & "' color='" & getFCColor() & "' />"
+   		strXML_C14 = strXML_C14 & "   <category name='" & arrData(i,1) & "' hoverText=' "& arrData(i,1) &"'/> "		
+		strXML_1P4 = strXML_1P4 & "    <set value='" & arrData(i,2) & "' /> "
+		strXML_R14 = strXML_R14 & "    <set value='" & arrData(i,3) & "' /> "
+		strXML_s14 = strXML_s14 & "    <set value='" & arrData(i,4) & "' /> "
+	Next
+	'Close <graph> element
+	'strXML = strXML & "</graph>"
+
+	'response.write strXML & "-"
+	'response.end
+	
+	
+	'strXML = "<graph xaxisname='Continent' yaxisname='Export' hovercapbg='DEDEBE' hovercapborder='889E6D' rotateNames='0' animation='1' yAxisMaxValue='100' numdivlines='9' divLineColor='CCCCCC' divLineAlpha='80' decimalPrecision='0' showAlternateVGridColor='1' AlternateVGridAlpha='30' AlternateVGridColor='CCCCCC' caption='Global Export' subcaption='In Millions Tonnes per annum pr Hectare' > "
+   'strXML = strXML & "<categories font='Arial' fontSize='11' fontColor='000000'> "
+   'strXML = strXML & "   <category name='N. America' hoverText='North America'/> "
+   'strXML = strXML & "   <category name='Asia' /> "
+   'strXML = strXML & "   <category name='Europe' /> "
+   'strXML = strXML & "   <category name='Australia' /> "
+   'strXML = strXML & "   <category name='Africa' /> "
+   strXML = strXML & "<categories font='tahoma' fontSize='11' fontColor='000000'> "	
+   strXML = strXML & strXML_C14
+   strXML = strXML & "</categories> "
+  strXML = strXML & " <dataset seriesname='Compra' color='FDC12E' alpha='70'> " 
+    strXML = strXML & strXML_1P4
+  strXML = strXML & " </dataset> "
+  strXML = strXML & " <dataset seriesname='Venta' color='8E468E' showValues='1' alpha='70'> "
+  strXML = strXML & strXML_R14
+  strXML = strXML & " </dataset> "
+  strXML = strXML & " <dataset seriesname='Stock' color='B3AA00' showValues='1' alpha='70'> "
+  strXML = strXML & strXML_s14
+  strXML = strXML & " </dataset> "  
+  strXML = strXML & " </graph>" 
+	
+'	'Create the chart - Column 3D Chart with data contained in strXML
+'		Call renderChart("../../FusionCharts/FCF_Column3D.swf", "", strXML, "productSales", 600, 400)
+		Call renderChart("../FusionCharts/FCF_MSColumn3D.swf", "", strXML, "productSales", 800, 350)
+	
+	set l_rs = Nothing
+	cn.Close
+	set cn = Nothing	
+			
 
 end select
 	
