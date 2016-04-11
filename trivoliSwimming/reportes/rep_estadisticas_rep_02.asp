@@ -195,12 +195,16 @@ l_sql = l_sql & "		FROM proyeccionventas "
 l_sql = l_sql & "		inner join conceptosCompraVenta on conceptosCompraVenta.id = proyeccionventas.idconceptoCompraVenta "
 'l_sql = l_sql & "		WHERE CONVERT(VARCHAR(10), proyeccionventas.fecha_desde, 111) >= " & cambiafecha(l_fechadesde,"YMD",true)  
 'l_sql = l_sql & "		AND CONVERT(VARCHAR(10), proyeccionventas.fecha_desde, 111) <= " & cambiafecha(l_fechahasta,"YMD",true) 
+l_sql = l_sql & "		WHERE proyeccionventas.fecha_desde >= " & cambiafecha(l_fechadesde,"YMD",true)  
+l_sql = l_sql & "		AND proyeccionventas.fecha_desde <= " & cambiafecha(l_fechahasta,"YMD",true) 
 l_sql = l_sql & "		AND proyeccionventas.empnro =  " & Session("empnro")  
 l_sql = l_sql & "	) tab_agrup "
 l_sql = l_sql & " group by articulo_id "
 l_sql = l_sql & "		,articulo_desc	"
 l_sql = l_sql & " ORDER BY articulo_desc "
 rsOpen l_rs, cn, l_sql, 0 
+
+'response.write l_sql&"</br>"
 
  %>
 

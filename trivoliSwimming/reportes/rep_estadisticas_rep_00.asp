@@ -126,10 +126,10 @@ function Ayuda_Fecha(txt){
 
 					<tr>
 						<td align="right"><b>Fecha Desde: </b></td>
-						<td><input id="fechadesde" type="text" name="fechadesde" size="10" maxlength="10" value="<%= date()%>" >							
+						<td><input id="fechadesde" type="text" name="fechadesde" size="10" maxlength="10" value="<%= "01/01/"&year(date())-1%>" >							
 						</td>
 						<td align="right"><b>Fecha Hasta: </b></td>
-						<td><input  id="fechahasta" type="text" name="fechahasta" size="10" maxlength="10" value="<%= date()%>" >							
+						<td><input  id="fechahasta" type="text" name="fechahasta" size="10" maxlength="10" value="<%= "31/12/"&year(date())%>" >							
 						</td>						
 						
 						<td  align="right" nowrap><b>Indicador: </b></td>
