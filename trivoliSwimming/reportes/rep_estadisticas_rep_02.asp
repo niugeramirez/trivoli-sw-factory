@@ -94,9 +94,7 @@ sub encabezado3
 
     <tr>
         <th width="100">Estado Instalacion</th>
-        <th width="200">Orden</th>	
         <th width="200">Cantidad</th>			
-		<!--<th width="200">Visitas sin Turno</th> -->
 
 	
     </tr>
@@ -513,7 +511,6 @@ rsOpen l_rs, cn, l_sql, 0
 	    <tr>
 			
 	        <td align="center"><%= l_rs("descripcionEstadoInsta") %></td>	
-			<td align="center"><%= l_rs("orden")%></td>
 			<td align="center"><%= l_rs("cantidad") %></td>												   
 	    </tr>
 		
