@@ -26,7 +26,7 @@ l_filtro = request("filtro")
 l_orden  = request("orden")
 
 if l_orden = "" then
-  l_orden = " ORDER BY fechahorainicio "
+  l_orden = " ORDER BY fechahorainicio , turnoid "
 end if
 
 
@@ -110,7 +110,7 @@ if l_filtro <> "" then
 end if
 l_sql = l_sql & " " & l_orden
 
-' response.write l_sql
+'response.write l_sql
 rsOpen l_rs, cn, l_sql, 0 
 if l_rs.eof then
 	l_primero = 0
