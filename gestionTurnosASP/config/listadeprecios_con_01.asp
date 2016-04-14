@@ -68,7 +68,7 @@ if l_rs.eof then%>
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01_LP.cabnro,'dialogAlert_lista','dialogConfirmDelete_lista');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>				
 				
 				<a href="Javascript:parent.abrirDialogo('dialog_cont_LP','listadeprecios_con_00.asp?id=' + document.detalle_01.cabnro.value,520,250);"><img src="../shared/images/Ecommerce-Price-Tag-icon.png" border="0" title="Lista de Precios"></a>								  				
-				<a href="Javascript:parent.abrirVentana('listadepreciosdetalle_con_00.asp?id=' + detalle_01_LP.cabnro.value,'',520,200);"><img src="../shared/images/Data-List-icon_16.png" border="0" title="Detalle"></a>	
+				<a href="Javascript:parent.abrirVentana('listadepreciosdetalle_con_00.asp?id=' + detalle_01_LP.cabnro.value,'',520,400);"><img src="../shared/images/Data-List-icon_16.png" border="0" title="Detalle"></a>	
 				</td>				
 	    </tr>
 	<%
