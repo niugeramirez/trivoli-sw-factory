@@ -104,6 +104,8 @@
 		<li><a target="ifrm"  href="../../reportes/rep_visitas_entre_fechas_rep_00.asp">Visitas entre Fechas</a></li>
 		<li><a target="ifrm"  href="../../reportes/rep_pagos_por_medio_rep_00.asp">Pago entre Fechas</a></li>
 		<li><a target="ifrm"  href="../../reportes/rep_turnos_por_paciente_rep_00.asp">Turnos por Paciente</a></li>
+		<li><a target="ifrm"  href="../../reportes/rep_pacientes_con_saldo_rep_00.asp">Pacientes con Saldo</a></li>
+
 		
 	</ul>
 </li>
