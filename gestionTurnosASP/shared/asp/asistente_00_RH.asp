@@ -19,6 +19,8 @@
 ' Orden
   Dim l_Orden      ' Son las etiquetas que aparecen en el orden
   Dim l_CamposOr   ' Son los campos para el orden
+  
+  Dim l_empresa
 
   Set l_rs  = Server.CreateObject("ADODB.RecordSet")
 
@@ -48,6 +50,15 @@
   rsOpen l_rs, cn, l_sql, 0 
   l_programa = l_rs("pasasp")
   l_rs.close
+  
+  l_sql = "SELECT * FROM empresa WHERE id = " & Session("empnro")   
+  rsOpen l_rs, cn, l_sql, 0 
+  l_empresa = l_rs("nombre")
+  l_rs.close
+  
+  
+  
+  
 %>
 <html>
 <head>
@@ -124,13 +135,9 @@ function logout(arg){
 					<div class="wrapper">
 						<ul id="icons">
 							<li><img src="images/man_48.png" alt=""></li>
-							<li>Usuario: &nbsp;<%=  Session("loguinUser") %></li>
-							<li> | </li>
-							<li><a href="Javascript:logout(1);window.location= '../../index.asp';">Salir</a> </li>
-							<!--
-							<li><a href="#" class="normaltip" title="Twitter"><img src="images/icon2.jpg" alt=""></a></li>
-							<li><a href="#" class="normaltip" title="Linkedin"><img src="images/icon3.jpg" alt=""></a></li>
-							-->
+							<li>Usuario: &nbsp;<%=  Session("loguinUser") %>&nbsp;(&nbsp;<%=  l_empresa %> &nbsp;)&nbsp;</li>
+							<li> | </li>							
+							<li><a href="Javascript:logout(1);window.location= '../../index.asp';">Salir</a> </li>							
 						</ul>
 					</div>
 					
