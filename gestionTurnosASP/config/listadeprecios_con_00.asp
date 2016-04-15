@@ -28,6 +28,27 @@
   Dim l_id
   
   l_id = request.querystring("id")
+  Dim l_rs
+  Dim l_sql
+  
+  Dim l_obra_social
+  
+  
+  
+  Set l_rs = Server.CreateObject("ADODB.RecordSet")
+  l_sql = "SELECT * "
+  l_sql = l_sql & " FROM obrassociales "
+  'l_sql = l_sql & " INNER JOIN obrassociales ON obrassociales.id = listaprecioscabecera.idobrasocial "
+  l_sql = l_sql & " WHERE obrassociales.id = " & l_id
+  rsOpen l_rs, cn, l_sql, 0 
+  if not l_rs.eof then
+  	l_obra_social = l_rs("descripcion")
+  else
+  	l_obra_social = ""
+  	
+  end if
+  
+  
   
 %>
 <html>
@@ -102,6 +123,11 @@ $(document).ready(function() {
 			<a class="sidebtnABM" href="Javascript:abrirDialogo('dialog_lista','listadeprecios_con_02.asp?Tipo=A&idobrasocial=<%= l_id%>',520,350);" ><img  src="../shared/images/Agregar_24.png" border="0" title="Alta">
 		  </td>
         </tr>
+		<tr>
+		<td align="right"><b>Obra Social: </b></td>
+			<td><input  type="text" name="legape" size="41" maxlength="21" value="<%= l_obra_social %>" readonly   class="deshabinp" >
+			</td>
+		</tr>				
         <tr valign="top" height="100%">
           <td colspan="2" style="" width="100%">
       	  <iframe scrolling="Yes" id="ifrm_01_LP" name="ifrm_01_LP" src="listadeprecios_con_01.asp?idobrasocial=<%= l_id  %>" width="100%" height="100%"></iframe> 
