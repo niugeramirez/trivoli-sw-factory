@@ -126,14 +126,10 @@ end if
 	        <td align="center" width="10%" nowrap>                    
                 <a href="Javascript:parent.abrirDialogo('dialog','ventas_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
-				
-							 
-				<a href="Javascript:parent.abrirVentana('detalleventa_con_00.asp?id=' + document.detalle_01.cabnro.value,'',620,400);"><img src="../shared/images/Data-List-icon_16.png" border="0" title="Detalle de Venta"></a>
+											 
+				<a href="Javascript:parent.abrirDialogo('dialog_cont_DV','detalleventa_con_00.asp?p_carga_js=N&id=' + document.detalle_01.cabnro.value,620,400);"><img src="../shared/images/Data-List-icon_16.png" border="0" title="Detalle de Venta"></a>
 				<a href="Javascript:parent.abrirVentana('costoventa_con_00.asp?id=' + document.detalle_01.cabnro.value,'',620,400);"><img src="../shared/images/Ecommerce-Price-Tag-icon.png" border="0" title="Costo de Venta"></a>
-				
-				
 
-				
 			</td>
         </tr>
 	    <%

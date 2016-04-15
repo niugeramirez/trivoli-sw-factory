@@ -42,25 +42,7 @@ function Validaciones_locales(){
 		document.datos_02.idcliente.focus();
 		return false;
 	}
-/*
-	if (document.datos_02.nombre.value == ""){
-		alert("Debe ingresar el Nombre del Cliente.");
-		document.datos_02.nombre.focus();
-		return false;
-	}
 
-	if (document.datos_02.idtemplatereserva.value == 0){
-		alert("Debe ingresar el Modelo.");
-		document.datos_02.idtemplatereserva.focus();
-		return false;
-	}
-
-	if (document.datos_02.cantturnossimult.value == ""){
-		alert("Debe ingresar la Cantidad de Turnos Simultaneos.");
-		document.datos_02.cantturnossimult.focus();
-		return false;
-	}
-	*/
 	return true;
 }
 
@@ -95,6 +77,15 @@ $(document).ready(function() {
 														,Validaciones_locales							//funcion_Validaciones_locales	
 														,"ifrm"											//id_ifrm_form_datos														
 														); 
+
+								inicializar_dialogoContenedor(	"dialog_cont_DV" 										//id_dialog
+																); 
+								//esta linea la agrego solo para refrescar cuando se cierra el dialogo contenedor, se podría parametrizar de modo de recibir
+								//la funcion como parametro que se debe ejecutar al
+								$( "#dialog_cont_DV" ).dialog({
+									close: function () {$(this).empty(); Buscar();}
+								});										
+								
 							});
 </script>
 <!--	FIN VENTANAS MODALES    -->
@@ -146,16 +137,7 @@ function Limpiar(){
                         <col class="colWidth25">
                     </colgroup>
                     <tbody>
-					<!--
-				    <tr>
-						<td align="right"><b>Fecha Desde: </b></td>
-						<td><input id="fechadesde" type="text" name="fechadesde" size="10" maxlength="10" value="<%'= date()%>" >							
-						</td>						
-						<td align="right"><b>Fecha Hasta: </b></td>
-						<td><input  id="fechahasta" type="text" name="fechahasta" size="10" maxlength="10" value="<%'= date()%>" >							
-						</td>	                      
-                    </tr>			
-					-->		
+	
 				    <tr>
 					    <td align="right"><b>Cliente: </b></td>
 						<td><input  type="text" id="inpnombre" name="inpnombre" size="60" maxlength="21" value="" ></td>
@@ -182,7 +164,9 @@ function Limpiar(){
 				
 		<div id="dialogAlert" title="Mensaje">				</div>	
 		
-		<div id="dialogConfirmDelete" title="Consulta">		</div>		
+		<div id="dialogConfirmDelete" title="Consulta">		</div>	
+
+		<div id="dialog_cont_DV" title="Detalle de Ventas">		</div>			
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 
