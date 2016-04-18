@@ -14,6 +14,8 @@ dim l_fecha_vencimiento
 dim l_idbanco
 dim l_importe
 dim l_flag_propio
+dim l_flag_emitidopor_cliente
+dim l_validacion_bcra
 dim l_emisor
 
 'ADO
@@ -64,9 +66,9 @@ select Case l_tipo
 			l_idbanco        = "0"
 			l_importe	     = "0"
 			l_flag_propio    = "0"
+			l_flag_emitidopor_cliente = "0"
 			l_emisor 		 = ""
-	    	'l_cantturnossimult = ""
-	    	'l_cantsobreturnos  = ""
+			l_validacion_bcra = "PENDIENTE"
 
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
@@ -82,9 +84,9 @@ select Case l_tipo
 			l_idbanco   			 = l_rs("id_banco")
 			l_importe        		 = l_rs("importe")
 			l_flag_propio            = l_rs("flag_propio")
+			l_flag_emitidopor_cliente            = l_rs("flag_emitidopor_cliente")	
+			l_validacion_bcra				 = l_rs("validacion_bcra")
 			l_emisor				 = l_rs("emisor")
-	    	'l_cantturnossimult = l_rs("cantturnossimult")
-	    	'l_cantsobreturnos  = l_rs("cantsobreturnos")
 			
 		end if
 		l_rs.Close
@@ -102,34 +104,25 @@ end select
 				<table border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td>
-							<table cellspacing="0" cellpadding="0" border="0">
-				
-															
+							<table cellspacing="0" cellpadding="0" border="0">				
 							<tr>
 								<td align="right"><b>Numero:</b></td>
 								<td colspan="3">
 									<input type="text" name="numero" size="70" maxlength="200" value="<%= l_numero %>">							
 								</td>
-				
-							</tr>	
-							
-
+							</tr>								
 							<tr>
 								<td align="right"><b>Fecha Emision:</b></td>
 								<td colspan="3">
 									<input type="text" id="fecha_emision" name="fecha_emision" size="50" maxlength="50" value="<%= l_fecha_emision %>">							
-								</td>
-				
-							</tr>		
-							
+								</td>				
+							</tr>									
 							<tr>
 								<td align="right"><b>Fecha Vencimiento:</b></td>
 								<td colspan="3">
 									<input type="text" id="fecha_vencimiento" name="fecha_vencimiento" size="50" maxlength="50" value="<%= l_fecha_vencimiento %>">							
-								</td>
-				
-							</tr>		
-							
+								</td>				
+							</tr>									
 						    <tr>
 								<td align="right"><b>Banco:</b></td>
 								<td colspan="3"><select name="idbanco" size="1" style="width:450;">
@@ -162,13 +155,13 @@ end select
 							</tr>				
 							
 						    <tr>
-								<td align="right"><b>Propio:</b></td>
-								<td colspan="3"><select name="flag_propio" size="1" style="width:150;">
+								<td align="right"><b>Emitido por Cliente:</b></td>
+								<td colspan="3"><select name="flag_emitidopor_cliente" size="1" style="width:150;">
 										<option value="0" selected>NO</option>
 										<option value="-1" selected>SI</option>
 										
 									</select>
-									<script>document.datos_02.flag_propio.value= "<%= l_flag_propio%>"</script>
+									<script>document.datos_02.flag_emitidopor_cliente.value= "<%= l_flag_emitidopor_cliente%>"</script>
 								</td>					
 							</tr>		
 							
@@ -179,34 +172,26 @@ end select
 								</td>
 				
 							</tr>																								
-													
-<!--
-							<tr>
-								<td align="right"><b>Celular:</b></td>
-								<td colspan="3">
-									<input type="text" name="celular" size="50" maxlength="50" value="<%'= l_celular %>">							
-								</td>
-				
-							</tr>			
-							
-							<tr>
-								<td align="right"><b>Mail:</b></td>
-								<td colspan="3">
-									<input type="text" name="mail" size="50" maxlength="50" value="<%'= l_mail %>">							
-								</td>
-				
-							</tr>																			
-			
-							<tr>
-								<td align="right"><b>Direccion:</b></td>
-								<td colspan="3">
-									<input type="text" name="direccion" size="50" maxlength="100" value="<%'= l_direccion %>">							
-								</td>
-				
+						    <tr>
+								<td align="right"><b>Emitido por Franquicia:</b></td>
+								<td colspan="3"><select name="flag_propio" size="1" style="width:150;">
+										<option value="0" selected>NO</option>
+										<option value="-1" selected>SI</option>
+										
+									</select>
+									<script>document.datos_02.flag_propio.value= "<%= l_flag_propio%>"</script>
+								</td>					
 							</tr>	
-							
-
--->
+						    <tr>
+								<td align="right"><b>Validacion BCRA:</b></td>
+								<td colspan="3"><select name="validacion_bcra" size="1" style="width:150;">
+										<option value="PENDIENTE" selected>Pendiente</option>
+										<option value="VALIDADO" selected>Validado</option>
+										<option value="RECHAZADO" selected>Rechazado</option>
+									</select>
+									<script>document.datos_02.validacion_bcra.value= "<%= l_validacion_bcra%>"</script>
+								</td>					
+							</tr>								
 										
 							</table>
 						</td>
