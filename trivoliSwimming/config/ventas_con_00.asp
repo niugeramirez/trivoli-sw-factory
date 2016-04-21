@@ -114,7 +114,7 @@ $(document).ready(function() {
 														,"dialogAlert"									//id_dialogAlert															
 														,"datos_02_Editcli"										//id_form_datos															
 														,null //window.parent.ifrm.location					//location_reload														
-														,Validaciones_locales_Editcli_HCR							//funcion_Validaciones_locales	
+														,Validaciones_locales_EditCli_HCR							//funcion_Validaciones_locales	
 														,"ifrm"											//id_ifrm_form_datos	
 														,devolver_cliente_editado_HCR //fn_post_AM														
 														); 															
