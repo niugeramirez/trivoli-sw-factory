@@ -22,7 +22,7 @@ dim l_flag_propio
 dim l_flag_emitidopor_cliente
 dim l_emisor
 dim l_validacion_bcra
-
+dim l_flag_cobrado_pagado
 
 
 l_tipo 		               = request.Form("tipo")
@@ -36,9 +36,9 @@ l_flag_propio			   = request.Form("flag_propio")
 l_flag_emitidopor_cliente			   = request.Form("flag_emitidopor_cliente")
 l_emisor			       = request.Form("emisor")
 l_validacion_bcra			= request.Form("validacion_bcra")
+l_flag_cobrado_pagado 		= request.Form("flag_cobrado_pagado")
 
-
-
+'inicializo los campos que pueden venir en nulo
 if len(l_fecha_emision) = 0 then
 	l_fecha_emision = "null"
 else 
@@ -50,7 +50,7 @@ if len(l_fecha_vencimiento) = 0 then
 else 
 	l_fecha_vencimiento = cambiafecha(l_fecha_vencimiento,"YMD",true)	
 end if 
-
+'fin inicializacion campos en nulo
 
 
 'response.write "l_tipo"&l_tipo & "<br>"
@@ -72,7 +72,8 @@ end if
 		l_sql = l_sql & "    ,flag_propio = " & l_flag_propio & ""
 		l_sql = l_sql & "    ,flag_emitidopor_cliente = " & l_flag_emitidopor_cliente & ""
 		l_sql = l_sql & "    ,emisor  =  '" & l_emisor & "'"	
-		l_sql = l_sql & "    ,validacion_bcra  =  '" & l_validacion_bcra & "'"			
+		l_sql = l_sql & "    ,validacion_bcra  =  '" & l_validacion_bcra & "'"		
+		l_sql = l_sql & "    ,flag_cobrado_pagado = " & l_flag_cobrado_pagado & ""		
 		l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"
 		l_sql = l_sql & "    ,last_update_date = GETDATE()" 	
 		l_sql = l_sql & " WHERE id = " & l_id

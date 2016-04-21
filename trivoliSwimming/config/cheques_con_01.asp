@@ -49,7 +49,8 @@ end if
 		<th>Emitido por Cliente</th>
 		<th>Emisor Tercero</th>	
 		<th>Emitido por Franquicia</th> 	
-		<th>Validacion BCRA</th> 			
+		<th>Validacion BCRA</th> 	
+		<th>Cobrado/ Pagado</th> 		
 		<th>Estado</th> 
 		<th>Acciones</th>		
     </tr>
@@ -59,7 +60,8 @@ end if
     Set l_rs = Server.CreateObject("ADODB.RecordSet")
     l_sql = "SELECT    cheques.id ,cheques.numero ,cheques.fecha_emision ,cheques.fecha_vencimiento ,cheques.id_banco ,cheques.importe "
 	l_sql = l_sql & " ,cheques.flag_emitidopor_cliente ,cheques.emisor ,cheques.created_by ,cheques.creation_date ,cheques.last_updated_by "
-	l_sql = l_sql & " 	,cheques.last_update_date ,cheques.empnro ,ISNULL(cheques.flag_propio,0) as flag_propio , cheques.validacion_bcra, bancos.nombre_banco "
+	l_sql = l_sql & " 	,cheques.last_update_date ,cheques.empnro ,ISNULL(cheques.flag_propio,0) as flag_propio , cheques.validacion_bcra "
+	l_sql = l_sql & "  ,ISNULL(cheques.flag_cobrado_pagado , 0) as flag_cobrado_pagado, bancos.nombre_banco "
 	l_sql = l_sql & "   , case   "
 	l_sql = l_sql & " 		when cheques.flag_propio = -1 then  "
 	l_sql = l_sql & " 			case "
@@ -69,10 +71,16 @@ end if
 	l_sql = l_sql & " 						inner join tiposMovimientoCaja on  tiposMovimientoCaja.id = cajaMovimientos.id "
 	l_sql = l_sql & " 						where	tiposMovimientoCaja.flagCompra = -1 "
 	l_sql = l_sql & " 						and		cajaMovimientos.idcheque = cheques .id		 "				
-	l_sql = l_sql & " 						) > 0 then 'ENTREGADO' "
-	l_sql = l_sql & " else 'PENDIENTE ENTREGAR'  "
-	l_sql = l_sql & " end "
-	l_sql = l_sql & " else  "
+	l_sql = l_sql & " 						) > 0 then  "
+	
+	l_sql = l_sql & "								case "
+	l_sql = l_sql & "									when ISNULL(cheques.flag_cobrado_pagado , 0) = -1 then 'PAGADO' "
+	l_sql = l_sql & "									else 'ENTREGADO' "
+	l_sql = l_sql & "								end "
+					
+	l_sql = l_sql & " 				else 'PENDIENTE ENTREGAR'  "
+	l_sql = l_sql & " 				end "
+	l_sql = l_sql & " 		else  "
 	l_sql = l_sql & " 			case  "
 	l_sql = l_sql & " 				when (	/*chequeo si esta asociado a una venta*/ "
 	l_sql = l_sql & " 						select COUNT(*) "
@@ -89,7 +97,13 @@ end if
 	l_sql = l_sql & " 											where	tiposMovimientoCaja.flagCompra = -1 "
 	l_sql = l_sql & " 											and		cajaMovimientos.idcheque = cheques .id						 "
 	l_sql = l_sql & " 											) > 0 then 'ENTREGADO' "
-	l_sql = l_sql & " 									else 'PENDIENTE ENTREGAR'  "
+	l_sql = l_sql & " 									else  "
+
+	l_sql = l_sql & " 														case "
+	l_sql = l_sql & " 									            			when ISNULL(cheques.flag_cobrado_pagado , 0) = -1 then 'COBRADO' "
+	l_sql = l_sql & " 															else 'PENDIENTE ENTREGAR/COBRAR' "
+	l_sql = l_sql & " 														end	 "
+	
 	l_sql = l_sql & " 								end		 "						
 	l_sql = l_sql & " 				else 'PENDIENTE ASOCIAR VENTA' "
 	l_sql = l_sql & " 			end "
@@ -138,6 +152,7 @@ end if
 			<td width="10%" nowrap align="left"><%= l_rs("emisor")%></td>			
 			<td width="10%" nowrap align="center"><% if l_rs("flag_propio") = 0 then response.write "NO" else response.write "SI" end if %></td>
 			<td width="10%" nowrap align="left"><%= UCase(Left(l_rs("validacion_bcra"),1)) & LCase(Mid(l_rs("validacion_bcra"),2))%></td>	
+			<td width="10%" nowrap align="center"><% if l_rs("flag_cobrado_pagado") = 0 then response.write "NO" else response.write "SI" end if %></td>			
 			<td width="10%" nowrap align="left"><%= l_rs("estado_cheque")%></td>						
 	        <td align="center" width="10%" nowrap>                    
                 <a href="Javascript:parent.abrirDialogo('dialog','cheques_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												

@@ -17,6 +17,7 @@ dim l_flag_propio
 dim l_flag_emitidopor_cliente
 dim l_validacion_bcra
 dim l_emisor
+dim l_flag_cobrado_pagado
 
 'ADO
 Dim l_tipo
@@ -69,11 +70,17 @@ select Case l_tipo
 			l_flag_emitidopor_cliente = "0"
 			l_emisor 		 = ""
 			l_validacion_bcra = "PENDIENTE"
+			l_flag_cobrado_pagado = "0"
 
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
-		l_sql = "SELECT  * "
+		'l_sql = "SELECT  * "
+
+    l_sql = "SELECT    cheques.id ,cheques.numero ,cheques.fecha_emision ,cheques.fecha_vencimiento ,cheques.id_banco ,cheques.importe "
+	l_sql = l_sql & " ,cheques.flag_emitidopor_cliente ,cheques.emisor ,cheques.created_by ,cheques.creation_date ,cheques.last_updated_by "
+	l_sql = l_sql & " 	,cheques.last_update_date ,cheques.empnro ,ISNULL(cheques.flag_propio,0) as flag_propio , cheques.validacion_bcra "
+	l_sql = l_sql & "  ,ISNULL(cheques.flag_cobrado_pagado , 0) as flag_cobrado_pagado "		
 		l_sql = l_sql & " FROM cheques  "
 		l_sql  = l_sql  & " WHERE id = " & l_id
 		rsOpen l_rs, cn, l_sql, 0 
@@ -87,6 +94,7 @@ select Case l_tipo
 			l_flag_emitidopor_cliente            = l_rs("flag_emitidopor_cliente")	
 			l_validacion_bcra				 = l_rs("validacion_bcra")
 			l_emisor				 = l_rs("emisor")
+			l_flag_cobrado_pagado = l_rs("flag_cobrado_pagado")
 			
 		end if
 		l_rs.Close
@@ -192,7 +200,18 @@ end select
 									<script>document.datos_02.validacion_bcra.value= "<%= l_validacion_bcra%>"</script>
 								</td>					
 							</tr>								
+
+						    <tr>
+								<td align="right"><b>Cobrado/Pagado:</b></td>
+								<td colspan="3"><select name="flag_cobrado_pagado" size="1" style="width:150;">
+										<option value="0" selected>NO</option>
+										<option value="-1" selected>SI</option>
 										
+									</select>
+									<script>document.datos_02.flag_cobrado_pagado.value= "<%= l_flag_cobrado_pagado%>"</script>
+								</td>					
+							</tr>								
+							
 							</table>
 						</td>
 					</tr>
