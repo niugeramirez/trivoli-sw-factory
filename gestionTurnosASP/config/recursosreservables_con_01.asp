@@ -32,7 +32,7 @@ end if
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
 <head>
 <link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Administracion de Medicos</title>
 </head>
 
