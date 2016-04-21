@@ -32,6 +32,27 @@ Dim l_sql
 <script src="/trivoliSwimming/shared/js/fn_fechas.js"></script>
 <script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>
 
+<!-- Comienzo Datepicker -->
+<script>
+$(function () {
+
+		
+$( "#filt_fechadesde_cm" ).datepicker({
+	showOn: "button",
+	buttonImage: "../shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+$( "#filt_fechahasta_cm" ).datepicker({
+	showOn: "button",
+	buttonImage: "/trivoliSwimming/shared/images/calendar1.png",
+	buttonImageOnly: true
+});
+
+});
+</script>
+<!-- Final Datepicker -->
+
 <!--	VENTANAS MODALES        -->
 <script src="../js/ventanas_modales_custom_V2.js"></script>
 
@@ -151,10 +172,66 @@ function Buscar(){
 	$("#filtro_00").val("");
 
 	// Nombre
-	if ($("#inpnombre").val() != 0){
-		$("#filtro_00").val(" cajamovimientos.detalle like '*" + $("#inpnombre").val() + "*'");
+	if ($("#filt_detalle_cm").val() != 0){
+		$("#filtro_00").val(" cajamovimientos.detalle like '*" + $("#filt_detalle_cm").val() + "*'");
 	}		
     
+	//Fecha desde
+	if ($("#filt_fechadesde_cm").val() != 0){
+		if ($("#filtro_00").val() != 0){
+			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		}
+		$("#filtro_00").val(
+								$("#filtro_00").val() 
+								+ " cajamovimientos.fecha  >= " + cambiafechaYYYYMMDD($("#filt_fechadesde_cm").val(),true,1)
+							);		
+	}	
+
+	//Fecha hasta
+	if ($("#filt_fechahasta_cm").val() != 0){
+		if ($("#filtro_00").val() != 0){
+			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		}
+		$("#filtro_00").val(
+								$("#filtro_00").val() 
+								+ " cajamovimientos.fecha  <= " + cambiafechaYYYYMMDD($("#filt_fechahasta_cm").val(),true,1)
+							);		
+	}	
+	
+	//Numero de cheque 
+	if ($("#filt_nrocheque_cm").val() != 0){
+		if ($("#filtro_00").val() != 0){
+			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		}
+		$("#filtro_00").val(
+								$("#filtro_00").val() 
+								+" cheques.numero like '*" + $("#filt_nrocheque_cm").val() + "*'"
+							);		
+	}	
+	
+	//banco 
+	if ($("#filt_banco_cm").val() != 0){
+		if ($("#filtro_00").val() != 0){
+			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		}
+		$("#filtro_00").val(
+								$("#filtro_00").val() 
+								+" bancos.nombre_banco like '*" + $("#filt_banco_cm").val() + "*'"
+							);		
+	}
+	
+	//Clñiente/Proveedor 
+	if ($("#filt_cliprov_cm").val() != 0){
+		if ($("#filtro_00").val() != 0){
+			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		}
+		$("#filtro_00").val(
+								$("#filtro_00").val() 
+								+"( proveedores.nombre like '*" + $("#filt_cliprov_cm").val() + "*'"
+								+" or clientes.nombre like '*" + $("#filt_cliprov_cm").val() + "*')"
+							);		
+	}
+	
 	window.ifrm.location = 'cajamovimientos_con_01.asp?asistente=0&filtro=' + $("#filtro_00").val();
 }
 
@@ -189,15 +266,33 @@ function Limpiar(){
                     </colgroup>
                     <tbody>
 				    <tr>
-					    <td><b>Detalle: </b></td>
-						<td><input  type="text" id="inpnombre" name="inpnombre" size="21" maxlength="21" value="" ></td>
-					    <td></td>
+					    <td>
+							<b>Cliente: </b><input  type="text" id="filt_cliprov_cm" name="filt_cliprov_cm" size="21" maxlength="21" value="" >
+						</td>
+					    <td>
+							<b>Fecha: </b><input id="filt_fechadesde_cm" type="text" name="filt_fechadesde_cm" size="10" maxlength="10" value="" >							
+						</td>
+						<td>
+							<b>Nro Cheque: </b><input id="filt_nrocheque_cm" type="text" name="filt_nrocheque_cm" size="10" maxlength="10" value="" >							
+						</td>
                         <td align="center">
                             <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar">
                             <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/trivoliSwimming/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
 							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','cajamovimientos_con_02.asp?Tipo=A',650,350)"><img  src="/trivoliSwimming/shared/images/Agregar_24.png" border="0" title="Agregar Cliente"></a>    
                         </td>
                     </tr>
+					<tr>
+						<td>
+							<b>Detalle: </b><input  type="text" id="filt_detalle_cm" name="filt_detalle_cm" size="21" maxlength="21" value="" >
+						</td>
+					    <td>					
+							<b>Hasta: </b><input id="filt_fechahasta_cm" type="text" name="filt_fechahasta_cm" size="10" maxlength="10" value="" >	
+						</td>						
+						<td>
+							<b>Banco&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: </b><input id="filt_banco_cm" type="text" name="filt_banco_cm" size="10" maxlength="10" value="" >	
+						</td>
+						<td></td>
+					</tr>
 					</tbody>
                 </table>
 			</td>
