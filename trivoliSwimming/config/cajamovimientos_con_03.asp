@@ -47,6 +47,9 @@ else
 	l_fecha = cambiafecha(l_fecha,"YMD",true)	
 end if 
 
+if len(l_idcheque)  = 0  then
+	l_idcheque = 0
+end if
 
 
 'response.write "l_tipo"&l_tipo & "<br>"

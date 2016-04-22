@@ -19,6 +19,7 @@ dim l_monto
 dim l_idresponsable
 dim l_idcompraorigen
 dim l_idventaorigen
+Dim l_mediodepagocheque
 
 'ADO
 Dim l_tipo
@@ -27,7 +28,19 @@ Dim l_rs
 
 l_tipo = request.querystring("tipo")
 
-'response.write l_tipo
+Set l_rs = Server.CreateObject("ADODB.RecordSet")
+
+'obtengo el Medio de Pago Obra Social
+l_sql = "SELECT * "
+l_sql = l_sql & " FROM mediosdepago "
+l_sql  = l_sql  & " WHERE flag_cheque = -1 " 
+l_sql = l_sql & " AND empnro = " & Session("empnro")
+rsOpen l_rs, cn, l_sql, 0 
+l_mediodepagocheque = 0
+if not l_rs.eof then
+	l_mediodepagocheque = l_rs("id")	
+end if
+l_rs.Close
 
 %>
 <html>
@@ -51,6 +64,22 @@ $( "#fecha" ).datepicker({
 });
 </script>
 <!-- Final Datepicker -->
+
+<script>
+function ctrolmediodepago(){
+
+	if (document.datos_02.mediodepagocheque.value == document.datos_02.idmediopago.value) {			
+			document.datos_02.idcheque.disabled = false;							
+		}
+		else {
+		
+			document.datos_02.idcheque.disabled = true;							
+	
+		}	
+
+}
+</script>
+
 </head>
 
 <% 
@@ -98,6 +127,7 @@ end select
 	<form name="datos_02" id="datos_02" action = "Javascript:Submit_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario();}"  target="valida">
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
+		<input type="text" name="mediodepagocheque" value="<%= l_mediodepagocheque %>">
 
 		<table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
 		<tr>
@@ -182,7 +212,7 @@ end select
 							
 						    <tr>
 								<td align="right"><b>Medio de Pago:</b></td>
-								<td colspan="3"><select name="idmediopago" size="1" style="width:250;">
+								<td colspan="3"><select name="idmediopago" size="1" style="width:250;" onchange="ctrolmediodepago();">
 										<option value="0" selected>&nbsp;Seleccione un Medio de Pago</option>
 										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 										l_sql = "SELECT  * "
@@ -192,7 +222,7 @@ end select
 										l_sql  = l_sql  & " ORDER BY titulo "
 										rsOpen l_rs, cn, l_sql, 0
 										do until l_rs.eof		%>	
-										<option value= <%= l_rs("id") %> > 
+										<option value=<%= l_rs("id") %> > 
 										<%= l_rs("titulo") %>  </option>
 										<%	l_rs.Movenext
 										loop
@@ -316,5 +346,8 @@ set l_rs = nothing
 cn.Close
 set cn = nothing
 %>
+<script>
+ctrolmediodepago()
+</script>
 </body>
 </html>

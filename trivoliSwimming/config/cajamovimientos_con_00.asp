@@ -92,6 +92,15 @@ function Validaciones_locales(){
 		alert("Debe ingresar el Medio de Pago.");
 		document.datos_02.idmediopago.focus();
 		return false;
+	}	
+	
+	if (document.datos_02.mediodepagocheque.value == document.datos_02.idmediopago.value){
+		if (document.datos_02.idcheque.value == "0"){
+			alert("Debe ingresar el Cheque.");
+			document.datos_02.idcheque.focus();
+			return false;
+		}	
+
 	}		
 	
 	if (document.datos_02.idtipomovimiento.value == "0"){
