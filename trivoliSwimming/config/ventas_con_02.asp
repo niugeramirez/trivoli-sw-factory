@@ -96,7 +96,7 @@ end select
 								<td>
 									<input class="deshabinp" readonly="" type="text" name="cliente" id="cliente" size="20" maxlength="20" value="<%=l_cliente %>">		
 									<input type="hidden" name="idcliente2" id="idcliente2" size="10" maxlength="10" value="<%=l_idcliente %>">					
-									<a href="Javascript:BuscarPaciente();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Cliente"></a>	
+									<a href="Javascript:BuscarCliente();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Cliente"></a>	
 									<a href="Javascript:Editar_Cliente();"><img src="../shared/images/Modificar_16.png" border="0" title="Editar Cliente"></a>									
 								</td>								
 							</tr>											

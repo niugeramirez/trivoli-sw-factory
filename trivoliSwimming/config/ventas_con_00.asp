@@ -41,7 +41,7 @@ function Validaciones_locales_EditCli_HCR(){
 	return Validaciones_locales_EditCli_02()
 }
 function devolver_cliente_editado_HCR(){volver_AsignarCliente
-	volver_AsignarCliente(	document.datos_02_EditCli.idcliente2.value, 
+	volver_AsignarCliente(	document.datos_02_EditCli.id.value, 
 							//document.datos_02_EditCli.apellido.value, 
 							document.datos_02_EditCli.nombre.value 
 							//document.datos_02_EditCli.nrohistoriaclinica.value, 
@@ -67,7 +67,7 @@ function Validaciones_locales(){
 
 	if (document.datos_02.idcliente2.value == "0"){
 		alert("Debe ingresar el Cliente.");
-		document.datos_02.idcliente.focus();
+		document.datos_02.idcliente2.focus();
 		return false;
 	}
 
@@ -108,6 +108,10 @@ $(document).ready(function() {
 
 								inicializar_dialogoContenedor(	"dialog_cont_DV" 										//id_dialog
 																); 
+
+								inicializar_dialogoContenedor(	"dialog_cont_BusqCli" 										//id_dialog
+																); 																
+																
 								inicializar_dialogoABM(	"dialogHCR_cont_EditCli" 										//id_dialog
 														,"EditarclientesV2_06.asp"				//url_valid_06
 														,"EditarclientesV2_03_JSON.asp"				//url_AM
@@ -152,12 +156,12 @@ function volver_AsignarCliente(id,  nombre){
 	document.datos_02.idcliente2.value = id;
 	document.datos_02.cliente.value = nombre;
 	
-	$("#dialog_cont_DV").dialog("close");
+	$("#dialog_cont_BusqCli").dialog("close");
 }
 
 
-function BuscarPaciente(){	
-	abrirDialogo('dialog_cont_DV','BuscarclientesV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarCliente&dnioblig=N&hcoblig=N',900,250);
+function BuscarCliente(){	
+	abrirDialogo('dialog_cont_BusqCli','BuscarclientesV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarCliente&dnioblig=N&hcoblig=N',900,250);
 }
 
 </script>
@@ -217,6 +221,8 @@ function BuscarPaciente(){
 		<div id="dialogConfirmDelete" title="Consulta">		</div>	
 
 		<div id="dialog_cont_DV" title="Detalle de Ventas">		</div>		
+		
+		<div id="dialog_cont_BusqCli" title="Buscar Clientes">		</div>			
 		
 		<div id="dialogHCR_cont_EditCli" title="Editar Cliente">		</div>			
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
