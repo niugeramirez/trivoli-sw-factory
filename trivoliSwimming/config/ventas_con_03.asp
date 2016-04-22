@@ -21,7 +21,7 @@ dim l_idcliente
 l_tipo 		               = request.Form("tipo")
 l_id                       = request.Form("id")
 l_fecha  	               = request.Form("fecha")
-l_idcliente  		       = request.Form("idcliente")
+l_idcliente  		       = request.Form("idcliente2")
 
 if len(l_fecha) = 0 then
 	l_fecha = "null"

@@ -32,8 +32,7 @@ on error goto 0
 <!--	VENTANAS MODALES        -->
 <script>
 function AsignarCliente(id, nombre){
-	alert(id);
-	alert(nombre);
+
 	<%= l_fn_asign_pac %>(id, nombre);
 }
 function devolver_paciente_editado(id){
@@ -162,7 +161,7 @@ function Limpiar(){
 		</tr>				
         <tr valign="top" height="100%">
           <td colspan="2" style="" width="100%">
-			<iframe scrolling="yes" name="ifrm_BusqCli" id="ifrm_BusqCli"  src="" width="100%" height="100%"></iframe> 
+			<iframe scrolling="yes" name="ifrm_BusqCli" id="ifrm_BusqCli"  src="BuscarclientesV2_01.asp?asistente=0&filtro=1=1" width="100%" height="100%"></iframe> 
 	      </td>
         </tr>		
 

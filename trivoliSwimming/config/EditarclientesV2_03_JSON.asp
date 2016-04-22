@@ -46,9 +46,7 @@ if isnull(l_dni) or l_dni = "" then
 	l_dni = 0
 end if
 
-if isnull(l_nrohistoriaclinica) or l_nrohistoriaclinica = "" then
-	l_nrohistoriaclinica = 0
-end if
+
 
 ' ------------------------------------------------------------------------------------------------------------------
 ' codigogenerado() :
@@ -76,9 +74,9 @@ if l_tipo = "A" then
 		l_sql = l_sql & " (apellido, nombre, dni,domicilio, telefono, idobrasocial, nrohistoriaclinica, empnro,created_by,creation_date,last_updated_by,last_update_date)"
 		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial & ",'" & l_nrohistoriaclinica & "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	else
-		l_sql = "INSERT INTO clientespacientes "
-		l_sql = l_sql & " (apellido, nombre, domicilio, telefono, idobrasocial, nrohistoriaclinica, empnro,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "','" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial & ",'" & l_nrohistoriaclinica & "','" & session("empnro") & "','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = "INSERT INTO clientes "
+		l_sql = l_sql & " (nombre, empnro,created_by,creation_date,last_updated_by,last_update_date)"
+		l_sql = l_sql & " VALUES ('" & l_nombre & "','" & session("empnro") & "','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	
 	end if
 	'response.write l_sql & "<br>"
@@ -111,7 +109,7 @@ else
 	l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"
 	l_sql = l_sql & "    ,last_update_date = GETDATE()" 	
 	l_sql = l_sql & " WHERE id = " & l_id
-	'response.write l_sql & "<br>"
+	' response.write l_sql & "<br>"
 	l_cm.activeconnection = Cn
 	l_cm.CommandText = l_sql
 	cmExecute l_cm, l_sql, 0	

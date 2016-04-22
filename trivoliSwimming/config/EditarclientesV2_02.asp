@@ -81,7 +81,7 @@ select Case l_tipo
 end select
 
 %>
-<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos_02_EditCli.apellido.focus();">
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos_02_EditCli.nombre.focus();">
 <form name="datos_02_EditCli" id="datos_02_EditCli" action="Javascript:Submit_Formulario_EditCli();" target="valida">
 	<input type="hidden" name="id" value="<%= l_id %>">
 	<input type="hidden" name="tipo" value="<%= l_tipo %>">	

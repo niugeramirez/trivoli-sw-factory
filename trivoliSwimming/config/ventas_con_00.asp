@@ -40,16 +40,16 @@ function Validaciones_locales_EditCli_HCR(){
 	//como la pantalla 02 se usa en varios lugares (a diferencia del esquema general de ABM) ponemos la funcion de validacion local en el 02, y se invoca desde la ventana llamadora
 	return Validaciones_locales_EditCli_02()
 }
-function devolver_cliente_editado_HCR(){volver_AsignarPaciente
-	volver_AsignarPaciente(	document.datos_02_EditPac.id.value, 
-							document.datos_02_EditPac.apellido.value, 
-							document.datos_02_EditPac.nombre.value, 
-							document.datos_02_EditPac.nrohistoriaclinica.value, 
-							document.datos_02_EditPac.dni.value, 
-							document.datos_02_EditPac.domicilio.value, 
-							document.datos_02_EditPac.tel.value, 
-							document.datos_02_EditPac.osid.value, 
-							document.datos_02_EditPac.os.value
+function devolver_cliente_editado_HCR(){volver_AsignarCliente
+	volver_AsignarCliente(	document.datos_02_EditCli.idcliente2.value, 
+							//document.datos_02_EditCli.apellido.value, 
+							document.datos_02_EditCli.nombre.value 
+							//document.datos_02_EditCli.nrohistoriaclinica.value, 
+							//document.datos_02_EditCli.dni.value, 
+							//document.datos_02_EditCli.domicilio.value, 
+							//document.datos_02_EditCli.tel.value, 
+							//document.datos_02_EditCli.osid.value, 
+							//document.datos_02_EditCli.os.value
 							);
 }
 function Editar_Cliente(){ 
@@ -59,7 +59,7 @@ function Editar_Cliente(){
 		document.datos_02.idcliente2.focus();
 		return;
 	}; 
-		alert('sa'); 
+		
 	abrirDialogo('dialogHCR_cont_EditCli','EditarclientesV2_02.asp?Tipo=M&ventana=3&dnioblig=N&hcoblig=N&cabnro='+document.datos_02.idcliente2.value,600,300);
 }
 ///////////////////////////////////////FIN EDICION PACIENTES///////////////////////////////////////
@@ -112,7 +112,7 @@ $(document).ready(function() {
 														,"EditarclientesV2_06.asp"				//url_valid_06
 														,"EditarclientesV2_03_JSON.asp"				//url_AM
 														,"dialogAlert"									//id_dialogAlert															
-														,"datos_02_Editcli"										//id_form_datos															
+														,"datos_02_EditCli"										//id_form_datos															
 														,null //window.parent.ifrm.location					//location_reload														
 														,Validaciones_locales_EditCli_HCR							//funcion_Validaciones_locales	
 														,"ifrm"											//id_ifrm_form_datos	
@@ -148,7 +148,7 @@ function Limpiar(){
 }
 
 function volver_AsignarCliente(id,  nombre){
-	alert('volver');
+
 	document.datos_02.idcliente2.value = id;
 	document.datos_02.cliente.value = nombre;
 	

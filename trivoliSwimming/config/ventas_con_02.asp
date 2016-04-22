@@ -10,6 +10,7 @@ on error goto 0
 dim l_id
 dim l_fecha
 dim l_idcliente
+Dim l_cliente
 
 'ADO
 Dim l_tipo
@@ -55,11 +56,13 @@ select Case l_tipo
 		l_id = request.querystring("cabnro")
 		l_sql = "SELECT  * "
 		l_sql = l_sql & " FROM ventas  "
-		l_sql  = l_sql  & " WHERE id = " & l_id
+		l_sql = l_sql & " INNER JOIN clientes ON clientes.id = ventas.idcliente  "
+		l_sql  = l_sql  & " WHERE ventas.id = " & l_id
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
  	    	l_fecha      		= l_rs("fecha")
 			l_idcliente         = l_rs("idcliente")
+			l_cliente           = l_rs("nombre")
 			
 		end if
 		l_rs.Close
@@ -91,41 +94,12 @@ end select
 							<tr>
 								<td align="right"><b>Cliente:</b></td>
 								<td>
-									<input class="deshabinp" readonly="" type="text" name="cliente" id="cliente" size="20" maxlength="20" value="<%'=l_cliente %>">		
-									<input type="text" name="idcliente2" id="idcliente2" size="10" maxlength="10" value="<%'=l_idcliente2 %>">					
+									<input class="deshabinp" readonly="" type="text" name="cliente" id="cliente" size="20" maxlength="20" value="<%=l_cliente %>">		
+									<input type="hidden" name="idcliente2" id="idcliente2" size="10" maxlength="10" value="<%=l_idcliente %>">					
 									<a href="Javascript:BuscarPaciente();"><img src="../shared/images/Buscar_24.png" border="0" title="Buscar Cliente"></a>	
 									<a href="Javascript:Editar_Cliente();"><img src="../shared/images/Modificar_24.png" border="0" title="Editar Cliente"></a>									
 								</td>								
-							</tr>								
-												
-							
-						    <tr>
-								<td align="right"><b>Cliente:</b></td>
-								<td colspan="3"><select name="idcliente" size="1" style="width:450;">
-										<option value="0" selected>&nbsp;Seleccione un Cliente</option>
-										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-										l_sql = "SELECT  * "
-										l_sql  = l_sql  & " FROM clientes "
-										' Multiempresa
-										' Se agrega este filtro 
-										l_sql = l_sql & " where clientes.empnro = " & Session("empnro")   
-										
-										l_sql  = l_sql  & " ORDER BY nombre "
-										rsOpen l_rs, cn, l_sql, 0
-										do until l_rs.eof		%>	
-										<option value= <%= l_rs("id") %> > 
-										<%= l_rs("nombre") %>  </option>
-										<%	l_rs.Movenext
-										loop
-										l_rs.Close %>
-									</select>
-									<script>document.datos_02.idcliente.value= "<%= l_idcliente %>"</script>
-								</td>					
-							</tr>
-							
-						
-
-										
+							</tr>											
 							</table>
 						</td>
 					</tr>
