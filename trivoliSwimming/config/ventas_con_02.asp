@@ -70,11 +70,11 @@ end select
 
 %>
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos_02.fecha.focus();">	
-
-		<table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
 		<form name="datos_02" id="datos_02" action = "Javascript:Submit_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario();}"  target="valida">
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">		
+		<table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
+
 		<tr>
 			<td colspan="2" height="100%">
 				<table border="0" cellspacing="0" cellpadding="0">
