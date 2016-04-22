@@ -85,8 +85,8 @@ function ctrolmediodepago(){
 <% 
 select Case l_tipo
 	Case "A":
- 	    	l_fecha    	   = ""
-			l_tipoes    = ""
+ 	    	l_fecha    	   = date()
+			l_tipoes    = "E"
 			'l_fecha_vencimiento     = ""
 			l_idtipomovimiento       = "0"
 			l_detalle	     = ""
@@ -127,7 +127,7 @@ end select
 	<form name="datos_02" id="datos_02" action = "Javascript:Submit_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario();}"  target="valida">
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
-		<input type="text" name="mediodepagocheque" value="<%= l_mediodepagocheque %>">
+		<input type="Hidden" name="mediodepagocheque" value="<%= l_mediodepagocheque %>">
 
 		<table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
 		<tr>

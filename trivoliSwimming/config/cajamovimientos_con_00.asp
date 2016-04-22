@@ -76,11 +76,11 @@ function Validaciones_locales(){
 		return false;
 	}	
 	
-	if (document.datos_02.detalle.value == ""){
+	/*if (document.datos_02.detalle.value == ""){
 		alert("Debe ingresar el Detalle.");
 		document.datos_02.detalle.focus();
 		return false;
-	}		
+	}*/		
 	
 	if (document.datos_02.idunidadnegocio.value == "0"){
 		alert("Debe ingresar la Unidad de Negocio.");
