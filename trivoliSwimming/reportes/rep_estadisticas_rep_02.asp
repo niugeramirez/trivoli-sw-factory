@@ -663,9 +663,9 @@ case 4 'Reporte de caja
     do while not l_rs.eof	
 		
 		arrData(i,1) = l_rs("medio_pago")
-	    arrData(i,2) = l_rs("total_entradas")
-		arrData(i,3) = l_rs("total_salidas")
-		arrData(i,4) = l_rs("saldo")
+	    arrData(i,2) = round(l_rs("total_entradas"))
+		arrData(i,3) = round(l_rs("total_salidas"))
+		arrData(i,4) = round(l_rs("saldo"))
 		
 	%>
 	    <tr>
@@ -786,9 +786,9 @@ case 5 'Reporte de caja	por responsable
 		
 		arrData(i,1) = l_rs("ini_med_pago")
 		'arrData(i,2) = l_rs("medio_pago")
-	    arrData(i,3) = l_rs("total_entradas")
-		arrData(i,4) = l_rs("total_salidas")
-		arrData(i,5) = l_rs("saldo")
+	    arrData(i,3) = round(l_rs("total_entradas"),0)
+		arrData(i,4) = round(l_rs("total_salidas"),0)
+		arrData(i,5) = round(l_rs("saldo"),0)
 %>	
 	    <tr>
 			
