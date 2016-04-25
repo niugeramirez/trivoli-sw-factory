@@ -105,6 +105,22 @@ sub encabezado4
 	
     </tr>
 <%
+end sub
+
+sub encabezado5
+ %>
+
+
+    <tr>
+        <th width="100">Reponsable</th>
+		<th width="100">Medio de Pago</th>
+        <th width="200">Entradas</th>			
+		<th width="200">Salidas</th>	
+		<th width="200">Saldo</th>					
+
+	
+    </tr>
+<%
 end sub	
 %>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
@@ -175,6 +191,7 @@ l_fechahasta = request("qfechahasta")
 l_idrecursoreservable = request("idrecursoreservable")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
+
 
 
 select case l_idrecursoreservable
@@ -716,8 +733,131 @@ case 4 'Reporte de caja
 	set l_rs = Nothing
 	cn.Close
 	set cn = Nothing	
-			
+	
+case 5 'Reporte de caja	por responsable
+	
+	l_sql =  "		  select mediosdepago.titulo	as medio_pago , responsablesCaja.nombre as nombre_responsable,responsablesCaja.iniciales + ' - '+mediosdepago.titulo as ini_med_pago "
+	l_sql = l_sql & " 		,sum(cajaMovimientos.monto) "
+	l_sql = l_sql & " 		,SUM(	case  "
+	l_sql = l_sql & " 					when cajaMovimientos.tipo = 'E' then cajaMovimientos.monto  "
+	l_sql = l_sql & " 					else 0 "
+	l_sql = l_sql & " 				end "
+	l_sql = l_sql & " 			)																		as	total_entradas "
+	l_sql = l_sql & " 		,SUM(	case  "
+	l_sql = l_sql & " 					when cajaMovimientos.tipo = 'S' then cajaMovimientos.monto "
+	l_sql = l_sql & " 					else 0 "
+	l_sql = l_sql & " 				end "
+	l_sql = l_sql & " 			)																		as	total_salidas	 "
+	l_sql = l_sql & " 		,SUM(	case  "
+	l_sql = l_sql & " 					when cajaMovimientos.tipo = 'S' then -cajaMovimientos.monto "
+	l_sql = l_sql & " 					else cajaMovimientos.monto "
+	l_sql = l_sql & " 				end "
+	l_sql = l_sql & " 			)																		as	saldo						 "
+	l_sql = l_sql & " from cajaMovimientos "
+	l_sql = l_sql & " inner join mediosdepago on mediosdepago.id = cajaMovimientos.idmedioPago "
+	l_sql = l_sql & " inner join responsablesCaja on responsablesCaja.id = cajaMovimientos.idresponsable "
+	l_sql = l_sql & " WHERE cajaMovimientos.fecha >= "& cambiafecha(l_fechadesde,"YMD",true)
+	l_sql = l_sql & " AND  cajaMovimientos.fecha <=  "& cambiafecha(l_fechahasta ,"YMD",true)
+	l_sql = l_sql & " AND cajaMovimientos.empnro =  " & Session("empnro") 
+	l_sql = l_sql & " group by mediosdepago.titulo , responsablesCaja.nombre ,responsablesCaja.iniciales "
 
+	'response.write l_sql
+	rsOpen l_rs, cn, l_sql, 0 
+
+
+ %>
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar();">
+<table>
+    <tr>
+        <td colspan="6">&nbsp;</td>
+    </tr>
+	<tr>
+        <td  colspan="6" align="center" ><h3>Movimientos de Caja desde:&nbsp;<%= l_fechadesde %>&nbsp; al <%= l_fechahasta %>&nbsp;&nbsp;</h3></td>	
+    </tr>
+
+<% 
+	encabezado5
+
+
+		
+	
+		i = 0
+    do while not l_rs.eof	
+		
+		arrData(i,1) = l_rs("ini_med_pago")
+		'arrData(i,2) = l_rs("medio_pago")
+	    arrData(i,3) = l_rs("total_entradas")
+		arrData(i,4) = l_rs("total_salidas")
+		arrData(i,5) = l_rs("saldo")
+%>	
+	    <tr>
+			
+	        <td align="center"><%= l_rs("nombre_responsable") %></td>
+			<td align="center"><%= l_rs("medio_pago") %></td>
+	        <td align="center"><%= l_rs("total_entradas") %></td>	
+			<td align="center"><%= l_rs("total_salidas")%></td>
+			<td align="center"><%= l_rs("saldo")%></td>
+												   
+	    </tr>
+		
+		 <tr>
+		 <td align="center" colspan=15>	
+<% 
+		i = i + 1	
+		l_rs.movenext
+	loop
+
+		'Now, we need to convert this data into XML. We convert using string concatenation.
+	' Dim strXML14
+	' Dim strXML_C14
+	' Dim strXML_1P4
+	' Dim strXML_R14
+	' Dim strXML_s14
+	
+	'Initialize <graph> element
+	'eugenio esta linea me paece al pedo porque se reasigna en la isntruccion siguiente strXML = "<graph caption='' subCaption='' yaxisname='Saldo' xaxisname='' formatNumberScale='0' decimalPrecision='2' showNames='1' showValues='1' showPercentageInLabel ='1' showAlternateVGridColor='1' alternateVGridAlpha='10' alternateVGridColor='AFD8F8' numDivLines='4' decimalPrecision='0' canvasBorderThickness='1' canvasBorderColor='114B78' baseFontColor='114B78' hoverCapBorderColor='114B78' hoverCapBgColor='E7EFF6'> "
+	
+	strXML = "<graph xaxisname='Entradas' yaxisname='Saldo' hovercapbg='DEDEBE' hovercapborder='889E6D' rotateNames='0' animation='1' yAxisMaxValue='0' numdivlines='9' divLineColor='CCCCCC' divLineAlpha='80' decimalPrecision='0' showAlternateVGridColor='1' AlternateVGridAlpha='30' AlternateVGridColor='CCCCCC' caption='Caja' subcaption='' > "
+
+	
+	'Convert data to XML and append
+	For i=0 to UBound(arrData)-1
+		'add values using <set name='...' value='...' color='...'/>
+   		strXML_C14 = strXML_C14 & "   <category name='" & arrData(i,1) & "' hoverText=' "& arrData(i,1) &"'/> "		
+		'strXML_1P4 = strXML_1P4 & "    <set value='" & arrData(i,2) & "' /> "
+		strXML_1P4 = strXML_1P4 & "    <set value='" & arrData(i,3) & "' /> "
+		strXML_R14 = strXML_R14 & "    <set value='" & arrData(i,4) & "' /> "
+		strXML_s14 = strXML_s14 & "    <set value='" & arrData(i,5) & "' /> "
+	Next
+	'Close <graph> element
+	'strXML = strXML & "</graph>"
+
+	'response.write strXML & "-"
+	'response.end
+	
+	
+   strXML = strXML & "<categories font='tahoma' fontSize='11' fontColor='000000'> "	
+   strXML = strXML & strXML_C14
+   strXML = strXML & "</categories> "
+  strXML = strXML & " <dataset seriesname='Entradas' color='FDC12E' alpha='70'> " 
+    strXML = strXML & strXML_1P4
+  strXML = strXML & " </dataset> "
+  strXML = strXML & " <dataset seriesname='Salidas' color='8E468E' showValues='1' alpha='70'> "
+  strXML = strXML & strXML_R14
+  strXML = strXML & " </dataset> "
+  strXML = strXML & " <dataset seriesname='Saldo' color='B3AA00' showValues='1' alpha='70'> "
+  strXML = strXML & strXML_s14
+  strXML = strXML & " </dataset> "  
+  strXML = strXML & " </graph>" 
+  
+	'response.write "hola"&strXML
+	'Create the chart - Column 3D Chart with data contained in strXML
+		Call renderChart("../FusionCharts/FCF_MSColumn3D.swf", "", strXML, "productSales", 800, 350)
+	
+	set l_rs = Nothing
+	cn.Close
+	set cn = Nothing	
+	
 end select
 	
 
