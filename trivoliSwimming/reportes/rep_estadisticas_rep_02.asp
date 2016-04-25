@@ -65,11 +65,6 @@ end sub
 
 sub encabezado2
  %>
- <!--
-	<tr>
-        <td  colspan="3" align="center" ><h3>Medio de Pago:&nbsp;<%'= l_rs("titulo") %></h3></td>	
-		<td  colspan="3" align="center" ><h3>Medico:&nbsp;<%'= l_medico %></h3></td>	
-    </tr>	-->
 
     <tr>
         <th width="100">Articulo</th>
@@ -86,11 +81,7 @@ end sub
 
 sub encabezado3
  %>
- <!--
-	<tr>
-        <td  colspan="3" align="center" ><h3>Medio de Pago:&nbsp;<%'= l_rs("titulo") %></h3></td>	
-		<td  colspan="3" align="center" ><h3>Medico:&nbsp;<%'= l_medico %></h3></td>	
-    </tr>	-->
+
 
     <tr>
         <th width="100">Estado Instalacion</th>
@@ -101,6 +92,20 @@ sub encabezado3
 <%
 end sub	
 
+sub encabezado4
+ %>
+
+
+    <tr>
+        <th width="100">Medio de Pago</th>
+        <th width="200">Entradas</th>			
+		<th width="200">Salidas</th>	
+		<th width="200">Saldo</th>					
+
+	
+    </tr>
+<%
+end sub	
 %>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
@@ -588,32 +593,35 @@ strXML = " <graph caption='Instalaciones' decimalPrecision='0' showPercentageVal
 	cn.Close
 	set cn = Nothing	
 	
-case 4
+case 4 'Reporte de caja
 
+	
+	l_sql =  "		  select mediosdepago.titulo	as medio_pago "
+	l_sql = l_sql & " 		,sum(cajaMovimientos.monto) "
+	l_sql = l_sql & " 		,SUM(	case  "
+	l_sql = l_sql & " 					when cajaMovimientos.tipo = 'E' then cajaMovimientos.monto  "
+	l_sql = l_sql & " 					else 0 "
+	l_sql = l_sql & " 				end "
+	l_sql = l_sql & " 			)																		as	total_entradas "
+	l_sql = l_sql & " 		,SUM(	case  "
+	l_sql = l_sql & " 					when cajaMovimientos.tipo = 'S' then cajaMovimientos.monto "
+	l_sql = l_sql & " 					else 0 "
+	l_sql = l_sql & " 				end "
+	l_sql = l_sql & " 			)																		as	total_salidas	 "
+	l_sql = l_sql & " 		,SUM(	case  "
+	l_sql = l_sql & " 					when cajaMovimientos.tipo = 'S' then -cajaMovimientos.monto "
+	l_sql = l_sql & " 					else cajaMovimientos.monto "
+	l_sql = l_sql & " 				end "
+	l_sql = l_sql & " 			)																		as	saldo						 "
+	l_sql = l_sql & " from cajaMovimientos "
+	l_sql = l_sql & " inner join mediosdepago on mediosdepago.id = cajaMovimientos.idmedioPago "
+	l_sql = l_sql & " WHERE cajaMovimientos.fecha >= "& cambiafecha(l_fechadesde,"YMD",true)
+	l_sql = l_sql & " AND  cajaMovimientos.fecha <=  "& cambiafecha(l_fechahasta ,"YMD",true)
+	l_sql = l_sql & " AND cajaMovimientos.empnro =  " & Session("empnro") 
+	l_sql = l_sql & " group by mediosdepago.titulo "
 
-l_sql = " select sum(tab_agrup.monto_compra) as  monto_compra "
-l_sql = l_sql & " ,sum(tab_agrup.pagado) as pagado "
-l_sql = l_sql & " from ( "
-l_sql = l_sql & " SELECT compras.id "
-l_sql = l_sql & " ,compras.fecha "
-l_sql = l_sql & " ,proveedores.nombre as nombre_proveedor "
-l_sql = l_sql & " ,( select SUM( detalleCompras.cantidad*detalleCompras.precio_unitario) "
-l_sql = l_sql & " from detalleCompras "
-l_sql = l_sql & " where detalleCompras.idcompra = compras.id "
-l_sql = l_sql & " ) as monto_compra "
-l_sql = l_sql & " ,( select SUM(cajaMovimientos.monto) "
-l_sql = l_sql & " from cajaMovimientos "
-l_sql = l_sql & " where cajaMovimientos.idcompraOrigen = compras.id "
-l_sql = l_sql & " ) as pagado "
-l_sql = l_sql & " FROM compras "
-l_sql = l_sql & " LEFT JOIN proveedores ON proveedores.id = compras.idproveedor "
-'l_sql = l_sql & " where  CONVERT(VARCHAR(10),compras.fecha, 111) >= '2015/01/01' " '--tomar de un parametro de la ventana
-'l_sql = l_sql & " AND CONVERT(VARCHAR(10), compras.fecha, 111) <= '2016/12/31' " '--tomar de un parametro de la ventana
-l_sql = l_sql & " where compras.empnro =  " & Session("empnro") '--tomar de la variable de session
-l_sql = l_sql & " ) tab_agrup "
-
-
-rsOpen l_rs, cn, l_sql, 0 
+	'response.write l_sql
+	rsOpen l_rs, cn, l_sql, 0 
 
 
  %>
@@ -624,34 +632,31 @@ rsOpen l_rs, cn, l_sql, 0
         <td colspan="6">&nbsp;</td>
     </tr>
 	<tr>
-        <td  colspan="6" align="center" ><h3>Estadisticas de Cantidades desde:&nbsp;<%= l_fechadesde %>&nbsp; al <%= l_fechahasta %>&nbsp;&nbsp;</h3></td>	
+        <td  colspan="6" align="center" ><h3>Movimientos de Caja desde:&nbsp;<%= l_fechadesde %>&nbsp; al <%= l_fechahasta %>&nbsp;&nbsp;</h3></td>	
     </tr>
 
 <% 	
 
-	encabezado2
+	encabezado4
 
 
 		
 	
 		i = 0
-    do while not l_rs.eof
-	
-		'response.write l_rs(1) & "<br>"
-		'response.write l_rs(2) & "<br>"
-		'response.write l_rs(3) & "<br>"
-		'response.end
-	
-	    arrData(i,1) = l_rs("articulo")
-		arrData(i,2) = l_rs("monto_compra")
-		arrData(i,3) = l_rs("pagado")
+    do while not l_rs.eof	
+		
+		arrData(i,1) = l_rs("medio_pago")
+	    arrData(i,2) = l_rs("total_entradas")
+		arrData(i,3) = l_rs("total_salidas")
+		arrData(i,4) = l_rs("saldo")
 		
 	%>
 	    <tr>
 			
-	        <td align="center"><%= l_rs("articulo") %></td>	
-			<td align="center"><%= l_rs("monto_compra")%></td>
-			<td align="center"><%= l_rs("pagado")%></td>
+	        <td align="center"><%= l_rs("medio_pago") %></td>
+	        <td align="center"><%= l_rs("total_entradas") %></td>	
+			<td align="center"><%= l_rs("total_salidas")%></td>
+			<td align="center"><%= l_rs("saldo")%></td>
 												   
 	    </tr>
 		
@@ -670,17 +675,14 @@ rsOpen l_rs, cn, l_sql, 0
 	Dim strXML_R14
 	Dim strXML_s14
 	'Initialize <graph> element
-	'strXML = "<graph caption='Estadísticas de Pedidos' numberPrefix='$' formatNumberScale='0' decimalPrecision='0'>"
-	strXML = "<graph caption='' subCaption='' yaxisname='Cantidad' xaxisname='' formatNumberScale='0' decimalPrecision='2' showNames='1' showValues='1' showPercentageInLabel ='1' showAlternateVGridColor='1' alternateVGridAlpha='10' alternateVGridColor='AFD8F8' numDivLines='4' decimalPrecision='0' canvasBorderThickness='1' canvasBorderColor='114B78' baseFontColor='114B78' hoverCapBorderColor='114B78' hoverCapBgColor='E7EFF6'> "
+	'eugenio esta linea me paece al pedo porque se reasigna en la isntruccion siguiente strXML = "<graph caption='' subCaption='' yaxisname='Saldo' xaxisname='' formatNumberScale='0' decimalPrecision='2' showNames='1' showValues='1' showPercentageInLabel ='1' showAlternateVGridColor='1' alternateVGridAlpha='10' alternateVGridColor='AFD8F8' numDivLines='4' decimalPrecision='0' canvasBorderThickness='1' canvasBorderColor='114B78' baseFontColor='114B78' hoverCapBorderColor='114B78' hoverCapBgColor='E7EFF6'> "
 	
-	strXML = "<graph xaxisname='Articulos' yaxisname='Cantidad' hovercapbg='DEDEBE' hovercapborder='889E6D' rotateNames='0' animation='1' yAxisMaxValue='100' numdivlines='9' divLineColor='CCCCCC' divLineAlpha='80' decimalPrecision='0' showAlternateVGridColor='1' AlternateVGridAlpha='30' AlternateVGridColor='CCCCCC' caption='Stock' subcaption='' > "
+	strXML = "<graph xaxisname='Entradas' yaxisname='Saldo' hovercapbg='DEDEBE' hovercapborder='889E6D' rotateNames='0' animation='1' yAxisMaxValue='0' numdivlines='9' divLineColor='CCCCCC' divLineAlpha='80' decimalPrecision='0' showAlternateVGridColor='1' AlternateVGridAlpha='30' AlternateVGridColor='CCCCCC' caption='Caja' subcaption='' > "
 
 	
 	'Convert data to XML and append
 	For i=0 to UBound(arrData)-1
 		'add values using <set name='...' value='...' color='...'/>
-		'strXML = strXML & "<set name='" & arrData(i,1) & "' value='" & replace(arrData(i,2),",",".") & "' color='" & getFCColor() & "' />"
-		'strXML = strXML & "<set name='" & arrData(i,1) & "' value='" & replace(arrData(i,3),",",".") & "' color='" & getFCColor() & "' />"
    		strXML_C14 = strXML_C14 & "   <category name='" & arrData(i,1) & "' hoverText=' "& arrData(i,1) &"'/> "		
 		strXML_1P4 = strXML_1P4 & "    <set value='" & arrData(i,2) & "' /> "
 		strXML_R14 = strXML_R14 & "    <set value='" & arrData(i,3) & "' /> "
@@ -693,29 +695,22 @@ rsOpen l_rs, cn, l_sql, 0
 	'response.end
 	
 	
-	'strXML = "<graph xaxisname='Continent' yaxisname='Export' hovercapbg='DEDEBE' hovercapborder='889E6D' rotateNames='0' animation='1' yAxisMaxValue='100' numdivlines='9' divLineColor='CCCCCC' divLineAlpha='80' decimalPrecision='0' showAlternateVGridColor='1' AlternateVGridAlpha='30' AlternateVGridColor='CCCCCC' caption='Global Export' subcaption='In Millions Tonnes per annum pr Hectare' > "
-   'strXML = strXML & "<categories font='Arial' fontSize='11' fontColor='000000'> "
-   'strXML = strXML & "   <category name='N. America' hoverText='North America'/> "
-   'strXML = strXML & "   <category name='Asia' /> "
-   'strXML = strXML & "   <category name='Europe' /> "
-   'strXML = strXML & "   <category name='Australia' /> "
-   'strXML = strXML & "   <category name='Africa' /> "
    strXML = strXML & "<categories font='tahoma' fontSize='11' fontColor='000000'> "	
    strXML = strXML & strXML_C14
    strXML = strXML & "</categories> "
-  strXML = strXML & " <dataset seriesname='Compra' color='FDC12E' alpha='70'> " 
+  strXML = strXML & " <dataset seriesname='Entradas' color='FDC12E' alpha='70'> " 
     strXML = strXML & strXML_1P4
   strXML = strXML & " </dataset> "
-  strXML = strXML & " <dataset seriesname='Venta' color='8E468E' showValues='1' alpha='70'> "
+  strXML = strXML & " <dataset seriesname='Salidas' color='8E468E' showValues='1' alpha='70'> "
   strXML = strXML & strXML_R14
   strXML = strXML & " </dataset> "
-  strXML = strXML & " <dataset seriesname='Stock' color='B3AA00' showValues='1' alpha='70'> "
+  strXML = strXML & " <dataset seriesname='Saldo' color='B3AA00' showValues='1' alpha='70'> "
   strXML = strXML & strXML_s14
   strXML = strXML & " </dataset> "  
   strXML = strXML & " </graph>" 
-	
-'	'Create the chart - Column 3D Chart with data contained in strXML
-'		Call renderChart("../../FusionCharts/FCF_Column3D.swf", "", strXML, "productSales", 600, 400)
+  
+	'response.write "hola"&strXML
+	'Create the chart - Column 3D Chart with data contained in strXML
 		Call renderChart("../FusionCharts/FCF_MSColumn3D.swf", "", strXML, "productSales", 800, 350)
 	
 	set l_rs = Nothing
