@@ -49,8 +49,7 @@ end if
 		<th>Cheque</th>
 		<th>Monto</th>
 		<th>Responsable</th>
-		<th>Venta</th>
-		<th>Compra</th>		
+		<th>Operacion</th>
 		<th>Acciones</th>		
     </tr>
     <%
@@ -116,8 +115,10 @@ end if
 			<td width="10%" nowrap align="left"><%= l_rs("monto")%></td>		
 			<td width="10%" nowrap align="left"><%= l_rs("responsable")%></td>
 
-			<td width="10%" nowrap align="left"><%= l_rs("nombre_cliente")%> </br> <%= l_rs("fecha_venta")%></td>
-			<td width="10%" nowrap align="left"><%= l_rs("nombre_proveedor")%> </br> <%= l_rs("fecha_compra")%></td>			
+			<td width="10%" nowrap align="left">
+				<%= l_rs("nombre_cliente")%> </br> <%= l_rs("fecha_venta")%>
+				<%= l_rs("nombre_proveedor")%> </br> <%= l_rs("fecha_compra")%>
+			</td>			
 			  	
 	        <td align="center" width="10%" nowrap>                    
                 <a href="Javascript:parent.abrirDialogo('dialog','cajamovimientos_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												

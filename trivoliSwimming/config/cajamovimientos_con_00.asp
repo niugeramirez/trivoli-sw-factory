@@ -1,4 +1,5 @@
 <% Option Explicit %>
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <% 
 'Archivo: cajamovimientos_con_00.asp
 'Descripción: Administración de cajamovimientos
@@ -39,13 +40,13 @@ $(function () {
 		
 $( "#filt_fechadesde_cm" ).datepicker({
 	showOn: "button",
-	buttonImage: "../shared/images/calendar1.png",
+	buttonImage: "../shared/images/calendar16.png",
 	buttonImageOnly: true
 });
 
 $( "#filt_fechahasta_cm" ).datepicker({
 	showOn: "button",
-	buttonImage: "/trivoliSwimming/shared/images/calendar1.png",
+	buttonImage: "/trivoliSwimming/shared/images/calendar16.png",
 	buttonImageOnly: true
 });
 
@@ -229,7 +230,7 @@ function Buscar(){
 							);		
 	}
 	
-	//Clñiente/Proveedor 
+	//Cliente/Proveedor 
 	if ($("#filt_cliprov_cm").val() != 0){
 		if ($("#filtro_00").val() != 0){
 			$("#filtro_00").val( $("#filtro_00").val() + " and ");
@@ -241,6 +242,17 @@ function Buscar(){
 							);		
 	}
 	
+	
+	//Medio de pago 
+	if ($("#filt_idmediopago_cm").val() != 0){
+		if ($("#filtro_00").val() != 0){
+			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		}
+		$("#filtro_00").val(
+								$("#filtro_00").val() 
+								+" cajamovimientos.idmediopago = " + $("#filt_idmediopago_cm").val() 
+							);		
+	}	
 	window.ifrm.location = 'cajamovimientos_con_01.asp?asistente=0&filtro=' + $("#filtro_00").val();
 }
 
@@ -268,10 +280,11 @@ function Limpiar(){
                 <input type="hidden" id="filtro_00" name="filtro_00" value="">
 				<table border="0" width="100%">
                     <colgroup>
-                        <col class="colWidth25">
-                        <col class="colWidth25">
-                        <col class="colWidth25">
-                        <col class="colWidth25">
+                        <col class="colWidth20">
+                        <col class="colWidth20">
+                        <col class="colWidth20">
+                        <col class="colWidth20">
+						<col class="colWidth20">
                     </colgroup>
                     <tbody>
 				    <tr>
@@ -282,8 +295,28 @@ function Limpiar(){
 							<b>Fecha: </b><input id="filt_fechadesde_cm" type="text" name="filt_fechadesde_cm" size="10" maxlength="10" value="" >							
 						</td>
 						<td>
-							<b>Nro Cheque: </b><input id="filt_nrocheque_cm" type="text" name="filt_nrocheque_cm" size="10" maxlength="10" value="" >							
+							<b>Nro Cheque: </b><input id="filt_nrocheque_cm" type="text" name="filt_nrocheque_cm" size="10" maxlength="10" value="" >
 						</td>
+
+						<td>
+							<b>Medio de pago: </b>
+							<select name="filt_idmediopago_cm" id="filt_idmediopago_cm" size="1" style="width:100;" >
+								<option value="0" selected>&nbsp;Todos</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT  * "
+								l_sql  = l_sql  & " FROM mediosdepago "
+								l_sql = l_sql & " where mediosdepago.empnro = " & Session("empnro")   								
+								l_sql  = l_sql  & " ORDER BY titulo "
+								rsOpen l_rs, cn, l_sql, 0
+								do until l_rs.eof		%>	
+								<option value=<%= l_rs("id") %> > 
+								<%= l_rs("titulo") %>  </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>								
+							</select>	
+						</td>						
+						
                         <td align="center">
                             <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar">
                             <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/trivoliSwimming/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
@@ -300,6 +333,7 @@ function Limpiar(){
 						<td>
 							<b>Banco&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: </b><input id="filt_banco_cm" type="text" name="filt_banco_cm" size="10" maxlength="10" value="" >	
 						</td>
+						<td></td>
 						<td></td>
 					</tr>
 					</tbody>
