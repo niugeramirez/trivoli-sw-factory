@@ -21,6 +21,9 @@ dim l_idcompraorigen
 dim l_idventaorigen
 Dim l_mediodepagocheque
 
+Dim p_flagcompra
+Dim p_flagventa
+
 'ADO
 Dim l_tipo
 Dim l_sql
@@ -87,6 +90,31 @@ document.valida.location = "importecheque_con_00.asp?id=" + document.datos_02.id
 
 function actualizarimporte(p_importe){	
 	document.datos_02.monto.value = p_importe;
+}
+
+
+function ctroltipomovimiento(){
+
+	document.valida.location = "flagtipomovimiento_con_00.asp?id=" + document.datos_02.idtipomovimiento.value ;	
+
+}
+
+function actualizarflag (p_flagcompra, p_flagventa){	
+	
+		if (p_flagcompra == -1 ) {			
+			document.datos_02.idcompraorigen.disabled = false;							
+		}
+		else {			
+			document.datos_02.idcompraorigen.disabled = true;							
+		};
+
+		if (p_flagventa == -1 ) {			
+			document.datos_02.idventaorigen.disabled = false;							
+		}
+		else {			
+			document.datos_02.idventaorigen.disabled = true;							
+		};	
+	
 }
 
 </script>
@@ -171,7 +199,7 @@ end select
 							
 						    <tr>
 								<td align="right"><b>Tipo Movimiento:</b></td>
-								<td colspan="3"><select name="idtipomovimiento" size="1" style="width:250;">
+								<td colspan="3"><select name="idtipomovimiento" size="1" style="width:250;" onchange="ctroltipomovimiento();">
 										<option value="0" selected>&nbsp;Seleccione un Tipo de Movimiento</option>
 										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 										l_sql = "SELECT  * "
