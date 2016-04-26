@@ -28,6 +28,12 @@ dim l_os
 
 dim l_ventana
 
+dim l_telefono
+dim l_celular  
+dim l_mail  
+dim l_direccion
+dim l_idciudad
+
 
 l_tipo 		     = request.Form("tipo")
 l_id             = request.Form("id") 
@@ -39,6 +45,13 @@ l_nrohistoriaclinica = request.Form("nrohistoriaclinica")
 l_tel            = request.Form("tel")
 l_idobrasocial   = request.Form("osid")
 l_os             = request.Form("os")
+
+
+l_telefono		           = request.Form("telefono")
+l_celular		           = request.Form("celular")
+l_mail  		           = request.Form("mail")
+l_direccion		           = request.Form("direccion")
+l_idciudad				   = request.Form("idciudad")
 
 l_ventana        = request.Form("ventana") 
 
@@ -99,6 +112,11 @@ else
 
 	l_sql = "UPDATE clientes "
 	l_sql = l_sql & " SET nombre    = '" & l_nombre & "'"
+		l_sql = l_sql & "    ,telefono  = '" & l_telefono & "'"	
+		l_sql = l_sql & "    ,celular   = '" & l_celular & "'"
+		l_sql = l_sql & "    ,mail      = '" & l_mail & "'"
+		l_sql = l_sql & "    ,direccion = '" & l_direccion & "'"
+		l_sql = l_sql & "    ,idciudad  =  " & l_idciudad & ""			
 	
 	'if l_dni <> "" then
 	'	l_sql = l_sql & "    ,dni    =    " & l_dni & ""
