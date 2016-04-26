@@ -78,6 +78,17 @@ function ctrolmediodepago(){
 		}	
 
 }
+
+function ctrolcheque(){
+
+document.valida.location = "importecheque_con_00.asp?id=" + document.datos_02.idcheque.value ;	
+
+}
+
+function actualizarimporte(p_importe){	
+	document.datos_02.monto.value = p_importe;
+}
+
 </script>
 
 </head>
@@ -234,10 +245,10 @@ end select
 										
 						    <tr>
 								<td align="right"><b>Cheque:</b></td>
-								<td colspan="3"><select name="idcheque" size="1" style="width:250;">
+								<td colspan="3"><select name="idcheque" size="1" style="width:250;" onchange="ctrolcheque();">
 										<option value="0" selected>&nbsp;Seleccione un Cheque</option>
 										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-										l_sql = "SELECT  cheques.id, cheques.numero, bancos.nombre_banco "
+										l_sql = "SELECT  cheques.id, cheques.numero, bancos.nombre_banco , cheques.importe"
 										l_sql  = l_sql  & " FROM cheques "
 										l_sql  = l_sql  & " LEFT JOIN bancos ON bancos.id = cheques.id_banco "
 										l_sql = l_sql & " where cheques.empnro = " & Session("empnro")   
@@ -245,7 +256,7 @@ end select
 										l_sql  = l_sql  & " ORDER BY bancos.nombre_banco "
 										rsOpen l_rs, cn, l_sql, 0
 										do until l_rs.eof		%>	
-										<option value= <%= l_rs("id") %> > 
+										<option monto="<%= l_rs("importe") %>"  value= <%= l_rs("id") %> > 
 										<%= l_rs("nombre_banco") %> &nbsp;-&nbsp;<%= l_rs("numero") %> </option>
 										<%	l_rs.Movenext
 										loop
@@ -340,6 +351,7 @@ end select
 			</td>
 		</tr>
 		</table>
+		<iframe name="valida"  style="visibility=hidden;" src="" width="0%" height="0%"></iframe> 		
 	</form>
 <%
 set l_rs = nothing
