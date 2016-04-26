@@ -51,6 +51,13 @@ if len(l_idcheque)  = 0  then
 	l_idcheque = 0
 end if
 
+if len(l_idventaorigen) = 0 then
+	l_idventaorigen = "0"
+end if
+
+if len(l_idcompraorigen) = 0 then
+	l_idcompraorigen = "0"
+end if
 
 'response.write "l_tipo"&l_tipo & "<br>"
 'response.write "l_id"&l_id & "<br>"

@@ -387,7 +387,8 @@ cn.Close
 set cn = nothing
 %>
 <script>
-ctrolmediodepago()
+ctrolmediodepago();
+ctroltipomovimiento();
 </script>
 </body>
 </html>

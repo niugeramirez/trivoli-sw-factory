@@ -31,12 +31,21 @@ l_idventaorigen = request.Form("idventaorigen")
 l_idtipomovimiento = request.Form("idtipomovimiento") 
 l_monto = request.Form("monto")
 
+if len(l_idventaorigen) = 0 then
+	l_idventaorigen = "0"
+end if
+
+if len(l_idcompraorigen) = 0 then
+	l_idcompraorigen = "0"
+end if
+
 '=====================================================================================
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
 
 texto = "OK"
 
+'response.write "l_idventaorigen "&l_idventaorigen&" l_idcompraorigen "&l_idcompraorigen&" </br>"
 
 'No se puede asociar a una compra y a  una venta simultaneamente
 if texto = "OK" then
