@@ -41,7 +41,7 @@ function Validaciones_locales_EditCli_HCR(){
 	return Validaciones_locales_EditCli_02()
 }
 function devolver_cliente_editado_HCR(){volver_AsignarCliente
-	volver_AsignarCliente(	document.datos_02_EditCli.id.value, 
+	volver_AsignarCliente(	document.datos_02_EditCli.idcliente2.value, 
 							//document.datos_02_EditCli.apellido.value, 
 							document.datos_02_EditCli.nombre.value 
 							//document.datos_02_EditCli.nrohistoriaclinica.value, 
@@ -64,6 +64,17 @@ function Editar_Cliente(){
 }
 ///////////////////////////////////////FIN EDICION PACIENTES///////////////////////////////////////
 function Validaciones_locales(){
+
+	if (document.datos_02.fecha.value == ""){
+		alert("Debe ingresar una Fecha.");
+		document.datos_02.idcliente2.focus();
+		return false;
+	}
+
+	if ((document.datos_02.fecha.value == "")&&(!validarfecha(document.datos_02.fecha))){
+		 document.datos_02.fecha.focus();
+		 return;
+	}
 
 	if (document.datos_02.idcliente2.value == "0"){
 		alert("Debe ingresar el Cliente.");
@@ -161,7 +172,7 @@ function volver_AsignarCliente(id,  nombre){
 
 
 function BuscarCliente(){	
-	abrirDialogo('dialog_cont_BusqCli','BuscarclientesV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarCliente&dnioblig=N&hcoblig=N',900,250);
+	abrirDialogo('dialog_cont_BusqCli','BuscarclientesV2_00.asp?Tipo=A&Alta=S&fn_asign_pac=volver_AsignarCliente&dnioblig=N&hcoblig=N',900,250);
 }
 
 </script>

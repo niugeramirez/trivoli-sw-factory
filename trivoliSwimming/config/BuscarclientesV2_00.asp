@@ -118,9 +118,9 @@ function Buscar(){
 }
 
 
-function AltaPaciente(){
-
-	abrirDialogo('dialog_cont_EditPac','EditarpacientesV2_02.asp?Tipo=A&ventana=3&dni=<%= l_dni %>&hcoblig=<%= l_hcoblig %>',600,300);
+function AltaCliente(){
+alert();
+	abrirDialogo('dialogHCR_cont_EditCli','EditarclientesV2_02.asp?Tipo=A&ventana=3&dni=<%= l_dni %>&hcoblig=<%= l_hcoblig %>',600,300);
 }
 
 function Limpiar(){
@@ -155,7 +155,7 @@ function Limpiar(){
 			</td>
 			<td align="center">				
 				<% if l_alta = "S" then %>
-					<a href="Javascript:AltaPaciente();"><img src="../shared/images/Agregar_24.png" border="0" title="Alta Paciente"></a>	
+					<a href="Javascript:AltaCliente();"><img src="../shared/images/Agregar_24.png" border="0" title="Alta Cliente"></a>	
 				<% End If %>
 			</td>			
 		</tr>				
@@ -167,8 +167,8 @@ function Limpiar(){
 
       </table>
 		<!--	PARAMETRIZACION DE VENTANAS MODALES        -->		
-		<div id="dialogAlert_BusqEdicPac" title="Mensaje">				</div>			
-		<div id="dialog_cont_EditPac" title="Editar Pacientes">		</div>	
+		<div id="dialogAlert_BusqEdicCli" title="Mensaje">				</div>			
+		<div id="dialog_cont_EditCli" title="Editar Clientes">		</div>	
 		
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->			  
 </body>

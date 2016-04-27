@@ -82,32 +82,25 @@ end function 'codigogenerado()
 set l_cm = Server.CreateObject("ADODB.Command")
 
 if l_tipo = "A" then
-	if l_dni <> "" then
-		l_sql = "INSERT INTO clientespacientes "
-		l_sql = l_sql & " (apellido, nombre, dni,domicilio, telefono, idobrasocial, nrohistoriaclinica, empnro,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial & ",'" & l_nrohistoriaclinica & "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
-	else
-		l_sql = "INSERT INTO clientes "
-		l_sql = l_sql & " (nombre, empnro,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " VALUES ('" & l_nombre & "','" & session("empnro") & "','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
-	
-	end if
+
+	l_sql = "INSERT INTO clientes "
+	l_sql = l_sql & " (nombre, telefono, celular,mail, direccion, idciudad, empnro,created_by,creation_date,last_updated_by,last_update_date)"
+	l_sql = l_sql & " VALUES ('" & l_nombre & "','" &  l_tel & "','" & l_celular & "','" & l_mail & "','" & l_direccion & "'," & l_idciudad & ",'" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+
 	'response.write l_sql & "<br>"
-	'l_cm.activeconnection = Cn
-	'l_cm.CommandText = l_sql
-	'cmExecute l_cm, l_sql, 0	
+	l_cm.activeconnection = Cn
+	l_cm.CommandText = l_sql
+	cmExecute l_cm, l_sql, 0	
 	
 	'Ingreso la lista de empleados a la tabla
-	'l_id = codigogenerado("clientespacientes")	
+	l_id = codigogenerado("clientespacientes")	
 	
-	'l_sql = " SELECT @@IDENTITY AS 'Identity' "
-	'l_cm.activeconnection = Cn
-	'l_cm.CommandText = l_sql
-	'cmExecute l_cm, l_sql, 0		
+	l_sql = " SELECT @@IDENTITY AS 'Identity' "
+	l_cm.activeconnection = Cn
+	l_cm.CommandText = l_sql
+	cmExecute l_cm, l_sql, 0		
 	
-	Set l_cm = Nothing	
-	
-	
+	Set l_cm = Nothing		
 else
 
 	l_sql = "UPDATE clientes "
