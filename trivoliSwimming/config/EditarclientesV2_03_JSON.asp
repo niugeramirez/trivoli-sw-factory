@@ -81,6 +81,8 @@ end function 'codigogenerado()
 
 set l_cm = Server.CreateObject("ADODB.Command")
 
+'response.write "l_tipo "&l_tipo
+
 if l_tipo = "A" then
 
 	l_sql = "INSERT INTO clientes "
@@ -93,12 +95,12 @@ if l_tipo = "A" then
 	cmExecute l_cm, l_sql, 0	
 	
 	'Ingreso la lista de empleados a la tabla
-	l_id = codigogenerado("clientespacientes")	
+	l_id = codigogenerado("clientes")	
 	
-	l_sql = " SELECT @@IDENTITY AS 'Identity' "
-	l_cm.activeconnection = Cn
-	l_cm.CommandText = l_sql
-	cmExecute l_cm, l_sql, 0		
+	'l_sql = " SELECT @@IDENTITY AS 'Identity' "
+	'l_cm.activeconnection = Cn
+	'l_cm.CommandText = l_sql
+	'cmExecute l_cm, l_sql, 0		
 	
 	Set l_cm = Nothing		
 else
@@ -133,7 +135,7 @@ end if
 
 cn.CommitTrans 
 
-
+'response.write "l_id "&l_id
 'Response.write "OK"
 Response.write "[{""resultado"":""OK"",""id"":""" & l_id & """}]"
 

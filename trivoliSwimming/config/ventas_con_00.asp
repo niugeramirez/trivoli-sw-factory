@@ -40,8 +40,8 @@ function Validaciones_locales_EditCli_HCR(){
 	//como la pantalla 02 se usa en varios lugares (a diferencia del esquema general de ABM) ponemos la funcion de validacion local en el 02, y se invoca desde la ventana llamadora
 	return Validaciones_locales_EditCli_02()
 }
-function devolver_cliente_editado_HCR(){volver_AsignarCliente
-	volver_AsignarCliente(	document.datos_02_EditCli.idcliente2.value, 
+function devolver_cliente_editado_HCR(){
+	volver_AsignarCliente(	document.datos_02_EditCli.id.value, 
 							//document.datos_02_EditCli.apellido.value, 
 							document.datos_02_EditCli.nombre.value 
 							//document.datos_02_EditCli.nrohistoriaclinica.value, 
@@ -131,7 +131,7 @@ $(document).ready(function() {
 														,null //window.parent.ifrm.location					//location_reload														
 														,Validaciones_locales_EditCli_HCR							//funcion_Validaciones_locales	
 														,"ifrm"											//id_ifrm_form_datos	
-														,devolver_cliente_editado_HCR //fn_post_AM														
+														,devolver_cliente_editado_HCR //fn_post_AM															
 														); 															
 																
 								//esta linea la agrego solo para refrescar cuando se cierra el dialogo contenedor, se podría parametrizar de modo de recibir
@@ -235,7 +235,7 @@ function BuscarCliente(){
 		
 		<div id="dialog_cont_BusqCli" title="Buscar Clientes">		</div>			
 		
-		<div id="dialogHCR_cont_EditCli" title="Editar Cliente">		</div>			
+		<div id="dialogHCR_cont_EditCli" title="EditarHCR Cliente">		</div>			
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 

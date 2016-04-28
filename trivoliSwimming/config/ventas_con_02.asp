@@ -48,7 +48,7 @@ $( "#fecha" ).datepicker({
 <% 
 select Case l_tipo
 	Case "A":
- 	    	l_fecha      = ""
+ 	    	l_fecha      = date()
 			l_idcliente    = "0"
 
 	Case "M":

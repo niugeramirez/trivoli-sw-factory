@@ -35,29 +35,30 @@ function AsignarCliente(id, nombre){
 
 	<%= l_fn_asign_pac %>(id, nombre);
 }
-function devolver_paciente_editado(id){
-	<%= l_fn_asign_pac %>(	id,//document.datos_02_EditPac.id.value, 
-							document.datos_02_EditPac.apellido.value, 
-							document.datos_02_EditPac.nombre.value, 
-							document.datos_02_EditPac.nrohistoriaclinica.value, 
-							document.datos_02_EditPac.dni.value, 
-							document.datos_02_EditPac.domicilio.value, 
-							document.datos_02_EditPac.tel.value, 
-							document.datos_02_EditPac.osid.value, 
-							document.datos_02_EditPac.os.value
+function devolver_cliente_editado(id){
+
+	<%= l_fn_asign_pac %>(	id,//document.datos_02_EditCli.id.value, 
+							//document.datos_02_EditCli.apellido.value, 
+							document.datos_02_EditCli.nombre.value 
+							//document.datos_02_EditCli.nrohistoriaclinica.value, 
+							//document.datos_02_EditCli.dni.value, 
+							//document.datos_02_EditCli.domicilio.value, 
+							//document.datos_02_EditCli.tel.value, 
+							//document.datos_02_EditCli.osid.value, 
+							//document.datos_02_EditCli.os.value
 							);
 }
 
 function Validaciones_locales_EditPac(){
 	//como la pantalla 02 se usa en varios lugares (a diferencia del esquema general de ABM) ponemos la funcion de validacion local en el 02, y se invoca desde la ventana llamadora
-	return Validaciones_locales_EditPac_02()
+	return Validaciones_locales_EditCli_02()
 }
 
 function Submit_Formulario_EditPac() {
-	Validar_Formulario(	"dialog_cont_EditPac" 										//id_dialog
-						,"EditarpacientesV2_06.asp"				//url_valid_06
+	Validar_Formulario(	"dialog_cont_EditCli" 										//id_dialog
+						,"EditarclientesV2_06.asp"				//url_valid_06
 						,"EditarpacientesV2_03_JSON.asp"				//url_AM
-						,"dialogAlert_BusqEdicPac"									//id_dialogAlert															
+						,"dialogAlert_BusqEdicCli"									//id_dialogAlert															
 						,"datos_02_EditPac"										//id_form_datos							
 						,null //window.parent.ifrm.location			//location_reload						
 						,Validaciones_locales_EditPac					//funcion_Validaciones_locales						
@@ -66,18 +67,18 @@ function Submit_Formulario_EditPac() {
 					);
 } 
 $(document).ready(function() { 
-								inicializar_dialogAlert("dialogAlert_BusqEdicPac"									//id_dialogAlert
+								inicializar_dialogAlert("dialogAlert_BusqEdicCli"									//id_dialogAlert
 														);
 
-								inicializar_dialogoABM(	"dialog_cont_EditPac" 										//id_dialog
-														,"EditarpacientesV2_06.asp"				//url_valid_06
-														,"EditarpacientesV2_03_JSON.asp"				//url_AM
-														,"dialogAlert_BusqEdicPac"									//id_dialogAlert															
-														,"datos_02_EditPac"										//id_form_datos															
+								inicializar_dialogoABM(	"dialog_cont_EditCli" 										//id_dialog
+														,"EditarclientesV2_06.asp"				//url_valid_06
+														,"EditarclientesV2_03_JSON.asp"				//url_AM
+														,"dialogAlert_BusqEdicCli"									//id_dialogAlert															
+														,"datos_02_EditCli"										//id_form_datos															
 														,null //window.parent.ifrm.location					//location_reload														
 														,Validaciones_locales_EditPac							//funcion_Validaciones_locales	
 														,"ifrm"											//id_ifrm_form_datos	
-														,devolver_paciente_editado //fn_post_AM														
+														,devolver_cliente_editado //fn_post_AM														
 														); 																
 							});
 </script>
@@ -119,8 +120,7 @@ function Buscar(){
 
 
 function AltaCliente(){
-alert();
-	abrirDialogo('dialogHCR_cont_EditCli','EditarclientesV2_02.asp?Tipo=A&ventana=3&dni=<%= l_dni %>&hcoblig=<%= l_hcoblig %>',600,300);
+	abrirDialogo('dialog_cont_EditCli','EditarclientesV2_02.asp?Tipo=A&ventana=3&dni=<%= l_dni %>&hcoblig=<%= l_hcoblig %>',600,300);
 }
 
 function Limpiar(){
