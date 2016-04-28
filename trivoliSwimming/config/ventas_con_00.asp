@@ -120,6 +120,9 @@ $(document).ready(function() {
 								inicializar_dialogoContenedor(	"dialog_cont_DV" 										//id_dialog
 																); 
 
+								inicializar_dialogoContenedor(	"dialog_cont_CV" 										//id_dialog
+																); 																
+
 								inicializar_dialogoContenedor(	"dialog_cont_BusqCli" 										//id_dialog
 																); 																
 																
@@ -138,7 +141,10 @@ $(document).ready(function() {
 								//la funcion como parametro que se debe ejecutar al
 								$( "#dialog_cont_DV" ).dialog({
 									close: function () {$(this).empty(); Buscar();}
-								});										
+								});		
+								$( "#dialog_cont_CV" ).dialog({
+									close: function () {$(this).empty(); Buscar();}
+								});									
 								
 							});
 </script>
@@ -232,6 +238,8 @@ function BuscarCliente(){
 		<div id="dialogConfirmDelete" title="Consulta">		</div>	
 
 		<div id="dialog_cont_DV" title="Detalle de Ventas">		</div>		
+		
+		<div id="dialog_cont_CV" title="Costos Ventas">		</div>		
 		
 		<div id="dialog_cont_BusqCli" title="Buscar Clientes">		</div>			
 		
