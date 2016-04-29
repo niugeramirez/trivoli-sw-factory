@@ -171,7 +171,10 @@ $(document).ready(function() {
 														,Validaciones_locales							//funcion_Validaciones_locales	
 														,"ifrm"											//id_ifrm_form_datos														
 														); 
+								inicializar_dialogoContenedor(	"dialog_cont_BusqCompraOrigen" 										//id_dialog
+																); 														
 							});
+							
 </script>
 <!--	FIN VENTANAS MODALES    -->
 
@@ -259,6 +262,20 @@ function Buscar(){
 function Limpiar(){
 	window.ifrm.location = 'cajamovimientos_con_01.asp';
 }
+
+function BuscarCompraOrigen(){	
+	abrirDialogo('dialog_cont_BusqCompraOrigen','BuscarCompraOrigenV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarCompraOrigen&dnioblig=N&hcoblig=N',900,250);
+}
+
+
+function volver_AsignarCompraOrigen(id, fecha,  nombre){
+
+	document.datos_02.compraorigen.value = nombre + " - " + fecha ;
+	document.datos_02.idcompraorigen.value = id;
+	
+	$("#dialog_cont_BusqCompraOrigen").dialog("close");
+}
+
 </script>
 </head>
 
@@ -353,6 +370,8 @@ function Limpiar(){
 		<div id="dialogAlert" title="Mensaje">				</div>	
 		
 		<div id="dialogConfirmDelete" title="Consulta">		</div>		
+		
+		<div id="dialog_cont_BusqCompraOrigen" title="Buscar Compra Origen">		</div>			
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 

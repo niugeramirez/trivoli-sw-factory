@@ -21,6 +21,8 @@ dim l_idcompraorigen
 dim l_idventaorigen
 Dim l_mediodepagocheque
 
+Dim l_compraorigen
+
 Dim p_flagcompra
 Dim p_flagventa
 
@@ -102,21 +104,39 @@ function ctroltipomovimiento(){
 function actualizarflag (p_flagcompra, p_flagventa){	
 	
 		if (p_flagcompra == -1 ) {			
-			document.datos_02.idcompraorigen.disabled = false;							
+			document.datos_02.idcompraorigen.disabled = false;		
+			//mostrar();					
 		}
 		else {			
-			document.datos_02.idcompraorigen.disabled = true;							
+			document.datos_02.idcompraorigen.disabled = true;	
+			document.datos_02.idcompraorigen.value = 0;
+
+			//cerrar();					
 		};
 
 		if (p_flagventa == -1 ) {			
 			document.datos_02.idventaorigen.disabled = false;							
 		}
 		else {			
-			document.datos_02.idventaorigen.disabled = true;							
+			document.datos_02.idventaorigen.disabled = true;	
+			document.datos_02.idventaorigen.value = 0;
+			
 		};	
 	
 }
 
+</script>
+
+<script languague="javascript">
+        function mostrar() {
+            div = document.getElementById('flotante');
+            div.style.display = '';
+        }
+
+        function cerrar() {
+            div = document.getElementById('flotante');
+            div.style.display = 'none';
+        }
 </script>
 
 </head>
@@ -140,9 +160,11 @@ select Case l_tipo
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
-		l_sql = "SELECT  * "
+		l_sql = "SELECT  cajamovimientos.* , proveedores.nombre prov_nom , compras.fecha comp_fec"
 		l_sql = l_sql & " FROM cajamovimientos  "
-		l_sql  = l_sql  & " WHERE id = " & l_id
+		l_sql = l_sql & " LEFT JOIN compras ON compras.id = cajamovimientos.idcompraorigen  "		
+		l_sql = l_sql & " LEFT JOIN proveedores ON proveedores.id = compras.idproveedor "				
+		l_sql  = l_sql  & " WHERE cajamovimientos.id = " & l_id
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
  	    	l_fecha      		     = l_rs("fecha")
@@ -155,7 +177,9 @@ select Case l_tipo
 	    	l_monto 				 = l_rs("monto")
 	    	l_idresponsable  		 = l_rs("idresponsable")
 			l_idcompraorigen         = l_rs("idcompraorigen")
+			l_compraorigen           = l_rs("prov_nom") & " - " & l_rs("comp_fec")
 			l_idventaorigen		     = l_rs("idventaorigen")
+			
 			
 		end if
 		l_rs.Close
@@ -167,6 +191,7 @@ end select
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
 		<input type="Hidden" name="mediodepagocheque" value="<%= l_mediodepagocheque %>">
+		
 
 		<table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
 		<tr>
@@ -325,29 +350,18 @@ end select
 								</td>					
 							</tr>			
 							
-						    <tr>
-								<td align="right"><b>Compra Origen:</b></td>
-								<td colspan="3"><select name="idcompraorigen" size="1" style="width:250;">
-										<option value="0" selected>&nbsp;Seleccione una Compra</option>
-										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-										l_sql = "SELECT  compras.fecha , compras.id , proveedores.nombre "
-										l_sql  = l_sql  & " FROM compras "
-										l_sql  = l_sql  & " LEFT JOIN proveedores ON proveedores.id = compras.idproveedor  "
-										l_sql = l_sql & " where compras.empnro = " & Session("empnro")   
-										
-										l_sql  = l_sql  & " ORDER BY compras.fecha desc "
-										rsOpen l_rs, cn, l_sql, 0
-										do until l_rs.eof		%>	
-										<option value= <%= l_rs("id") %> > 
-										<%= l_rs("nombre") %>&nbsp;-&nbsp;<%= l_rs("fecha") %> </option>
-										<%	l_rs.Movenext
-										loop
-										l_rs.Close %>
-									</select>
-									<script>document.datos_02.idcompraorigen.value= "<%= l_idcompraorigen %>"</script>
-								</td>					
-							</tr>																								
-																	
+																							
+												
+							<tr>
+								<td align="right"  ><b>Compra Origen:</b></td>
+								<td>
+									<input class="deshabinp" readonly="" type="text" name="compraorigen" id="compraorigen" size="50" maxlength="50" value="<%=l_compraorigen %>">		
+									<input type="hidden" name="idcompraorigen" id="idcompraorigen" size="10" maxlength="10" value="<%=l_idcompraorigen %>">		
+									<a href="Javascript:BuscarCompraOrigen();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Compra Origen"></a>	
+														
+								</td>								
+							</tr>								
+																							
 																	
 							
 						    <tr>
