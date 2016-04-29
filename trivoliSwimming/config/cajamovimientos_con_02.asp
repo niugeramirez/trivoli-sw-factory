@@ -51,6 +51,27 @@ l_rs.Close
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<style type="text/css">
+#contenedor {
+    display: table;
+}
+#contenidos {
+    display: table-row;
+}
+#columna1, #columna2, #columna3 {
+    display: table-cell;
+	COLOR: black;
+	FONT-FAMILY: Verdana;
+	FONT-SIZE: 08pt;
+	/*BACKGROUND-COLOR: #E4FEF9;*/
+	padding : 2;
+	padding-left : 5;
+
+}
+</style>
+
+
 <!-- Comienzo Datepicker -->
 <script>
 $(function () {
@@ -62,7 +83,7 @@ firstDay: 1
 		
 $( "#fecha" ).datepicker({
 	showOn: "button",
-	buttonImage: "../shared/images/calendar1.png",
+	buttonImage: "../shared/images/calendar16.png",
 	buttonImageOnly: true
 });
 
@@ -105,13 +126,13 @@ function actualizarflag (p_flagcompra, p_flagventa){
 	
 		if (p_flagcompra == -1 ) {			
 			document.datos_02.idcompraorigen.disabled = false;		
-			//mostrar();					
+			mostrar('compraorigen');					
 		}
 		else {			
 			document.datos_02.idcompraorigen.disabled = true;	
 			document.datos_02.idcompraorigen.value = 0;
 
-			//cerrar();					
+			cerrar('compraorigen');					
 		};
 
 		if (p_flagventa == -1 ) {			
@@ -128,13 +149,15 @@ function actualizarflag (p_flagcompra, p_flagventa){
 </script>
 
 <script languague="javascript">
-        function mostrar() {
-            div = document.getElementById('flotante');
+        function mostrar(nombrediv) {
+			
+            div = document.getElementById('compraorigen');
             div.style.display = '';
         }
 
-        function cerrar() {
-            div = document.getElementById('flotante');
+        function cerrar(nombrediv) {
+		
+            div = document.getElementById('compraorigen');
             div.style.display = 'none';
         }
 </script>
@@ -192,39 +215,27 @@ end select
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
 		<input type="Hidden" name="mediodepagocheque" value="<%= l_mediodepagocheque %>">
 		
+<div id="contenedor">
 
-		<table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
-		<tr>
-			<td colspan="2" height="100%">
-				<table border="0" cellspacing="0" cellpadding="0">
-					<tr>
-						<td>
-							<table cellspacing="0" cellpadding="0" border="0">
-				
-							<tr>
-								<td align="right"><b>Fecha:</b></td>
-								<td colspan="3">
-									<input type="text" id="fecha" name="fecha" size="10" maxlength="10" value="<%= l_fecha %>">							
-								</td>
-				
-							</tr>					
-															
-							<tr>
-								<td align="right"><b>Tipo:</b></td>
-								<td colspan="3">
-										
-									<select name="tipoes" size="1" style="width:250;">		
+    <div id="tipo">
+        <div id="columna1">Tipo:</div>
+        <div id="columna2">
+		<select name="tipoes" size="1" style="width:250;">		
 										<option value= "E" >Entrada</option>
 										<option value= "S" >Salida</option>
 									</select>
-									<script>document.datos_02.tipoes.value= "<%= l_tipoes%>"</script>									
-								</td>
-				
-							</tr>	
-							
-						    <tr>
-								<td align="right"><b>Tipo Movimiento:</b></td>
-								<td colspan="3"><select name="idtipomovimiento" size="1" style="width:250;" onchange="ctroltipomovimiento();">
+									<script>document.datos_02.tipoes.value= "<%= l_tipoes%>"</script>		</div>
+       
+    </div>
+    <div id="flotand">
+        <div id="columna1">Fecha:</div>
+        <div id="columna2"><input type="text" id="fecha" name="fecha" size="10" maxlength="10" value="<%= l_fecha %>">		</div>
+       
+    </div>	
+    <div id="tipomovimiento">
+        <div id="columna1">Tipo Movimiento:</div>
+        <div id="columna2">
+		<select name="idtipomovimiento" size="1" style="width:250;" onchange="ctroltipomovimiento();">
 										<option value="0" selected>&nbsp;Seleccione un Tipo de Movimiento</option>
 										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 										l_sql = "SELECT  * "
@@ -240,21 +251,19 @@ end select
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02.idtipomovimiento.value= "<%= l_idtipomovimiento%>"</script>
-								</td>					
-							</tr>
-							
-							<tr>
-								<td align="right"><b>Detalle:</b></td>
-								<td colspan="3">
-									<input type="text" name="detalle" size="70" maxlength="200" value="<%= l_detalle %>">							
-								</td>
-				
-							</tr>					
-							
-						    <tr>
-								<td align="right"><b>Unidad de Negocio:</b></td>
-								<td colspan="3"><select name="idunidadnegocio" size="1" style="width:250;">
+									<script>document.datos_02.idtipomovimiento.value= "<%= l_idtipomovimiento%>"</script>		</div>
+       
+    </div>	
+    <div id="detalle">
+        <div id="columna1">Detalle:</div>
+        <div id="columna2">
+		<input type="text" name="detalle" size="70" maxlength="200" value="<%= l_detalle %>">		</div>
+       
+    </div>		
+    <div id="unidaddenegocio">
+        <div id="columna1">Unidad de Negocio:</div>
+        <div id="columna2">
+		<select name="idunidadnegocio" size="1" style="width:250;">
 										<option value="0" selected>&nbsp;Seleccione una Unidad de Negocio</option>
 										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 										l_sql = "SELECT  * "
@@ -270,13 +279,13 @@ end select
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02.idunidadnegocio.value= "<%= l_idunidadnegocio%>"</script>
-								</td>					
-							</tr>			
-							
-						    <tr>
-								<td align="right"><b>Medio de Pago:</b></td>
-								<td colspan="3"><select name="idmediopago" size="1" style="width:250;" onchange="ctrolmediodepago();">
+									<script>document.datos_02.idunidadnegocio.value= "<%= l_idunidadnegocio%>"</script>		</div>
+       
+    </div>		
+    <div id="mediodepago">
+        <div id="columna1">Medio de Pago:</div>
+        <div id="columna2">
+		<select name="idmediopago" size="1" style="width:250;" onchange="ctrolmediodepago();">
 										<option value="0" selected>&nbsp;Seleccione un Medio de Pago</option>
 										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 										l_sql = "SELECT  * "
@@ -292,13 +301,13 @@ end select
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02.idmediopago.value= "<%= l_idmediopago %>"</script>
-								</td>					
-							</tr>															
-										
-						    <tr>
-								<td align="right"><b>Cheque:</b></td>
-								<td colspan="3"><select name="idcheque" size="1" style="width:250;" onchange="ctrolcheque();">
+									<script>document.datos_02.idmediopago.value= "<%= l_idmediopago %>"</script>	</div>
+       
+    </div>		
+    <div id="cheque">
+        <div id="columna1">Cheque:</div>
+        <div id="columna2">
+		<select name="idcheque" size="1" style="width:250;" onchange="ctrolcheque();">
 										<option value="0" selected>&nbsp;Seleccione un Cheque</option>
 										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 										l_sql = "SELECT  cheques.id, cheques.numero, bancos.nombre_banco , cheques.importe"
@@ -315,22 +324,20 @@ end select
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02.idcheque.value= "<%= l_idcheque %>"</script>
-								</td>					
-							</tr>			
-							
-							<tr>
-								<td align="right"><b>Monto:</b></td>
-								<td colspan="3">
-									<input type="text" name="monto" size="50" maxlength="50" value="<%= l_monto%>">		
-									<input type="hidden" name="monto2" value="">						
-								</td>
-				
-							</tr>		
-							
-						    <tr>
-								<td align="right"><b>Responsable:</b></td>
-								<td colspan="3"><select name="idresponsable" size="1" style="width:250;">
+									<script>document.datos_02.idcheque.value= "<%= l_idcheque %>"</script></div>
+       
+    </div>		
+    <div id="monto">
+        <div id="columna1">Monto:</div>
+        <div id="columna2">
+		<input type="text" name="monto" size="50" maxlength="50" value="<%= l_monto%>">		
+									<input type="hidden" name="monto2" value="">	</div>
+       
+    </div>	
+    <div id="responsable">
+        <div id="columna1">Responsable:</div>
+        <div id="columna2">
+		<select name="idresponsable" size="1" style="width:250;">
 										<option value="0" selected>&nbsp;Seleccione un Responsable</option>
 										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 										l_sql = "SELECT  * "
@@ -346,27 +353,21 @@ end select
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02.idresponsable.value= "<%= l_idresponsable %>"</script>
-								</td>					
-							</tr>			
-							
-																							
-												
-							<tr>
-								<td align="right"  ><b>Compra Origen:</b></td>
-								<td>
-									<input class="deshabinp" readonly="" type="text" name="compraorigen" id="compraorigen" size="50" maxlength="50" value="<%=l_compraorigen %>">		
+									<script>document.datos_02.idresponsable.value= "<%= l_idresponsable %>"</script>	</div>
+       
+    </div>			
+    <div id="compraorigen">
+        <div id="columna1">Compra Origen:</div>
+        <div id="columna2">
+		<input class="deshabinp" readonly="" type="text" name="compraorigen" id="compraorigen" size="50" maxlength="50" value="<%=l_compraorigen %>">		
 									<input type="hidden" name="idcompraorigen" id="idcompraorigen" size="10" maxlength="10" value="<%=l_idcompraorigen %>">		
-									<a href="Javascript:BuscarCompraOrigen();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Compra Origen"></a>	
-														
-								</td>								
-							</tr>								
-																							
-																	
-							
-						    <tr>
-								<td align="right"><b>Venta Origen:</b></td>
-								<td colspan="3"><select name="idventaorigen" size="1" style="width:250;">
+									<a href="Javascript:BuscarCompraOrigen();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Compra Origen"></a>	</div>
+       
+    </div>		
+    <div id="ventaorigen">
+        <div id="columna1">Venta Origen:</div>
+        <div id="columna2">
+		<select name="idventaorigen" size="1" style="width:250;">
 										<option value="0" selected>&nbsp;Seleccione una Venta</option>
 										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 										l_sql = "SELECT  ventas.fecha , ventas.id , clientes.nombre "
@@ -383,7 +384,99 @@ end select
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02.idventaorigen.value= "<%= l_idventaorigen %>"</script>
+									<script>document.datos_02.idventaorigen.value= "<%= l_idventaorigen %>"</script>	</div>
+       
+    </div>				
+</div>		
+		
+		
+
+		<table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
+		<tr>
+			<td colspan="2" height="100%">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td>
+							<table cellspacing="0" cellpadding="0" border="0">
+				
+							<tr>
+								<td align="right"><b>Fecha:</b></td>
+								<td colspan="3">
+														
+								</td>
+				
+							</tr>					
+															
+							<tr>
+								<td align="right"><b>Tipo:</b></td>
+								<td colspan="3">
+										
+																
+								</td>
+				
+							</tr>	
+							
+						    <tr>
+								<td align="right"><b>Tipo Movimiento:</b></td>
+								<td colspan="3">
+								</td>					
+							</tr>
+							
+							<tr>
+								<td align="right"><b>Detalle:</b></td>
+								<td colspan="3">
+															
+								</td>
+				
+							</tr>					
+							
+						    <tr>
+								<td align="right"><b>Unidad de Negocio:</b></td>
+								<td colspan="3">
+								</td>					
+							</tr>			
+							
+						    <tr>
+								<td align="right"><b>Medio de Pago:</b></td>
+								<td colspan="3">
+								</td>					
+							</tr>															
+										
+						    <tr>
+								<td align="right"><b>Cheque:</b></td>
+								<td colspan="3">
+								</td>					
+							</tr>			
+							
+							<tr>
+								<td align="right"><b>Monto:</b></td>
+								<td colspan="3">
+														
+								</td>
+				
+							</tr>		
+							
+						    <tr>
+								<td align="right"><b>Responsable:</b></td>
+								<td colspan="3">
+								</td>					
+							</tr>			
+							
+																							
+												
+							<tr>
+								<td align="right"  ><b>Compra Origen:</b></td>
+								<td>
+									
+														
+								</td>								
+							</tr>								
+																							
+																	
+							
+						    <tr>
+								<td align="right"><b>Venta Origen:</b></td>
+								<td colspan="3">
 								</td>					
 							</tr>																			
 							</table>
