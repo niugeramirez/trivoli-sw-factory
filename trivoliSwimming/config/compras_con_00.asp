@@ -90,6 +90,14 @@ $(document).ready(function() {
 														,Validaciones_locales							//funcion_Validaciones_locales	
 														,"ifrm"											//id_ifrm_form_datos
 														); 
+
+								inicializar_dialogoContenedor(	"dialog_cont_DC" 										//id_dialog
+																); 
+								//esta linea la agrego solo para refrescar cuando se cierra el dialogo contenedor, se podría parametrizar de modo de recibir
+								//la funcion como parametro que se debe ejecutar al
+								$( "#dialog_cont_DC" ).dialog({
+									close: function () {$(this).empty(); Buscar();}
+								});															
 							});
 </script>
 <!--	FIN VENTANAS MODALES    -->
@@ -141,16 +149,7 @@ function Limpiar(){
                         <col class="colWidth25">
                     </colgroup>
                     <tbody>
-					<!--
-				    <tr>
-						<td align="right"><b>Fecha Desde: </b></td>
-						<td><input id="fechadesde" type="text" name="fechadesde" size="10" maxlength="10" value="<%'= date()%>" >							
-						</td>						
-						<td align="right"><b>Fecha Hasta: </b></td>
-						<td><input  id="fechahasta" type="text" name="fechahasta" size="10" maxlength="10" value="<%'= date()%>" >							
-						</td>	                      
-                    </tr>			
-					-->		
+	
 				    <tr>
 					    <td align="right"><b>Proveedor: </b></td>
 						<td><input  type="text" id="inpnombre" name="inpnombre" size="60" maxlength="21" value="" ></td>
@@ -178,6 +177,8 @@ function Limpiar(){
 		<div id="dialogAlert" title="Mensaje">				</div>	
 		
 		<div id="dialogConfirmDelete" title="Consulta">		</div>		
+
+		<div id="dialog_cont_DC" title="Detalle de Compras">		</div>			
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 

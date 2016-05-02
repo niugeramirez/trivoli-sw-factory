@@ -121,10 +121,7 @@ end if
                 <a href="Javascript:parent.abrirDialogo('dialog','compras_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
 				
-							 
-				<a href="Javascript:parent.abrirVentana('detallecompra_con_00.asp?id=' + document.detalle_01.cabnro.value,'',620,400);"><img src="../shared/images/Data-List-icon_16.png" border="0" title="Detalle de Compra"></a>
-		
-
+				<a href="Javascript:parent.abrirDialogo('dialog_cont_DC','detallecompra_con_00.asp?p_carga_js=N&id=' + document.detalle_01.cabnro.value,620,400);"><img src="../shared/images/Data-List-icon_16.png" border="0" title="Detalle de Compra"></a>
 				
 			</td>
         </tr>

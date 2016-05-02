@@ -57,8 +57,8 @@ select Case l_tipo
 end select
 
 %>
-<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos_02.descripcion.focus();">	
-	<form name="datos_02" id="datos_02" action = "Javascript:Submit_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario();}"  target="valida">
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos_02_dc.descripcion.focus();">	
+	<form name="datos_02_dc" id="datos_02_dc" action = "Javascript:Submit_Formulario_dc();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario_dc();}"  target="valida">
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
 		<input type="Hidden" name="idcompra" value="<%= l_idcompra %>">
@@ -93,7 +93,7 @@ end select
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02.idconceptoCompraVenta.value= "<%= l_idconceptoCompraVenta %>"</script>
+									<script>document.datos_02_dc.idconceptoCompraVenta.value= "<%= l_idconceptoCompraVenta %>"</script>
 								</td>					
 							</tr>
 
