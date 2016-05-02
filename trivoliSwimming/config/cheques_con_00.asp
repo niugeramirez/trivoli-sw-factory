@@ -32,6 +32,27 @@ Dim l_sql
 <script src="/trivoliSwimming/shared/js/fn_fechas.js"></script>
 <script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>
 
+<!-- Comienzo Datepicker -->
+<script>
+$(function () {
+
+		
+$( "#filt_fechavcntodesde_cheq" ).datepicker({
+	showOn: "button",
+	buttonImage: "../shared/images/calendar16.png",
+	buttonImageOnly: true
+});
+
+$( "#filt_fechavcntohasta_cheq" ).datepicker({
+	showOn: "button",
+	buttonImage: "/trivoliSwimming/shared/images/calendar16.png",
+	buttonImageOnly: true
+});
+
+});
+</script>
+<!-- Final Datepicker -->
+
 <!--	VENTANAS MODALES        -->
 <script src="../js/ventanas_modales_custom_V2.js"></script>
 
@@ -135,11 +156,31 @@ function Buscar(){
 
 	$("#filtro_00").val("");
 
-	// Nombre
+	// nro cheque
 	if ($("#inpnombre").val() != 0){
 		$("#filtro_00").val(" cheques.numero like '*" + $("#inpnombre").val() + "*'");
 	}		
-    
+	//Fecha vencimiento desde
+	if ($("#filt_fechavcntodesde_cheq").val() != 0){
+		if ($("#filtro_00").val() != 0){
+			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		}
+		$("#filtro_00").val(
+								$("#filtro_00").val() 
+								+ " cheques.fecha_vencimiento  >= " + cambiafechaYYYYMMDD($("#filt_fechavcntodesde_cheq").val(),true,1)
+							);		
+	}	
+
+	//Fechavencimiento hasta
+	if ($("#filt_fechavcntohasta_cheq").val() != 0){
+		if ($("#filtro_00").val() != 0){
+			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		}
+		$("#filtro_00").val(
+								$("#filtro_00").val() 
+								+ " cheques.fecha_vencimiento  <= " + cambiafechaYYYYMMDD($("#filt_fechavcntohasta_cheq").val(),true,1)
+							);		
+	}	    
 	window.ifrm.location = 'cheques_con_01.asp?asistente=0&filtro=' + $("#filtro_00").val();
 }
 
@@ -167,22 +208,35 @@ function Limpiar(){
                 <input type="hidden" id="filtro_00" name="filtro_00" value="">
 				<table border="0" width="100%">
                     <colgroup>
-                        <col class="colWidth25">
-                        <col class="colWidth25">
-                        <col class="colWidth25">
-                        <col class="colWidth25">
+                        <col class="colWidth20">
+                        <col class="colWidth20">
+                        <col class="colWidth20">
+                        <col class="colWidth20">
+						<col class="colWidth20">
                     </colgroup>
                     <tbody>
 				    <tr>
-					    <td><b>Numero: </b></td>
-						<td><input  type="text" id="inpnombre" name="inpnombre" size="21" maxlength="21" value="" ></td>
+					    <td><b>Numero: </b><input  type="text" id="inpnombre" name="inpnombre" size="21" maxlength="21" value="" ></td>
+						<td>
+							<b>Fecha Vcnto: </b><input id="filt_fechavcntodesde_cheq" type="text" name="filt_fechavcntodesde_cheq" size="10" maxlength="10" value="" >							
+						</td>
 					    <td></td>
+						<td></td>
                         <td align="center">
                             <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar">
                             <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/trivoliSwimming/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
 							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','cheques_con_02.asp?Tipo=A',650,350)"><img  src="/trivoliSwimming/shared/images/Agregar_24.png" border="0" title="Agregar Cliente"></a>    
                         </td>
                     </tr>
+					<tr>
+						<td></td>
+					    <td>					
+							<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspHasta: </b><input id="filt_fechavcntohasta_cheq" type="text" name="filt_fechavcntodesde_cheq" size="10" maxlength="10" value="" >
+						</td>						
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>					
 					</tbody>
                 </table>
 			</td>
