@@ -110,9 +110,34 @@ function Buscar(){
 
 	// Nombre
 	if ($("#inpnombre").val() != 0){
-		$("#filtro_00").val(" proveedores.nombre like '*" + $("#inpnombre").val() + "*'");
+		//Eugenio 02/05/2016 en lugar de enviar * para los comodines envio **, con esto el el 01 reemplazo el ** por %
+		//Esto es porque el otro filtro implica una operacion matematica de multiplicacion, con lo que se modifica el * y hace un calculo erroneo
+		$("#filtro_00").val(" proveedores.nombre like '**" + $("#inpnombre").val() + "**'");
 	}		
     
+ 
+	if ($("#filt_con_saldo_comp").is(':checked'))
+	{
+		if ($("#filtro_00").val() != 0){
+			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		}
+		$("#filtro_00").val(
+								$("#filtro_00").val() 
+								+ " ( " 
+								+ " (SELECT  "
+								+ "     SUM(detalleCompras.cantidad * detalleCompras.precio_unitario) "
+								+ " FROM detalleCompras "
+								+ "   WHERE detalleCompras.idcompra = compras.id)  "
+								+ " -  "
+								+ "   (SELECT "
+								+ "     SUM(cajaMovimientos.monto) "
+								+ "   FROM cajaMovimientos "
+								+ "   WHERE cajaMovimientos.idcompraOrigen = compras.id)  "
+								+ " <>0								 "
+								+ " ) " 
+							);		
+	}
+
 	window.ifrm.location = 'compras_con_01.asp?asistente=0&filtro=' + $("#filtro_00").val();
 }
 
@@ -153,7 +178,9 @@ function Limpiar(){
 				    <tr>
 					    <td align="right"><b>Proveedor: </b></td>
 						<td><input  type="text" id="inpnombre" name="inpnombre" size="60" maxlength="21" value="" ></td>
-					    <td></td>
+					    <td>
+							<b>Con saldo:</b><input type="checkbox" id="filt_con_saldo_comp" name="filt_con_saldo_comp">
+						</td>
                         <td align="left">
                             <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar">
                             <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/trivoliSwimming/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            

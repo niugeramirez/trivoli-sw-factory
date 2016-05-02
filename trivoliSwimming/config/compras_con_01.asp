@@ -20,7 +20,7 @@ Dim l_cant
 Dim l_primero
 
 l_filtro = request("filtro")
-'response.write l_filtro 
+'response.write l_filtro &"</br>"&"</br>"
 l_orden  = request("orden")
 
 if l_orden = "" then
@@ -51,7 +51,8 @@ end if
 		<th>Acciones</th>		
     </tr>
     <%
-    l_filtro = replace (l_filtro, "*", "%")
+    
+	l_filtro = replace (l_filtro, "**", "%")
 
     Set l_rs = Server.CreateObject("ADODB.RecordSet")
     l_sql = "SELECT    compras.* , proveedores.nombre "	
@@ -66,14 +67,11 @@ end if
     l_sql = l_sql & " FROM compras "
     l_sql = l_sql & " LEFT JOIN proveedores ON proveedores.id = compras.idproveedor "
 	' Multiempresa
-	if l_filtro <> "" then
-	  l_sql = l_sql & " WHERE " & l_filtro & " "
-	  l_sql = l_sql & " and compras.empnro = " & Session("empnro")   
-	else
-		l_sql = l_sql & " where compras.empnro = " & Session("empnro")   
-	end if
+	l_sql = l_sql & " where compras.empnro = " & Session("empnro") 	
 	
-	
+	if l_filtro <> "" then	  
+	  l_sql = l_sql & " and " & l_filtro & " "   
+	end if	
 	
     l_sql = l_sql & " " & l_orden
 	
