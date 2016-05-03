@@ -100,7 +100,7 @@ end if
 	    do until l_rs.eof
 		    l_cant = l_cant + 1
 	    %>
-	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','cajamovimientos_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
+	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','cajamovimientos_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,450);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
 			<td width="10%" nowrap><%= l_rs("fecha")%></td>
 			
 			<td width="10%" align="left" nowrap><% if l_rs("tipo") = "E" then response.write "Entrada" else response.write  "Salida" end if%></td>			
@@ -121,7 +121,7 @@ end if
 			</td>			
 			  	
 	        <td align="center" width="10%" nowrap>                    
-                <a href="Javascript:parent.abrirDialogo('dialog','cajamovimientos_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
+                <a href="Javascript:parent.abrirDialogo('dialog','cajamovimientos_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,450);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
 			</td>
         </tr>

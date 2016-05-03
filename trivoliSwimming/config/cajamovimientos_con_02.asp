@@ -22,6 +22,7 @@ dim l_idventaorigen
 Dim l_mediodepagocheque
 
 Dim l_compraorigen
+Dim l_ventaorigen
 
 Dim p_flagcompra
 Dim p_flagventa
@@ -55,11 +56,12 @@ l_rs.Close
 <style type="text/css">
 #contenedor {
     display: table;
+	
 }
 #contenidos {
     display: table-row;
 }
-#columna1, #columna2, #columna3 {
+#columna1 {
     display: table-cell;
 	COLOR: black;
 	FONT-FAMILY: Verdana;
@@ -67,7 +69,17 @@ l_rs.Close
 	/*BACKGROUND-COLOR: #E4FEF9;*/
 	padding : 2;
 	padding-left : 5;
-
+	width: 110px;
+}
+#columna2, #columna3 {
+    display: table-cell;
+	COLOR: black;
+	FONT-FAMILY: Verdana;
+	FONT-SIZE: 08pt;
+	/*BACKGROUND-COLOR: #E4FEF9;*/
+	padding : 2;
+	padding-left : 5;
+	width: 500px;
 }
 </style>
 
@@ -131,16 +143,17 @@ function actualizarflag (p_flagcompra, p_flagventa){
 		else {			
 			document.datos_02.idcompraorigen.disabled = true;	
 			document.datos_02.idcompraorigen.value = 0;
-
 			cerrar('compraorigen');					
 		};
 
 		if (p_flagventa == -1 ) {			
-			document.datos_02.idventaorigen.disabled = false;							
+			document.datos_02.idventaorigen.disabled = false;	
+			mostrar('ventaorigen');						
 		}
 		else {			
 			document.datos_02.idventaorigen.disabled = true;	
 			document.datos_02.idventaorigen.value = 0;
+			cerrar('ventaorigen');	
 			
 		};	
 	
@@ -151,13 +164,13 @@ function actualizarflag (p_flagcompra, p_flagventa){
 <script languague="javascript">
         function mostrar(nombrediv) {
 			
-            div = document.getElementById('compraorigen');
+            div = document.getElementById(nombrediv);
             div.style.display = '';
         }
 
         function cerrar(nombrediv) {
 		
-            div = document.getElementById('compraorigen');
+            div = document.getElementById(nombrediv);
             div.style.display = 'none';
         }
 </script>
@@ -183,10 +196,12 @@ select Case l_tipo
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
-		l_sql = "SELECT  cajamovimientos.* , proveedores.nombre prov_nom , compras.fecha comp_fec"
+		l_sql = "SELECT  cajamovimientos.* , proveedores.nombre prov_nom , compras.fecha comp_fec, clientes.nombre cli_nom , ventas.fecha venta_fec"
 		l_sql = l_sql & " FROM cajamovimientos  "
 		l_sql = l_sql & " LEFT JOIN compras ON compras.id = cajamovimientos.idcompraorigen  "		
 		l_sql = l_sql & " LEFT JOIN proveedores ON proveedores.id = compras.idproveedor "				
+		l_sql = l_sql & " LEFT JOIN ventas ON ventas.id = cajamovimientos.idventaorigen  "				
+		l_sql = l_sql & " LEFT JOIN clientes ON clientes.id = ventas.idcliente  "						
 		l_sql  = l_sql  & " WHERE cajamovimientos.id = " & l_id
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
@@ -201,6 +216,7 @@ select Case l_tipo
 	    	l_idresponsable  		 = l_rs("idresponsable")
 			l_idcompraorigen         = l_rs("idcompraorigen")
 			l_compraorigen           = l_rs("prov_nom") & " - " & l_rs("comp_fec")
+			l_ventaorigen           = l_rs("cli_nom") & " - " & l_rs("venta_fec")			
 			l_idventaorigen		     = l_rs("idventaorigen")
 			
 			
@@ -218,7 +234,7 @@ end select
 <div id="contenedor">
 
     <div id="tipo">
-        <div id="columna1">Tipo:</div>
+        <div id="columna1" align="right">Tipo:</div>
         <div id="columna2">
 		<select name="tipoes" size="1" style="width:250;">		
 										<option value= "E" >Entrada</option>
@@ -228,12 +244,12 @@ end select
        
     </div>
     <div id="flotand">
-        <div id="columna1">Fecha:</div>
+        <div id="columna1" align="right">Fecha:</div>
         <div id="columna2"><input type="text" id="fecha" name="fecha" size="10" maxlength="10" value="<%= l_fecha %>">		</div>
        
     </div>	
     <div id="tipomovimiento">
-        <div id="columna1">Tipo Movimiento:</div>
+        <div id="columna1" align="right">Tipo Movimiento:</div>
         <div id="columna2">
 		<select name="idtipomovimiento" size="1" style="width:250;" onchange="ctroltipomovimiento();">
 										<option value="0" selected>&nbsp;Seleccione un Tipo de Movimiento</option>
@@ -255,13 +271,13 @@ end select
        
     </div>	
     <div id="detalle">
-        <div id="columna1">Detalle:</div>
+        <div id="columna1" align="right">Detalle:</div>
         <div id="columna2">
 		<input type="text" name="detalle" size="70" maxlength="200" value="<%= l_detalle %>">		</div>
        
     </div>		
     <div id="unidaddenegocio">
-        <div id="columna1">Unidad de Negocio:</div>
+        <div id="columna1" align="right">Unidad de Negocio:</div>
         <div id="columna2">
 		<select name="idunidadnegocio" size="1" style="width:250;">
 										<option value="0" selected>&nbsp;Seleccione una Unidad de Negocio</option>
@@ -283,7 +299,7 @@ end select
        
     </div>		
     <div id="mediodepago">
-        <div id="columna1">Medio de Pago:</div>
+        <div id="columna1" align="right">Medio de Pago:</div>
         <div id="columna2">
 		<select name="idmediopago" size="1" style="width:250;" onchange="ctrolmediodepago();">
 										<option value="0" selected>&nbsp;Seleccione un Medio de Pago</option>
@@ -305,7 +321,7 @@ end select
        
     </div>		
     <div id="cheque">
-        <div id="columna1">Cheque:</div>
+        <div id="columna1" align="right">Cheque:</div>
         <div id="columna2">
 		<select name="idcheque" size="1" style="width:250;" onchange="ctrolcheque();">
 										<option value="0" selected>&nbsp;Seleccione un Cheque</option>
@@ -328,14 +344,14 @@ end select
        
     </div>		
     <div id="monto">
-        <div id="columna1">Monto:</div>
+        <div id="columna1" align="right">Monto:</div>
         <div id="columna2">
 		<input type="text" name="monto" size="50" maxlength="50" value="<%= l_monto%>">		
 									<input type="hidden" name="monto2" value="">	</div>
        
     </div>	
     <div id="responsable">
-        <div id="columna1">Responsable:</div>
+        <div id="columna1" align="right">Responsable:</div>
         <div id="columna2">
 		<select name="idresponsable" size="1" style="width:250;">
 										<option value="0" selected>&nbsp;Seleccione un Responsable</option>
@@ -357,7 +373,7 @@ end select
        
     </div>			
     <div id="compraorigen">
-        <div id="columna1">Compra Origen:</div>
+        <div id="columna1" align="right">Compra Origen:</div>
         <div id="columna2">
 		<input class="deshabinp" readonly="" type="text" name="compraorigen" id="compraorigen" size="50" maxlength="50" value="<%=l_compraorigen %>">		
 									<input type="hidden" name="idcompraorigen" id="idcompraorigen" size="10" maxlength="10" value="<%=l_idcompraorigen %>">		
@@ -365,127 +381,15 @@ end select
        
     </div>		
     <div id="ventaorigen">
-        <div id="columna1">Venta Origen:</div>
+        <div id="columna1" align="right">Venta Origen:</div>
         <div id="columna2">
-		<select name="idventaorigen" size="1" style="width:250;">
-										<option value="0" selected>&nbsp;Seleccione una Venta</option>
-										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-										l_sql = "SELECT  ventas.fecha , ventas.id , clientes.nombre "
-										l_sql  = l_sql  & " FROM ventas "
-										l_sql  = l_sql  & " LEFT JOIN clientes ON clientes.id = ventas.idcliente  "
-										l_sql = l_sql & " where ventas.empnro = " & Session("empnro")   
-										
-										l_sql  = l_sql  & " ORDER BY ventas.fecha desc "
-										rsOpen l_rs, cn, l_sql, 0
-										do until l_rs.eof		%>	
-										<option value= <%= l_rs("id") %> > 
-										<%= l_rs("nombre") %>&nbsp;-&nbsp;<%= l_rs("fecha") %> </option>
-										<%	l_rs.Movenext
-										loop
-										l_rs.Close %>
-									</select>
-									<script>document.datos_02.idventaorigen.value= "<%= l_idventaorigen %>"</script>	</div>
+		<input class="deshabinp" readonly="" type="text" name="ventaorigen" id="ventaorigen" size="50" maxlength="50" value="<%=l_ventaorigen %>">		
+									<input type="hidden" name="idventaorigen" id="idventaorigen" size="10" maxlength="10" value="<%=l_idventaorigen %>">		
+									<a href="Javascript:BuscarVentaOrigen();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Venta Origen"></a>	</div>
        
-    </div>				
-</div>		
-		
-		
-
-		<table cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
-		<tr>
-			<td colspan="2" height="100%">
-				<table border="0" cellspacing="0" cellpadding="0">
-					<tr>
-						<td>
-							<table cellspacing="0" cellpadding="0" border="0">
-				
-							<tr>
-								<td align="right"><b>Fecha:</b></td>
-								<td colspan="3">
-														
-								</td>
-				
-							</tr>					
-															
-							<tr>
-								<td align="right"><b>Tipo:</b></td>
-								<td colspan="3">
-										
-																
-								</td>
-				
-							</tr>	
-							
-						    <tr>
-								<td align="right"><b>Tipo Movimiento:</b></td>
-								<td colspan="3">
-								</td>					
-							</tr>
-							
-							<tr>
-								<td align="right"><b>Detalle:</b></td>
-								<td colspan="3">
-															
-								</td>
-				
-							</tr>					
-							
-						    <tr>
-								<td align="right"><b>Unidad de Negocio:</b></td>
-								<td colspan="3">
-								</td>					
-							</tr>			
-							
-						    <tr>
-								<td align="right"><b>Medio de Pago:</b></td>
-								<td colspan="3">
-								</td>					
-							</tr>															
-										
-						    <tr>
-								<td align="right"><b>Cheque:</b></td>
-								<td colspan="3">
-								</td>					
-							</tr>			
-							
-							<tr>
-								<td align="right"><b>Monto:</b></td>
-								<td colspan="3">
-														
-								</td>
-				
-							</tr>		
-							
-						    <tr>
-								<td align="right"><b>Responsable:</b></td>
-								<td colspan="3">
-								</td>					
-							</tr>			
-							
-																							
-												
-							<tr>
-								<td align="right"  ><b>Compra Origen:</b></td>
-								<td>
-									
-														
-								</td>								
-							</tr>								
-																							
-																	
-							
-						    <tr>
-								<td align="right"><b>Venta Origen:</b></td>
-								<td colspan="3">
-								</td>					
-							</tr>																			
-							</table>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		</table>
+    </div>	
+   
+</div>				
 		<iframe name="valida"  style="visibility=hidden;" src="" width="0%" height="0%"></iframe> 		
 	</form>
 <%

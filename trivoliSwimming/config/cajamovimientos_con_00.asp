@@ -172,7 +172,9 @@ $(document).ready(function() {
 														,"ifrm"											//id_ifrm_form_datos														
 														); 
 								inicializar_dialogoContenedor(	"dialog_cont_BusqCompraOrigen" 										//id_dialog
-																); 														
+																); 				
+								inicializar_dialogoContenedor(	"dialog_cont_BusqVentaOrigen" 										//id_dialog
+																); 																												
 							});
 							
 </script>
@@ -267,6 +269,9 @@ function BuscarCompraOrigen(){
 	abrirDialogo('dialog_cont_BusqCompraOrigen','BuscarCompraOrigenV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarCompraOrigen&dnioblig=N&hcoblig=N',900,250);
 }
 
+function BuscarVentaOrigen(){	
+	abrirDialogo('dialog_cont_BusqVentaOrigen','BuscarVentaOrigenV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarVentaOrigen&dnioblig=N&hcoblig=N',900,250);
+}
 
 function volver_AsignarCompraOrigen(id, fecha,  nombre){
 
@@ -274,6 +279,14 @@ function volver_AsignarCompraOrigen(id, fecha,  nombre){
 	document.datos_02.idcompraorigen.value = id;
 	
 	$("#dialog_cont_BusqCompraOrigen").dialog("close");
+}
+
+function volver_AsignarVentaOrigen(id, fecha,  nombre){
+
+	document.datos_02.ventaorigen.value = nombre + " - " + fecha ;
+	document.datos_02.idventaorigen.value = id;
+	
+	$("#dialog_cont_BusqVentaOrigen").dialog("close");
 }
 
 </script>
@@ -337,7 +350,7 @@ function volver_AsignarCompraOrigen(id, fecha,  nombre){
                         <td align="center">
                             <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar">
                             <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/trivoliSwimming/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
-							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','cajamovimientos_con_02.asp?Tipo=A',650,350)"><img  src="/trivoliSwimming/shared/images/Agregar_24.png" border="0" title="Agregar Cliente"></a>    
+							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','cajamovimientos_con_02.asp?Tipo=A',650,450)"><img  src="/trivoliSwimming/shared/images/Agregar_24.png" border="0" title="Agregar Cliente"></a>    
                         </td>
                     </tr>
 					<tr>
@@ -371,7 +384,9 @@ function volver_AsignarCompraOrigen(id, fecha,  nombre){
 		
 		<div id="dialogConfirmDelete" title="Consulta">		</div>		
 		
-		<div id="dialog_cont_BusqCompraOrigen" title="Buscar Compra Origen">		</div>			
+		<div id="dialog_cont_BusqCompraOrigen" title="Buscar Compra Origen">		</div>		
+		
+		<div id="dialog_cont_BusqVentaOrigen" title="Buscar Venta Origen">		</div>				
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 
