@@ -270,12 +270,23 @@ end select
 									<script>document.datos_02.idtipomovimiento.value= "<%= l_idtipomovimiento%>"</script>		</div>
        
     </div>	
-    <div id="detalle">
-        <div id="columna1" align="right">Detalle:</div>
+    <div id="compraorigen">
+        <div id="columna1" align="right">Compra Origen:</div>
         <div id="columna2">
-		<input type="text" name="detalle" size="70" maxlength="200" value="<%= l_detalle %>">		</div>
+		<input class="deshabinp" readonly="" type="text" name="compraorigen" id="compraorigen" size="50" maxlength="50" value="<%=l_compraorigen %>">		
+									<input type="hidden" name="idcompraorigen" id="idcompraorigen" size="10" maxlength="10" value="<%=l_idcompraorigen %>">		
+									<a href="Javascript:BuscarCompraOrigen();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Compra Origen"></a>	</div>
        
     </div>		
+    <div id="ventaorigen">
+        <div id="columna1" align="right">Venta Origen:</div>
+        <div id="columna2">
+		<input class="deshabinp" readonly="" type="text" name="ventaorigen" id="ventaorigen" size="50" maxlength="50" value="<%=l_ventaorigen %>">		
+									<input type="hidden" name="idventaorigen" id="idventaorigen" size="10" maxlength="10" value="<%=l_idventaorigen %>">		
+									<a href="Javascript:BuscarVentaOrigen();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Venta Origen"></a>	</div>
+       
+    </div>		
+	
     <div id="unidaddenegocio">
         <div id="columna1" align="right">Unidad de Negocio:</div>
         <div id="columna2">
@@ -371,23 +382,14 @@ end select
 									</select>
 									<script>document.datos_02.idresponsable.value= "<%= l_idresponsable %>"</script>	</div>
        
-    </div>			
-    <div id="compraorigen">
-        <div id="columna1" align="right">Compra Origen:</div>
+    </div>		
+    <div id="detalle">
+        <div id="columna1" align="right">Detalle:</div>
         <div id="columna2">
-		<input class="deshabinp" readonly="" type="text" name="compraorigen" id="compraorigen" size="50" maxlength="50" value="<%=l_compraorigen %>">		
-									<input type="hidden" name="idcompraorigen" id="idcompraorigen" size="10" maxlength="10" value="<%=l_idcompraorigen %>">		
-									<a href="Javascript:BuscarCompraOrigen();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Compra Origen"></a>	</div>
+		<input type="text" name="detalle" size="70" maxlength="200" value="<%= l_detalle %>">		</div>
        
     </div>		
-    <div id="ventaorigen">
-        <div id="columna1" align="right">Venta Origen:</div>
-        <div id="columna2">
-		<input class="deshabinp" readonly="" type="text" name="ventaorigen" id="ventaorigen" size="50" maxlength="50" value="<%=l_ventaorigen %>">		
-									<input type="hidden" name="idventaorigen" id="idventaorigen" size="10" maxlength="10" value="<%=l_idventaorigen %>">		
-									<a href="Javascript:BuscarVentaOrigen();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Venta Origen"></a>	</div>
-       
-    </div>	
+
    
 </div>				
 		<iframe name="valida"  style="visibility=hidden;" src="" width="0%" height="0%"></iframe> 		
