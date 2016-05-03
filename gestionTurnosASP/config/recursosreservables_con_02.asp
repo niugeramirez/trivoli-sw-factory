@@ -71,7 +71,7 @@ end select
 							<tr>
 								<td align="right"><b>Apellido:</b></td>
 								<td colspan="3">
-									<input type="text" name="descripcion" size="37" maxlength="20" value="<%= l_descripcion %>">							
+									<input type="text" name="descripcion" size="37" maxlength="37" value="<%= l_descripcion %>">							
 								</td>
 				
 							</tr>	
