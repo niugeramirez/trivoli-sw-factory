@@ -322,13 +322,13 @@ end if
     <div id="tipo">
         <div id="columna1" align="right">Tipo:</div>
         <div id="columna2">
-			<select name="tipoes" size="1" style="width:250;">		
+			<select  name="tipoes" id="tipoes" size="1" style="width:250;">		
 				<option value= "E" >Entrada</option>
 				<option value= "S" >Salida</option>
 			</select>
 			<script>document.datos_02_mc.tipoes.value= "<%= l_tipoes%>"</script>
 			<%if l_p_id_venta <> "" or l_p_id_compra <> "" then%>
-				<script>document.datos_02_mc.tipoes.disabled = true;</script>
+				<script>$('#tipoes option:not(:selected)').attr('disabled',true);</script>
 			<%end if%>
 		</div>
        
@@ -337,7 +337,7 @@ end if
     <div id="tipomovimiento">
         <div id="columna1" align="right">Tipo Movimiento:</div>
         <div id="columna2">
-			<select name="idtipomovimiento" size="1" style="width:250;" onchange="ctroltipomovimiento();">
+			<select name="idtipomovimiento" id="idtipomovimiento" size="1" style="width:250;" onchange="ctroltipomovimiento();">
 				<option value="0" selected>&nbsp;Seleccione un Tipo de Movimiento</option>
 				<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 				l_sql = "SELECT  * "
@@ -355,7 +355,7 @@ end if
 			</select>
 			<script>document.datos_02_mc.idtipomovimiento.value= "<%= l_idtipomovimiento%>"</script>	
 			<%if l_p_id_venta <> "" or l_p_id_compra <> "" then%>
-				<script>document.datos_02_mc.idtipomovimiento.disabled = true;</script>
+				<script>$('#idtipomovimiento option:not(:selected)').attr('disabled',true);</script>
 			<%end if%>			
 		</div>
        
