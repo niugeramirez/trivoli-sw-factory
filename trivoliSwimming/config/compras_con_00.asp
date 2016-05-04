@@ -93,11 +93,17 @@ $(document).ready(function() {
 
 								inicializar_dialogoContenedor(	"dialog_cont_DC" 										//id_dialog
 																); 
+								inicializar_dialogoContenedor(	"dialog_cont_CMC" 										//id_dialog
+																); 
+																
 								//esta linea la agrego solo para refrescar cuando se cierra el dialogo contenedor, se podría parametrizar de modo de recibir
 								//la funcion como parametro que se debe ejecutar al
 								$( "#dialog_cont_DC" ).dialog({
 									close: function () {$(this).empty(); Buscar();}
-								});															
+								});	
+								$( "#dialog_cont_CMC" ).dialog({
+									close: function () {$(this).empty(); Buscar();}
+								});
 							});
 </script>
 <!--	FIN VENTANAS MODALES    -->
@@ -184,7 +190,7 @@ function Limpiar(){
                         <td align="left">
                             <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar">
                             <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/trivoliSwimming/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
-							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','compras_con_02.asp?Tipo=A',650,350)"><img  src="/trivoliSwimming/shared/images/Agregar_24.png" border="0" title="Agregar Venta"></a>    
+							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','compras_con_02.asp?Tipo=A',650,350)"><img  src="/trivoliSwimming/shared/images/Agregar_24.png" border="0" title="Agregar Compra"></a>    
                         </td>
                     </tr>
 					</tbody>
@@ -205,7 +211,8 @@ function Limpiar(){
 		
 		<div id="dialogConfirmDelete" title="Consulta">		</div>		
 
-		<div id="dialog_cont_DC" title="Detalle de Compras">		</div>			
+		<div id="dialog_cont_DC" title="Detalle de Compras">		</div>		
+		<div id="dialog_cont_CMC" title="Pagos">		</div>			
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 

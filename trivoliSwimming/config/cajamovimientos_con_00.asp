@@ -13,13 +13,22 @@ on error goto 0
 
 Dim l_rs
 Dim l_sql
+
+dim l_p_carga_js
+Dim l_p_id_venta
+Dim l_p_id_compra
+
+l_p_carga_js = request.querystring("p_carga_js")
+l_p_id_venta = request.querystring("p_id_venta")
+l_p_id_compra = request.querystring("p_id_compra")
+'response.write  "p_id_compra "&l_p_id_compra&"</br>"
   %>
 
 <html>
 <head>
 
 <title>Administracion de Caja Movimientos</title>
-
+<% if l_p_carga_js = "S" or isnull(l_p_carga_js) or l_p_carga_js = "" then%>
 <link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css" />
 <script src="../js/jquery.min.js"></script>
 <script src="../js/jquery-ui.js"></script>
@@ -31,8 +40,12 @@ Dim l_sql
 <script src="/trivoliSwimming/shared/js/fn_confirm.js"></script>
 <script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
 <script src="/trivoliSwimming/shared/js/fn_fechas.js"></script>
-<script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>
 
+
+<!--	VENTANAS MODALES        -->
+<script src="../js/ventanas_modales_custom_V2.js"></script>
+<% end if %>
+<script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>
 <!-- Comienzo Datepicker -->
 <script>
 $(function () {
@@ -53,86 +66,82 @@ $( "#filt_fechahasta_cm" ).datepicker({
 });
 </script>
 <!-- Final Datepicker -->
-
-<!--	VENTANAS MODALES        -->
-<script src="../js/ventanas_modales_custom_V2.js"></script>
-
 <script>
-function Validaciones_locales(){
+function Validaciones_locales_mc(){
 
-	if (document.datos_02.fecha.value == ""){
+	if (document.datos_02_mc.fecha.value == ""){
 		alert("Debe ingresar la fecha del movimiento.");
-		document.datos_02.fecha.focus();
+		document.datos_02_mc.fecha.focus();
 		return false;
 	}	
-	if (document.datos_02.tipoes.value == ""){
+	if (document.datos_02_mc.tipoes.value == ""){
 		alert("Debe ingresar el Tipo.");
-		document.datos_02.tipoes.focus();
+		document.datos_02_mc.tipoes.focus();
 		return false;
 	}	
 	
-	if (document.datos_02.idtipomovimiento.value == "0"){
+	if (document.datos_02_mc.idtipomovimiento.value == "0"){
 		alert("Debe ingresar el Tipo de Movimiento.");
-		document.datos_02.idtipomovimiento.focus();
+		document.datos_02_mc.idtipomovimiento.focus();
 		return false;
 	}	
 	
-	/*if (document.datos_02.detalle.value == ""){
+	/*if (document.datos_02_mc.detalle.value == ""){
 		alert("Debe ingresar el Detalle.");
-		document.datos_02.detalle.focus();
+		document.datos_02_mc.detalle.focus();
 		return false;
 	}*/		
 	
-	if (document.datos_02.idunidadnegocio.value == "0"){
+	if (document.datos_02_mc.idunidadnegocio.value == "0"){
 		alert("Debe ingresar la Unidad de Negocio.");
-		document.datos_02.idunidadnegocio.focus();
+		document.datos_02_mc.idunidadnegocio.focus();
 		return false;
 	}	
 	
-	if (document.datos_02.idmediopago.value == "0"){
+	if (document.datos_02_mc.idmediopago.value == "0"){
 		alert("Debe ingresar el Medio de Pago.");
-		document.datos_02.idmediopago.focus();
+		document.datos_02_mc.idmediopago.focus();
 		return false;
 	}	
 	
-	if (document.datos_02.mediodepagocheque.value == document.datos_02.idmediopago.value){
-		if (document.datos_02.idcheque.value == "0"){
+	if (document.datos_02_mc.mediodepagocheque.value == document.datos_02_mc.idmediopago.value){
+		if (document.datos_02_mc.idcheque.value == "0"){
 			alert("Debe ingresar el Cheque.");
-			document.datos_02.idcheque.focus();
+			document.datos_02_mc.idcheque.focus();
 			return false;
 		}	
 
 	}		
 	
-	if (document.datos_02.idtipomovimiento.value == "0"){
+	if (document.datos_02_mc.idtipomovimiento.value == "0"){
 		alert("Debe ingresar el Tipo de Movimiento.");
-		document.datos_02.idtipomovimiento.focus();
+		document.datos_02_mc.idtipomovimiento.focus();
 		return false;
 	}				
 
-	if (document.datos_02.monto.value == ""){
+	if (document.datos_02_mc.monto.value == ""){
 		alert("Debe ingresar un Monto.");
-		document.datos_02.monto.focus();
+		document.datos_02_mc.monto.focus();
 		return false;
 	}		
 	
-	if (document.datos_02.monto.value == "0"){
+	if (document.datos_02_mc.monto.value == "0"){
 		alert("El Monto debe ser distinto de Cero.");
-		document.datos_02.monto.focus();
+		document.datos_02_mc.monto.focus();
 		return false;
 	}		
 	
-	document.datos_02.monto2.value = document.datos_02.monto.value.replace(",", ".");
-	if (!validanumero(document.datos_02.monto2, 15, 4)){
+	document.datos_02_mc.monto2.value = document.datos_02_mc.monto.value.replace(",", ".");
+	if (!validanumero(document.datos_02_mc.monto2, 15, 4)){
 		  alert("El Monto no es válido. Se permite hasta 15 enteros y 4 decimales.");	
 		  document.datos.monto.focus();
 		  document.datos.monto.select();
 		  return;
 	}		
 	
-	if (document.datos_02.idresponsable.value == "0"){
+	if (document.datos_02_mc.idresponsable.value == "0"){
 		alert("Debe ingresar el Responsable.");
-		document.datos_02.idresponsable.focus();
+		document.datos_02_mc.idresponsable.focus();
 		return false;
 	}	
 
@@ -140,36 +149,36 @@ function Validaciones_locales(){
 	return true;
 }
 
-function Submit_Formulario() {
-	Validar_Formulario(	'dialog'								//id_dialog
+function Submit_Formulario_mc() {
+	Validar_Formulario(	'dialog_mc'								//id_dialog
 						,'cajamovimientos_con_06.asp'					//url_valid_06
 						,'cajamovimientos_con_03.asp'					//url_AM
-						,'dialogAlert'							//id_dialogAlert
-						,'datos_02'								//id_form_datos
-						,null //window.parent.ifrm.location			//location_reload
-						,Validaciones_locales					//funcion_Validaciones_locales
-						,"ifrm"											//id_ifrm_form_datos
+						,'dialogAlert_mc'							//id_dialogAlert
+						,'datos_02_mc'								//id_form_datos
+						,null //window.parent.ifrm_mc.location			//location_reload
+						,Validaciones_locales_mc					//funcion_Validaciones_locales
+						,"ifrm_mc"											//id_ifrm_form_datos
 					);
 } 
 
 $(document).ready(function() { 
-								inicializar_dialogAlert("dialogAlert"									//id_dialogAlert
+								inicializar_dialogAlert("dialogAlert_mc"									//id_dialogAlert
 														);
-								inicializar_dialogConfirmDelete(	"dialogConfirmDelete"				//id_dialogConfirmDelete
+								inicializar_dialogConfirmDelete(	"dialogConfirmDelete_mc"				//id_dialogConfirmDelete
 																	,"cajamovimientos_con_04.asp"				//url_baja
-																	,"dialogAlert"						//id_dialogAlert
-																	,"detalle_01"						//id_form_datos
-																	,"ifrm"								//id_ifrm_form_datos
+																	,"dialogAlert_mc"						//id_dialogAlert
+																	,"detalle_01_mc"						//id_form_datos
+																	,"ifrm_mc"								//id_ifrm_form_datos
 																	,null //window.parent.ifrm.location		//location_reload
 																	);
-								inicializar_dialogoABM(	"dialog" 										//id_dialog
+								inicializar_dialogoABM(	"dialog_mc" 										//id_dialog
 														,"cajamovimientos_con_06.asp"							//url_valid_06
 														,"cajamovimientos_con_03.asp"							//url_AM
-														,"dialogAlert"									//id_dialogAlert	
-														,"datos_02"										//id_form_datos		
+														,"dialogAlert_mc"									//id_dialogAlert	
+														,"datos_02_mc"										//id_form_datos		
 														,null //window.parent.ifrm.location					//location_reload
-														,Validaciones_locales							//funcion_Validaciones_locales	
-														,"ifrm"											//id_ifrm_form_datos														
+														,Validaciones_locales_mc							//funcion_Validaciones_locales	
+														,"ifrm_mc"											//id_ifrm_form_datos														
 														); 
 								inicializar_dialogoContenedor(	"dialog_cont_BusqCompraOrigen" 										//id_dialog
 																); 				
@@ -182,66 +191,66 @@ $(document).ready(function() {
 
 <script>
 
-function Buscar(){
+function Buscar_mc(){
 
-	$("#filtro_00").val("");
+	$("#filtro_00_mc").val("");
 
 	// Nombre
 	if ($("#filt_detalle_cm").val() != 0){
-		$("#filtro_00").val(" cajamovimientos.detalle like '*" + $("#filt_detalle_cm").val() + "*'");
+		$("#filtro_00_mc").val(" cajamovimientos.detalle like '*" + $("#filt_detalle_cm").val() + "*'");
 	}		
     
 	//Fecha desde
 	if ($("#filt_fechadesde_cm").val() != 0){
-		if ($("#filtro_00").val() != 0){
-			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		if ($("#filtro_00_mc").val() != 0){
+			$("#filtro_00_mc").val( $("#filtro_00_mc").val() + " and ");
 		}
-		$("#filtro_00").val(
-								$("#filtro_00").val() 
+		$("#filtro_00_mc").val(
+								$("#filtro_00_mc").val() 
 								+ " cajamovimientos.fecha  >= " + cambiafechaYYYYMMDD($("#filt_fechadesde_cm").val(),true,1)
 							);		
 	}	
 
 	//Fecha hasta
 	if ($("#filt_fechahasta_cm").val() != 0){
-		if ($("#filtro_00").val() != 0){
-			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		if ($("#filtro_00_mc").val() != 0){
+			$("#filtro_00_mc").val( $("#filtro_00_mc").val() + " and ");
 		}
-		$("#filtro_00").val(
-								$("#filtro_00").val() 
+		$("#filtro_00_mc").val(
+								$("#filtro_00_mc").val() 
 								+ " cajamovimientos.fecha  <= " + cambiafechaYYYYMMDD($("#filt_fechahasta_cm").val(),true,1)
 							);		
 	}	
 	
 	//Numero de cheque 
 	if ($("#filt_nrocheque_cm").val() != 0){
-		if ($("#filtro_00").val() != 0){
-			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		if ($("#filtro_00_mc").val() != 0){
+			$("#filtro_00_mc").val( $("#filtro_00_mc").val() + " and ");
 		}
-		$("#filtro_00").val(
-								$("#filtro_00").val() 
+		$("#filtro_00_mc").val(
+								$("#filtro_00_mc").val() 
 								+" cheques.numero like '*" + $("#filt_nrocheque_cm").val() + "*'"
 							);		
 	}	
 	
 	//banco 
 	if ($("#filt_banco_cm").val() != 0){
-		if ($("#filtro_00").val() != 0){
-			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		if ($("#filtro_00_mc").val() != 0){
+			$("#filtro_00_mc").val( $("#filtro_00_mc").val() + " and ");
 		}
-		$("#filtro_00").val(
-								$("#filtro_00").val() 
+		$("#filtro_00_mc").val(
+								$("#filtro_00_mc").val() 
 								+" bancos.nombre_banco like '*" + $("#filt_banco_cm").val() + "*'"
 							);		
 	}
 	
 	//Cliente/Proveedor 
 	if ($("#filt_cliprov_cm").val() != 0){
-		if ($("#filtro_00").val() != 0){
-			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		if ($("#filtro_00_mc").val() != 0){
+			$("#filtro_00_mc").val( $("#filtro_00_mc").val() + " and ");
 		}
-		$("#filtro_00").val(
-								$("#filtro_00").val() 
+		$("#filtro_00_mc").val(
+								$("#filtro_00_mc").val() 
 								+"( proveedores.nombre like '*" + $("#filt_cliprov_cm").val() + "*'"
 								+" or clientes.nombre like '*" + $("#filt_cliprov_cm").val() + "*')"
 							);		
@@ -250,41 +259,51 @@ function Buscar(){
 	
 	//Medio de pago 
 	if ($("#filt_idmediopago_cm").val() != 0){
-		if ($("#filtro_00").val() != 0){
-			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		if ($("#filtro_00_mc").val() != 0){
+			$("#filtro_00_mc").val( $("#filtro_00_mc").val() + " and ");
 		}
-		$("#filtro_00").val(
-								$("#filtro_00").val() 
+		$("#filtro_00_mc").val(
+								$("#filtro_00_mc").val() 
 								+" cajamovimientos.idmediopago = " + $("#filt_idmediopago_cm").val() 
 							);		
 	}	
-	window.ifrm.location = 'cajamovimientos_con_01.asp?asistente=0&filtro=' + $("#filtro_00").val();
+	window.ifrm_mc.location = 'cajamovimientos_con_01.asp?filtro=' + $("#filtro_00_mc").val()+'&p_id_venta='+"<%= l_p_id_venta%>"+'&p_id_compra='+"<%= l_p_id_compra%>";
 }
 
-function Limpiar(){
-	window.ifrm.location = 'cajamovimientos_con_01.asp';
+function Limpiar_mc(){
+	window.ifrm_mc.location = 'cajamovimientos_con_01.asp?p_id_venta='+"<%= l_p_id_venta%>"+'&p_id_compra='+"<%= l_p_id_compra%>";
 }
 
 function BuscarCompraOrigen(){	
-	abrirDialogo('dialog_cont_BusqCompraOrigen','BuscarCompraOrigenV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarCompraOrigen&dnioblig=N&hcoblig=N',900,250);
+	<%if l_p_id_venta <> "" or l_p_id_compra <> "" then%>
+			alert("No se puede seleccionar otra operacion. Vaya a la pantalla de Caja");
+	<%else%>	
+		abrirDialogo('dialog_cont_BusqCompraOrigen','BuscarCompraOrigenV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarCompraOrigen&dnioblig=N&hcoblig=N',900,250);			
+	<%end if%>	
+	
 }
 
 function BuscarVentaOrigen(){	
-	abrirDialogo('dialog_cont_BusqVentaOrigen','BuscarVentaOrigenV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarVentaOrigen&dnioblig=N&hcoblig=N',900,250);
+	
+	<%if l_p_id_venta <> "" or l_p_id_compra <> "" then%>
+			alert("No se puede seleccionar otra operacion. Vaya a la pantalla de Caja");
+	<%else%>	
+		abrirDialogo('dialog_cont_BusqVentaOrigen','BuscarVentaOrigenV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarVentaOrigen&dnioblig=N&hcoblig=N',900,250);		
+	<%end if%>		
 }
 
 function volver_AsignarCompraOrigen(id, fecha,  nombre){
 
-	document.datos_02.compraorigen.value = nombre + " - " + fecha ;
-	document.datos_02.idcompraorigen.value = id;
+	document.datos_02_mc.compraorigen.value = nombre + " - " + fecha ;
+	document.datos_02_mc.idcompraorigen.value = id;
 	
 	$("#dialog_cont_BusqCompraOrigen").dialog("close");
 }
 
 function volver_AsignarVentaOrigen(id, fecha,  nombre){
 
-	document.datos_02.ventaorigen.value = nombre + " - " + fecha ;
-	document.datos_02.idventaorigen.value = id;
+	document.datos_02_mc.ventaorigen.value = nombre + " - " + fecha ;
+	document.datos_02_mc.idventaorigen.value = id;
 	
 	$("#dialog_cont_BusqVentaOrigen").dialog("close");
 }
@@ -307,7 +326,7 @@ function volver_AsignarVentaOrigen(id, fecha,  nombre){
         </tr>
         <tr>
 			<td>
-                <input type="hidden" id="filtro_00" name="filtro_00" value="">
+                <input type="hidden" id="filtro_00_mc" name="filtro_00_mc" value="">
 				<table border="0" width="100%">
                     <colgroup>
                         <col class="colWidth20">
@@ -348,9 +367,9 @@ function volver_AsignarVentaOrigen(id, fecha,  nombre){
 						</td>						
 						
                         <td align="center">
-                            <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar">
-                            <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/trivoliSwimming/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
-							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','cajamovimientos_con_02.asp?Tipo=A',650,450)"><img  src="/trivoliSwimming/shared/images/Agregar_24.png" border="0" title="Agregar Cliente"></a>    
+                            <a class="sidebtnABM" href="Javascript:Buscar_mc();" ><img  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar">
+                            <a class="sidebtnABM" href="Javascript:Limpiar_mc();" ><img  src="/trivoliSwimming/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
+							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog_mc','cajamovimientos_con_02.asp?Tipo=A&p_id_venta='+'<%= l_p_id_venta%>'+'&p_id_compra='+'<%= l_p_id_compra%>',650,450)"><img  src="/trivoliSwimming/shared/images/Agregar_24.png" border="0" title="Agregar Movimiento"></a>    
                         </td>
                     </tr>
 					<tr>
@@ -372,17 +391,17 @@ function volver_AsignarVentaOrigen(id, fecha,  nombre){
 		</tr>		
 		<tr valign="top" height="100%">
             <td>
-      	        <iframe id="ifrm" name="ifrm" src="cajamovimientos_con_01.asp" width="100%" height="100%"></iframe> 
+      	        <iframe id="ifrm_mc" name="ifrm_mc" src="" width="100%" height="100%"></iframe> 
 	        </td>
         </tr>		
 	</table>
 	
 		<!--	PARAMETRIZACION DE VENTANAS MODALES        -->				
-		<div id="dialog" title="Cajas"> 			</div>	  
+		<div id="dialog_mc" title="Cajas"> 			</div>	  
 				
-		<div id="dialogAlert" title="Mensaje">				</div>	
+		<div id="dialogAlert_mc" title="Mensaje">				</div>	
 		
-		<div id="dialogConfirmDelete" title="Consulta">		</div>		
+		<div id="dialogConfirmDelete_mc" title="Consulta">		</div>		
 		
 		<div id="dialog_cont_BusqCompraOrigen" title="Buscar Compra Origen">		</div>		
 		
@@ -391,6 +410,6 @@ function volver_AsignarVentaOrigen(id, fecha,  nombre){
 </body>
 
 <script>
-	Buscar();
+	Buscar_mc();
 </script>
 </html>

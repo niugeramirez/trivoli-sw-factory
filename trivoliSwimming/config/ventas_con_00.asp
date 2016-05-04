@@ -123,8 +123,14 @@ $(document).ready(function() {
 								inicializar_dialogoContenedor(	"dialog_cont_CV" 										//id_dialog
 																); 																
 
+								inicializar_dialogoContenedor(	"dialog_cont_CM" 										//id_dialog
+																); 	
+																
 								inicializar_dialogoContenedor(	"dialog_cont_BusqCli" 										//id_dialog
-																); 																
+																); 		
+
+								inicializar_dialogoContenedor(	"dialog_cont_BusqCli" 										//id_dialog
+																); 																	
 																
 								inicializar_dialogoABM(	"dialogHCR_cont_EditCli" 										//id_dialog
 														,"EditarclientesV2_06.asp"				//url_valid_06
@@ -143,6 +149,9 @@ $(document).ready(function() {
 									close: function () {$(this).empty(); Buscar();}
 								});		
 								$( "#dialog_cont_CV" ).dialog({
+									close: function () {$(this).empty(); Buscar();}
+								});	
+								$( "#dialog_cont_CM" ).dialog({
 									close: function () {$(this).empty(); Buscar();}
 								});									
 								
@@ -240,6 +249,8 @@ function BuscarCliente(){
 		<div id="dialog_cont_DV" title="Detalle de Ventas">		</div>		
 		
 		<div id="dialog_cont_CV" title="Costos Ventas">		</div>		
+		
+		<div id="dialog_cont_CM" title="Pagos">		</div>	
 		
 		<div id="dialog_cont_BusqCli" title="Buscar Clientes">		</div>			
 		

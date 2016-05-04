@@ -129,7 +129,7 @@ end if
 											 
 				<a href="Javascript:parent.abrirDialogo('dialog_cont_DV','detalleventa_con_00.asp?p_carga_js=N&id=' + document.detalle_01.cabnro.value,620,400);"><img src="../shared/images/Data-List-icon_16.png" border="0" title="Detalle de Venta"></a>
 				<a href="Javascript:parent.abrirDialogo('dialog_cont_CV','costoventa_con_00.asp?p_carga_js=N&id=' + document.detalle_01.cabnro.value,620,400);"><img src="../shared/images/Ecommerce-Price-Tag-icon.png" border="0" title="Costo de Venta"></a>
-
+				<a href="Javascript:parent.abrirDialogo('dialog_cont_CM','cajamovimientos_con_00.asp?p_carga_js=N&p_id_venta=' + document.detalle_01.cabnro.value,1020,500);"><img src="../shared/images/US-dollar-icon_16.png" border="0" title="Pagos"></a>
 			</td>
         </tr>
 	    <%

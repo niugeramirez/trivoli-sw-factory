@@ -27,12 +27,18 @@ Dim l_ventaorigen
 Dim p_flagcompra
 Dim p_flagventa
 
+Dim l_p_id_venta
+Dim l_p_id_compra
+
 'ADO
 Dim l_tipo
 Dim l_sql
 Dim l_rs
 
 l_tipo = request.querystring("tipo")
+l_p_id_venta = request.querystring("p_id_venta")
+l_p_id_compra = request.querystring("p_id_compra")
+'response.write  "p_id_compra "&l_p_id_compra&"</br>"
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
@@ -106,12 +112,12 @@ $( "#fecha" ).datepicker({
 <script>
 function ctrolmediodepago(){
 
-	if (document.datos_02.mediodepagocheque.value == document.datos_02.idmediopago.value) {			
-			document.datos_02.idcheque.disabled = false;							
+	if (document.datos_02_mc.mediodepagocheque.value == document.datos_02_mc.idmediopago.value) {			
+			document.datos_02_mc.idcheque.disabled = false;							
 		}
 		else {
 		
-			document.datos_02.idcheque.disabled = true;							
+			document.datos_02_mc.idcheque.disabled = true;							
 	
 		}	
 
@@ -119,40 +125,40 @@ function ctrolmediodepago(){
 
 function ctrolcheque(){
 
-document.valida.location = "importecheque_con_00.asp?id=" + document.datos_02.idcheque.value ;	
+document.valida.location = "importecheque_con_00.asp?id=" + document.datos_02_mc.idcheque.value ;	
 
 }
 
 function actualizarimporte(p_importe){	
-	document.datos_02.monto.value = p_importe;
+	document.datos_02_mc.monto.value = p_importe;
 }
 
 
 function ctroltipomovimiento(){
 
-	document.valida.location = "flagtipomovimiento_con_00.asp?id=" + document.datos_02.idtipomovimiento.value ;	
+	document.valida.location = "flagtipomovimiento_con_00.asp?id=" + document.datos_02_mc.idtipomovimiento.value ;	
 
 }
 
 function actualizarflag (p_flagcompra, p_flagventa){	
 	
 		if (p_flagcompra == -1 ) {			
-			document.datos_02.idcompraorigen.disabled = false;		
+			document.datos_02_mc.idcompraorigen.disabled = false;		
 			mostrar('compraorigen');					
 		}
 		else {			
-			document.datos_02.idcompraorigen.disabled = true;	
-			document.datos_02.idcompraorigen.value = 0;
+			document.datos_02_mc.idcompraorigen.disabled = true;	
+			document.datos_02_mc.idcompraorigen.value = 0;
 			cerrar('compraorigen');					
 		};
 
 		if (p_flagventa == -1 ) {			
-			document.datos_02.idventaorigen.disabled = false;	
+			document.datos_02_mc.idventaorigen.disabled = false;	
 			mostrar('ventaorigen');						
 		}
 		else {			
-			document.datos_02.idventaorigen.disabled = true;	
-			document.datos_02.idventaorigen.value = 0;
+			document.datos_02_mc.idventaorigen.disabled = true;	
+			document.datos_02_mc.idventaorigen.value = 0;
 			cerrar('ventaorigen');	
 			
 		};	
@@ -181,18 +187,68 @@ function actualizarflag (p_flagcompra, p_flagventa){
 select Case l_tipo
 	Case "A":
  	    	l_fecha    	   = date()
-			l_tipoes    = "E"
-			'l_fecha_vencimiento     = ""
+			if l_p_id_compra <> "" then 		
+				l_tipoes    = "S"
+			else
+				l_tipoes    = "E"
+			end if
+			
 			l_idtipomovimiento       = "0"
+			'Si viene el parametro de venta entonces ya selecciono el tipo de movimeinto de venta venta
+			if l_p_id_venta <> "" then 						
+				l_idtipomovimiento = "1"
+				
+				Set l_rs = Server.CreateObject("ADODB.RecordSet")
+				l_sql = "SELECT  * "
+				l_sql = l_sql & " FROM tiposMovimientoCaja  "								
+				l_sql  = l_sql  & " WHERE tiposMovimientoCaja.flagVenta = -1 "
+				rsOpen l_rs, cn, l_sql, 0 
+				if not l_rs.eof then
+					l_idtipomovimiento           = l_rs("id") 		
+				end if
+				l_rs.Close
+	
+			else
+				if l_p_id_compra <> "" then 						
+					l_idtipomovimiento = "1"
+					
+					Set l_rs = Server.CreateObject("ADODB.RecordSet")
+					l_sql = "SELECT  * "
+					l_sql = l_sql & " FROM tiposMovimientoCaja  "								
+					l_sql  = l_sql  & " WHERE tiposMovimientoCaja.flagCompra = -1 "
+					rsOpen l_rs, cn, l_sql, 0 
+					if not l_rs.eof then
+						l_idtipomovimiento           = l_rs("id") 		
+					end if
+					l_rs.Close
+		
+				else			
+					l_idtipomovimiento = "0"
+				end if
+			end if
+			
 			l_detalle	     = ""
 			l_idunidadnegocio    = "0"
 			l_idmediopago 		 = "0"
 	    	l_idcheque = "0"
 	    	l_monto  = "0"
 			l_idresponsable = "0"
-			l_idcompraorigen = "0"
-			l_idventaorigen = "0"
-
+			
+			'Si viene el parametro de compra entonces ya selecciono la venta
+			if l_p_id_compra <> "" then 						
+				l_idcompraorigen = l_p_id_compra
+			else
+				l_idcompraorigen = "0"
+			end if						
+			
+			'Si viene el parametro de venta entonces ya selecciono la venta
+			if l_p_id_venta <> "" then 						
+				l_idventaorigen = l_p_id_venta
+			else
+				l_idventaorigen = "0"
+			end if
+			
+			
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
@@ -214,9 +270,7 @@ select Case l_tipo
 			l_idcheque				 = l_rs("idcheque")
 	    	l_monto 				 = l_rs("monto")
 	    	l_idresponsable  		 = l_rs("idresponsable")
-			l_idcompraorigen         = l_rs("idcompraorigen")
-			l_compraorigen           = l_rs("prov_nom") & " - " & l_rs("comp_fec")
-			l_ventaorigen           = l_rs("cli_nom") & " - " & l_rs("venta_fec")			
+			l_idcompraorigen         = l_rs("idcompraorigen")				
 			l_idventaorigen		     = l_rs("idventaorigen")
 			
 			
@@ -224,50 +278,86 @@ select Case l_tipo
 		l_rs.Close
 end select
 
+'Inicializaciones generales mas alla de si es Alta o modificacion de registro
+if l_idventaorigen <> "0" then
+	Set l_rs = Server.CreateObject("ADODB.RecordSet")
+	l_sql = "SELECT  clientes.nombre cli_nom , ventas.fecha venta_fec"
+	l_sql = l_sql & " FROM ventas  "			
+	l_sql = l_sql & " LEFT JOIN clientes ON clientes.id = ventas.idcliente  "						
+	l_sql  = l_sql  & " WHERE ventas.id = " & l_idventaorigen
+	rsOpen l_rs, cn, l_sql, 0 
+	if not l_rs.eof then
+		l_ventaorigen           = l_rs("cli_nom") & " - " & l_rs("venta_fec")			
+	end if
+	l_rs.Close
+end if
+
+if l_idcompraorigen <> "0" then
+	Set l_rs = Server.CreateObject("ADODB.RecordSet")
+	l_sql = "SELECT  proveedores.nombre prov_nom , compras.fecha comp_fec "
+	l_sql = l_sql & " FROM compras "			
+	l_sql = l_sql & " LEFT JOIN proveedores ON proveedores.id = compras.idproveedor "						
+	l_sql  = l_sql  & " WHERE compras.id  = " & l_idcompraorigen
+	rsOpen l_rs, cn, l_sql, 0 
+	if not l_rs.eof then
+		l_compraorigen           = l_rs("prov_nom") & " - " & l_rs("comp_fec")				
+	end if
+	l_rs.Close
+end if
+'Fin inicializacion generales 
 %>
-<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos_02.numero.focus();">	
-	<form name="datos_02" id="datos_02" action = "Javascript:Submit_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario();}"  target="valida">
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos_02_mc.numero.focus();">	
+	<form name="datos_02_mc" id="datos_02_mc" action = "Javascript:Submit_Formulario_mc();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario_mc();}"  target="valida">
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
 		<input type="Hidden" name="mediodepagocheque" value="<%= l_mediodepagocheque %>">
 		
 <div id="contenedor">
-
-    <div id="tipo">
-        <div id="columna1" align="right">Tipo:</div>
-        <div id="columna2">
-		<select name="tipoes" size="1" style="width:250;">		
-										<option value= "E" >Entrada</option>
-										<option value= "S" >Salida</option>
-									</select>
-									<script>document.datos_02.tipoes.value= "<%= l_tipoes%>"</script>		</div>
-       
-    </div>
     <div id="flotand">
         <div id="columna1" align="right">Fecha:</div>
         <div id="columna2"><input type="text" id="fecha" name="fecha" size="10" maxlength="10" value="<%= l_fecha %>">		</div>
        
     </div>	
+	
+    <div id="tipo">
+        <div id="columna1" align="right">Tipo:</div>
+        <div id="columna2">
+			<select name="tipoes" size="1" style="width:250;">		
+				<option value= "E" >Entrada</option>
+				<option value= "S" >Salida</option>
+			</select>
+			<script>document.datos_02_mc.tipoes.value= "<%= l_tipoes%>"</script>
+			<%if l_p_id_venta <> "" or l_p_id_compra <> "" then%>
+				<script>document.datos_02_mc.tipoes.disabled = true;</script>
+			<%end if%>
+		</div>
+       
+    </div>
+
     <div id="tipomovimiento">
         <div id="columna1" align="right">Tipo Movimiento:</div>
         <div id="columna2">
-		<select name="idtipomovimiento" size="1" style="width:250;" onchange="ctroltipomovimiento();">
-										<option value="0" selected>&nbsp;Seleccione un Tipo de Movimiento</option>
-										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-										l_sql = "SELECT  * "
-										l_sql  = l_sql  & " FROM tiposMovimientoCaja "
-										l_sql = l_sql & " where tiposMovimientoCaja.empnro = " & Session("empnro")   
-										
-										l_sql  = l_sql  & " ORDER BY descripcion "
-										rsOpen l_rs, cn, l_sql, 0
-										do until l_rs.eof		%>	
-										<option value= <%= l_rs("id") %> > 
-										<%= l_rs("descripcion") %>  </option>
-										<%	l_rs.Movenext
-										loop
-										l_rs.Close %>
-									</select>
-									<script>document.datos_02.idtipomovimiento.value= "<%= l_idtipomovimiento%>"</script>		</div>
+			<select name="idtipomovimiento" size="1" style="width:250;" onchange="ctroltipomovimiento();">
+				<option value="0" selected>&nbsp;Seleccione un Tipo de Movimiento</option>
+				<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+				l_sql = "SELECT  * "
+				l_sql  = l_sql  & " FROM tiposMovimientoCaja "
+				l_sql = l_sql & " where tiposMovimientoCaja.empnro = " & Session("empnro")   
+				
+				l_sql  = l_sql  & " ORDER BY descripcion "
+				rsOpen l_rs, cn, l_sql, 0
+				do until l_rs.eof		%>	
+				<option value= <%= l_rs("id") %> > 
+				<%= l_rs("descripcion") %>  </option>
+				<%	l_rs.Movenext
+				loop
+				l_rs.Close %>
+			</select>
+			<script>document.datos_02_mc.idtipomovimiento.value= "<%= l_idtipomovimiento%>"</script>	
+			<%if l_p_id_venta <> "" or l_p_id_compra <> "" then%>
+				<script>document.datos_02_mc.idtipomovimiento.disabled = true;</script>
+			<%end if%>			
+		</div>
        
     </div>	
     <div id="compraorigen">
@@ -306,7 +396,7 @@ end select
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02.idunidadnegocio.value= "<%= l_idunidadnegocio%>"</script>		</div>
+									<script>document.datos_02_mc.idunidadnegocio.value= "<%= l_idunidadnegocio%>"</script>		</div>
        
     </div>		
     <div id="mediodepago">
@@ -328,7 +418,7 @@ end select
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02.idmediopago.value= "<%= l_idmediopago %>"</script>	</div>
+									<script>document.datos_02_mc.idmediopago.value= "<%= l_idmediopago %>"</script>	</div>
        
     </div>		
     <div id="cheque">
@@ -351,7 +441,7 @@ end select
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02.idcheque.value= "<%= l_idcheque %>"</script></div>
+									<script>document.datos_02_mc.idcheque.value= "<%= l_idcheque %>"</script></div>
        
     </div>		
     <div id="monto">
@@ -380,7 +470,7 @@ end select
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02.idresponsable.value= "<%= l_idresponsable %>"</script>	</div>
+									<script>document.datos_02_mc.idresponsable.value= "<%= l_idresponsable %>"</script>	</div>
        
     </div>		
     <div id="detalle">

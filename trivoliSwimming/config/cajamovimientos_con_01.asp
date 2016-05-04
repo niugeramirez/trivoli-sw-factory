@@ -16,9 +16,18 @@ Dim l_totvol
 Dim l_cant
 
 Dim l_primero
+Dim l_p_id_venta
+Dim l_p_id_compra
+
+
+
 
 l_filtro = request("filtro")
 l_orden  = request("orden")
+
+l_p_id_venta = request.querystring("p_id_venta")
+l_p_id_compra = request.querystring("p_id_compra")
+'response.write  "p_id_compra "&l_p_id_compra&"</br>"
 
 if l_orden = "" then
   l_orden = " ORDER BY cajamovimientos.fecha desc "
@@ -30,6 +39,16 @@ end if
 <script src="/trivoliSwimming/shared/js/fn_windows.js"></script>
 <script src="/trivoliSwimming/shared/js/fn_confirm.js"></script>
 <script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
+<script>
+	function editar_registro(){
+		parent.abrirDialogo(
+							'dialog_mc'
+							,'cajamovimientos_con_02.asp?Tipo=M&cabnro=' + document.detalle_01_mc.cabnro.value+'&p_id_venta='+'<%= l_p_id_venta%>' +'&p_id_compra='+'<%= l_p_id_compra%>' 
+							,650
+							,450
+							);
+	}	
+</script>
 <head>
 <link href="/trivoliSwimming/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
@@ -37,7 +56,7 @@ end if
 </head>
 
 
-<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar();">
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar_mc();">
 <table>
     <tr>
         <th>Fecha</th>		
@@ -80,7 +99,13 @@ end if
 		l_sql = l_sql & " where cajamovimientos.empnro = " & Session("empnro")   
 	end if
 	
-	
+	if l_p_id_venta <> "" then 
+		l_sql = l_sql & " and cajaMovimientos.idventaOrigen = " & l_p_id_venta
+	end if
+
+	if l_p_id_compra <> "" then 
+		l_sql = l_sql & " and cajaMovimientos.idcompraOrigen = " & l_p_id_compra
+	end if	
 	
     l_sql = l_sql & " " & l_orden
 
@@ -100,7 +125,7 @@ end if
 	    do until l_rs.eof
 		    l_cant = l_cant + 1
 	    %>
-	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','cajamovimientos_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,450);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
+	    <tr ondblclick="Javascript:editar_registro();" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01_mc.cabnro)">    
 			<td width="10%" nowrap><%= l_rs("fecha")%></td>
 			
 			<td width="10%" align="left" nowrap><% if l_rs("tipo") = "E" then response.write "Entrada" else response.write  "Salida" end if%></td>			
@@ -121,8 +146,8 @@ end if
 			</td>			
 			  	
 	        <td align="center" width="10%" nowrap>                    
-                <a href="Javascript:parent.abrirDialogo('dialog','cajamovimientos_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,450);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
-				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
+                <a href="Javascript:editar_registro();"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
+				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01_mc.cabnro,'dialogAlert_mc','dialogConfirmDelete_mc');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
 			</td>
         </tr>
 	    <%
@@ -136,7 +161,7 @@ end if
     set cn = Nothing
     %>
 </table>
-<form name="detalle_01" id="detalle_01" method="post">
+<form name="detalle_01_mc" id="detalle_01_mc" method="post">
     <input type="hidden" id="cabnro" name="cabnro" value="0">
     <input type="hidden" name="orden" value="<%= l_orden %>">
     <input type="hidden" name="filtro" value="<%= l_filtro %>">
