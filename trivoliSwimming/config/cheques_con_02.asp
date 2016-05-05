@@ -101,8 +101,8 @@ select Case l_tipo
 end select
 
 %>
-<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos_02.numero.focus();">	
-	<form name="datos_02" id="datos_02" action = "Javascript:Submit_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario();}"  target="valida">
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos_02_cheq.numero.focus();">	
+	<form name="datos_02_cheq" id="datos_02_cheq" action = "Javascript:Submit_Formulario_cheq();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario_cheq();}"  target="valida">
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
 
@@ -149,7 +149,7 @@ end select
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02.idbanco.value= "<%= l_idbanco%>"</script>
+									<script>document.datos_02_cheq.idbanco.value= "<%= l_idbanco%>"</script>
 								</td>					
 							</tr>		
 							
@@ -161,7 +161,16 @@ end select
 								</td>
 				
 							</tr>				
-							
+						    <tr>
+								<td align="right"><b>Emitido por Franquicia:</b></td>
+								<td colspan="3"><select name="flag_propio" size="1" style="width:150;">
+										<option value="0" selected>NO</option>
+										<option value="-1" selected>SI</option>
+										
+									</select>
+									<script>document.datos_02_cheq.flag_propio.value= "<%= l_flag_propio%>"</script>
+								</td>					
+							</tr>								
 						    <tr>
 								<td align="right"><b>Emitido por Cliente:</b></td>
 								<td colspan="3"><select name="flag_emitidopor_cliente" size="1" style="width:150;">
@@ -169,7 +178,7 @@ end select
 										<option value="-1" selected>SI</option>
 										
 									</select>
-									<script>document.datos_02.flag_emitidopor_cliente.value= "<%= l_flag_emitidopor_cliente%>"</script>
+									<script>document.datos_02_cheq.flag_emitidopor_cliente.value= "<%= l_flag_emitidopor_cliente%>"</script>
 								</td>					
 							</tr>		
 							
@@ -180,16 +189,7 @@ end select
 								</td>
 				
 							</tr>																								
-						    <tr>
-								<td align="right"><b>Emitido por Franquicia:</b></td>
-								<td colspan="3"><select name="flag_propio" size="1" style="width:150;">
-										<option value="0" selected>NO</option>
-										<option value="-1" selected>SI</option>
-										
-									</select>
-									<script>document.datos_02.flag_propio.value= "<%= l_flag_propio%>"</script>
-								</td>					
-							</tr>	
+
 						    <tr>
 								<td align="right"><b>Validacion BCRA:</b></td>
 								<td colspan="3"><select name="validacion_bcra" size="1" style="width:150;">
@@ -197,7 +197,7 @@ end select
 										<option value="VALIDADO" selected>Validado</option>
 										<option value="RECHAZADO" selected>Rechazado</option>
 									</select>
-									<script>document.datos_02.validacion_bcra.value= "<%= l_validacion_bcra%>"</script>
+									<script>document.datos_02_cheq.validacion_bcra.value= "<%= l_validacion_bcra%>"</script>
 								</td>					
 							</tr>								
 
@@ -208,7 +208,7 @@ end select
 										<option value="-1" selected>SI</option>
 										
 									</select>
-									<script>document.datos_02.flag_cobrado_pagado.value= "<%= l_flag_cobrado_pagado%>"</script>
+									<script>document.datos_02_cheq.flag_cobrado_pagado.value= "<%= l_flag_cobrado_pagado%>"</script>
 								</td>					
 							</tr>								
 							

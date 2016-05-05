@@ -32,6 +32,8 @@ Dim l_sql
 <script src="/trivoliSwimming/shared/js/fn_fechas.js"></script>
 <script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>
 
+<script src="js_pantallas/cheques.js"></script>
+
 <!-- Comienzo Datepicker -->
 <script>
 $(function () {
@@ -57,94 +59,26 @@ $( "#filt_fechavcntohasta_cheq" ).datepicker({
 <script src="../js/ventanas_modales_custom_V2.js"></script>
 
 <script>
-function Validaciones_locales(){
 
-	
-	if (document.datos_02.numero.value == ""){
-		alert("Debe ingresar un Numero.");
-		document.datos_02.numero.focus();
-		return false;
-	}	
-	if (document.datos_02.fecha_emision.value == ""){
-		alert("Debe ingresar Fecha Emision.");
-		document.datos_02.fecha_emision.focus();
-		return false;
-	}	
-	if (document.datos_02.fecha_vencimiento.value == ""){
-		alert("Debe ingresar Fecha Vencimiento.");
-		document.datos_02.fecha_vencimiento.focus();
-		return false;
-	}		
-	if (document.datos_02.numero.value == ""){
-		alert("Debe ingresar un Numero.");
-		document.datos_02.numero.focus();
-		return false;
-	}		
-	if (document.datos_02.idbanco.value == "0"){
-		alert("Debe ingresar un Banco.");
-		document.datos_02.idbanco.focus();
-		return false;
-	}
-
-	if (document.datos_02.importe.value == ""){
-		alert("Debe ingresar un Importe.");
-		document.datos_02.importe.focus();
-		return false;
-	}		
-	
-	if (document.datos_02.importe.value == "0"){
-		alert("El Importe debe ser distinto de Cero.");
-		document.datos_02.importe.focus();
-		return false;
-	}		
-	
-	document.datos_02.importe2.value = document.datos_02.importe.value.replace(",", ".");
-	if (!validanumero(document.datos_02.importe2, 15, 4)){
-		  alert("El Importe no es válido. Se permite hasta 15 enteros y 4 decimales.");	
-		  document.datos.importe.focus();
-		  document.datos.importe.select();
-		  return;
-	}		
-	
-	if (document.datos_02.emisor.value == "0"){
-		alert("Debe ingresar un Emisor.");
-		document.datos_02.emisor.focus();
-		return false;
-	}	
-
-	return true;
-}
-
-function Submit_Formulario() {
-	Validar_Formulario(	'dialog'								//id_dialog
-						,'cheques_con_06.asp'					//url_valid_06
-						,'cheques_con_03.asp'					//url_AM
-						,'dialogAlert'							//id_dialogAlert
-						,'datos_02'								//id_form_datos
-						,null //window.parent.ifrm.location			//location_reload
-						,Validaciones_locales					//funcion_Validaciones_locales
-						,"ifrm"											//id_ifrm_form_datos
-					);
-} 
 
 $(document).ready(function() { 
-								inicializar_dialogAlert("dialogAlert"									//id_dialogAlert
+								inicializar_dialogAlert("dialogAlert_cheq"									//id_dialogAlert
 														);
-								inicializar_dialogConfirmDelete(	"dialogConfirmDelete"				//id_dialogConfirmDelete
+								inicializar_dialogConfirmDelete(	"dialogConfirmDelete_cheq"				//id_dialogConfirmDelete
 																	,"cheques_con_04.asp"				//url_baja
-																	,"dialogAlert"						//id_dialogAlert
-																	,"detalle_01"						//id_form_datos
-																	,"ifrm"								//id_ifrm_form_datos
+																	,"dialogAlert_cheq"						//id_dialogAlert
+																	,"detalle_01_cheq"						//id_form_datos
+																	,"ifrm_cheq"								//id_ifrm_form_datos
 																	,null //window.parent.ifrm.location		//location_reload
 																	);
-								inicializar_dialogoABM(	"dialog" 										//id_dialog
+								inicializar_dialogoABM(	"dialog_cheq" 										//id_dialog
 														,"cheques_con_06.asp"							//url_valid_06
 														,"cheques_con_03.asp"							//url_AM
-														,"dialogAlert"									//id_dialogAlert	
-														,"datos_02"										//id_form_datos		
+														,"dialogAlert_cheq"									//id_dialogAlert	
+														,"datos_02_cheq"										//id_form_datos		
 														,null //window.parent.ifrm.location					//location_reload
-														,Validaciones_locales							//funcion_Validaciones_locales	
-														,"ifrm"											//id_ifrm_form_datos														
+														,Validaciones_locales_cheq							//funcion_Validaciones_locales	
+														,"ifrm_cheq"											//id_ifrm_form_datos														
 														); 
 							});
 </script>
@@ -152,40 +86,40 @@ $(document).ready(function() {
 
 <script>
 
-function Buscar(){
+function Buscar_cheq(){
 
-	$("#filtro_00").val("");
+	$("#filtro_00_cheq").val("");
 
 	// nro cheque
-	if ($("#inpnombre").val() != 0){
-		$("#filtro_00").val(" cheques.numero like '*" + $("#inpnombre").val() + "*'");
+	if ($("#inpnombre_cheq").val() != 0){
+		$("#filtro_00_cheq").val(" cheques.numero like '*" + $("#inpnombre_cheq").val() + "*'");
 	}		
 	//Fecha vencimiento desde
 	if ($("#filt_fechavcntodesde_cheq").val() != 0){
-		if ($("#filtro_00").val() != 0){
-			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		if ($("#filtro_00_cheq").val() != 0){
+			$("#filtro_00_cheq").val( $("#filtro_00_cheq").val() + " and ");
 		}
-		$("#filtro_00").val(
-								$("#filtro_00").val() 
+		$("#filtro_00_cheq").val(
+								$("#filtro_00_cheq").val() 
 								+ " cheques.fecha_vencimiento  >= " + cambiafechaYYYYMMDD($("#filt_fechavcntodesde_cheq").val(),true,1)
 							);		
 	}	
 
 	//Fechavencimiento hasta
 	if ($("#filt_fechavcntohasta_cheq").val() != 0){
-		if ($("#filtro_00").val() != 0){
-			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		if ($("#filtro_00_cheq").val() != 0){
+			$("#filtro_00_cheq").val( $("#filtro_00_cheq").val() + " and ");
 		}
-		$("#filtro_00").val(
-								$("#filtro_00").val() 
+		$("#filtro_00_cheq").val(
+								$("#filtro_00_cheq").val() 
 								+ " cheques.fecha_vencimiento  <= " + cambiafechaYYYYMMDD($("#filt_fechavcntohasta_cheq").val(),true,1)
 							);		
 	}	    
-	window.ifrm.location = 'cheques_con_01.asp?asistente=0&filtro=' + $("#filtro_00").val();
+	window.ifrm_cheq.location = 'cheques_con_01.asp?asistente=0&filtro=' + $("#filtro_00_cheq").val();
 }
 
-function Limpiar(){
-	window.ifrm.location = 'cheques_con_01.asp';
+function Limpiar_cheq(){
+	window.ifrm_cheq.location = 'cheques_con_01.asp';
 }
 </script>
 </head>
@@ -205,7 +139,7 @@ function Limpiar(){
         </tr>
         <tr>
 			<td>
-                <input type="hidden" id="filtro_00" name="filtro_00" value="">
+                <input type="hidden" id="filtro_00_cheq" name="filtro_00_cheq" value="">
 				<table border="0" width="100%">
                     <colgroup>
                         <col class="colWidth20">
@@ -216,16 +150,16 @@ function Limpiar(){
                     </colgroup>
                     <tbody>
 				    <tr>
-					    <td><b>Numero: </b><input  type="text" id="inpnombre" name="inpnombre" size="21" maxlength="21" value="" ></td>
+					    <td><b>Numero: </b><input  type="text" id="inpnombre_cheq" name="inpnombre_cheq" size="21" maxlength="21" value="" ></td>
 						<td>
 							<b>Fecha Vcnto: </b><input id="filt_fechavcntodesde_cheq" type="text" name="filt_fechavcntodesde_cheq" size="10" maxlength="10" value="" >							
 						</td>
 					    <td></td>
 						<td></td>
                         <td align="center">
-                            <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar">
-                            <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/trivoliSwimming/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
-							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog','cheques_con_02.asp?Tipo=A',650,350)"><img  src="/trivoliSwimming/shared/images/Agregar_24.png" border="0" title="Agregar Cliente"></a>    
+                            <a class="sidebtnABM" href="Javascript:Buscar_cheq();" ><img  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar">
+                            <a class="sidebtnABM" href="Javascript:Limpiar_cheq();" ><img  src="/trivoliSwimming/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
+							<a id="abrirAlta" class="sidebtnABM" href="Javascript:abrirDialogo('dialog_cheq','cheques_con_02.asp?Tipo=A',650,350)"><img  src="/trivoliSwimming/shared/images/Agregar_24.png" border="0" title="Agregar Cliente"></a>    
                         </td>
                     </tr>
 					<tr>
@@ -243,21 +177,21 @@ function Limpiar(){
 		</tr>		
 		<tr valign="top" height="100%">
             <td>
-      	        <iframe id="ifrm" name="ifrm" src="clientes_con_01.asp" width="100%" height="100%"></iframe> 
+      	        <iframe id="ifrm_cheq" name="ifrm_cheq" src="clientes_con_01.asp" width="100%" height="100%"></iframe> 
 	        </td>
         </tr>		
 	</table>
 	
 		<!--	PARAMETRIZACION DE VENTANAS MODALES        -->				
-		<div id="dialog" title="Cheques"> 			</div>	  
+		<div id="dialog_cheq" title="Cheques"> 			</div>	  
 				
-		<div id="dialogAlert" title="Mensaje">				</div>	
+		<div id="dialogAlert_cheq" title="Mensaje">				</div>	
 		
-		<div id="dialogConfirmDelete" title="Consulta">		</div>		
+		<div id="dialogConfirmDelete_cheq" title="Consulta">		</div>		
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 
 <script>
-	Buscar();
+	Buscar_cheq();
 </script>
 </html>

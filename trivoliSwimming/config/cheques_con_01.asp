@@ -37,7 +37,7 @@ end if
 </head>
 
 
-<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar();">
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar_cheq();">
 <table>
     <tr>
         <th>Numero</th>		
@@ -138,7 +138,7 @@ end if
 	    do until l_rs.eof
 		    l_cant = l_cant + 1
 	    %>
-	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','cheques_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
+	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog_cheq','cheques_con_02.asp?Tipo=M&cabnro=' + document.detalle_01_cheq.cabnro.value,650,350);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01_cheq.cabnro)">    
 			<td width="10%" nowrap><%= l_rs("numero")%></td>
 			
 			<td width="10%" align="center" nowrap><%= l_rs("fecha_emision")%></td>			
@@ -155,8 +155,8 @@ end if
 			<td width="10%" nowrap align="center"><% if l_rs("flag_cobrado_pagado") = 0 then response.write "NO" else response.write "SI" end if %></td>			
 			<td width="10%" nowrap align="left"><%= l_rs("estado_cheque")%></td>						
 	        <td align="center" width="10%" nowrap>                    
-                <a href="Javascript:parent.abrirDialogo('dialog','cheques_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,350);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
-				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
+                <a href="Javascript:parent.abrirDialogo('dialog_cheq','cheques_con_02.asp?Tipo=M&cabnro=' + document.detalle_01_cheq.cabnro.value,650,350);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
+				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01_cheq.cabnro,'dialogAlert_cheq','dialogConfirmDelete_cheq');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
 			</td>
         </tr>
 	    <%
@@ -170,7 +170,7 @@ end if
     set cn = Nothing
     %>
 </table>
-<form name="detalle_01" id="detalle_01" method="post">
+<form name="detalle_01_cheq" id="detalle_01_cheq" method="post">
     <input type="hidden" id="cabnro" name="cabnro" value="0">
     <input type="hidden" name="orden" value="<%= l_orden %>">
     <input type="hidden" name="filtro" value="<%= l_filtro %>">
