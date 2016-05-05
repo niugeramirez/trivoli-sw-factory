@@ -13,6 +13,10 @@ Dim l_orden
 Dim l_sqlfiltro
 Dim l_sqlorden
 Dim l_totvol
+Dim l_saldo
+Dim l_pagado
+Dim l_monto_compra
+
 Dim l_cant
 
 Dim l_primero
@@ -60,13 +64,21 @@ function Seleccionar(fila,cabnro){
     <tr>
         <th>Proveedor</th>
         <th>Fecha</th>		
-					
+		<th>Saldo</th>	
     </tr>
 <%
 l_filtro = replace (l_filtro, "*", "%")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 l_sql = "SELECT    compras.id, compras.fecha, proveedores.nombre  "
+l_sql = l_sql & " ,( select SUM( detalleCompras.cantidad*detalleCompras.precio_unitario) "
+l_sql = l_sql & " 	from detalleCompras "
+l_sql = l_sql & " where detalleCompras.idcompra = compras.id "
+l_sql = l_sql & " )	as monto_compra "
+l_sql = l_sql & " ,(	select	SUM(cajaMovimientos.monto) "
+l_sql = l_sql & " from	cajaMovimientos "
+l_sql = l_sql & " where	cajaMovimientos.idcompraOrigen = compras.id "
+l_sql = l_sql & " )	as  pagado "	
 l_sql = l_sql & " FROM compras "
 l_sql = l_sql & " INNER JOIN proveedores ON proveedores.id = compras.idproveedor "
 
@@ -100,7 +112,25 @@ if l_rs.eof then
 
 	        <td width="10%" nowrap><%= l_rs("nombre")%></td>
 	        <td align="center" width="10%" nowrap><%= l_rs("fecha")%></td>		
-	
+			<% 
+				if isnull(l_rs("monto_compra")) then					 
+					l_monto_compra = 0
+				else					
+					l_monto_compra = cdbl(l_rs("monto_compra"))
+				end if
+
+				if isnull(l_rs("pagado")) then
+					l_pagado = 0
+				else 
+					l_pagado = cdbl(l_rs("pagado"))
+				end if
+				
+				l_saldo = l_monto_compra - l_pagado 
+				if l_saldo = 0 then
+					l_saldo = ""
+				end if
+			%>
+			<td width="10%" align="center" nowrap><%= l_saldo %></td>		
 
 	    </tr>
 	<%

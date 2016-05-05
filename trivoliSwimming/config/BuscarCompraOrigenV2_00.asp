@@ -85,7 +85,7 @@ $(document).ready(function() {
 <script>
 
 function Buscar(){
-	var tieneotro;
+	/*var tieneotro;
 	var estado;
 	document.form_BusqCli.filtro.value = "";
 	tieneotro = "no";
@@ -101,20 +101,50 @@ function Buscar(){
 			document.form_BusqCli.filtro.value += " proveedores.nombre like '*" + document.form_BusqCli.nombre.value + "*'";
 		}
 		tieneotro = "si";
+	}	*/	
+				
+	$("#filtro").val("");
+
+	// Nombre
+	if ($("#nombre").val() != 0){
+		//Eugenio 02/05/2016 en lugar de enviar * para los comodines envio **, con esto el el 01 reemplazo el ** por %
+		//Esto es porque el otro filtro implica una operacion matematica de multiplicacion, con lo que se modifica el * y hace un calculo erroneo
+		$("#filtro").val(" proveedores.nombre like '**" + $("#nombre").val() + "**'");
 	}		
-				
-				
+    
+ 
+	if ($("#filt_con_saldo_comp").is(':checked'))
+	{
+		if ($("#filtro").val() != 0){
+			$("#filtro").val( $("#filtro").val() + " and ");
+		}
+		$("#filtro").val(
+								$("#filtro").val() 
+								+ " ( " 
+								+ " isnull((SELECT  "
+								+ "     SUM(detalleCompras.cantidad * detalleCompras.precio_unitario) "
+								+ " FROM detalleCompras "
+								+ "   WHERE detalleCompras.idcompra = compras.id),0)  "
+								+ " -  "
+								+ " isnull((SELECT "
+								+ "     SUM(cajaMovimientos.monto) "
+								+ "   FROM cajaMovimientos "
+								+ "   WHERE cajaMovimientos.idcompraOrigen = compras.id),0)  "
+								+ " <>0								 "
+								+ " ) " 
+							);		
+	}
 
 	
-	if (document.form_BusqCli.filtro.value.trim() == ""){
+	/*if (document.form_BusqCli.filtro.value.trim() == ""){
 		alert("Debe ingresar el Filtro.");
 		document.form_BusqCli.nombre.focus();
 		return;
-	}
+	}*/
 	
-	if (estado == "si"){
+	//if (estado == "si"){
 		window.ifrm_BusqCli.location = 'BuscarCompraOrigenV2_01.asp?asistente=0&filtro=' + document.form_BusqCli.filtro.value;
-	}
+	//}
 }
 
 
@@ -135,12 +165,14 @@ function Limpiar(){
 			<td align="center" colspan="2">
 				
 					<form name="form_BusqCli" id="form_BusqCli" action="nada" target="nada">
-						<input type="hidden" name="filtro" value="">
+						<input type="hidden" name="filtro" id="filtro"  value="">
 						<table border="0">
 							<tr>
 								<td align="right"><b>Nombre: </b></td>
-								<td align="left" colspan="3" ><input  type="text" name="nombre" size="21" maxlength="21" value="" ></td>					
-
+								<td align="left" colspan="3" ><input  type="text" name="nombre" id="nombre" size="21" maxlength="21" value="" ></td>					
+								<td>
+									<b>Con saldo:</b><input type="checkbox" id="filt_con_saldo_comp" name="filt_con_saldo_comp">
+								</td>
 							</tr>												
 						</table>
 					</form>		

@@ -51,7 +51,7 @@ end if
 		<th>Acciones</th>		
     </tr>
     <%
-    l_filtro = replace (l_filtro, "*", "%")
+    l_filtro = replace (l_filtro, "**", "%")
 
     Set l_rs = Server.CreateObject("ADODB.RecordSet")
     l_sql = "SELECT    ventas.* , clientes.nombre "

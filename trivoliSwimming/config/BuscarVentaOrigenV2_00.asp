@@ -46,36 +46,41 @@ function Validaciones_locales_EditPac(){
 <script>
 
 function Buscar(){
-	var tieneotro;
-	var estado;
-	document.form_BusqCli.filtro.value = "";
-	tieneotro = "no";
-	estado = "si";
-
-
+	
+	$("#filtro").val("");
 
 	// Nombre
-	if (document.form_BusqCli.nombre.value != 0){
-		if (tieneotro == "si"){
-			document.form_BusqCli.filtro.value += " AND clientes.nombre like '*" + document.form_BusqCli.nombre.value + "*'";
-		}else{
-			document.form_BusqCli.filtro.value += " clientes.nombre like '*" + document.form_BusqCli.nombre.value + "*'";
+	if ($("#nombre").val() != 0){
+		//Eugenio 02/05/2016 en lugar de enviar * para los comodines envio **, con esto el el 01 reemplazo el ** por %
+		//Esto es porque el otro filtro implica una operacion matematica de multiplicacion, con lo que se modifica el * y hace un calculo erroneo	
+		$("#filtro").val(" clientes.nombre like '**" + $("#nombre").val() + "**'");
+	}					
+				
+	//saldo
+	if ($("#filt_con_saldo_vent").is(':checked'))
+	{
+		if ($("#filtro").val() != 0){
+			$("#filtro").val( $("#filtro").val() + " and ");
 		}
-		tieneotro = "si";
-	}		
-				
-				
+		$("#filtro").val(
+								$("#filtro").val() 
+								+ " ( " 
+								+ " isnull((SELECT  "
+								+ "     SUM(detalleVentas.cantidad * detalleVentas.precio_unitario) "
+								+ " FROM detalleVentas "
+								+ "   WHERE detalleVentas.idVenta = ventas.id),0)  "
+								+ " -  "
+								+ "   isnull((SELECT "
+								+ "     SUM(cajaMovimientos.monto) "
+								+ "   FROM cajaMovimientos "
+								+ "   WHERE cajaMovimientos.idventaOrigen = ventas.id),0)  "
+								+ " <>0								 "
+								+ " ) " 	
+							);		
+	}	
+	
+	window.ifrm_BusqCli.location = 'BuscarVentaOrigenV2_01.asp?asistente=0&filtro=' + document.form_BusqCli.filtro.value;
 
-	
-	if (document.form_BusqCli.filtro.value.trim() == ""){
-		alert("Debe ingresar el Filtro.");
-		document.form_BusqCli.nombre.focus();
-		return;
-	}
-	
-	if (estado == "si"){
-		window.ifrm_BusqCli.location = 'BuscarVentaOrigenV2_01.asp?asistente=0&filtro=' + document.form_BusqCli.filtro.value;
-	}
 }
 
 
@@ -96,12 +101,12 @@ function Limpiar(){
 			<td align="center" colspan="2">
 				
 					<form name="form_BusqCli" id="form_BusqCli" action="nada" target="nada">
-						<input type="hidden" name="filtro" value="">
+						<input type="hidden" name="filtro" id="filtro" value="">
 						<table border="0">
 							<tr>
 								<td align="right"><b>Nombre: </b></td>
-								<td align="left" colspan="3" ><input  type="text" name="nombre" size="21" maxlength="21" value="" ></td>					
-
+								<td align="left" colspan="3" ><input  type="text" name="nombre" id="nombre" size="21" maxlength="21" value="" ></td>					
+								<td><b>Con saldo:</b><input type="checkbox" id="filt_con_saldo_vent" name="filt_con_saldo_vent">
 							</tr>												
 						</table>
 					</form>		

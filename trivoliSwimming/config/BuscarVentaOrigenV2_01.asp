@@ -13,6 +13,9 @@ Dim l_orden
 Dim l_sqlfiltro
 Dim l_sqlorden
 Dim l_totvol
+Dim l_saldo
+Dim l_cobrado
+Dim l_monto_venta
 Dim l_cant
 
 Dim l_primero
@@ -22,7 +25,7 @@ l_orden  = request("orden")
 
 
 if l_orden = "" then
-  l_orden = " ORDER BY  nombre "
+  l_orden = " ORDER BY  fecha desc "
 end if
 
 
@@ -60,13 +63,22 @@ function Seleccionar(fila,cabnro){
     <tr>
         <th>Cliente</th>
         <th>Fecha</th>		
+		<th>Saldo</th>
 					
     </tr>
 <%
-l_filtro = replace (l_filtro, "*", "%")
+l_filtro = replace (l_filtro, "**", "%")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 l_sql = "SELECT    ventas.id, ventas.fecha, clientes.nombre  "
+l_sql = l_sql & " ,( select SUM( detalleVentas.cantidad*detalleVentas.precio_unitario) "
+l_sql = l_sql & " 	from detalleVentas "
+l_sql = l_sql & " 	where detalleVentas.idVenta = ventas.id "
+l_sql = l_sql & " )	as monto_venta "
+l_sql = l_sql & " ,(	select	SUM(cajaMovimientos.monto) "
+l_sql = l_sql & " 	from	cajaMovimientos "
+l_sql = l_sql & " 	where	cajaMovimientos.idventaOrigen = ventas.id "
+l_sql = l_sql & " )	as  cobrado	"	
 l_sql = l_sql & " FROM ventas "
 l_sql = l_sql & " INNER JOIN clientes ON clientes.id = ventas.idcliente "
 
@@ -74,11 +86,11 @@ l_sql = l_sql & " INNER JOIN clientes ON clientes.id = ventas.idcliente "
 if l_filtro <> "" then
   l_sql = l_sql & " WHERE " & l_filtro & " "
   l_sql  = l_sql  & " AND ventas.empnro = " & Session("empnro")
+else  
+  l_sql = l_sql & " where ventas.empnro = " & Session("empnro")   
 end if
 
-if l_filtro = "" then
-  l_sql  = l_sql  & " WHERE clientes.empnro = " & Session("empnro")
-end if
+
 
 l_sql = l_sql & " " & l_orden
 
@@ -100,7 +112,25 @@ if l_rs.eof then
 
 	        <td width="10%" nowrap><%= l_rs("nombre")%></td>
 	        <td align="center" width="10%" nowrap><%= l_rs("fecha")%></td>		
-	
+			<% 
+				if isnull(l_rs("monto_venta")) then					 
+					l_monto_venta = 0
+				else					
+					l_monto_venta = cdbl(l_rs("monto_venta"))
+				end if
+
+				if isnull(l_rs("cobrado")) then
+					l_cobrado = 0
+				else 
+					l_cobrado = cdbl(l_rs("cobrado"))
+				end if
+				
+				l_saldo = l_monto_venta - l_cobrado 
+				if l_saldo = 0 then
+					l_saldo = ""
+				end if
+			%>
+			<td width="10%" align="center" nowrap><%= l_saldo %></td>	
 
 	    </tr>
 	<%

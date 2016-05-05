@@ -130,15 +130,15 @@ function Buscar(){
 		$("#filtro_00").val(
 								$("#filtro_00").val() 
 								+ " ( " 
-								+ " (SELECT  "
+								+ " isnull((SELECT  "
 								+ "     SUM(detalleCompras.cantidad * detalleCompras.precio_unitario) "
 								+ " FROM detalleCompras "
-								+ "   WHERE detalleCompras.idcompra = compras.id)  "
+								+ "   WHERE detalleCompras.idcompra = compras.id),0)  "
 								+ " -  "
-								+ "   (SELECT "
+								+ " isnull((SELECT "
 								+ "     SUM(cajaMovimientos.monto) "
 								+ "   FROM cajaMovimientos "
-								+ "   WHERE cajaMovimientos.idcompraOrigen = compras.id)  "
+								+ "   WHERE cajaMovimientos.idcompraOrigen = compras.id),0)  "
 								+ " <>0								 "
 								+ " ) " 
 							);		

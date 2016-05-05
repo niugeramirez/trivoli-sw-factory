@@ -167,9 +167,34 @@ function Buscar(){
 
 	// Nombre
 	if ($("#inpnombre").val() != 0){
-		$("#filtro_00").val(" clientes.nombre like '*" + $("#inpnombre").val() + "*'");
+		//Eugenio 02/05/2016 en lugar de enviar * para los comodines envio **, con esto el el 01 reemplazo el ** por %
+		//Esto es porque el otro filtro implica una operacion matematica de multiplicacion, con lo que se modifica el * y hace un calculo erroneo	
+		$("#filtro_00").val(" clientes.nombre like '**" + $("#inpnombre").val() + "**'");
 	}		
-    
+
+	//saldo
+	if ($("#filt_con_saldo_vent").is(':checked'))
+	{
+		if ($("#filtro_00").val() != 0){
+			$("#filtro_00").val( $("#filtro_00").val() + " and ");
+		}
+		$("#filtro_00").val(
+								$("#filtro_00").val() 
+								+ " ( " 
+								+ " isnull((SELECT  "
+								+ "     SUM(detalleVentas.cantidad * detalleVentas.precio_unitario) "
+								+ " FROM detalleVentas "
+								+ "   WHERE detalleVentas.idVenta = ventas.id),0)  "
+								+ " -  "
+								+ "   isnull((SELECT "
+								+ "     SUM(cajaMovimientos.monto) "
+								+ "   FROM cajaMovimientos "
+								+ "   WHERE cajaMovimientos.idventaOrigen = ventas.id),0)  "
+								+ " <>0								 "
+								+ " ) " 	
+							);		
+	}	
+   
 	window.ifrm.location = 'ventas_con_01.asp?asistente=0&filtro=' + $("#filtro_00").val();
 }
 
@@ -221,7 +246,8 @@ function BuscarCliente(){
 				    <tr>
 					    <td align="right"><b>Cliente: </b></td>
 						<td><input  type="text" id="inpnombre" name="inpnombre" size="60" maxlength="21" value="" ></td>
-					    <td></td>
+					    <td><b>Con saldo:</b><input type="checkbox" id="filt_con_saldo_vent" name="filt_con_saldo_vent">
+						</td>
                         <td align="left">
                             <a class="sidebtnABM" href="Javascript:Buscar();" ><img  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar">
                             <a class="sidebtnABM" href="Javascript:Limpiar();" ><img  src="/trivoliSwimming/shared/images/Limpiar_24.png" border="0" title="Limpiar">                            
