@@ -141,6 +141,7 @@ function Ayuda_Fecha(txt){
 								<option value=4 >Caja</option> 
 								<option value=5 >Caja/Reponsable</option>
 								<option value=6 >Obligaciones a Pagar</option>
+								<option value=7>Estado Cheques</option>
 							</select>
 							
 						</td>			

@@ -1,4 +1,5 @@
 <% Option Explicit %>
+<!--#include virtual="/trivoliSwimming/shared/db/conn_db.inc"-->
 <% 
 'Archivo: cheques_con_00.asp
 'Descripción: Administración de cheques
@@ -114,7 +115,18 @@ function Buscar_cheq(){
 								$("#filtro_00_cheq").val() 
 								+ " cheques.fecha_vencimiento  <= " + cambiafechaYYYYMMDD($("#filt_fechavcntohasta_cheq").val(),true,1)
 							);		
-	}	    
+	}	
+
+	//Estado 
+	if ($("#filt_estado_cheq").val() != 0){
+		if ($("#filtro_00_cheq").val() != 0){
+			$("#filtro_00_cheq").val( $("#filtro_00_cheq").val() + " and ");
+		}
+		$("#filtro_00_cheq").val(
+								$("#filtro_00_cheq").val() 
+								+" dbo.get_estado_cheque(cheques.id) = " + $("#filt_estado_cheq").val() 
+							);		
+	}    
 	window.ifrm_cheq.location = 'cheques_con_01.asp?asistente=0&filtro=' + $("#filtro_00_cheq").val();
 }
 
@@ -154,7 +166,22 @@ function Limpiar_cheq(){
 						<td>
 							<b>Fecha Vcnto: </b><input id="filt_fechavcntodesde_cheq" type="text" name="filt_fechavcntodesde_cheq" size="10" maxlength="10" value="" >							
 						</td>
-					    <td></td>
+					    <td> <b>Estado: </b>
+							<select name="filt_estado_cheq" id="filt_estado_cheq" size="1" style="width:100;" >
+								<option value="0" selected>&nbsp;Todos</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT  * "
+								l_sql  = l_sql  & " FROM cheques_estado "
+								rsOpen l_rs, cn, l_sql, 0
+								response.write l_sql
+								do until l_rs.eof		%>	
+								<option value=<%= l_rs("id") %> > 
+								<%= l_rs("estado") %>  </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>								
+							</select>							
+						</td>
 						<td></td>
                         <td align="center">
                             <a class="sidebtnABM" href="Javascript:Buscar_cheq();" ><img  src="/trivoliSwimming/shared/images/Buscar_24.png" border="0" title="Buscar">
