@@ -143,6 +143,7 @@ function Ayuda_Fecha(txt){
 								<option value=6 >Obligaciones a Pagar</option>
 								<option value=7>Estado Cheques</option>
 								<option value=8>Obligaciones a Cobrar</option>
+								<option value=9>Utilidad Neta</option>
 							</select>
 							
 						</td>			

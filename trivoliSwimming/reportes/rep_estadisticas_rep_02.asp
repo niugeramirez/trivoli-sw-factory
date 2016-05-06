@@ -156,6 +156,18 @@ sub encabezado8
 	
     </tr>
 <%end sub	
+
+sub encabezado9
+%>
+    <tr>
+		<th width="100">Año</th>
+    	<th width="100">Venta</th>
+        <th width="200">Costo</th>			
+		<th width="200">Utilidad</th>					
+
+	
+    </tr>
+<%end sub
 %>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
@@ -1209,6 +1221,120 @@ case 8 'Obligaciones a cobrar
   'strXML = strXML & " <dataset seriesname='Saldo' color='B3AA00' showValues='1' alpha='70'> "
   strXML = strXML & strXML_s14
   'strXML = strXML & " </dataset> "  
+  strXML = strXML & " </graph>" 
+  
+	'response.write "hola"&strXML
+	'Create the chart - Column 3D Chart with data contained in strXML
+		Call renderChart("../FusionCharts/FCF_MSColumn3D.swf", "", strXML, "productSales", 800, 350)
+	
+	set l_rs = Nothing
+	cn.Close
+	set cn = Nothing
+
+case 9 'utilidad neta
+	
+	l_sql =  " select sum(tab_agrup.monto_venta)	as monto_venta "
+	l_sql = l_sql & " 		,sum(tab_agrup.costo_venta)		as costo_venta	 "
+	l_sql = l_sql & " 		,sum(tab_agrup.monto_venta)	- sum(tab_agrup.costo_venta)	as utilidad_neta "
+	l_sql = l_sql & " 		,anio "
+	l_sql = l_sql & " from	( "
+	l_sql = l_sql & " 			SELECT ventas.id "
+	l_sql = l_sql & " 					,ventas.fecha  "
+	l_sql = l_sql & " 					,YEAR(ventas.fecha) as anio "
+	l_sql = l_sql & " 					, clientes.nombre																as cliente_nombre "
+	l_sql = l_sql & " 					,( select SUM( detalleVentas.cantidad*detalleVentas.precio_unitario)  "
+	l_sql = l_sql & " 						from detalleVentas  "
+	l_sql = l_sql & " 						where detalleVentas.idVenta = ventas.id  "
+	l_sql = l_sql & " 						)																			as monto_venta  "
+	l_sql = l_sql & " 					,( select SUM( costosVentas.cantidad*costosVentas.precio_unitario)  "
+	l_sql = l_sql & " 						from costosVentas  "
+	l_sql = l_sql & " 						where costosVentas.idVenta = ventas.id  "
+	l_sql = l_sql & " 						)																			as costo_venta  "
+	l_sql = l_sql & " 			FROM ventas  "
+	l_sql = l_sql & " 			LEFT JOIN clientes ON clientes.id = ventas.idcliente  "
+	l_sql = l_sql & " 			where  ventas.fecha >=  "& cambiafecha(l_fechadesde,"YMD",true)
+	l_sql = l_sql & " 			AND ventas.fecha <=  "& cambiafecha(l_fechahasta,"YMD",true)
+	l_sql = l_sql & " 			AND ventas.empnro =  "& Session("empnro")
+	l_sql = l_sql & " 		)		tab_agrup	 "
+	l_sql = l_sql & " group by anio	"
+
+	'response.write l_sql
+	rsOpen l_rs, cn, l_sql, 0 
+%>	
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar();">
+<table>
+    <tr>
+        <td colspan="6">&nbsp;</td>
+    </tr>
+	<tr>
+        <td  colspan="6" align="center" ><h3>Utilidadesr:&nbsp;<%= l_fechadesde %>&nbsp; al <%= l_fechahasta %>&nbsp;&nbsp;</h3></td>	
+    </tr>
+
+<% 
+	encabezado9	
+		i = 0
+    do while not l_rs.eof	
+		arrData(i,1) =  l_rs("anio") 
+		arrData(i,2) =  round( l_rs("monto_venta"),0)
+		arrData(i,3) = round( l_rs("costo_venta"),0)
+		arrData(i,4) = round( l_rs("utilidad_neta"),0)
+%>	
+	    <tr>
+			
+			<td align="center"><%= l_rs("anio") %></td>
+			<td align="center"><%= l_rs("monto_venta") %></td>
+	        <td align="center"><%= l_rs("costo_venta") %></td>	
+			<td align="center"><%= l_rs("utilidad_neta")%></td>
+												   
+	    </tr>
+		
+		 <tr>
+		 <td align="center" colspan=15>	
+<% 
+		i = i + 1	
+		l_rs.movenext
+	loop	
+
+		'Now, we need to convert this data into XML. We convert using string concatenation.
+	' Dim strXML14
+	' Dim strXML_C14
+	' Dim strXML_1P4
+	' Dim strXML_R14
+	' Dim strXML_s14
+	
+	'Initialize <graph> element
+	'eugenio esta linea me paece al pedo porque se reasigna en la isntruccion siguiente strXML = "<graph caption='' subCaption='' yaxisname='Saldo' xaxisname='' formatNumberScale='0' decimalPrecision='2' showNames='1' showValues='1' showPercentageInLabel ='1' showAlternateVGridColor='1' alternateVGridAlpha='10' alternateVGridColor='AFD8F8' numDivLines='4' decimalPrecision='0' canvasBorderThickness='1' canvasBorderColor='114B78' baseFontColor='114B78' hoverCapBorderColor='114B78' hoverCapBgColor='E7EFF6'> "
+	
+	strXML = "<graph xaxisname='' yaxisname='Saldo' hovercapbg='DEDEBE' hovercapborder='889E6D' rotateNames='0' animation='1' yAxisMaxValue='0' numdivlines='9' divLineColor='CCCCCC' divLineAlpha='80' decimalPrecision='0' showAlternateVGridColor='1' AlternateVGridAlpha='30' AlternateVGridColor='CCCCCC' caption='Utilidades' subcaption='' > "
+
+	
+	'Convert data to XML and append
+	For i=0 to UBound(arrData)-1
+		'add values using <set name='...' value='...' color='...'/>
+   		strXML_C14 = strXML_C14 & "   <category name='" & arrData(i,1) & "' hoverText=' "& arrData(i,1) &"'/> "		
+		strXML_1P4 = strXML_1P4 & "    <set value='" & arrData(i,2) & "' /> "
+		strXML_R14 = strXML_R14 & "    <set value='" & arrData(i,3) & "' /> "
+		strXML_s14 = strXML_s14 & "    <set value='" & arrData(i,4) & "' /> "
+	Next
+	'Close <graph> element
+	'strXML = strXML & "</graph>"
+
+	'response.write strXML & "-"
+	'response.end
+	
+	
+   strXML = strXML & "<categories font='tahoma' fontSize='11' fontColor='000000'> "	
+   strXML = strXML & strXML_C14
+   strXML = strXML & "</categories> "
+  strXML = strXML & " <dataset seriesname='Ventas' color='FDC12E' alpha='70'> " 
+    strXML = strXML & strXML_1P4
+  strXML = strXML & " </dataset> "
+  strXML = strXML & " <dataset seriesname='Costos' color='8E468E' showValues='1' alpha='70'> "
+  strXML = strXML & strXML_R14
+  strXML = strXML & " </dataset> "
+  strXML = strXML & " <dataset seriesname='Utilidad' color='B3AA00' showValues='1' alpha='70'> "
+  strXML = strXML & strXML_s14
+  strXML = strXML & " </dataset> "  
   strXML = strXML & " </graph>" 
   
 	'response.write "hola"&strXML
