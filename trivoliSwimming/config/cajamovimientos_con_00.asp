@@ -183,7 +183,9 @@ $(document).ready(function() {
 								inicializar_dialogoContenedor(	"dialog_cont_BusqCompraOrigen" 										//id_dialog
 																); 				
 								inicializar_dialogoContenedor(	"dialog_cont_BusqVentaOrigen" 										//id_dialog
-																); 																												
+																); 		
+								inicializar_dialogoContenedor(	"dialog_cont_BusqCheque" 										//id_dialog
+																); 																																										
 							});
 							
 </script>
@@ -292,6 +294,12 @@ function BuscarVentaOrigen(){
 	<%end if%>		
 }
 
+function BuscarCheque(){	
+	
+	abrirDialogo('dialog_cont_BusqCheque','BuscarChequeV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarCheque&dnioblig=N&hcoblig=N',900,250);		
+		
+}
+
 function volver_AsignarCompraOrigen(id, fecha,  nombre){
 
 	document.datos_02_mc.compraorigen.value = nombre + " - " + fecha ;
@@ -306,6 +314,15 @@ function volver_AsignarVentaOrigen(id, fecha,  nombre){
 	document.datos_02_mc.idventaorigen.value = id;
 	
 	$("#dialog_cont_BusqVentaOrigen").dialog("close");
+}
+
+function volver_AsignarCheque(id, fecha,  numero, banco, importe ){
+
+	document.datos_02_mc.cheque_nom.value = numero + " - " + banco + " - " + fecha;
+	document.datos_02_mc.idcheque.value = id;
+	document.datos_02_mc.monto.value = importe;
+	
+	$("#dialog_cont_BusqCheque").dialog("close");
 }
 
 </script>
@@ -405,7 +422,9 @@ function volver_AsignarVentaOrigen(id, fecha,  nombre){
 		
 		<div id="dialog_cont_BusqCompraOrigen" title="Buscar Compra Origen">		</div>		
 		
-		<div id="dialog_cont_BusqVentaOrigen" title="Buscar Venta Origen">		</div>				
+		<div id="dialog_cont_BusqVentaOrigen" title="Buscar Venta Origen">		</div>			
+		
+		<div id="dialog_cont_BusqCheque" title="Buscar Cheque">		</div>					
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 

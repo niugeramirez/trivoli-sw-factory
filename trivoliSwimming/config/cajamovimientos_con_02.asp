@@ -23,6 +23,7 @@ Dim l_mediodepagocheque
 
 Dim l_compraorigen
 Dim l_ventaorigen
+Dim l_cheque_nom
 
 Dim p_flagcompra
 Dim p_flagventa
@@ -113,11 +114,13 @@ $( "#fecha" ).datepicker({
 function ctrolmediodepago(){
 
 	if (document.datos_02_mc.mediodepagocheque.value == document.datos_02_mc.idmediopago.value) {			
-			document.datos_02_mc.idcheque.disabled = false;							
+			//document.datos_02_mc.idcheque.disabled = false;	
+			mostrar('cheque');						
 		}
 		else {
 		
-			document.datos_02_mc.idcheque.disabled = true;							
+			//document.datos_02_mc.idcheque.disabled = true;	
+			cerrar('cheque');								
 	
 		}	
 
@@ -230,6 +233,7 @@ select Case l_tipo
 			l_detalle	     = ""
 			l_idunidadnegocio    = "0"
 			l_idmediopago 		 = "0"
+			l_cheque_nom         = ""
 	    	l_idcheque = "0"
 	    	l_monto  = "0"
 			l_idresponsable = "0"
@@ -252,12 +256,14 @@ select Case l_tipo
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
-		l_sql = "SELECT  cajamovimientos.* , proveedores.nombre prov_nom , compras.fecha comp_fec, clientes.nombre cli_nom , ventas.fecha venta_fec"
+		l_sql = "SELECT  cajamovimientos.* , proveedores.nombre prov_nom , compras.fecha comp_fec, clientes.nombre cli_nom , ventas.fecha venta_fec, cheques.numero cheque_num , cheques.fecha_emision ,  bancos.nombre_banco "
 		l_sql = l_sql & " FROM cajamovimientos  "
 		l_sql = l_sql & " LEFT JOIN compras ON compras.id = cajamovimientos.idcompraorigen  "		
 		l_sql = l_sql & " LEFT JOIN proveedores ON proveedores.id = compras.idproveedor "				
 		l_sql = l_sql & " LEFT JOIN ventas ON ventas.id = cajamovimientos.idventaorigen  "				
 		l_sql = l_sql & " LEFT JOIN clientes ON clientes.id = ventas.idcliente  "						
+		l_sql = l_sql & " LEFT JOIN cheques ON cheques.id = cajamovimientos.idcheque  "	
+		l_sql = l_sql & " LEFT JOIN bancos ON bancos.id = cheques.id_banco "
 		l_sql  = l_sql  & " WHERE cajamovimientos.id = " & l_id
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
@@ -267,6 +273,7 @@ select Case l_tipo
 			l_detalle   			 = l_rs("detalle")
 			l_idunidadnegocio  		 = l_rs("idunidadnegocio")
 			l_idmediopago            = l_rs("idmediopago")
+			l_cheque_nom             = l_rs("cheque_num") & " - " & l_rs("nombre_banco")  & " - " & l_rs("fecha_emision") 
 			l_idcheque				 = l_rs("idcheque")
 	    	l_monto 				 = l_rs("monto")
 	    	l_idresponsable  		 = l_rs("idresponsable")
@@ -421,29 +428,15 @@ end if
 									<script>document.datos_02_mc.idmediopago.value= "<%= l_idmediopago %>"</script>	</div>
        
     </div>		
+    
     <div id="cheque">
         <div id="columna1" align="right">Cheque:</div>
         <div id="columna2">
-		<select name="idcheque" size="1" style="width:250;" onchange="ctrolcheque();">
-										<option value="0" selected>&nbsp;Seleccione un Cheque</option>
-										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
-										l_sql = "SELECT  cheques.id, cheques.numero, bancos.nombre_banco , cheques.importe"
-										l_sql  = l_sql  & " FROM cheques "
-										l_sql  = l_sql  & " LEFT JOIN bancos ON bancos.id = cheques.id_banco "
-										l_sql = l_sql & " where cheques.empnro = " & Session("empnro")   
-										
-										l_sql  = l_sql  & " ORDER BY bancos.nombre_banco "
-										rsOpen l_rs, cn, l_sql, 0
-										do until l_rs.eof		%>	
-										<option monto="<%= l_rs("importe") %>"  value= <%= l_rs("id") %> > 
-										<%= l_rs("nombre_banco") %> &nbsp;-&nbsp;<%= l_rs("numero") %> </option>
-										<%	l_rs.Movenext
-										loop
-										l_rs.Close %>
-									</select>
-									<script>document.datos_02_mc.idcheque.value= "<%= l_idcheque %>"</script></div>
+		<input class="deshabinp" readonly="" type="text" name="cheque_nom" id="cheque_nom" size="50" maxlength="50" value="<%=l_cheque_nom %>">		
+									<input type="hidden" name="idcheque" id="idcheque" size="10" maxlength="10" value="<%=l_idcheque %>">		
+									<a href="Javascript:BuscarCheque();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Cheque"></a>	</div>
        
-    </div>		
+    </div>			
     <div id="monto">
         <div id="columna1" align="right">Monto:</div>
         <div id="columna2">
