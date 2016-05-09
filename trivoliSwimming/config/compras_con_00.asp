@@ -93,6 +93,8 @@ $(document).ready(function() {
 
 								inicializar_dialogoContenedor(	"dialog_cont_DC" 										//id_dialog
 																); 
+								inicializar_dialogoContenedor(	"dialog_cont_BusqPro" 										//id_dialog
+																); 																	
 								inicializar_dialogoContenedor(	"dialog_cont_CMC" 										//id_dialog
 																); 
 																
@@ -151,7 +153,18 @@ function Limpiar(){
 	window.ifrm.location = 'compras_con_01.asp';
 }
 
+function volver_AsignarProveedor(id,  nombre){
 
+	document.datos_02.idproveedor.value = id;
+	document.datos_02.proveedor.value = nombre;
+	
+	$("#dialog_cont_BusqPro").dialog("close");
+}
+
+function BuscarProveedor(){	
+	
+	abrirDialogo('dialog_cont_BusqPro','BuscarproveedoresV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarProveedor&dnioblig=N&hcoblig=N',900,250);
+}
 
 </script>
 </head>
@@ -213,6 +226,7 @@ function Limpiar(){
 
 		<div id="dialog_cont_DC" title="Detalle de Compras">		</div>		
 		<div id="dialog_cont_CMC" title="Pagos">		</div>			
+	    <div id="dialog_cont_BusqPro" title="Buscar Proveedores">		</div>		
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 
