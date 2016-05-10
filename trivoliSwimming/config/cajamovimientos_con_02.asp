@@ -432,10 +432,11 @@ end if
     <div id="cheque">
         <div id="columna1" align="right">Cheque:</div>
         <div id="columna2">
-		<input class="deshabinp" readonly="" type="text" name="cheque_nom" id="cheque_nom" size="50" maxlength="50" value="<%=l_cheque_nom %>">		
-									<input type="hidden" name="idcheque" id="idcheque" size="10" maxlength="10" value="<%=l_idcheque %>">		
-									<a href="Javascript:BuscarCheque();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Cheque"></a>	</div>
-       
+			<input class="deshabinp" readonly="" type="text" name="cheque_nom" id="cheque_nom" size="50" maxlength="50" value="<%=l_cheque_nom %>">		
+			<input type="hidden" name="idcheque" id="idcheque" size="10" maxlength="10" value="<%=l_idcheque %>">		
+			<a href="Javascript:BuscarCheque();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Cheque"></a>	
+			<a href="Javascript:Editar_Cheque();"><img src="../shared/images/Modificar_16.png" border="0" title="Editar Cheque"></a>			
+		</div>
     </div>			
     <div id="monto">
         <div id="columna1" align="right">Monto:</div>

@@ -31,16 +31,42 @@ on error goto 0
 <title>Buscar Ventas</title>
 <!--	VENTANAS MODALES        -->
 <script>
+
 function AsignarCheque(id, fecha, numero, banco, importe){
-	<%= l_fn_asign_pac %>(id, fecha, numero, banco, importe );
+
+	<%= l_fn_asign_pac %>(id, fecha, numero, banco, importe);
 }
 
-function Validaciones_locales_EditPac(){
+function devolver_cheque_editado(id){
+
+	<%= l_fn_asign_pac %>(	id,
+							document.datos_02_cheq.fecha_emision.value, 
+							document.datos_02_cheq.numero.value, 
+							$( "#idbanco option:selected" ).text().trim(),
+							document.datos_02_cheq.importe.value  
+							);
+}
+
+function Validaciones_locales_EditCheq(){
 	//como la pantalla 02 se usa en varios lugares (a diferencia del esquema general de ABM) ponemos la funcion de validacion local en el 02, y se invoca desde la ventana llamadora
-	return Validaciones_locales_EditPac_02()
+	return Validaciones_locales_cheq();
 }
 
+$(document).ready(function() { 
+								inicializar_dialogAlert("dialogAlert_BusqEdicCheq"									//id_dialogAlert
+														);
 
+								inicializar_dialogoABM(	"dialog_cont_EditCheq" 										//id_dialog
+														,"cheques_con_06.asp"				//url_valid_06
+														,"cheques_con_03.asp"				//url_AM
+														,"dialogAlert_BusqEdicCheq"									//id_dialogAlert															
+														,"datos_02_cheq"										//id_form_datos															
+														,null //window.parent.ifrm.location					//location_reload														
+														,Validaciones_locales_EditCheq							//funcion_Validaciones_locales	
+														,"ifrm_mc"											//id_ifrm_form_datos	
+														,devolver_cheque_editado //fn_post_AM														
+														); 																
+							});
 </script>
 <!--	FIN VENTANAS MODALES    -->
 <script>
@@ -62,9 +88,9 @@ function Buscar(){
 }
 
 
-function AltaCliente(){
+function AltaCheque(){
 
-	abrirDialogo('dialogHCR_cont_EditCli','EditarclientesV2_02.asp?Tipo=A&ventana=3&dni=<%= l_dni %>&hcoblig=<%= l_hcoblig %>',600,300);
+	abrirDialogo('dialog_cont_EditCheq','cheques_con_02.asp?Tipo=A&ventana=3&dni=<%= l_dni %>&hcoblig=<%= l_hcoblig %>',600,300);
 }
 
 function Limpiar(){
@@ -110,9 +136,9 @@ function Limpiar(){
 
       </table>
 		<!--	PARAMETRIZACION DE VENTANAS MODALES        -->		
-		<div id="dialogAlert_BusqEdicCli" title="Mensaje">				</div>			
+		<div id="dialogAlert_BusqEdicCheq" title="Mensaje">				</div>			
 		<div id="dialog_cont_EditCli" title="Editar Clientes">		</div>	
-		
+		<div id="dialog_cont_EditCheq" title="Editar Cheque">		</div>	
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->			  
 </body>
 </html>

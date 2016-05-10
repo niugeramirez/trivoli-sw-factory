@@ -102,7 +102,7 @@ end select
 
 %>
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos_02_cheq.numero.focus();">	
-	<form name="datos_02_cheq" id="datos_02_cheq" action = "Javascript:Submit_Formulario_cheq();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario_cheq();}"  target="valida">
+	<form name="datos_02_cheq" id="datos_02_cheq" action = "Javascript:Submit_Formulario_cheq();" onkeypress=""  target="valida">
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
 
@@ -133,7 +133,7 @@ end select
 							</tr>									
 						    <tr>
 								<td align="right"><b>Banco:</b></td>
-								<td colspan="3"><select name="idbanco" size="1" style="width:450;">
+								<td colspan="3"><select name="idbanco" id="idbanco" size="1" style="width:450;">
 										<option value="0" selected>&nbsp;Seleccione un Banco</option>
 										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 										l_sql = "SELECT  * "

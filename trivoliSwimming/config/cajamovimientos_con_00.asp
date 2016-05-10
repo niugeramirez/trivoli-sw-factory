@@ -42,10 +42,12 @@ l_p_id_compra = request.querystring("p_id_compra")
 <script src="/trivoliSwimming/shared/js/fn_fechas.js"></script>
 
 
+
 <!--	VENTANAS MODALES        -->
 <script src="../js/ventanas_modales_custom_V2.js"></script>
 <% end if %>
-<script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>}
+<script src="js_pantallas/cheques.js"></script>
 <!-- Comienzo Datepicker -->
 <script>
 $(function () {
@@ -180,6 +182,18 @@ $(document).ready(function() {
 														,Validaciones_locales_mc							//funcion_Validaciones_locales	
 														,"ifrm_mc"											//id_ifrm_form_datos														
 														); 
+
+								inicializar_dialogoABM(	"dialog_cont_EditCheq_CM" 										//id_dialog
+														,"cheques_con_06.asp"				//url_valid_06
+														,"cheques_con_03.asp"				//url_AM
+														,"dialogAlert_mc"									//id_dialogAlert															
+														,"datos_02_cheq"										//id_form_datos															
+														,null //window.parent.ifrm.location					//location_reload														
+														,Validaciones_locales_cheq							//funcion_Validaciones_locales	
+														,"ifrm_mc"											//id_ifrm_form_datos	
+														,devolver_cheque_editado //fn_post_AM														
+														); 	
+														
 								inicializar_dialogoContenedor(	"dialog_cont_BusqCompraOrigen" 										//id_dialog
 																); 				
 								inicializar_dialogoContenedor(	"dialog_cont_BusqVentaOrigen" 										//id_dialog
@@ -296,7 +310,7 @@ function BuscarVentaOrigen(){
 
 function BuscarCheque(){	
 	
-	abrirDialogo('dialog_cont_BusqCheque','BuscarChequeV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarCheque&dnioblig=N&hcoblig=N',900,250);		
+	abrirDialogo('dialog_cont_BusqCheque','BuscarChequeV2_00.asp?Tipo=A&Alta=S&fn_asign_pac=volver_AsignarCheque',900,250);		
 		
 }
 
@@ -325,6 +339,25 @@ function volver_AsignarCheque(id, fecha,  numero, banco, importe ){
 	$("#dialog_cont_BusqCheque").dialog("close");
 }
 
+function devolver_cheque_editado(){
+	volver_AsignarCheque(	document.datos_02_cheq.id.value,
+							document.datos_02_cheq.fecha_emision.value, 
+							document.datos_02_cheq.numero.value, 
+							$( "#idbanco option:selected" ).text().trim(),
+							document.datos_02_cheq.importe.value  
+							);							
+}	
+
+function Editar_Cheque(){ 
+
+	if (document.datos_02_mc.idcheque.value == 0){
+		alert("Debe ingresar el Cheque.");
+		document.datos_02_,c.idcheque.focus();
+		return;
+	}; 
+		
+	abrirDialogo('dialog_cont_EditCheq_CM','cheques_con_02.asp?Tipo=M&cabnro='+document.datos_02_mc.idcheque.value,600,300);
+}
 </script>
 </head>
 
@@ -425,6 +458,8 @@ function volver_AsignarCheque(id, fecha,  numero, banco, importe ){
 		<div id="dialog_cont_BusqVentaOrigen" title="Buscar Venta Origen">		</div>			
 		
 		<div id="dialog_cont_BusqCheque" title="Buscar Cheque">		</div>					
+		
+		<div id="dialog_cont_EditCheq_CM" title="Editar Cheque">		</div>		
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 
