@@ -46,7 +46,7 @@ l_p_id_compra = request.querystring("p_id_compra")
 <!--	VENTANAS MODALES        -->
 <script src="../js/ventanas_modales_custom_V2.js"></script>
 <% end if %>
-<script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>}
+<script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>
 <script src="js_pantallas/cheques.js"></script>
 <!-- Comienzo Datepicker -->
 <script>
