@@ -25,7 +25,7 @@ l_orden  = request("orden")
 
 
 if l_orden = "" then
-  l_orden = " ORDER BY  fecha_emision,  numero "
+  l_orden = " ORDER BY cheques.fecha_vencimiento  desc ,cheques.fecha_emision desc "
 end if
 
 
@@ -63,18 +63,20 @@ function Seleccionar(fila,cabnro){
     <tr>
         <th>Numero</th>
         <th>Fecha Emision</th>		
+		<th>Fecha vencimiento</th>	
 		<th>Banco</th>
 		<th>Importe</th>
-					
+		<th>Estado</th> 			
     </tr>
 <%
 l_filtro = replace (l_filtro, "**", "%")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
-l_sql = "SELECT    cheques.id, cheques.fecha_emision , cheques.numero , bancos.nombre_banco , cheques.importe  "
+l_sql = "SELECT    cheques.id, cheques.fecha_emision , cheques.fecha_vencimiento , cheques.numero , bancos.nombre_banco , cheques.importe  "
+l_sql = l_sql & " ,cheques_estado.estado AS estado_cheque "
 l_sql = l_sql & " FROM cheques "
 l_sql = l_sql & " LEFT JOIN bancos ON bancos.id = cheques.id_banco "
-
+l_sql = l_sql & " left join cheques_estado on cheques_estado.id = dbo.get_estado_cheque(cheques.id) "
 
 if l_filtro <> "" then
   l_sql = l_sql & " WHERE " & l_filtro & " "
@@ -103,9 +105,10 @@ if l_rs.eof then
 
 	        <td align="center" width="10%" nowrap><%= l_rs("numero")%></td>
 	        <td align="center" width="10%" nowrap><%= l_rs("fecha_emision")%></td>		
+			<td width="10%" align="center" nowrap><%= l_rs("fecha_vencimiento")%></td>			
 			<td width="10%" align="center" nowrap><%= l_rs("nombre_banco") %></td>	
 			<td width="10%" align="center" nowrap><%= l_rs("importe") %></td>
-
+			<td width="10%" nowrap align="left"><%= l_rs("estado_cheque")%></td>	
 	    </tr>
 	<%
 		l_rs.MoveNext

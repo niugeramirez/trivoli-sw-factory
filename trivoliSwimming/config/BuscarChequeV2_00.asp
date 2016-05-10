@@ -82,6 +82,16 @@ function Buscar(){
 		$("#filtro").val(" cheques.numero like '**" + $("#nombre").val() + "**'");
 	}					
 				
+	//Estado 
+	if ($("#filt_estado_cheq_busq").val() != 0){
+		if ($("#filtro").val() != 0){
+			$("#filtro").val( $("#filtro").val() + " and ");
+		}
+		$("#filtro").val(
+								$("#filtro").val() 
+								+" dbo.get_estado_cheque(cheques.id) = " + $("#filt_estado_cheq_busq").val() 
+							);		
+	} 
 	
 	window.ifrm_BusqChe.location = 'BuscarChequeV2_01.asp?asistente=0&filtro=' + document.form_BusqChe.filtro.value;
 
@@ -110,7 +120,22 @@ function Limpiar(){
 							<tr>
 								<td align="right"><b>Numero: </b></td>
 								<td align="left" colspan="3" ><input  type="text" name="nombre" id="nombre" size="21" maxlength="21" value="" ></td>					
-
+								<td> <b>Estado: </b>
+									<select name="filt_estado_cheq_busq" id="filt_estado_cheq_busq" size="1" style="width:100;" >
+										<option value="0" selected>&nbsp;Todos</option>
+										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+										l_sql = "SELECT  * "
+										l_sql  = l_sql  & " FROM cheques_estado "
+										rsOpen l_rs, cn, l_sql, 0
+										response.write l_sql
+										do until l_rs.eof		%>	
+										<option value=<%= l_rs("id") %> > 
+										<%= l_rs("estado") %>  </option>
+										<%	l_rs.Movenext
+										loop
+										l_rs.Close %>								
+									</select>							
+								</td>
 							</tr>												
 						</table>
 					</form>		
