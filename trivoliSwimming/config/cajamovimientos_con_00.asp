@@ -48,6 +48,26 @@ l_p_id_compra = request.querystring("p_id_compra")
 <% end if %>
 <script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>
 <script src="js_pantallas/cheques.js"></script>
+<script>
+
+function volver_AsignarCheque(id, fecha,  numero, banco, importe ){
+
+	document.datos_02_mc.cheque_nom.value = numero + " - " + banco + " - " + fecha;
+	document.datos_02_mc.idcheque.value = id;
+	document.datos_02_mc.monto.value = importe;
+	
+	$("#dialog_cont_BusqCheque").dialog("close");
+}
+
+function devolver_cheque_editado(){
+	volver_AsignarCheque(	document.datos_02_cheq.id.value,
+							document.datos_02_cheq.fecha_emision.value, 
+							document.datos_02_cheq.numero.value, 
+							$( "#idbanco option:selected" ).text().trim(),
+							document.datos_02_cheq.importe.value  
+							);							
+}	
+</script>
 <!-- Comienzo Datepicker -->
 <script>
 $(function () {
@@ -330,23 +350,6 @@ function volver_AsignarVentaOrigen(id, fecha,  nombre){
 	$("#dialog_cont_BusqVentaOrigen").dialog("close");
 }
 
-function volver_AsignarCheque(id, fecha,  numero, banco, importe ){
-
-	document.datos_02_mc.cheque_nom.value = numero + " - " + banco + " - " + fecha;
-	document.datos_02_mc.idcheque.value = id;
-	document.datos_02_mc.monto.value = importe;
-	
-	$("#dialog_cont_BusqCheque").dialog("close");
-}
-
-function devolver_cheque_editado(){
-	volver_AsignarCheque(	document.datos_02_cheq.id.value,
-							document.datos_02_cheq.fecha_emision.value, 
-							document.datos_02_cheq.numero.value, 
-							$( "#idbanco option:selected" ).text().trim(),
-							document.datos_02_cheq.importe.value  
-							);							
-}	
 
 function Editar_Cheque(){ 
 
