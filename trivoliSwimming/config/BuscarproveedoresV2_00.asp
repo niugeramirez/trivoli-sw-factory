@@ -23,6 +23,9 @@ on error goto 0
   l_dnioblig  = request("dnioblig")
   l_hcoblig  = request("hcoblig")
   
+  'response.write "l_fn_asign_pac "&l_fn_asign_pac
+  'response.write "l_alta "&l_alta
+  
   
 %>
 <html>
@@ -37,29 +40,22 @@ function AsignarProveedor(id, nombre){
 }
 function devolver_proveedor_editado(id){
 
-	<%= l_fn_asign_pac %>(	id,//document.datos_02_EditCli.id.value, 
-							//document.datos_02_EditCli.apellido.value, 
-							document.datos_02_EditPro.nombre.value 
-							//document.datos_02_EditCli.nrohistoriaclinica.value, 
-							//document.datos_02_EditCli.dni.value, 
-							//document.datos_02_EditCli.domicilio.value, 
-							//document.datos_02_EditCli.tel.value, 
-							//document.datos_02_EditCli.osid.value, 
-							//document.datos_02_EditCli.os.value
+	<%= l_fn_asign_pac %>(	id,
+							document.datos_02_prov.nombre.value 
 							);
 }
 
-function Validaciones_locales_EditPac(){
+function Validaciones_locales_EditPro(){
 	//como la pantalla 02 se usa en varios lugares (a diferencia del esquema general de ABM) ponemos la funcion de validacion local en el 02, y se invoca desde la ventana llamadora
-	return Validaciones_locales_EditCli_02()
+	return Validaciones_locales_prov();
 }
 
 function Submit_Formulario_EditPac() {
 	Validar_Formulario(	"dialog_cont_EditPro" 										//id_dialog
-						,"EditarproveedoresV2_06.asp"				//url_valid_06
-						,"EditarproveedoresV2_03_JSON.asp"				//url_AM
+						,"proveedores_con_06.asp"				//url_valid_06
+						,"proveedores_con_03.asp"				//url_AM
 						,"dialogAlert_BusqEdicPro"									//id_dialogAlert															
-						,"datos_02_EditPro"										//id_form_datos							
+						,"datos_02_prov"										//id_form_datos							
 						,null //window.parent.ifrm.location			//location_reload						
 						,Validaciones_locales_EditPro					//funcion_Validaciones_locales						
 						,"ifrm"											//id_ifrm_form_datos
@@ -71,14 +67,14 @@ $(document).ready(function() {
 														);
 
 								inicializar_dialogoABM(	"dialog_cont_EditPro" 										//id_dialog
-														,"EditarproveedoresV2_06.asp"				//url_valid_06
-														,"EditarproveedoresV2_03_JSON.asp"				//url_AM
+														,"proveedores_con_06.asp"				//url_valid_06
+														,"proveedores_con_03.asp"				//url_AM
 														,"dialogAlert_BusqEdicPro"									//id_dialogAlert															
-														,"datos_02_EditPro"										//id_form_datos															
+														,"datos_02_prov"										//id_form_datos															
 														,null //window.parent.ifrm.location					//location_reload														
 														,Validaciones_locales_EditPro							//funcion_Validaciones_locales	
 														,"ifrm"											//id_ifrm_form_datos	
-														,devolver_cliente_editado //fn_post_AM														
+														,devolver_proveedor_editado //fn_post_AM														
 														); 																
 							});
 </script>
@@ -120,7 +116,7 @@ function Buscar(){
 
 
 function AltaProveedor(){
-	abrirDialogo('dialog_cont_EditPro','EditarproveedoresV2_02.asp?Tipo=A&ventana=3&dni=<%= l_dni %>&hcoblig=<%= l_hcoblig %>',600,300);
+	abrirDialogo('dialog_cont_EditPro','proveedores_con_02.asp?Tipo=A&ventana=3&dni=<%= l_dni %>&hcoblig=<%= l_hcoblig %>',600,300);
 }
 
 function Limpiar(){
@@ -155,7 +151,7 @@ function Limpiar(){
 			</td>
 			<td align="center">				
 				<% if l_alta = "S" then %>
-					<a href="Javascript:AltaCliente();"><img src="../shared/images/Agregar_24.png" border="0" title="Alta Cliente"></a>	
+					<a href="Javascript:AltaProveedor();"><img src="../shared/images/Agregar_24.png" border="0" title="Alta Cliente"></a>	
 				<% End If %>
 			</td>			
 		</tr>				

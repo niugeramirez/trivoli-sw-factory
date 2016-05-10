@@ -48,7 +48,7 @@ $( "#fecha" ).datepicker({
 <% 
 select Case l_tipo
 	Case "A":
- 	    	l_fecha          = ""
+ 	    	l_fecha          = date()
 			l_idproveedor    = "0"
 			l_proveedor      = ""
 
@@ -100,7 +100,7 @@ end select
 									<input class="deshabinp" readonly="" type="text" name="proveedor" id="proveedor" size="20" maxlength="20" value="<%=l_proveedor %>">		
 									<input type="hidden" name="idproveedor" id="idproveedor" size="10" maxlength="10" value="<%=l_idproveedor %>">					
 									<a href="Javascript:BuscarProveedor();"><img src="../shared/images/Buscar_16.png" border="0" title="Buscar Proveedor"></a>	
-									<!--<a href="Javascript:Editar_Proveedor();"><img src="../shared/images/Modificar_16.png" border="0" title="Editar Proveedor"></a>	-->								
+									<a href="Javascript:Editar_Proveedor();"><img src="../shared/images/Modificar_16.png" border="0" title="Editar Proveedor"></a>
 								</td>								
 							</tr>								
 

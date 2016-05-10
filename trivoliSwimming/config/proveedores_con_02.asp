@@ -55,8 +55,8 @@ select Case l_tipo
 end select
 
 %>
-<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos_02.nombre.focus();">	
-	<form name="datos_02" id="datos_02" action = "Javascript:Submit_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Submit_Formulario();}"  target="valida">
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos_02_prov.nombre.focus();">	
+	<form name="datos_02_prov" id="datos_02_prov" action = "Javascript:Submit_Formulario_prov();" onkeypress=""  target="valida">
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
 
@@ -72,7 +72,7 @@ end select
 							<tr>
 								<td align="right"><b>Nombre:</b></td>
 								<td colspan="3">
-									<input type="text" name="nombre" size="70" maxlength="200" value="<%= l_nombre %>">							
+									<input type="text" name="nombre" name="nombreproveedor" size="70" maxlength="200" value="<%= l_nombre %>">							
 								</td>
 				
 							</tr>	

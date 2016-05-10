@@ -280,7 +280,7 @@ function BuscarCliente(){
 		
 		<div id="dialog_cont_BusqCli" title="Buscar Clientes">		</div>			
 		
-		<div id="dialogHCR_cont_EditCli" title="EditarHCR Cliente">		</div>			
+		<div id="dialogHCR_cont_EditCli" title="Editar Cliente">		</div>			
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 

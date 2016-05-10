@@ -30,7 +30,9 @@ Dim l_sql
 <script src="/trivoliSwimming/shared/js/fn_confirm.js"></script>
 <script src="/trivoliSwimming/shared/js/fn_ayuda.js"></script>
 <script src="/trivoliSwimming/shared/js/fn_fechas.js"></script>
+<script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>
 
+<script src="js_pantallas/proveedores.js"></script>
 
 <!--	VENTANAS MODALES        -->
 <script src="../js/ventanas_modales_custom_V2.js"></script>
@@ -43,19 +45,7 @@ function Validaciones_locales(){
 		document.datos_02.idproveedor.focus();
 		return false;
 	}
-/*
-	if (document.datos_02.idtemplatereserva.value == 0){
-		alert("Debe ingresar el Modelo.");
-		document.datos_02.idtemplatereserva.focus();
-		return false;
-	}
 
-	if (document.datos_02.cantturnossimult.value == ""){
-		alert("Debe ingresar la Cantidad de Turnos Simultaneos.");
-		document.datos_02.cantturnossimult.focus();
-		return false;
-	}
-	*/
 	return true;
 }
 
@@ -97,7 +87,16 @@ $(document).ready(function() {
 																); 																	
 								inicializar_dialogoContenedor(	"dialog_cont_CMC" 										//id_dialog
 																); 
-																
+								inicializar_dialogoABM(	"dialog_cont_EditPro_comp" 										//id_dialog
+														,"proveedores_con_06.asp"				//url_valid_06
+														,"proveedores_con_03.asp"				//url_AM
+														,"dialogAlert_BusqEdicPro"									//id_dialogAlert															
+														,"datos_02_prov"										//id_form_datos															
+														,null //window.parent.ifrm.location					//location_reload														
+														,Validaciones_locales_prov							//funcion_Validaciones_locales	
+														,"ifrm"											//id_ifrm_form_datos	
+														,devolver_paciente_editado //fn_post_AM														
+														); 																	
 								//esta linea la agrego solo para refrescar cuando se cierra el dialogo contenedor, se podría parametrizar de modo de recibir
 								//la funcion como parametro que se debe ejecutar al
 								$( "#dialog_cont_DC" ).dialog({
@@ -153,6 +152,7 @@ function Limpiar(){
 	window.ifrm.location = 'compras_con_01.asp';
 }
 
+///////////////////////////////////////EDICION Proveedores   ///////////////////////////////////////
 function volver_AsignarProveedor(id,  nombre){
 
 	document.datos_02.idproveedor.value = id;
@@ -161,11 +161,27 @@ function volver_AsignarProveedor(id,  nombre){
 	$("#dialog_cont_BusqPro").dialog("close");
 }
 
-function BuscarProveedor(){	
-	
-	abrirDialogo('dialog_cont_BusqPro','BuscarproveedoresV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarProveedor&dnioblig=N&hcoblig=N',900,250);
+function devolver_paciente_editado(){
+	volver_AsignarProveedor(	document.datos_02_prov.id.value, 
+							document.datos_02_prov.nombre.value 
+							);
+}							
+function Editar_Proveedor(){ 
+
+	if (document.datos_02.idproveedor.value == 0){
+		alert("Debe ingresar el Cliente.");
+		document.datos_02.idproveedor.focus();
+		return;
+	}; 
+		
+	abrirDialogo('dialog_cont_EditPro_comp','proveedores_con_02.asp?Tipo=M&cabnro='+document.datos_02.idproveedor.value,600,300);
 }
 
+function BuscarProveedor(){	
+	
+	abrirDialogo('dialog_cont_BusqPro','BuscarproveedoresV2_00.asp?Tipo=A&Alta=S&fn_asign_pac=volver_AsignarProveedor&dnioblig=N&hcoblig=N',900,250);
+}
+///////////////////////////////////////EDICION Proveedores   ///////////////////////////////////////
 </script>
 </head>
 
@@ -226,7 +242,9 @@ function BuscarProveedor(){
 
 		<div id="dialog_cont_DC" title="Detalle de Compras">		</div>		
 		<div id="dialog_cont_CMC" title="Pagos">		</div>			
-	    <div id="dialog_cont_BusqPro" title="Buscar Proveedores">		</div>		
+	    <div id="dialog_cont_BusqPro" title="Buscar Proveedores">		</div>	
+		<div id="dialog_cont_EditPro_comp" title="Editar Proveedor">		</div>	
+		
 		<!--	FIN DE PARAMETRIZACION DE VENTANAS MODALES -->		
 </body>
 
