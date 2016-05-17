@@ -130,7 +130,8 @@ if l_generar = 1 then
 								l_sql = l_sql & " FROM calendarios "
 								l_sql = l_sql & " WHERE fechahorainicio=" & cambiaformato (l_fecha,l_hora )
 								l_sql = l_sql & " AND fechahorafin=" & cambiaformato (l_fecha,l_horafin )
-								l_sql = l_sql & " AND estado='ACTIVO'"
+								'16/05/2016 Se elimino esta condicion para solucionar bug calendarios duplicados
+								'l_sql = l_sql & " AND estado='ACTIVO'"
 								l_sql = l_sql & " AND idrecursoreservable=" & l_id
 								l_sql = l_sql & " and calendarios.empnro = " & Session("empnro")  
 								
