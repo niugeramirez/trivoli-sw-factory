@@ -83,12 +83,13 @@ if l_opc = 1 then
 	cmExecute l_cm, l_sql, 0	
 	
 	' Inserto en la tabla historial	
-	l_sql = "SELECT CONVERT(VARCHAR(8), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly  "
+	l_sql = "SELECT CONVERT(VARCHAR(8), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 103) AS DateOnly  "
+	l_sql = l_sql & " ,fechahorainicio as fechor"
 	l_sql = l_sql & " FROM calendarios "
 	l_sql = l_sql & " WHERE id = " & l_id
 	rsOpen l_rs, cn, l_sql, 0
 	if not l_rs.eof then
-		l_fecha = l_rs("DateOnly")
+		l_fecha = l_rs("fechor")
 		l_hora = l_rs("fechahorainicio")
 	end if
 	l_rs.Close	
@@ -98,7 +99,7 @@ if l_opc = 1 then
 
 	l_sql = "INSERT INTO historial_turnos "
 	l_sql = l_sql & " (idcalendario, fechahorainicio, idrecursoreservable, idclientepaciente, evento, responsable, comentario ,  empnro, created_by,creation_date,last_updated_by,last_update_date)"
-	l_sql = l_sql & " VALUES (" & l_id & "," & cambiaformato (l_fecha,l_hora ) & "," & l_idrecursoreservable & ",0,'" & l_evento &  "','" & l_responsable &  "','" & l_motivo &  "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	l_sql = l_sql & " VALUES (" & l_id & "," & cambiaformato (l_fecha,l_hora ) & "," & l_idrecursoreservable & ",0,'" & l_evento &  "','" & l_responsable &  "','" & l_motivo &  "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
 	l_cm.activeconnection = Cn
 	l_cm.CommandText = l_sql
 	cmExecute l_cm, l_sql, 0

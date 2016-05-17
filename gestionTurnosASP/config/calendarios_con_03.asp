@@ -49,13 +49,14 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
 l_hora =  l_calhordes
 l_horafin = DateAdd("n", cint(l_intervaloTurnoMinutos) , l_hora)
-							
+
+'response.write 	l_calfec						
 'response.write "l_hora" & l_hora
 'response.write "l_horafin" & l_horafin
 'response.end
 set l_cm = Server.CreateObject("ADODB.Command")
 Do While DATEDIFF("n", cdate( l_horafin ), cdate( l_calhorhas )) >= 0
-
+response.write "cambiaformato (l_calfec,l_hora )"&cambiaformato (l_calfec,l_hora )
 	l_sql = "INSERT INTO calendarios "
 	l_sql = l_sql & "(fechahorainicio, fechahorafin, estado, idrecursoreservable, tipo ,created_by,creation_date,last_updated_by,last_update_date,empnro ) "
 	l_sql = l_sql & "VALUES (" & cambiaformato (l_calfec,l_hora )  & "," & cambiaformato (l_calfec,l_horafin )  & ",'ACTIVO'," & l_id & ",'MANUAL'"&",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE(),'"& session("empnro") &"')"
