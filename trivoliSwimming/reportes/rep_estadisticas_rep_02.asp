@@ -530,7 +530,7 @@ l_sql = l_sql & " ,estadoInstalacion.orden,COUNT(*) as cantidad "
 l_sql = l_sql & " from estadoInstalacion "
 l_sql = l_sql & " left join detalleVentas on detalleVentas.idestadoInstalacion = estadoInstalacion.id "
 l_sql = l_sql & " left join ventas on ventas.id = detalleVentas.idVenta "
-l_sql = l_sql & " AND ventas.fecha >=  " & cambiafecha(l_fechadesde,"YMD",true) 
+l_sql = l_sql & " WHERE ventas.fecha >=  " & cambiafecha(l_fechadesde,"YMD",true) 
 l_sql = l_sql & " AND ventas.fecha <=  " & cambiafecha(l_fechahasta ,"YMD",true) 
 l_sql = l_sql & " AND estadoInstalacion.empnro = " & Session("empnro")			
 l_sql = l_sql & " group by estadoInstalacion.descripcionEstadoInsta "
