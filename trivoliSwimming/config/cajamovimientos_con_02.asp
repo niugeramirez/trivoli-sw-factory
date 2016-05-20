@@ -204,7 +204,8 @@ select Case l_tipo
 				Set l_rs = Server.CreateObject("ADODB.RecordSet")
 				l_sql = "SELECT  * "
 				l_sql = l_sql & " FROM tiposMovimientoCaja  "								
-				l_sql  = l_sql  & " WHERE tiposMovimientoCaja.flagVenta = -1 "
+				l_sql = l_sql  & " WHERE tiposMovimientoCaja.flagVenta = -1 "
+				l_sql = l_sql & " and tiposMovimientoCaja.empnro = " & Session("empnro") 
 				rsOpen l_rs, cn, l_sql, 0 
 				if not l_rs.eof then
 					l_idtipomovimiento           = l_rs("id") 		
@@ -218,7 +219,8 @@ select Case l_tipo
 					Set l_rs = Server.CreateObject("ADODB.RecordSet")
 					l_sql = "SELECT  * "
 					l_sql = l_sql & " FROM tiposMovimientoCaja  "								
-					l_sql  = l_sql  & " WHERE tiposMovimientoCaja.flagCompra = -1 "
+					l_sql = l_sql  & " WHERE tiposMovimientoCaja.flagCompra = -1 "
+					l_sql = l_sql & " and tiposMovimientoCaja.empnro = " & Session("empnro") 
 					rsOpen l_rs, cn, l_sql, 0 
 					if not l_rs.eof then
 						l_idtipomovimiento           = l_rs("id") 		
