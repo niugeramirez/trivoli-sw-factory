@@ -171,10 +171,10 @@ l_sql = l_sql & "left join mediosdepago on mediosdepago.id = pagos.idmediodepago
 l_sql = l_sql & "left join obrassociales on obrassociales.id = pagos.idobrasocial "
 l_sql = l_sql & "left join obrassociales os on os.id = clientespacientes.idobrasocial "
 l_sql = l_sql & "where ISNULL(visitas.flag_ausencia ,0) = 0 "
-l_sql = l_sql & " and   pagos.fecha  >= " & cambiafecha(l_fechadesde,"YMD",true) 
-l_sql = l_sql & " AND  pagos.fecha <= " & cambiafecha(l_fechahasta,"YMD",true) 
+l_sql = l_sql & " and   visitas.fecha  >= " & cambiafecha(l_fechadesde,"YMD",true) 
+l_sql = l_sql & " AND  visitas.fecha <= " & cambiafecha(l_fechahasta,"YMD",true) 
 if l_idmedicoderivador <> "0" then
-	l_sql = l_sql & " AND l_idmedicoderivador.id = " & l_idmedicoderivador
+	l_sql = l_sql & " AND medicos_derivadores.id = " & l_idmedicoderivador
 end if	
 if l_idrecursoreservable <> "0" then
 	l_sql = l_sql & " AND recursosreservables.id = " & l_idrecursoreservable
@@ -197,7 +197,7 @@ l_sql = l_sql & "order by id_visita "
 l_sql = l_sql & ",id_practicarealizada  "
 
 
- 'response.write l_sql
+response.write l_sql
 rsOpen l_rs, cn, l_sql, 0 
  %>
 
