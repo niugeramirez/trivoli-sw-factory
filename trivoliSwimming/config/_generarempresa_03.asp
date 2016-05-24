@@ -228,7 +228,65 @@ ejecutar_sql(l_sql)
 l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'OTROS IMPUESTOS', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'BRINDICE', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
 
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'AMARALINA', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'ARMACAO', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'ATENAS', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'ATLANTIDA', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'BALDOSAS', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'BELIZE', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'CALARI', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'FAROL DA BARRA', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'FIJI', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'FLORENZA', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'HALEIWA', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'HANALEI', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'HAPUNA', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'MAZARA', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'PESCARA', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'PUPUKEA', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'PARTE B', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+
+l_sql = "INSERT [conceptosCompraVenta] ([descripcion], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ( 'PUBLICIDAD', 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
 'ESTADO INSTALACION
 ' ------------------------------------------------------------------------------------------------------------------
 l_sql = "INSERT [estadoInstalacion] ( [codigo], [descripcionEstadoInsta], [orden], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('P', 'Programada',1, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
@@ -306,12 +364,6 @@ l_sql = "INSERT [proveedores] ([nombre], [telefono], [celular], [mail], [created
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
 l_sql = "INSERT [proveedores] ([nombre], [telefono], [celular], [mail], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('iGUi PROGEU BOMBAS', NULL, NULL, NULL, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
-response.write l_sql & "<br>"
-ejecutar_sql(l_sql)
-l_sql = "INSERT [proveedores] ([nombre], [telefono], [celular], [mail], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('iGUi WWW PUBLICIDAD', NULL, NULL, NULL, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
-response.write l_sql & "<br>"
-ejecutar_sql(l_sql)
-l_sql = "INSERT [proveedores] ([nombre], [telefono], [celular], [mail], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('iGUi PARTE B', NULL, NULL, NULL, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
 l_sql = "INSERT [proveedores] ([nombre], [telefono], [celular], [mail], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('PISOS ATERMICOS', NULL, NULL, NULL, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
