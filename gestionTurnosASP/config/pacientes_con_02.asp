@@ -156,6 +156,10 @@ function Ayuda_Fecha(txt)
  else txt.value = jsFecha;
 }
 
+function Mayuscula(cadena){
+	cadena.value = cadena.value.toUpperCase();
+}
+
 </script>
 <% 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
@@ -239,11 +243,11 @@ end select
 					<tr>
 					    <td align="right"><b>Apellido (*):</b></td>
 						<td>
-							<input type="text" name="apellido" size="20" maxlength="20" value="<%= l_apellido %>">							
+							<input type="text" name="apellido" size="20" maxlength="20" onchange="Javascript:Mayuscula(this);" value="<%= l_apellido %>">							
 						</td>
 					    <td align="right"><b>Nombre (*):</b></td>						
 						<td>
-							<input type="text" name="nombre" size="20" maxlength="20" value="<%= l_nombre %>">
+							<input type="text" name="nombre" size="20" maxlength="20" onchange="Javascript:Mayuscula(this);" value="<%= l_nombre %>">
 						</td>						
 					</tr>					
 					<tr>
