@@ -197,7 +197,7 @@ l_sql = l_sql & "order by id_visita "
 l_sql = l_sql & ",id_practicarealizada  "
 
 
-response.write l_sql
+'response.write l_sql
 rsOpen l_rs, cn, l_sql, 0 
  %>
 
