@@ -74,11 +74,11 @@ if l_tipo = "A" then
 	if l_dni <> "" then
 		l_sql = "INSERT INTO clientespacientes "
 		l_sql = l_sql & " (apellido, nombre, dni,domicilio, telefono, idobrasocial, nrohistoriaclinica, empnro,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial & ",'" & l_nrohistoriaclinica & "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & " VALUES ('" & UCase(l_apellido) & "','" & UCase(l_nombre) & "'," & l_dni & ",'" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial & ",'" & l_nrohistoriaclinica & "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	else
 		l_sql = "INSERT INTO clientespacientes "
 		l_sql = l_sql & " (apellido, nombre, domicilio, telefono, idobrasocial, nrohistoriaclinica, empnro,created_by,creation_date,last_updated_by,last_update_date)"
-		l_sql = l_sql & " VALUES ('" & l_apellido & "','" & l_nombre & "','" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial & ",'" & l_nrohistoriaclinica & "','" & session("empnro") & "','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+		l_sql = l_sql & " VALUES ('" & UCase(l_apellido) & "','" & UCase(l_nombre) & "','" & l_domicilio & "','" & l_tel & "'," & l_idobrasocial & ",'" & l_nrohistoriaclinica & "','" & session("empnro") & "','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 	
 	end if
 	'response.write l_sql & "<br>"
@@ -100,8 +100,8 @@ if l_tipo = "A" then
 else
 
 	l_sql = "UPDATE clientespacientes "
-	l_sql = l_sql & " SET apellido    = '" & l_apellido & "'"
-	l_sql = l_sql & "    ,nombre    = '" & l_nombre & "'"
+	l_sql = l_sql & " SET apellido    = '" & UCase(l_apellido) & "'"
+	l_sql = l_sql & "    ,nombre    = '" & UCase(l_nombre) & "'"
 	l_sql = l_sql & "    ,nrohistoriaclinica    = '" & l_nrohistoriaclinica & "'"	
 	if l_dni <> "" then
 		l_sql = l_sql & "    ,dni    =    " & l_dni & ""

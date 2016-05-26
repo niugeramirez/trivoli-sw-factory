@@ -164,6 +164,11 @@ function BuscarPaciente(){
 	abrirVentana('Buscarpacientes_con_00.asp?Tipo=A','',600,250);
 }
 
+function Mayuscula(cadena){
+
+	cadena.value = cadena.value.toUpperCase();
+}
+
 </script>
 <% 
 select Case l_tipo
@@ -227,11 +232,11 @@ end select
 					<tr>
 					    <td align="right"><b>Apellido (*):</b></td>
 						<td>
-							<input type="text" name="apellido" size="20" maxlength="20" value="<%= l_apellido %>">							
+							<input type="text" name="apellido" size="20" maxlength="20" onkeydown="Javascript:Mayuscula(this);" value="<%= l_apellido %>">							
 						</td>
 					    <td align="right"><b>Nombre (*):</b></td>						
 						<td>
-							<input type="text" name="nombre" size="20" maxlength="20" value="<%= l_nombre %>">
+							<input type="text" name="nombre" size="20" maxlength="20" onkeydown="Javascript:Mayuscula(this);" value="<%= l_nombre %>">
 						</td>						
 					</tr>					
 					<tr>
