@@ -39,6 +39,7 @@ dim l_id_banco
 dim l_id_banco_02
 dim l_id_cheque
 dim l_id_cheque_reentrega
+dim l_idestadoInstalacion_prog
 
 l_id_new_emp = 66
 
@@ -385,6 +386,18 @@ ejecutar_sql(l_sql)
 
 l_id_ventas = codigogenerado("ventas")
 response.write "id ventas generado "&l_id_ventas & "<br>"
+'INICIALIZACIONES DETALLE VENTA 
+' ------------------------------------------------------------------------------------------------------------------
+l_sql = "select * from estadoInstalacion where codigo = 'P'and empnro = "&l_id_new_emp
+rsOpenCursor l_rs, cn, l_sql, 1, 1
+
+do until l_rs.eof
+	l_idestadoInstalacion_prog = l_rs("id")
+	response.write "Estado instalacion programada id "&l_idestadoInstalacion_prog & "<br>"
+	response.write "<br>"
+	l_rs.MoveNext
+loop
+l_rs.close
 
 'DETALLE VENTA BOQUILLA DE CALEFACCION
 ' ------------------------------------------------------------------------------------------------------------------
@@ -413,6 +426,17 @@ l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
 
+'COSTO BOQUILLA DE CALEFACCION
+' ------------------------------------------------------------------------------------------------------------------
+l_sql = "INSERT INTO [costosVentas]([idVenta],[idconceptoCompraVenta],[cantidad],[precio_unitario],[observaciones],[created_by],[creation_date],[last_updated_by],[last_update_date],[empnro])VALUES("
+l_sql = l_sql&l_id_ventas&"," '<idVenta, int,>
+l_sql = l_sql&l_id_concept_cv&"," ',<idconceptoCompraVenta, int,>
+l_sql = l_sql&l_cantidad&"," ',<cantidad, decimal(19,4),>
+l_sql = l_sql&"400," ',<precio_unitario, decimal(19,4),>
+l_sql = l_sql&"'COSTO DE PRUEBA'" ',<observaciones, varchar(100),>
+l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
 
 'DETALLE VENTA FLORENZA
 ' ------------------------------------------------------------------------------------------------------------------
@@ -431,16 +455,29 @@ do until l_rs.eof
 loop
 l_rs.close
 
-l_sql = "INSERT [detalleVentas] ( [idventa], [idconceptoCompraVenta], [cantidad], [precio_unitario], [observaciones], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ("
+l_sql = "INSERT [detalleVentas] ( [idventa], [idconceptoCompraVenta], [cantidad], [precio_unitario], [observaciones], [idestadoInstalacion],[fechaProgramadaInstalacion],[created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ("
 l_sql = l_sql& l_id_ventas&"," '[idcompra]
 l_sql = l_sql&l_id_concept_cv&"," '[idconceptoCompraVenta]
 l_sql = l_sql&l_cantidad&"," '[cantidad]
 l_sql = l_sql&l_precio&"," 'precio_unitario
-l_sql = l_sql&"'VENTA DE PRUEBA'" 'observaciones
+l_sql = l_sql&"'VENTA DE PRUEBA'," 'observaciones
+l_sql = l_sql&l_idestadoInstalacion_prog&"," '[idestadoInstalacion]
+l_sql = l_sql&"cast(getDate()+20 As Date)" ',[fechaProgramadaInstalacion]
 l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
 
+'COSTO VENTA FLORENZA
+' ------------------------------------------------------------------------------------------------------------------
+l_sql = "INSERT INTO [costosVentas]([idVenta],[idconceptoCompraVenta],[cantidad],[precio_unitario],[observaciones],[created_by],[creation_date],[last_updated_by],[last_update_date],[empnro])VALUES("
+l_sql = l_sql&l_id_ventas&"," '<idVenta, int,>
+l_sql = l_sql&l_id_concept_cv&"," ',<idconceptoCompraVenta, int,>
+l_sql = l_sql&l_cantidad&"," ',<cantidad, decimal(19,4),>
+l_sql = l_sql&"26135," ',<precio_unitario, decimal(19,4),>
+l_sql = l_sql&"'COSTO DE PRUEBA'" ',<observaciones, varchar(100),>
+l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
 
 'DETALLE VENTA HIDROS
 ' ------------------------------------------------------------------------------------------------------------------
@@ -465,6 +502,18 @@ l_sql = l_sql&l_id_concept_cv&"," '[idconceptoCompraVenta]
 l_sql = l_sql&l_cantidad&"," '[cantidad]
 l_sql = l_sql&l_precio&"," 'precio_unitario
 l_sql = l_sql&"'VENTA DE PRUEBA'" 'observaciones
+l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+
+'COSTO HIDROS
+' ------------------------------------------------------------------------------------------------------------------
+l_sql = "INSERT INTO [costosVentas]([idVenta],[idconceptoCompraVenta],[cantidad],[precio_unitario],[observaciones],[created_by],[creation_date],[last_updated_by],[last_update_date],[empnro])VALUES("
+l_sql = l_sql&l_id_ventas&"," '<idVenta, int,>
+l_sql = l_sql&l_id_concept_cv&"," ',<idconceptoCompraVenta, int,>
+l_sql = l_sql&l_cantidad&"," ',<cantidad, decimal(19,4),>
+l_sql = l_sql&"100," ',<precio_unitario, decimal(19,4),>
+l_sql = l_sql&"'COSTO DE PRUEBA'" ',<observaciones, varchar(100),>
 l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
@@ -496,6 +545,18 @@ l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
 
+'COSTO LUZ
+' ------------------------------------------------------------------------------------------------------------------
+l_sql = "INSERT INTO [costosVentas]([idVenta],[idconceptoCompraVenta],[cantidad],[precio_unitario],[observaciones],[created_by],[creation_date],[last_updated_by],[last_update_date],[empnro])VALUES("
+l_sql = l_sql&l_id_ventas&"," '<idVenta, int,>
+l_sql = l_sql&l_id_concept_cv&"," ',<idconceptoCompraVenta, int,>
+l_sql = l_sql&l_cantidad&"," ',<cantidad, decimal(19,4),>
+l_sql = l_sql&"2000," ',<precio_unitario, decimal(19,4),>
+l_sql = l_sql&"'COSTO DE PRUEBA'" ',<observaciones, varchar(100),>
+l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+
 'DETALLE VENTA PIEDRA
 ' ------------------------------------------------------------------------------------------------------------------
 l_nomb_concept_cv = "PIEDRA"
@@ -523,6 +584,17 @@ l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
 
+'COSTO PIEDRA
+' ------------------------------------------------------------------------------------------------------------------
+l_sql = "INSERT INTO [costosVentas]([idVenta],[idconceptoCompraVenta],[cantidad],[precio_unitario],[observaciones],[created_by],[creation_date],[last_updated_by],[last_update_date],[empnro])VALUES("
+l_sql = l_sql&l_id_ventas&"," '<idVenta, int,>
+l_sql = l_sql&l_id_concept_cv&"," ',<idconceptoCompraVenta, int,>
+l_sql = l_sql&l_cantidad&"," ',<cantidad, decimal(19,4),>
+l_sql = l_sql&"4500," ',<precio_unitario, decimal(19,4),>
+l_sql = l_sql&"'COSTO DE PRUEBA'" ',<observaciones, varchar(100),>
+l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
 
 'DETALLE VENTA POZO E INSTALACION
 ' ------------------------------------------------------------------------------------------------------------------
@@ -547,6 +619,68 @@ l_sql = l_sql&l_id_concept_cv&"," '[idconceptoCompraVenta]
 l_sql = l_sql&l_cantidad&"," '[cantidad]
 l_sql = l_sql&l_precio&"," 'precio_unitario
 l_sql = l_sql&"'VENTA DE PRUEBA'" 'observaciones
+l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+
+'COSTO POZO E INSTALACION
+' ------------------------------------------------------------------------------------------------------------------
+l_sql = "INSERT INTO [costosVentas]([idVenta],[idconceptoCompraVenta],[cantidad],[precio_unitario],[observaciones],[created_by],[creation_date],[last_updated_by],[last_update_date],[empnro])VALUES("
+l_sql = l_sql&l_id_ventas&"," '<idVenta, int,>
+l_sql = l_sql&l_id_concept_cv&"," ',<idconceptoCompraVenta, int,>
+l_sql = l_sql&l_cantidad&"," ',<cantidad, decimal(19,4),>
+l_sql = l_sql&"9000," ',<precio_unitario, decimal(19,4),>
+l_sql = l_sql&"'COSTO DE PRUEBA'" ',<observaciones, varchar(100),>
+l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+
+'COSTO VARIOS 
+' ------------------------------------------------------------------------------------------------------------------
+l_nomb_concept_cv = "VARIOS"
+
+l_sql = "select * from conceptosCompraVenta where conceptosCompraVenta.descripcion = '"&l_nomb_concept_cv&"' and  conceptosCompraVenta.empnro = "&l_id_new_emp
+rsOpenCursor l_rs, cn, l_sql, 1, 1
+
+do until l_rs.eof
+	l_id_concept_cv = l_rs("id")
+	response.write l_nomb_concept_cv&" id "&l_id_concept_cv & "<br>"
+	response.write "<br>"
+	l_rs.MoveNext
+loop
+l_rs.close
+
+l_sql = "INSERT INTO [costosVentas]([idVenta],[idconceptoCompraVenta],[cantidad],[precio_unitario],[observaciones],[created_by],[creation_date],[last_updated_by],[last_update_date],[empnro])VALUES("
+l_sql = l_sql&l_id_ventas&"," '<idVenta, int,>
+l_sql = l_sql&l_id_concept_cv&"," ',<idconceptoCompraVenta, int,>
+l_sql = l_sql&"1," ',<cantidad, decimal(19,4),>
+l_sql = l_sql&"800," ',<precio_unitario, decimal(19,4),>
+l_sql = l_sql&"'COSTO DE PRUEBA: Viajes / Gasoil / Viaticos'" ',<observaciones, varchar(100),>
+l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+
+'COSTO BOMBA 
+' ------------------------------------------------------------------------------------------------------------------
+l_nomb_concept_cv = "BOMBA"
+
+l_sql = "select * from conceptosCompraVenta where conceptosCompraVenta.descripcion = '"&l_nomb_concept_cv&"' and  conceptosCompraVenta.empnro = "&l_id_new_emp
+rsOpenCursor l_rs, cn, l_sql, 1, 1
+
+do until l_rs.eof
+	l_id_concept_cv = l_rs("id")
+	response.write l_nomb_concept_cv&" id "&l_id_concept_cv & "<br>"
+	response.write "<br>"
+	l_rs.MoveNext
+loop
+l_rs.close
+
+l_sql = "INSERT INTO [costosVentas]([idVenta],[idconceptoCompraVenta],[cantidad],[precio_unitario],[observaciones],[created_by],[creation_date],[last_updated_by],[last_update_date],[empnro])VALUES("
+l_sql = l_sql&l_id_ventas&"," '<idVenta, int,>
+l_sql = l_sql&l_id_concept_cv&"," ',<idconceptoCompraVenta, int,>
+l_sql = l_sql&"1," ',<cantidad, decimal(19,4),>
+l_sql = l_sql&"15030," ',<precio_unitario, decimal(19,4),>
+l_sql = l_sql&"'COSTO DE PRUEBA: Viajes / Gasoil / Viaticos'" ',<observaciones, varchar(100),>
 l_sql = l_sql&", 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
