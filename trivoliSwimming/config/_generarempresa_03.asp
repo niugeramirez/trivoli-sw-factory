@@ -421,7 +421,21 @@ l_sql = "INSERT [proveedores] ([nombre], [telefono], [celular], [mail], [created
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
 l_sql = "INSERT [proveedores] ([nombre], [telefono], [celular], [mail], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('MUNICIPALIDAD', NULL, NULL, NULL, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+
+'CLIENTES
 ' ------------------------------------------------------------------------------------------------------------------
+l_sql = "INSERT [clientes] ( [nombre], [telefono], [celular], [mail], [direccion], [idciudad], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('CLIENTE DE PRUEBA: Javier Posadas', '', '', 'trivoli@googlegroups.com', N'', 0, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [clientes] ( [nombre], [telefono], [celular], [mail], [direccion], [idciudad], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('CLIENTE DE PRUEBA: Eugenio Ramirez', '', '', 'trivoli@googlegroups.com', N'', 0, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+l_sql = "INSERT [clientes] ( [nombre], [telefono], [celular], [mail], [direccion], [idciudad], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('CLIENTE DE PRUEBA: Raul Chinestra', '', '', 'trivoli@googlegroups.com', N'', 0, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+' ------------------------------------------------------------------------------------------------------------------
+
+
 Set l_cm = Nothing
 
 cn.CommitTrans 
