@@ -60,7 +60,7 @@ function Editar_Paciente(){
 		return;
 	}; 
 		 
-	abrirDialogo('dialogHCR_cont_EditPac','EditarpacientesV2_02.asp?Tipo=M&ventana=3&dnioblig=N&hcoblig=N&cabnro='+document.datos_02.idclientepaciente.value,600,300);
+	abrirDialogo('dialogHCR_cont_EditPac','EditarpacientesV2_02.asp?Tipo=M&ventana=3&dnioblig=S&hcoblig=S&cabnro='+document.datos_02.idclientepaciente.value,600,300);
 }
 ///////////////////////////////////////FIN EDICION PACIENTES///////////////////////////////////////
 function Validaciones_locales(){

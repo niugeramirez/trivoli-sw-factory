@@ -5,6 +5,7 @@
 <!--#include virtual="/turnos/shared/inc/fecha.inc"-->
 <!--#include virtual="/turnos/shared/inc/adovbs.inc"-->
 <!--#include virtual="/turnos/shared/inc/sqls.inc"-->
+<!--#include virtual="/turnos/shared/inc/pacientes_util.inc"-->
 <% 
 
 
@@ -50,6 +51,8 @@ if isnull(l_nrohistoriaclinica) or l_nrohistoriaclinica = "" then
 	l_nrohistoriaclinica = 0
 end if
 
+
+
 ' ------------------------------------------------------------------------------------------------------------------
 ' codigogenerado() :
 ' ------------------------------------------------------------------------------------------------------------------
@@ -70,6 +73,10 @@ end function 'codigogenerado()
 
 set l_cm = Server.CreateObject("ADODB.Command")
 
+if request.Form("gen_hist_num") = "on" then
+	l_nrohistoriaclinica = get_proximo_histnum(session("empnro"),l_cm)	
+end if
+
 if l_tipo = "A" then
 	if l_dni <> "" then
 		l_sql = "INSERT INTO clientespacientes "
@@ -88,11 +95,7 @@ if l_tipo = "A" then
 	
 	'Ingreso la lista de empleados a la tabla
 	l_id = codigogenerado("clientespacientes")	
-	
-	'l_sql = " SELECT @@IDENTITY AS 'Identity' "
-	'l_cm.activeconnection = Cn
-	'l_cm.CommandText = l_sql
-	'cmExecute l_cm, l_sql, 0		
+		
 	
 	Set l_cm = Nothing	
 	

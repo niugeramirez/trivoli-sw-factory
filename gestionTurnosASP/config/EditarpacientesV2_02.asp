@@ -1,6 +1,7 @@
 
 <% Option Explicit %>
 <!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/pacientes_util.inc"-->
 <% 
 
 on error goto 0
@@ -31,12 +32,14 @@ l_id = request.querystring("cabnro")
   Dim l_dnioblig
   Dim l_hcoblig
   
-  l_dnioblig  = request("dni")
+  l_dnioblig  = request("dnioblig")
   l_hcoblig  = request("hcoblig")
 
 l_ventana = request.querystring("ventana")
 
 'response.write l_tipo
+'response.write "l_dnioblig "&l_dnioblig
+'response.write "l_hcoblig "&l_hcoblig
 
 %>
 <html>
@@ -60,36 +63,39 @@ function Validaciones_locales_EditPac_02(){
 		return  false;
 	}
 
-	 <% If l_dnioblig = "S" then %> 
-	if (document.datos_02_EditPac.dni.value == ""){
+	 <% If l_dnioblig = "S" then %> 	 
+	if (document.datos_02_EditPac.dni.value == "" || document.datos_02_EditPac.dni.value == 0){
 		alert("Debe ingresar el DNI del Paciente.");
 		document.datos_02_EditPac.dni.focus();
 		return false;
 	}
+
+	<% End If %>
 	if (isNaN(document.datos_02_EditPac.dni.value)) {
 		alert("El D.N.I. debe ser numerico.");
 		document.datos_02_EditPac.dni.focus();
 		return  false;
 	}
-	<% End If %>
-
 	if (document.datos_02_EditPac.tel.value == ""){
 		alert("Debe ingresar el Telefono del Paciente.");
 		document.datos_02_EditPac.tel.focus();
 		return false;
 	}
 	<% if l_hcoblig = "S" then %>
-	if (document.datos_02_EditPac.nrohistoriaclinica.value == ""){
-		alert("Debe ingresar el Nro de Historia Clinica.");
+	if ((document.datos_02_EditPac.nrohistoriaclinica.value == "" || document.datos_02_EditPac.nrohistoriaclinica.value == 0) 
+			&& document.datos_02_EditPac.gen_hist_num.checked == false){
+		alert("Debe ingresar el Nro de Historia Clinica o seleccionar la opcion para generar un nuevo numero.");
 		document.datos_02_EditPac.nrohistoriaclinica.focus();
 		return  false;
 	}
-	if (document.datos_02_EditPac.nrohistoriaclinica.value == "0"){
-		alert("Debe ingresar el Nro de Historia Clinica.");
-		document.datos_02_EditPac.nrohistoriaclinica.focus();
-		return  false;
-	}
+
 	<% End If %>
+	
+	if (isNaN(document.datos_02_EditPac.nrohistoriaclinica.value)) {
+		alert("El Nro de Historia Clinica debe ser numerico.");
+		document.datos_02_EditPac.nrohistoriaclinica.focus();
+		return;
+	}
 
 	document.datos_02_EditPac.os.value = s.options[s.selectedIndex].text;	
 	
@@ -202,14 +208,33 @@ end select
 							</td>					
 						</tr>
 						<tr>
+							<td>
+							 </br></br>
+							</td>
+							<td>
+							 </br></br>
+							</td>						
+						</tr>						
+						<tr>
 							<td align="right"><b> Historia Cl&iacute;nica <% If l_hcoblig = "S" then %> (*)<% End If %>:</b></td>
 							<td>
 								<input type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%= l_nrohistoriaclinica %>">
 							</td>					
 
 										
-						</tr>					
-												
+						</tr>	
+						<% If check_genera_histnum(Session("empnro")) then %> 						
+						<tr>						
+							<td align="right"><b>Generar Nro.:</b></td>
+							<td>
+								<input type=checkbox name="gen_hist_num" size="20" maxlength="20" >
+								<% If l_nrohistoriaclinica <> "0" and l_nrohistoriaclinica <> "" and IsNumeric(l_nrohistoriaclinica) then %>
+									<script>document.datos_02_EditPac.gen_hist_num.disabled =true</script>
+								<% End If %>									
+							</td>
+										
+						</tr>
+						<% End If %>						
 						</table>
 					</td>
 				</tr>

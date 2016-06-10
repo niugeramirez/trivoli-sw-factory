@@ -3,6 +3,7 @@
 <!--#include virtual="/turnos/shared/inc/const.inc"-->
 <!--#include virtual="/turnos/shared/db/conn_db.inc"-->
 <!--#include virtual="/turnos/shared/inc/fecha.inc"-->
+<!--#include virtual="/turnos/shared/inc/pacientes_util.inc"-->
 <% 
 
 
@@ -72,8 +73,15 @@ end if
 
 l_observaciones = request.Form("observaciones")
 
-
+'Al operar sobre varias tablas debo iniciar una transacción
+ cn.BeginTrans
+ 
 set l_cm = Server.CreateObject("ADODB.Command")
+
+if request.Form("gen_hist_num") = "on" then
+	l_nrohistoriaclinica = get_proximo_histnum(session("empnro"),l_cm)	
+end if
+
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO clientespacientes "
 	l_sql = l_sql & " (apellido, nombre, nrohistoriaclinica , dni,domicilio, telefono,idobrasocial, fecha_ingreso, fechanacimiento, nro_obra_social, sexo, idciudad , observaciones ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
@@ -107,6 +115,8 @@ l_cm.activeconnection = Cn
 l_cm.CommandText = l_sql
 cmExecute l_cm, l_sql, 0
 Set l_cm = Nothing
+
+cn.CommitTrans 
 
 Response.write "<script>alert('Operación Realizada.');window.parent.opener.ifrm.location.reload();window.parent.close();</script>"
 %>

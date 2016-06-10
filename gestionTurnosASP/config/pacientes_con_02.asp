@@ -1,6 +1,7 @@
 
 <% Option Explicit %>
 <!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/pacientes_util.inc"-->
 <% 
 
 on error goto 0
@@ -101,24 +102,19 @@ if (isNaN(document.datos.dni.value)) {
 	return;
 }
 
-if (document.datos.nrohistoriaclinica.value == ""){
-	alert("Debe ingresar el Nro de Historia Clinica o ingresar 0.");
+if ((document.datos.nrohistoriaclinica.value == "" || document.datos.nrohistoriaclinica.value == 0)
+	&& document.datos.gen_hist_num.checked == false ){
+	alert("Debe ingresar el Nro de Historia Clinica o seleccionar la opcion para generar un nuevo numero.");
 	document.datos.nrohistoriaclinica.focus();
 	return;
 }
-/*
+
 if (isNaN(document.datos.nrohistoriaclinica.value)) {
 	alert("El Nro de Historia Clinica debe ser numerico.");
 	document.datos.nrohistoriaclinica.focus();
 	return;
-}*/
-/*
-if (document.datos.domicilio.value == ""){
-	alert("Debe ingresar el Domicilio del Paciente.");
-	document.datos.domicilio.focus();
-	return;
 }
-*/
+
 if (document.datos.telefono.value == ""){
 	alert("Debe ingresar el Telefono del Paciente.");
 	document.datos.telefono.focus();
@@ -256,11 +252,26 @@ end select
 						<td>
 							<input type="text" name="dni" size="20" maxlength="20" value="<%= l_dni %>">
 						</td>
-					    <td align="right"><b>Nro. Historia Cl&iacute;nica (*):</b></td>
+					    <td align="right"><b>Historia Cl&iacute;nica (*):</b></td>
 						<td>
-							<input type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%= l_nrohistoriaclinica %>">
+							<input type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%= l_nrohistoriaclinica %>">						
 						</td>						
 					</tr>
+					<% If check_genera_histnum(Session("empnro")) then %> 
+					<tr>
+					    <td align="right"></td>
+						<td>							
+						</td>
+					    <td align="right"><b>Generar Nro.:</b></td>
+						<td>														
+							<input type=checkbox name="gen_hist_num" size="20" maxlength="20" >							
+							<% If l_tipo = "A" then %> <script>document.datos.gen_hist_num.checked=true</script><% End If %> 
+							<% If l_nrohistoriaclinica <> "0" and l_nrohistoriaclinica <> "" and IsNumeric(l_nrohistoriaclinica) then %>
+								<script>document.datos.gen_hist_num.disabled =true</script>
+							<% End If %>							
+						</td>						
+					</tr>
+					<% End If %>
 					<tr>
 					    <td align="right"><b>Tel&eacute;fono (*):</b></td>
 						<td>
@@ -336,94 +347,14 @@ end select
 						</td>						
 					</tr>
 					
-					<!-- 
-					<tr>
-						<td  align="right" nowrap><b>Derecho Vulnerado: </b></td>
-						<td colspan="3"><select name="pronro" size="1" style="width:150;">
-								<option value=0 selected>Todos</option>
-								<%'Set l_rs = Server.CreateObject("ADODB.RecordSet")
-								'l_sql = "SELECT  * "
-								'l_sql  = l_sql  & " FROM ser_problematica "
-								'l_sql  = l_sql  & " ORDER BY prodes "
-								'rsOpen l_rs, cn, l_sql, 0
-								'do until l_rs.eof		%>	
-								<option value= <%'= l_rs("pronro") %> > 
-								<%'= l_rs("prodes") %> (<%'=l_rs("pronro")%>) </option>
-								<%'	l_rs.Movenext
-								'loop
-								'l_rs.Close %>
-							</select>
-							<script>document.datos.pronro.value= "<%'= l_pronro %>"</script>
-						</td>					
-					</tr>
-					<tr>
-					    <td align="right"><b>Madre - Apellido y Nombre:</b></td>
-						<td>
-							<input type="text" name="legapenommad" size="20" maxlength="20" value="<%'= l_legapenommad %>">
-						</td>
-						<td align="right"><b>Dom:</b></td>						
-						<td>
-							<input type="text" name="legdommad" size="20" maxlength="20" value="<%'= l_legdommad %>">
-							<b>Tel:</b> <input type="text" name="legtelmad" size="10" maxlength="20" value="<%'= l_legtelmad %>">						
-						</td>							
-					</tr>																				
-					<tr>
-					    <td align="right"><b>Padre - Apellido y Nombre:</b></td>
-						<td>
-							<input type="text" name="legapenompad" size="20" maxlength="20" value="<%'= l_legapenompad  %>">
-						</td>
-						<td align="right"><b>Dom:</b></td>												
-						<td>
-							<input type="text" name="legdompad" size="20" maxlength="20" value="<%'= l_legdompad %>">
-							<b>Tel:</b> <input type="text" name="legtelpad" size="10" maxlength="20" value="<%'= l_legtelpad %>">
-						</td>						
-					</tr>					
-					<tr>
-					    <td align="right"><b>Instituciones Intervinientes:</b></td>
-						<td colspan="3">
-							<input type="text" name="legins" size="80" maxlength="20" value="<%'= l_legins %>">
-						</td>
-					</tr>																				
-					<tr>
-					    <td align="right"><b>Instituciones Educativas:</b></td>
-						<td colspan="3">
-							<input type="text" name="leginsedu" size="80" maxlength="20" value="<%'= l_leginsedu %>">
-						</td>
-					</tr>																									
-					<tr>
-					    <td align="right"><b>Cobertura Social de la Familia:</b></td>
-						<td colspan="3">
-							<input type="text" name="legcobsoc" size="80" maxlength="20" value="<%'= l_legcobsoc %>">
-						</td>
-					</tr>	
-					-->																													
+																															
 					<tr>
 					    <td align="right"><b>Observaciones:</b></td>
 						<td colspan="3">
-							<input type="text" name="observaciones" size="93" maxlength="200" value="<%= l_observaciones %>">
+							<input type="text" name="observaciones" size="78" maxlength="200" value="<%= l_observaciones %>">
 						</td>
 					</tr>
-					<!--					
-					<tr>
-						<td align="right"><b>Medidas Protección:</b></td>
-						<td colspan="3"><select name="mednro" size="1" style="width:150;">
-								<option value=0 selected>&nbsp;</option>
-								<%'Set l_rs = Server.CreateObject("ADODB.RecordSet")
-								'l_sql = "SELECT  * "
-								'l_sql  = l_sql  & " FROM ser_medida "
-								'l_sql  = l_sql  & " ORDER BY meddes "
-								'rsOpen l_rs, cn, l_sql, 0
-								'do until l_rs.eof		%>	
-								<option value= <%'= l_rs("mednro") %> > 
-								<%'= l_rs("meddes") %> (<%'=l_rs("mednro")%>) </option>
-								<%'	l_rs.Movenext
-								'loop
-								'l_rs.Close %>
-							</select>
-							<script>document.datos.mednro.value= "<%'= l_mednro %>"</script>
-						</td>					
-					</tr>					
-					 -->						
+					
 					</table>
 				</td>
 			</tr>

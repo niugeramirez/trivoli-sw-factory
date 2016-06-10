@@ -5,6 +5,7 @@
 <!--#include virtual="/turnos/shared/inc/fecha.inc"-->
 <!--#include virtual="/turnos/shared/inc/adovbs.inc"-->
 <!--#include virtual="/turnos/shared/inc/sqls.inc"-->
+<!--#include virtual="/turnos/shared/inc/pacientes_util.inc"-->
 <% 
 
 
@@ -69,6 +70,10 @@ end function 'codigogenerado()
  cn.BeginTrans
 
 set l_cm = Server.CreateObject("ADODB.Command")
+
+if request.Form("gen_hist_num") = "on" then
+	l_nrohistoriaclinica = get_proximo_histnum(session("empnro"),l_cm)	
+end if
 
 if l_tipo = "A" then
 	if l_dni <> "" then

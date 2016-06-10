@@ -30,6 +30,7 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 l_sql = "SELECT * "
 l_sql = l_sql & " FROM clientespacientes "
 l_sql = l_sql & " WHERE dni=" & l_dni 
+l_sql = l_sql & " AND dni <> 0 " 
 if l_tipo = "M" then
 	l_sql = l_sql & " AND id <> " & l_id
 end if
@@ -44,6 +45,7 @@ l_rs.close
 l_sql = "SELECT * "
 l_sql = l_sql & " FROM clientespacientes "
 l_sql = l_sql & " WHERE nrohistoriaclinica='" & l_nrohistoriaclinica & "'" 
+l_sql = l_sql & " AND nrohistoriaclinica <> '0'"
 if l_tipo = "M" then
 	l_sql = l_sql & " AND id <> " & l_id
 end if

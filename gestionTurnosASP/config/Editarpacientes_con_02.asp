@@ -1,6 +1,7 @@
 
 <% Option Explicit %>
 <!--#include virtual="/turnos/shared/db/conn_db.inc"-->
+<!--#include virtual="/turnos/shared/inc/pacientes_util.inc"-->
 <% 
 
 on error goto 0
@@ -73,48 +74,32 @@ if (document.datos.dni.value == ""){
 	document.datos.dni.focus();
 	return;
 }
+<% End If %>
 if (isNaN(document.datos.dni.value)) {
 	alert("El D.N.I. debe ser numerico.");
 	document.datos.dni.focus();
 	return;
 }
-<% End If %>
-/*
-if (document.datos.nrohistoriaclinica.value == ""){
-	alert("Debe ingresar el Nro de Historia Clinica o ingresar 0.");
-	document.datos.nrohistoriaclinica.focus();
-	return;
-}
-if (isNaN(document.datos.nrohistoriaclinica.value)) {
-	alert("El Nro de Historia Clinica debe ser numerico.");
-	document.datos.nrohistoriaclinica.focus();
-	return;
-}
-*/
-/*
-if (document.datos.domicilio.value == ""){
-	alert("Debe ingresar el Domicilio del Paciente.");
-	document.datos.domicilio.focus();
-	return;
-}
-*/
+
+
 if (document.datos.tel.value == ""){
 	alert("Debe ingresar el Telefono del Paciente.");
 	document.datos.tel.focus();
 	return;
 }
 <% if l_hc = "S" then %>
-if (document.datos.nrohistoriaclinica.value == ""){
-	alert("Debe ingresar el Nro de Historia Clinica.");
-	document.datos.nrohistoriaclinica.focus();
-	return;
-}
-if (document.datos.nrohistoriaclinica.value == "0"){
-	alert("Debe ingresar el Nro de Historia Clinica.");
+if ((document.datos.nrohistoriaclinica.value == "" ||document.datos.nrohistoriaclinica.value == 0 )
+	&& document.datos.gen_hist_num.checked == false ){
+	alert("Debe ingresar el Nro de Historia Clinica o seleccionar la opcion para generar un nuevo numero.");
 	document.datos.nrohistoriaclinica.focus();
 	return;
 }
 <% End If %>
+if (isNaN(document.datos.nrohistoriaclinica.value)) {
+	alert("El Nro de Historia Clinica debe ser numerico.");
+	document.datos.nrohistoriaclinica.focus();
+	return;
+}
 
 // Texto seleccionado:  s.options[s.selectedIndex].text;
 //alert(s.options[s.selectedIndex].text);
@@ -211,7 +196,7 @@ end select
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="javascript:document.datos.apellido.focus();">
 <form name="datos" action="Editarpacientes_con_03.asp?tipo=<%= l_tipo %>" method="post" target="valida">
 <input type="hidden" name="id" value="<%= l_id %>">
-<input type="hidden" name="pacienteid" value="<%'= l_id %>">
+<input type="hidden" name="pacienteid" value="">
 <input type="hidden" name="ventana" value="<%= l_ventana %>">
 <input type="hidden" name="os" value="">
 
@@ -248,12 +233,7 @@ end select
 						<td>
 							<input type="text" name="tel" size="20" maxlength="20" value="<%= l_tel %>">
 						</td>						
-					
-						<!--
-					    <td align="right"><b>Nro. Historia Cl&iacute;nica:</b></td>
-						<td>
-							<input type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%= l_nrohistoriaclinica %>">
-						</td>	-->					
+									
 					</tr>
 					<tr>
 					    <td align="right"><b>Domicilio:</b></td>
@@ -280,14 +260,31 @@ end select
 						</td>					
 					</tr>
 					<tr>
+						<td>
+						 </br></br>
+						</td>
+						<td>
+						 </br></br>
+						</td>						
+					</tr>
+					<tr>
 					    <td align="right"><b> Historia Cl&iacute;nica <% If l_hc = "S" then %> (*)<% End If %>:</b></td>
 						<td>
 							<input type="text" name="nrohistoriaclinica" size="20" maxlength="20" value="<%= l_nrohistoriaclinica %>">
-						</td>					
-
+						</td>	
+					</tr>
+					<% If check_genera_histnum(Session("empnro")) then %> 
+					<tr>						
+					    <td align="right"><b>Generar Nro.:</b></td>
+						<td>
+							<input type=checkbox name="gen_hist_num" size="20" maxlength="20" >
+							<% If l_nrohistoriaclinica <> "0" and l_nrohistoriaclinica <> "" and IsNumeric(l_nrohistoriaclinica) then %>
+								<script>document.datos.gen_hist_num.disabled =true</script>
+							<% End If %>								
+						</td>
 									
 					</tr>					
-											
+					<% End If %>						
 					</table>
 				</td>
 			</tr>
