@@ -300,4 +300,33 @@ sub MostrarOpcion (Pagina,Nombre)
   end if
 end sub
 
+'Convierte una cadena que viene en UTF-8
+Function ConvertFromUTF8(sIn)
+
+    Dim oIn: Set oIn = CreateObject("ADODB.Stream")
+
+    oIn.Open
+    oIn.CharSet = "WIndows-1252"
+    oIn.WriteText sIn
+    oIn.Position = 0
+    oIn.CharSet = "UTF-8"
+    ConvertFromUTF8 = oIn.ReadText
+    oIn.Close
+
+End Function
+
+'Convierte una cadena que viene en UTF-8
+Function ConvertFromUTF8_tocharset(sIn,pcharset)
+
+    Dim oIn: Set oIn = CreateObject("ADODB.Stream")
+
+    oIn.Open
+    oIn.CharSet = pcharset
+    oIn.WriteText sIn
+    oIn.Position = 0
+    oIn.CharSet = "UTF-8"
+    ConvertFromUTF8_tocharset = oIn.ReadText
+    oIn.Close
+
+End Function
 %>

@@ -16,7 +16,7 @@ Dim l_sql
 
 <html>
 <head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Administracion de Medicos</title>
 
 <link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css" />
