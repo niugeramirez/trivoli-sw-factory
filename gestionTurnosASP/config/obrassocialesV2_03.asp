@@ -16,7 +16,7 @@ Dim l_descripcion
 
 l_tipo        = request.Form("tipo")
 l_id          = request.Form("id")
-l_descripcion = request.Form("descripcion")
+l_descripcion = ConvertFromUTF8_tocharset(request.Form("descripcion"),"iso-8859-1")
 
 
 

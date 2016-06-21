@@ -19,7 +19,7 @@ Dim texto
 texto = ""
 l_tipo		    = request.Form("tipo")
 l_id            = request.Form("id")
-l_descripcion 	= request.Form("descripcion")
+l_descripcion 	= ConvertFromUTF8_tocharset(request.Form("descripcion"),"iso-8859-1")
 
 '=====================================================================================
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
