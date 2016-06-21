@@ -37,6 +37,7 @@ on error goto 0
 %>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <!--<link href="/turnos/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">-->
 <title>Pacientes</title>

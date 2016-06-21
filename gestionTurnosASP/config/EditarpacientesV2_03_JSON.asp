@@ -32,10 +32,10 @@ dim l_ventana
 
 l_tipo 		     = request.Form("tipo")
 l_id             = request.Form("id") 
-l_apellido       = request.Form("apellido")
-l_nombre         = request.Form("nombre")
+l_apellido       = ConvertFromUTF8(request.Form("apellido")) 'request.Form("apellido")
+l_nombre         = ConvertFromUTF8(request.Form("nombre"))
 l_dni            = request.Form("dni")
-l_domicilio      = request.Form("domicilio")
+l_domicilio      = ConvertFromUTF8(request.Form("domicilio"))
 l_nrohistoriaclinica = request.Form("nrohistoriaclinica")
 l_tel            = request.Form("tel")
 l_idobrasocial   = request.Form("osid")

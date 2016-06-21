@@ -45,6 +45,7 @@ on error goto 0
 %>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <title>Buscar Pacientes</title>
 <script src="/turnos/shared/js/fn_windows.js"></script>

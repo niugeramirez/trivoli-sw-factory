@@ -17,7 +17,7 @@ Dim l_cant
 
 Dim l_primero
 
-l_filtro = request("filtro")
+l_filtro = ConvertFromUTF8(request("filtro")) 'request("filtro") 'ConvertFromUTF8_tocharset(request("filtro"),"iso-8859-1") 
 l_orden  = request("orden")
 
 

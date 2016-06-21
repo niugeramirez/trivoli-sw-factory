@@ -22,7 +22,7 @@ dim l_cantsobreturnos
 
 l_tipo 		               = request.Form("tipo")
 l_id                       = request.Form("id")
-l_descripcion              = ConvertFromUTF8_tocharset(request.Form("descripcion"),"iso-8859-1")
+l_descripcion              = ConvertFromUTF8(request.Form("descripcion")) 'ConvertFromUTF8_tocharset(request.Form("descripcion"),"iso-8859-1")
 l_idtemplatereserva        = request.Form("idtemplatereserva")
 l_cantturnossimult         = request.Form("cantturnossimult")
 l_cantsobreturnos          = 0 ' request.Form("cantsobreturnos") se elimino esta campo
