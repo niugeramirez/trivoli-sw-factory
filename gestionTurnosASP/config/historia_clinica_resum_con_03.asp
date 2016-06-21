@@ -24,7 +24,7 @@ dim l_detalle
 l_tipo 		               = request.Form("tipo")
 l_id                       = request.Form("id")
 l_fecha			           = request.Form("fecha")
-l_detalle 		           = replace(request.Form("detalle"),vbCrlf,"</br>")  'request.Form("detalle")
+l_detalle 		           = ConvertFromUTF8(replace(request.Form("detalle"),vbCrlf,"</br>"))'replace(request.Form("detalle"),vbCrlf,"</br>")  'request.Form("detalle")
 l_idrecursoreservable 	   = request.Form("idrecursoreservable")
 
 l_idclientepaciente = request.Form("idclientepaciente") '199624

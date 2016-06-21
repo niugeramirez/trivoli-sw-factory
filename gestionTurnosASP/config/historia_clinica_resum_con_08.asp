@@ -45,7 +45,7 @@ l_id     = request("id")
 <% if request.querystring("excel") = false then  %>
 <link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
 <% End If %>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Vista Preliminar Historia Clinica</title>
 </head>
 

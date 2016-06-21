@@ -21,7 +21,7 @@ l_filtro = request("filtro")
 l_orden  = request("orden")
 
 if l_orden = "" then
-  l_orden = " ORDER BY historia_clinica_resumida.id "
+  l_orden = " ORDER BY historia_clinica_resumida.fecha desc ,historia_clinica_resumida.id "
 end if
 %>
 
@@ -32,7 +32,7 @@ end if
 <script src="/turnos/shared/js/fn_ayuda.js"></script>
 <head>
 <link href="/turnos/ess/shared/css/tables_gray.css" rel="StyleSheet" type="text/css">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Resumen de Historias Clinicas para Impresion</title>
 </head>
 

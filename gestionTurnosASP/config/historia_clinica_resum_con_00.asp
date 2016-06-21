@@ -16,7 +16,7 @@ Dim l_sql
 
 <html>
 <head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Resumen de Historias Clinicas para Impresion</title>
 
 <link rel="stylesheet" href="../js/themes/smoothness/jquery-ui.css" />
