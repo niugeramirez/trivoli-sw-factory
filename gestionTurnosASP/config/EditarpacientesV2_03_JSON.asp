@@ -132,7 +132,7 @@ cn.CommitTrans
 
 
 'Response.write "OK"
-Response.write "[{""resultado"":""OK"",""id"":""" & l_id & """}]"
+Response.write "[{""resultado"":""OK"",""id"":""" & l_id & """,""nrohistoriaclinica"":""" & l_nrohistoriaclinica & """}]"
 
 %>
 

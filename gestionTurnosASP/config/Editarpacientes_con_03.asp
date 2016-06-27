@@ -130,12 +130,12 @@ cn.CommitTrans
 
 
 if l_ventana = 1 then ' Ventana de Alta en Asignar Pacientes
-Response.write "<script>alert('Operación Realizada.');window.parent.opener.EncontrePacienteAlta(" & l_id & ",'"&l_apellido&"','"&l_nombre&"',"&l_dni&",'"&l_tel&"','"&l_domicilio&"',"&l_idobrasocial &",'"& l_os & "') ;window.parent.close();</script>"
+Response.write "<script>alert('Operación Realizada.');window.parent.opener.EncontrePacienteAlta(" & l_id & ",'"&l_apellido&"','"&l_nombre&"',"&l_dni&",'"&l_tel&"','"&l_domicilio&"',"&l_idobrasocial &",'"& l_os & "','"& l_nrohistoriaclinica & "') ;window.parent.close();</script>"
 else
 	if l_ventana = 2 then ' Ventana de Modid en Asignar Pacientes
 		Response.write "<script>alert('Operación Realizada .');window.parent.opener.location.reload();window.parent.close();</script>"
 	else ' ventana Alta Paciente en Buscar Pacientes
-		Response.write "<script>alert('Operación Realizada .');window.parent.opener.opener.EncontrePacienteAlta("& l_id & ",'" &l_apellido&"','"&l_nombre&"',"&l_dni&",'"&l_tel&"','"&l_domicilio&"',"&l_idobrasocial &",' "&l_os&"') ;window.parent.opener.close();window.parent.close();</script>"	
+		Response.write "<script>alert('Operación Realizada .');window.parent.opener.opener.EncontrePacienteAlta("& l_id & ",'" &l_apellido&"','"&l_nombre&"',"&l_dni&",'"&l_tel&"','"&l_domicilio&"',"&l_idobrasocial &",' "&l_os& "','"& l_nrohistoriaclinica & "') ;window.parent.opener.close();window.parent.close();</script>"	
 	end if	
 end if
 %>

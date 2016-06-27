@@ -40,11 +40,11 @@ function Validaciones_locales_EditPac_HCR(){
 	//como la pantalla 02 se usa en varios lugares (a diferencia del esquema general de ABM) ponemos la funcion de validacion local en el 02, y se invoca desde la ventana llamadora
 	return Validaciones_locales_EditPac_02()
 }
-function devolver_paciente_editado_HCR(){volver_AsignarPaciente
+function devolver_paciente_editado_HCR(id,obj){
 	volver_AsignarPaciente(	document.datos_02_EditPac.id.value, 
 							document.datos_02_EditPac.apellido.value, 
 							document.datos_02_EditPac.nombre.value, 
-							document.datos_02_EditPac.nrohistoriaclinica.value, 
+							obj.nrohistoriaclinica, //document.datos_02_EditPac.nrohistoriaclinica.value, 
 							document.datos_02_EditPac.dni.value, 
 							document.datos_02_EditPac.domicilio.value, 
 							document.datos_02_EditPac.tel.value, 
@@ -155,7 +155,7 @@ function volver_AsignarPaciente(id, apellido, nombre, nrohistoriaclinica, dni, d
 }
 
 function BuscarPaciente(){	
-	abrirDialogo('dialog_cont_BusqPac','BuscarpacientesV2_00.asp?Tipo=A&Alta=N&fn_asign_pac=volver_AsignarPaciente&dnioblig=N&hcoblig=N',900,250);
+	abrirDialogo('dialog_cont_BusqPac','BuscarpacientesV2_00.asp?Tipo=A&Alta=S&fn_asign_pac=volver_AsignarPaciente&dnioblig=N&hcoblig=N',900,250);
 }
 </script>
 </head>

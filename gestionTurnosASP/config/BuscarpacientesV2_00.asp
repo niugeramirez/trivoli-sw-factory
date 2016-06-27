@@ -34,11 +34,11 @@ on error goto 0
 function AsignarPaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, tel, osid, os){
 	<%= l_fn_asign_pac %>(id, apellido, nombre, nrohistoriaclinica, dni, domicilio, tel, osid, os);
 }
-function devolver_paciente_editado(id){
-	<%= l_fn_asign_pac %>(	id,//document.datos_02_EditPac.id.value, 
+function devolver_paciente_editado(id,obj){
+	<%= l_fn_asign_pac %>(	obj.id,//document.datos_02_EditPac.id.value, 
 							document.datos_02_EditPac.apellido.value, 
 							document.datos_02_EditPac.nombre.value, 
-							document.datos_02_EditPac.nrohistoriaclinica.value, 
+							obj.nrohistoriaclinica, //document.datos_02_EditPac.nrohistoriaclinica.value, 
 							document.datos_02_EditPac.dni.value, 
 							document.datos_02_EditPac.domicilio.value, 
 							document.datos_02_EditPac.tel.value, 

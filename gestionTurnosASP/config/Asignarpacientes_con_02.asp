@@ -194,11 +194,12 @@ function EncontrePaciente(id, apellido, nombre, nrohistoriaclinica, dni, domicil
 	//document.datos.coudes.focus();
 }
 
-function EncontrePacienteAlta(id,apellido, nombre, dni,tel,domicilio,osid, os){
+function EncontrePacienteAlta(id,apellido, nombre, dni,tel,domicilio,osid, os,nrohistoriaclinica){
 	
 	document.datos.pacienteid.value = id;
 	document.datos.apellido.value = apellido;
 	document.datos.nombre.value = nombre;
+	document.datos.nrohistoriaclinica.value = nrohistoriaclinica;
 	document.datos.dni.value = dni;
 	document.datos.domicilio.value = domicilio;
 	document.datos.tel.value = tel;
