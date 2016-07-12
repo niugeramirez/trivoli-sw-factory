@@ -22,6 +22,7 @@ dim l_dni
 dim l_fechanacimiento
 dim l_domicilio
 dim l_telefono 
+dim l_fecha
 
 dim l_fondo
 
@@ -80,6 +81,39 @@ function Seleccionar(fila,cabnro, turnoid){
 	</script>
 <% 
 
+function Nombre_Mes (Mes)
+
+	select case Mes
+		case "1":
+			Nombre_Mes = "Enero"
+		case "2":
+			Nombre_Mes = "Febrero"
+		case "3":
+			Nombre_Mes = "Marzo"
+		case "4":
+			Nombre_Mes = "Abril"
+		case "5":
+			Nombre_Mes = "Mayo"
+		case "6":
+			Nombre_Mes = "Junio"
+		case "7":
+			Nombre_Mes = "Julio"
+		case "8":
+			Nombre_Mes = "Agosto"
+		case "9":
+			Nombre_Mes = "Septiembre"
+		case "10":
+			Nombre_Mes = "Octubre"
+		case "11":
+			Nombre_Mes = "Noviembre"
+		case "12":
+			Nombre_Mes = "Diciembre"
+		
+		end select	
+									
+
+end function
+
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
 ' Obtengo la cantidad de turnos simultaneos del Recurso Reservable
@@ -97,6 +131,7 @@ if not l_rs.eof then
 	l_fechanacimiento = l_rs("fechanacimiento")
 	l_domicilio = l_rs("domicilio")
 	l_telefono = l_rs("telefono")
+	l_fecha = l_rs("fecha")
 end if
 l_rs.close
 
@@ -113,9 +148,12 @@ l_rs.close
     <tr>
         <td align="center" colspan="6"><img  src="/turnos/images/megavision.jpg" border="0"></a> </td>
     </tr>
-    <tr>
-        <td align="center" colspan="6">&nbsp;</td>
-    </tr>		
+   <tr>
+       <td align="right" colspan="6">Bah&iacute;a Blanca, <%= day(l_fecha) %>&nbsp;de&nbsp;<%= Nombre_Mes( month(l_fecha)) %>&nbsp;de&nbsp;<%= year(l_fecha) %></td>
+   </tr>		
+   <tr>
+       <td align="center" colspan="6">&nbsp;</td>
+   </tr>	   
     <tr>
         <td align="center" colspan="6">___________________________________________________________________________________________</td>
     </tr>		
