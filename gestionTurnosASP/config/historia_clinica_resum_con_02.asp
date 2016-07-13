@@ -52,7 +52,7 @@ $( "#fecha" ).datepicker({
 <% 
 select Case l_tipo
 	Case "A":
- 	    	l_fecha			     = ""
+ 	    	l_fecha			     = Date()
 			l_detalle			 = ""
 	    	l_idrecursoreservable = "0"
 	    	l_idclientepaciente  = ""
