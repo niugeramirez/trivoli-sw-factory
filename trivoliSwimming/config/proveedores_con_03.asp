@@ -19,16 +19,18 @@ dim l_nombre
 dim l_telefono
 dim l_celular  
 dim l_mail  
-
+dim l_direccion
+dim l_idciudad
 
 
 l_tipo 		               = request.Form("tipo")
 l_id                       = request.Form("id")
-l_nombre	               = request.Form("nombre")
-l_telefono		           = request.Form("telefono")
-l_celular		           = request.Form("celular")
+l_nombre	               = ConvertFromUTF8(request.Form("nombre"))
+l_telefono		           = ConvertFromUTF8(request.Form("telefono"))
+l_celular		           = ConvertFromUTF8(request.Form("celular"))
 l_mail  		           = request.Form("mail")
-
+l_direccion		           = ConvertFromUTF8(request.Form("direccion"))
+l_idciudad				   = request.Form("idciudad")
 
 'response.write "l_tipo"&l_tipo & "<br>"
 'response.write "l_id"&l_id & "<br>"
@@ -58,18 +60,19 @@ if l_tipo = "A" then
 	' Multiempresa
 	' Se elimina est linea y se reemplaza por el codigo de abajo
 	'l_sql = l_sql & " (descripcion, idtemplatereserva, cantturnossimult, cantsobreturnos,created_by,creation_date,last_updated_by,last_update_date)"
-	l_sql = l_sql & " (nombre,telefono,celular, mail, empnro, created_by,creation_date,last_updated_by,last_update_date)"
+	l_sql = l_sql & " (nombre,telefono,celular, mail, direccion,idciudad,empnro, created_by,creation_date,last_updated_by,last_update_date)"
 
 	' Se elimina est linea y se reemplaza por el codigo de abajo
-	'l_sql = l_sql & " VALUES ('" & l_descripcion & "'," & l_idtemplatereserva & "," & l_cantturnossimult & "," & l_cantsobreturnos  &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
-	l_sql = l_sql & " VALUES ('" & l_nombre & "','" & l_telefono  &  "','" & l_celular  &  "','" & l_mail  &  "','" & session("empnro") &"','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
-	
+	'l_sql = l_sql & " VALUES ('" & l_descripcion & "'," & l_idtemplatereserva & "," & l_cantturnossimult & "," & l_cantsobreturnos  &",'"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"	
+	l_sql = l_sql & " VALUES ('" & l_nombre & "','" & l_telefono  &  "','" & l_celular  &  "','" & l_mail  &  "','" & l_direccion  &  "'," & l_idciudad  	& ",'" & 	session("empnro") &"','"&session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 else
 	l_sql = "UPDATE proveedores "
 	l_sql = l_sql & " SET nombre    = '" & l_nombre & "'"
 	l_sql = l_sql & "    ,telefono  = '" & l_telefono & "'"	
 	l_sql = l_sql & "    ,celular   = '" & l_celular & "'"
 	l_sql = l_sql & "    ,mail      = '" & l_mail & "'"
+	l_sql = l_sql & "    ,direccion = '" & l_direccion & "'"
+	l_sql = l_sql & "    ,idciudad  =  " & l_idciudad & ""			
 	l_sql = l_sql & "    ,last_updated_by = '" &session("loguinUser") & "'"
 	l_sql = l_sql & "    ,last_update_date = GETDATE()" 	
 	l_sql = l_sql & " WHERE id = " & l_id

@@ -44,14 +44,17 @@ end if
         <th>Tel</th>	
         <th>Celular</th>		
         <th>Mail</th>
+		<th>Direccion</th>
+		<th>Ciudad</th> 			
 		<th>Acciones</th>		
     </tr>
     <%
     l_filtro = replace (l_filtro, "*", "%")
 
     Set l_rs = Server.CreateObject("ADODB.RecordSet")
-    l_sql = "SELECT    proveedores.*  "
+    l_sql = "SELECT    proveedores.* , ciudades.ciudad "
     l_sql = l_sql & " FROM proveedores "
+	l_sql = l_sql & " LEFT JOIN ciudades ON ciudades.id = proveedores.idciudad "	
 	' Multiempresa
 	if l_filtro <> "" then
 	  l_sql = l_sql & " WHERE " & l_filtro & " "
@@ -83,7 +86,9 @@ end if
 			<td width="10%" nowrap><%= l_rs("nombre")%></td>
 			<td width="10%" align="center" nowrap><%= l_rs("telefono")%></td>
 			<td width="10%" align="center" nowrap><%= l_rs("celular")%></td>
-			<td width="10%" align="left" nowrap><%= l_rs("mail")%></td>			
+			<td width="10%" align="left" nowrap><%= l_rs("mail")%></td>		
+	        <td width="10%" nowrap align="left"><%= l_rs("direccion")%></td>			
+			<td width="10%" nowrap align="left"><%= l_rs("ciudad")%></td>				
 	        <td align="center" width="10%" nowrap>                    
                 <a href="Javascript:parent.abrirDialogo('dialog','proveedores_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>

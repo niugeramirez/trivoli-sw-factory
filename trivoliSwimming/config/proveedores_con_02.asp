@@ -12,6 +12,8 @@ dim l_nombre
 dim l_telefono
 dim l_celular  
 dim l_mail
+dim l_direccion
+dim l_idciudad
 
 'ADO
 Dim l_tipo
@@ -35,7 +37,8 @@ select Case l_tipo
 			l_telefono    = ""
 			l_celular     = ""
 			l_mail        = ""
-
+			l_direccion   = ""
+			l_idciudad    = "0"
 
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
@@ -49,6 +52,8 @@ select Case l_tipo
 			l_telefono			= l_rs("telefono")
 			l_celular			= l_rs("celular")
 			l_mail   			= l_rs("mail")
+			l_direccion         = l_rs("direccion")
+			l_idciudad          = l_rs("idciudad")			
 			
 		end if
 		l_rs.Close
@@ -101,7 +106,38 @@ end select
 								</td>
 				
 							</tr>																			
-			
+
+							<tr>
+								<td align="right"><b>Direccion:</b></td>
+								<td colspan="3">
+									<input type="text" name="direccion" size="50" maxlength="100" value="<%= l_direccion %>">							
+								</td>
+				
+							</tr>	
+							
+						    <tr>
+								<td align="right"><b>Ciudad:</b></td>
+								<td colspan="3"><select name="idciudad" size="1" style="width:450;">
+										<option value="0" selected>&nbsp;Seleccione una Ciudad</option>
+										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+										l_sql = "SELECT  * "
+										l_sql  = l_sql  & " FROM ciudades "
+										' Multiempresa
+										' Se agrega este filtro 
+										l_sql = l_sql & " where ciudades.empnro = " & Session("empnro")   
+										
+										l_sql  = l_sql  & " ORDER BY ciudad "
+										rsOpen l_rs, cn, l_sql, 0
+										do until l_rs.eof		%>	
+										<option value= <%= l_rs("id") %> > 
+										<%= l_rs("ciudad") %>  </option>
+										<%	l_rs.Movenext
+										loop
+										l_rs.Close %>
+									</select>
+									<script>document.datos_02_prov.idciudad.value= "<%= l_idciudad %>"</script>
+								</td>					
+							</tr>							
 										
 							</table>
 						</td>
