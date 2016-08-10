@@ -109,6 +109,11 @@
 		
 	</ul>
 </li>
+<li><a href="#">Proveedores</a>
+	<ul>		
+		<li><a target="ifrm"  href="../../config/proveedores_con_00.asp">Proveedores</a></li>
+	</ul>
+</li>
 <li><a href="#">Configuraci&oacute;n</a>
 	<ul>				
 		<li><a target="ifrm"  href="../../config/obrassocialesV2_00.asp">Obras Sociales</a></li>
