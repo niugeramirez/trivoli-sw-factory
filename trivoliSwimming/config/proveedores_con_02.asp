@@ -77,7 +77,7 @@ end select
 							<tr>
 								<td align="right"><b>Nombre:</b></td>
 								<td colspan="3">
-									<input type="text" name="nombre" name="nombreproveedor" size="70" maxlength="200" value="<%= l_nombre %>">							
+									<input type="text" name="nombre" id="nombre" size="70" maxlength="200" value="<%= l_nombre %>">							
 								</td>
 				
 							</tr>	

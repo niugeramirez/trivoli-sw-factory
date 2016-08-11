@@ -1,9 +1,9 @@
 function Validaciones_locales_prov(){
 
-	if ($("#nombreproveedor").val() == ""){
+	if ($("#nombre").val() == ""){
 	//if (document.datos_02.nombre.value == ""){
 		alert("Debe ingresar el Nombre del Proveedor.");
-		document.datos_02.nombre.focus();
+		document.datos_02_prov.nombre.focus();
 		return false;
 	}
 
