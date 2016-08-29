@@ -43,8 +43,8 @@ select Case l_tipo
 		l_rs.Close
 end select
 %>
-<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="JavaScript:document.datos.nombre.focus()">	
-	<form name="datos" id="datos" action = "Javascript:Validar_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Validar_Formulario();}"  target="valida">
+<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="JavaScript:document.datos_med_der.nombre.focus()">	
+	<form name="datos_med_der" id="datos_med_der" action = "Javascript:Validar_Formulario();" onkeypress="if (event.keyCode == 13) {event.preventDefault();Validar_Formulario();}"  target="valida">
 		<input type="Hidden" name="id" value="<%= l_id %>">
 		<input type="Hidden" name="tipo" value="<%= l_tipo %>">
 

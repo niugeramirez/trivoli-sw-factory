@@ -10,19 +10,21 @@ on error goto 0
   Dim l_sql
   
   Dim l_alta
-  Dim l_dni
+  'Dim l_dni
   'Dim l_hc
   Dim l_fn_asign_pac
   Dim l_dnioblig
   Dim l_hcoblig  
   
   l_alta  = request("Alta")
-  l_dni  = request("dni")
+  'l_dni  = request("dni")
   'l_hc  = request("hc")
   l_fn_asign_pac = request("fn_asign_pac")  
   l_dnioblig  = request("dnioblig")
   l_hcoblig  = request("hcoblig")
-  
+
+'response.write "l_dnioblig "&l_dnioblig
+'response.write "l_hcoblig "&l_hcoblig  
 %>
 <html>
 <head>
@@ -144,7 +146,7 @@ function Buscar(){
 
 function AltaPaciente(){
 
-	abrirDialogo('dialog_cont_EditPac','EditarpacientesV2_02.asp?Tipo=A&ventana=3&dni=<%= l_dni %>&hcoblig=<%= l_hcoblig %>',600,300);
+	abrirDialogo('dialog_cont_EditPac','EditarpacientesV2_02.asp?Tipo=A&ventana=3&dnioblig=<%= l_dnioblig %>&hcoblig=<%= l_hcoblig %>',600,300);
 }
 
 function Limpiar(){

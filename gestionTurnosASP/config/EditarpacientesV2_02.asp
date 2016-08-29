@@ -81,6 +81,11 @@ function Validaciones_locales_EditPac_02(){
 		document.datos_02_EditPac.tel.focus();
 		return false;
 	}
+	if (document.datos_02_EditPac.osid.value == "0"){
+		alert("Debe ingresar la Obra Social del Paciente.");
+		document.datos_02_EditPac.osid.focus();
+		return false;
+	}	
 	<% if l_hcoblig = "S" then %>
 	if ((document.datos_02_EditPac.nrohistoriaclinica.value == "" || document.datos_02_EditPac.nrohistoriaclinica.value == 0) 
 			&& document.datos_02_EditPac.gen_hist_num.checked == false){
