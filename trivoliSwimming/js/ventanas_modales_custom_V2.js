@@ -159,7 +159,9 @@ function valido(id_dialog,url_AM,id_dialogAlert,id_form_datos,location_reload,id
 			function(data) {     
 								if(data=="OK") {
 									$("#"+id_dialog).dialog("close"); 									
-									$("#"+id_ifrm_form_datos).get(0).contentWindow.location.reload();//location_reload.reload();
+									if ($("#"+id_ifrm_form_datos).get(0)) {
+										$("#"+id_ifrm_form_datos).get(0).contentWindow.location.reload();//location_reload.reload();
+									}
 									if (fn_post_AM) {
 										fn_post_AM();
 									}
@@ -168,7 +170,9 @@ function valido(id_dialog,url_AM,id_dialogAlert,id_form_datos,location_reload,id
 								else if (EsJsonString(data)) {
 										if ($.parseJSON(data)[0].resultado=="OK"){
 											$("#"+id_dialog).dialog("close"); 									
-											$("#"+id_ifrm_form_datos).get(0).contentWindow.location.reload();//location_reload.reload();
+											if ($("#"+id_ifrm_form_datos).get(0)) {
+												$("#"+id_ifrm_form_datos).get(0).contentWindow.location.reload();//location_reload.reload();
+											}
 											if (fn_post_AM) { fn_post_AM($.parseJSON(data)[0].id,$.parseJSON(data)[0]);}
 											$("#"+id_dialog).empty();
 										}
