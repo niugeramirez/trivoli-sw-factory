@@ -110,65 +110,7 @@ $( "#fecha" ).datepicker({
 </script>
 <!-- Final Datepicker -->
 
-<script>
-function ctrolmediodepago(){
 
-	if (document.datos_02_mc.mediodepagocheque.value == document.datos_02_mc.idmediopago.value) {			
-			//document.datos_02_mc.idcheque.disabled = false;	
-			mostrar('cheque');						
-		}
-		else {
-		
-			//document.datos_02_mc.idcheque.disabled = true;	
-			cerrar('cheque');								
-	
-		}	
-
-}
-
-function ctrolcheque(){
-
-document.valida.location = "importecheque_con_00.asp?id=" + document.datos_02_mc.idcheque.value ;	
-
-}
-
-function actualizarimporte(p_importe){	
-	document.datos_02_mc.monto.value = p_importe;
-}
-
-
-function ctroltipomovimiento(){
-
-	document.valida.location = "flagtipomovimiento_con_00.asp?id=" + document.datos_02_mc.idtipomovimiento.value ;	
-
-}
-
-function actualizarflag (p_flagcompra, p_flagventa){	
-	
-		if (p_flagcompra == -1 ) {			
-			document.datos_02_mc.idcompraorigen.disabled = false;		
-			mostrar('compraorigen');					
-		}
-		else {			
-			document.datos_02_mc.idcompraorigen.disabled = true;	
-			document.datos_02_mc.idcompraorigen.value = 0;
-			cerrar('compraorigen');					
-		};
-
-		if (p_flagventa == -1 ) {			
-			document.datos_02_mc.idventaorigen.disabled = false;	
-			mostrar('ventaorigen');						
-		}
-		else {			
-			document.datos_02_mc.idventaorigen.disabled = true;	
-			document.datos_02_mc.idventaorigen.value = 0;
-			cerrar('ventaorigen');	
-			
-		};	
-	
-}
-
-</script>
 
 <script languague="javascript">
         function mostrar(nombrediv) {
@@ -386,12 +328,13 @@ end if
        
     </div>		
 	
-    <div id="unidaddenegocio">
+    <!--
+	<div id="unidaddenegocio">
         <div id="columna1" align="right">Unidad de Negocio:</div>
         <div id="columna2">
 		<select name="idunidadnegocio" size="1" style="width:250;">
 										<option value="0" selected>&nbsp;Seleccione una Unidad de Negocio</option>
-										<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+										<Set l_rs = Server.CreateObject("ADODB.RecordSet")
 										l_sql = "SELECT  * "
 										l_sql  = l_sql  & " FROM unidadesNegocio "
 										l_sql = l_sql & " where unidadesNegocio.empnro = " & Session("empnro")   
@@ -399,15 +342,16 @@ end if
 										l_sql  = l_sql  & " ORDER BY descripcion "
 										rsOpen l_rs, cn, l_sql, 0
 										do until l_rs.eof		%>	
-										<option value= <%= l_rs("id") %> > 
-										<%= l_rs("descripcion") %>  </option>
-										<%	l_rs.Movenext
+										<option value= <= l_rs("id") %> > 
+										<= l_rs("descripcion") %>  </option>
+										<	l_rs.Movenext
 										loop
 										l_rs.Close %>
 									</select>
-									<script>document.datos_02_mc.idunidadnegocio.value= "<%= l_idunidadnegocio%>"</script>		</div>
+									<script>document.datos_02_mc.idunidadnegocio.value= "<= l_idunidadnegocio%>"</script>		</div>
        
-    </div>		
+    </div>	
+	-->	
     <div id="mediodepago">
         <div id="columna1" align="right">Medio de Pago:</div>
         <div id="columna2">

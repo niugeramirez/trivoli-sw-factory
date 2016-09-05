@@ -59,6 +59,11 @@ if len(l_idcompraorigen) = 0 then
 	l_idcompraorigen = "0"
 end if
 
+if len(l_idunidadnegocio) = 0 then
+	l_idunidadnegocio = "0"
+end if
+
+
 'response.write "l_tipo"&l_tipo & "<br>"
 'response.write "l_id"&l_id & "<br>"
 

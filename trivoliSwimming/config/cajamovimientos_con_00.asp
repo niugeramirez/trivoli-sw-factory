@@ -48,26 +48,8 @@ l_p_id_compra = request.querystring("p_id_compra")
 <% end if %>
 <script src="/trivoliSwimming/shared/js/fn_numeros.js"></script>
 <script src="js_pantallas/cheques.js"></script>
-<script>
+<script src="js_pantallas/cajamovimientos.js"></script>
 
-function volver_AsignarCheque(id, fecha,  numero, banco, importe ){
-
-	document.datos_02_mc.cheque_nom.value = numero + " - " + banco + " - " + fecha;
-	document.datos_02_mc.idcheque.value = id;
-	document.datos_02_mc.monto.value = importe;
-	
-	$("#dialog_cont_BusqCheque").dialog("close");
-}
-
-function devolver_cheque_editado(){
-	volver_AsignarCheque(	document.datos_02_cheq.id.value,
-							document.datos_02_cheq.fecha_emision.value, 
-							document.datos_02_cheq.numero.value, 
-							$( "#idbanco option:selected" ).text().trim(),
-							document.datos_02_cheq.importe.value  
-							);							
-}	
-</script>
 <!-- Comienzo Datepicker -->
 <script>
 $(function () {
@@ -89,144 +71,6 @@ $( "#filt_fechahasta_cm" ).datepicker({
 </script>
 <!-- Final Datepicker -->
 <script>
-function Validaciones_locales_mc(){
-
-	if (document.datos_02_mc.fecha.value == ""){
-		alert("Debe ingresar la fecha del movimiento.");
-		document.datos_02_mc.fecha.focus();
-		return false;
-	}	
-	if (document.datos_02_mc.tipoes.value == ""){
-		alert("Debe ingresar el Tipo.");
-		document.datos_02_mc.tipoes.focus();
-		return false;
-	}	
-	
-	if (document.datos_02_mc.idtipomovimiento.value == "0"){
-		alert("Debe ingresar el Tipo de Movimiento.");
-		document.datos_02_mc.idtipomovimiento.focus();
-		return false;
-	}	
-	
-	/*if (document.datos_02_mc.detalle.value == ""){
-		alert("Debe ingresar el Detalle.");
-		document.datos_02_mc.detalle.focus();
-		return false;
-	}*/		
-	
-	if (document.datos_02_mc.idunidadnegocio.value == "0"){
-		alert("Debe ingresar la Unidad de Negocio.");
-		document.datos_02_mc.idunidadnegocio.focus();
-		return false;
-	}	
-	
-	if (document.datos_02_mc.idmediopago.value == "0"){
-		alert("Debe ingresar el Medio de Pago.");
-		document.datos_02_mc.idmediopago.focus();
-		return false;
-	}	
-	
-	if (document.datos_02_mc.mediodepagocheque.value == document.datos_02_mc.idmediopago.value){
-		if (document.datos_02_mc.idcheque.value == "0"){
-			alert("Debe ingresar el Cheque.");
-			document.datos_02_mc.idcheque.focus();
-			return false;
-		}	
-
-	}		
-	
-	if (document.datos_02_mc.idtipomovimiento.value == "0"){
-		alert("Debe ingresar el Tipo de Movimiento.");
-		document.datos_02_mc.idtipomovimiento.focus();
-		return false;
-	}				
-
-	if (document.datos_02_mc.monto.value == ""){
-		alert("Debe ingresar un Monto.");
-		document.datos_02_mc.monto.focus();
-		return false;
-	}		
-	
-	if (document.datos_02_mc.monto.value == "0"){
-		alert("El Monto debe ser distinto de Cero.");
-		document.datos_02_mc.monto.focus();
-		return false;
-	}		
-	
-	document.datos_02_mc.monto2.value = document.datos_02_mc.monto.value.replace(",", ".");
-	if (!validanumero(document.datos_02_mc.monto2, 15, 4)){
-		  alert("El Monto no es válido. Se permite hasta 15 enteros y 4 decimales.");	
-		  document.datos.monto.focus();
-		  document.datos.monto.select();
-		  return;
-	}		
-	
-	if (document.datos_02_mc.idresponsable.value == "0"){
-		alert("Debe ingresar el Responsable.");
-		document.datos_02_mc.idresponsable.focus();
-		return false;
-	}	
-
-
-	return true;
-}
-
-function Submit_Formulario_mc() {
-	Validar_Formulario(	'dialog_mc'								//id_dialog
-						,'cajamovimientos_con_06.asp'					//url_valid_06
-						,'cajamovimientos_con_03.asp'					//url_AM
-						,'dialogAlert_mc'							//id_dialogAlert
-						,'datos_02_mc'								//id_form_datos
-						,null //window.parent.ifrm_mc.location			//location_reload
-						,Validaciones_locales_mc					//funcion_Validaciones_locales
-						,"ifrm_mc"											//id_ifrm_form_datos
-					);
-} 
-
-$(document).ready(function() { 
-								inicializar_dialogAlert("dialogAlert_mc"									//id_dialogAlert
-														);
-								inicializar_dialogConfirmDelete(	"dialogConfirmDelete_mc"				//id_dialogConfirmDelete
-																	,"cajamovimientos_con_04.asp"				//url_baja
-																	,"dialogAlert_mc"						//id_dialogAlert
-																	,"detalle_01_mc"						//id_form_datos
-																	,"ifrm_mc"								//id_ifrm_form_datos
-																	,null //window.parent.ifrm.location		//location_reload
-																	);
-								inicializar_dialogoABM(	"dialog_mc" 										//id_dialog
-														,"cajamovimientos_con_06.asp"							//url_valid_06
-														,"cajamovimientos_con_03.asp"							//url_AM
-														,"dialogAlert_mc"									//id_dialogAlert	
-														,"datos_02_mc"										//id_form_datos		
-														,null //window.parent.ifrm.location					//location_reload
-														,Validaciones_locales_mc							//funcion_Validaciones_locales	
-														,"ifrm_mc"											//id_ifrm_form_datos														
-														); 
-
-								inicializar_dialogoABM(	"dialog_cont_EditCheq_CM" 										//id_dialog
-														,"cheques_con_06.asp"				//url_valid_06
-														,"cheques_con_03.asp"				//url_AM
-														,"dialogAlert_mc"									//id_dialogAlert															
-														,"datos_02_cheq"										//id_form_datos															
-														,null //window.parent.ifrm.location					//location_reload														
-														,Validaciones_locales_cheq							//funcion_Validaciones_locales	
-														,"ifrm_mc"											//id_ifrm_form_datos	
-														,devolver_cheque_editado //fn_post_AM														
-														); 	
-														
-								inicializar_dialogoContenedor(	"dialog_cont_BusqCompraOrigen" 										//id_dialog
-																); 				
-								inicializar_dialogoContenedor(	"dialog_cont_BusqVentaOrigen" 										//id_dialog
-																); 		
-								inicializar_dialogoContenedor(	"dialog_cont_BusqCheque" 										//id_dialog
-																); 																																										
-							});
-							
-</script>
-<!--	FIN VENTANAS MODALES    -->
-
-<script>
-
 function Buscar_mc(){
 
 	$("#filtro_00_mc").val("");
@@ -306,10 +150,6 @@ function Buscar_mc(){
 	window.ifrm_mc.location = 'cajamovimientos_con_01.asp?filtro=' + $("#filtro_00_mc").val()+'&p_id_venta='+"<%= l_p_id_venta%>"+'&p_id_compra='+"<%= l_p_id_compra%>";
 }
 
-function Limpiar_mc(){
-	window.ifrm_mc.location = 'cajamovimientos_con_01.asp?p_id_venta='+"<%= l_p_id_venta%>"+'&p_id_compra='+"<%= l_p_id_compra%>";
-}
-
 function BuscarCompraOrigen(){	
 	<%if l_p_id_venta <> "" or l_p_id_compra <> "" then%>
 			alert("No se puede seleccionar otra operacion. Vaya a la pantalla de Caja");
@@ -328,40 +168,52 @@ function BuscarVentaOrigen(){
 	<%end if%>		
 }
 
-function BuscarCheque(){	
-	
-	abrirDialogo('dialog_cont_BusqCheque','BuscarChequeV2_00.asp?Tipo=A&Alta=S&fn_asign_pac=volver_AsignarCheque',900,250);		
-		
+function Limpiar_mc(){
+	window.ifrm_mc.location = 'cajamovimientos_con_01.asp?p_id_venta='+"<%= l_p_id_venta%>"+'&p_id_compra='+"<%= l_p_id_compra%>";
 }
 
-function volver_AsignarCompraOrigen(id, fecha,  nombre){
+$(document).ready(function() { 
+								inicializar_dialogAlert("dialogAlert_mc"									//id_dialogAlert
+														);
+								inicializar_dialogConfirmDelete(	"dialogConfirmDelete_mc"				//id_dialogConfirmDelete
+																	,"cajamovimientos_con_04.asp"				//url_baja
+																	,"dialogAlert_mc"						//id_dialogAlert
+																	,"detalle_01_mc"						//id_form_datos
+																	,"ifrm_mc"								//id_ifrm_form_datos
+																	,null //window.parent.ifrm.location		//location_reload
+																	);
+								inicializar_dialogoABM(	"dialog_mc" 										//id_dialog
+														,"cajamovimientos_con_06.asp"							//url_valid_06
+														,"cajamovimientos_con_03.asp"							//url_AM
+														,"dialogAlert_mc"									//id_dialogAlert	
+														,"datos_02_mc"										//id_form_datos		
+														,null //window.parent.ifrm.location					//location_reload
+														,Validaciones_locales_mc							//funcion_Validaciones_locales	
+														,"ifrm_mc"											//id_ifrm_form_datos														
+														); 
 
-	document.datos_02_mc.compraorigen.value = nombre + " - " + fecha ;
-	document.datos_02_mc.idcompraorigen.value = id;
-	
-	$("#dialog_cont_BusqCompraOrigen").dialog("close");
-}
-
-function volver_AsignarVentaOrigen(id, fecha,  nombre){
-
-	document.datos_02_mc.ventaorigen.value = nombre + " - " + fecha ;
-	document.datos_02_mc.idventaorigen.value = id;
-	
-	$("#dialog_cont_BusqVentaOrigen").dialog("close");
-}
-
-
-function Editar_Cheque(){ 
-
-	if (document.datos_02_mc.idcheque.value == 0){
-		alert("Debe ingresar el Cheque.");
-		document.datos_02_,c.idcheque.focus();
-		return;
-	}; 
-		
-	abrirDialogo('dialog_cont_EditCheq_CM','cheques_con_02.asp?Tipo=M&cabnro='+document.datos_02_mc.idcheque.value,600,300);
-}
+								inicializar_dialogoABM(	"dialog_cont_EditCheq_CM" 										//id_dialog
+														,"cheques_con_06.asp"				//url_valid_06
+														,"cheques_con_03.asp"				//url_AM
+														,"dialogAlert_mc"									//id_dialogAlert															
+														,"datos_02_cheq"										//id_form_datos															
+														,null //window.parent.ifrm.location					//location_reload														
+														,Validaciones_locales_cheq							//funcion_Validaciones_locales	
+														,"ifrm_mc"											//id_ifrm_form_datos	
+														,devolver_cheque_editado //fn_post_AM														
+														); 	
+														
+								inicializar_dialogoContenedor(	"dialog_cont_BusqCompraOrigen" 										//id_dialog
+																); 				
+								inicializar_dialogoContenedor(	"dialog_cont_BusqVentaOrigen" 										//id_dialog
+																); 		
+								inicializar_dialogoContenedor(	"dialog_cont_BusqCheque" 										//id_dialog
+																); 																																										
+							});
+							
 </script>
+<!--	FIN VENTANAS MODALES    -->
+
 </head>
 
 <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">

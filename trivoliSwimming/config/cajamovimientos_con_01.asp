@@ -61,9 +61,9 @@ end if
     <tr>
         <th>Fecha</th>		
         <th>Tipo</th>			
-        <th>Movimiento</th>			
+        <th>Movimiento</th>		
         <th>Detalle</th>		
-		<th>Unidad de Negocio</th>
+		<!--<th>Unidad de Negocio</th>-->
 		<th>Medio de Pago</th>
 		<th>Cheque</th>
 		<th>Monto</th>
@@ -75,7 +75,8 @@ end if
     l_filtro = replace (l_filtro, "*", "%")
 
     Set l_rs = Server.CreateObject("ADODB.RecordSet")
-    l_sql = "SELECT    cajamovimientos.* , tiposmovimientocaja.descripcion , unidadesNegocio.descripcion unidadnegocio , mediosdepago.titulo , bancos.nombre_banco, cheques.numero, responsablesCaja.nombre responsable "
+    l_sql = "SELECT    cajamovimientos.* , tiposmovimientocaja.descripcion , unidadesNegocio.descripcion unidadnegocio , mediosdepago.titulo "
+	l_sql = l_sql & " ,bancos.nombre_banco, cheques.numero, responsablesCaja.nombre responsable "
 	l_sql = l_sql & " ,compras.fecha as fecha_compra "
 	l_sql = l_sql & " ,proveedores.nombre as nombre_proveedor "
 	l_sql = l_sql & " ,ventas.fecha as fecha_venta "
@@ -90,7 +91,7 @@ end if
     l_sql = l_sql & " LEFT JOIN compras ON compras.id = cajaMovimientos.idcompraOrigen "
     l_sql = l_sql & " LEFT JOIN proveedores ON proveedores.id = compras.idproveedor "
     l_sql = l_sql & " LEFT JOIN ventas ON ventas.id = cajaMovimientos.idventaOrigen "
-    l_sql = l_sql & " LEFT JOIN clientes ON clientes.id = ventas.idcliente "	
+    l_sql = l_sql & " LEFT JOIN clientes ON clientes.id = ventas.idcliente "			
 	' Multiempresa
 	if l_filtro <> "" then
 	  l_sql = l_sql & " WHERE " & l_filtro & " "
@@ -130,10 +131,9 @@ end if
 			
 			<td width="10%" align="left" nowrap><% if l_rs("tipo") = "E" then response.write "Entrada" else response.write  "Salida" end if%></td>			
 			<td width="10%" align="left" nowrap><%= l_rs("descripcion")%></td>
-			<td width="10%" align="left" ><%= l_rs("detalle")%></td>			
-			
-			<td width="10%" align="left" nowrap><%= l_rs("unidadnegocio")%></td>	
+			<td width="10%" align="left" ><%= l_rs("detalle")%></td>				
 				
+			<!--<th><td width="10%" align="left" nowrap>< l_rs("unidadnegocio")%></td></th>-->
 	        <td width="10%" nowrap align="center"><%= l_rs("titulo")%></td>			
 			
 			<td width="10%" nowrap align="center"><%= l_rs("nombre_banco") %> &nbsp;-&nbsp;<%= l_rs("numero") %></td>	
