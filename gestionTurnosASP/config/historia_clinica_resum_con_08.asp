@@ -114,6 +114,30 @@ function Nombre_Mes (Mes)
 
 end function
 
+function Formatear_Texto (Cadena)
+
+Dim l_rs
+
+Set l_rs = Server.CreateObject("ADODB.RecordSet")
+
+l_sql = "SELECT * "
+l_sql = l_sql & " FROM empresa "
+l_sql = l_sql & " where empresa.id = " & Session("empnro")   
+rsOpen l_rs, cn, l_sql, 0 
+if l_rs.eof then
+	response.write Cadena
+Else  
+	if l_rs("hist_clin_bold") = "Y" then
+		response.write "<FONT SIZE='" & l_rs("hist_clin_size") & "' FACE='" & l_rs("hist_clin_face") & "'><b>" & Cadena & "</b></FONT>"
+	else
+		response.write "<FONT SIZE='" & l_rs("hist_clin_size") & "' FACE='" & l_rs("hist_clin_face") & "'>" & Cadena & "</FONT>"
+	end if
+End If 
+
+l_rs.close
+
+end function
+
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
 ' Obtengo la cantidad de turnos simultaneos del Recurso Reservable
@@ -149,7 +173,7 @@ l_rs.close
         <td align="center" colspan="6"><img  src="/turnos/images/megavision.jpg" border="0"></a> </td>
     </tr>
    <tr>
-       <td align="right" colspan="6">Bah&iacute;a Blanca, <%= day(l_fecha) %>&nbsp;de&nbsp;<%= Nombre_Mes( month(l_fecha)) %>&nbsp;de&nbsp;<%= year(l_fecha) %></td>
+       <td align="right" colspan="6"><%= Formatear_Texto ( "Bah&iacute;a Blanca, " &  day(l_fecha) & " " & Nombre_Mes( month(l_fecha)) & " de " & year(l_fecha) )%></td>
    </tr>		
    <tr>
        <td align="center" colspan="6">&nbsp;</td>
@@ -158,16 +182,16 @@ l_rs.close
         <td align="center" colspan="6">___________________________________________________________________________________________</td>
     </tr>		
 	<tr>
-        <td  colspan="6" align="left" ><h3>Datos del Paciente:&nbsp;<%= l_paciente %>&nbsp;&nbsp;&nbsp;&nbsp;</h3></td>
+        <td  colspan="6" align="left" > <%= Formatear_Texto ( "Datos del Paciente:&nbsp;" & l_paciente ) %></td>
 	 </tr>	
 	<tr>
-        <td  colspan="6" align="left" ><h3>Documento N:&nbsp;<%= l_dni %>&nbsp;&nbsp;&nbsp;&nbsp;</h3></td>
+        <td  colspan="6" align="left" > <%= Formatear_Texto ( "Documento N:&nbsp;" & l_dni ) %></td>
 	 </tr>	
 	<tr>
-        <td  colspan="6" align="left" ><h3>Domicilio:&nbsp;<%= l_domicilio %>&nbsp;&nbsp;&nbsp;&nbsp;</h3></td>
+        <td  colspan="6" align="left" > <%= Formatear_Texto ( "Domicilio:&nbsp;" & l_domicilio ) %></td>
 	 </tr>	
 	<tr>
-        <td  colspan="6" align="left" ><h3>Telefono:&nbsp;<%= l_telefono %>&nbsp;&nbsp;&nbsp;&nbsp;</h3></td>
+        <td  colspan="6" align="left" > <%= Formatear_Texto ( "Telefono:&nbsp;" & l_telefono )%></td>
 	 </tr>	
 	<tr>
         <td  colspan="6" align="left" >&nbsp;</td>
@@ -183,7 +207,7 @@ l_rs.close
         <td colspan="6"><h4>Observaciones</h4></td>
     </tr>	   
     <tr>
-        <td colspan="6"><h3><%= l_detalle %></h3></td>
+        <td colspan="6"> <%= Formatear_Texto ( l_detalle ) %></td>
     </tr>	
 	<tr>
         <td  colspan="6" align="left" >&nbsp;</td>
@@ -196,7 +220,7 @@ l_rs.close
 	 </tr>		 	 	
 	
 	<tr>
-        <td  colspan="6" align="center" ><h3>Medico:&nbsp;<%= l_medico %>&nbsp;&nbsp;&nbsp;&nbsp;</h3></td>
+        <td  colspan="6" align="center" > <%= Formatear_Texto ( "Medico:&nbsp;" & l_medico )%></td>
 	</tr>		
 	
 </div>
