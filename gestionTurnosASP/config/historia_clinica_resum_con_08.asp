@@ -116,25 +116,29 @@ end function
 
 function Formatear_Texto (Cadena)
 
-Dim l_rs
+	Dim l_rs
 
-Set l_rs = Server.CreateObject("ADODB.RecordSet")
+	Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
-l_sql = "SELECT * "
-l_sql = l_sql & " FROM empresa "
-l_sql = l_sql & " where empresa.id = " & Session("empnro")   
-rsOpen l_rs, cn, l_sql, 0 
-if l_rs.eof then
-	response.write Cadena
-Else  
-	if l_rs("hist_clin_bold") = "Y" then
-		response.write "<FONT SIZE='" & l_rs("hist_clin_size") & "' FACE='" & l_rs("hist_clin_face") & "'><b>" & Cadena & "</b></FONT>"
-	else
-		response.write "<FONT SIZE='" & l_rs("hist_clin_size") & "' FACE='" & l_rs("hist_clin_face") & "'>" & Cadena & "</FONT>"
-	end if
-End If 
+	l_sql = "SELECT empresa.id, empresa.nombre, empresa.domicilio, empresa.idCiudad, empresa.ultimo_histnum, empresa.flag_genera_histnum "
+	l_sql = l_sql & " ,ISNULL(empresa.hist_clin_bold,'N')	as hist_clin_bold "
+	l_sql = l_sql & " ,ISNULL(empresa.hist_clin_size,'2') as hist_clin_size "
+	l_sql = l_sql & " ,ISNULL(empresa.hist_clin_face,'Verdana') as hist_clin_face "
+	l_sql = l_sql & " FROM empresa "
+	l_sql = l_sql & " where empresa.id = " & Session("empnro")   
+	rsOpen l_rs, cn, l_sql, 0 
+	'response.write l_sql
+	if l_rs.eof then
+		response.write Cadena
+	Else  
+		if l_rs("hist_clin_bold") = "Y" then
+			response.write "<FONT SIZE='" & l_rs("hist_clin_size") & "' FACE='" & l_rs("hist_clin_face") & "'><b>" & Cadena & "</b></FONT>"
+		else
+			response.write "<FONT SIZE='" & l_rs("hist_clin_size") & "' FACE='" & l_rs("hist_clin_face") & "'>" & Cadena & "</FONT>"
+		end if
+	End If 
 
-l_rs.close
+	l_rs.close
 
 end function
 
