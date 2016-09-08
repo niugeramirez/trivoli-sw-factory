@@ -370,6 +370,9 @@ function CambiarPass (user, pass)
 	if CambiarPass = true then
 		'Guardo la clave en la tabla de password
 		l_sql = " UPDATE hist_pass_usr SET husrpass = '" & pass & "'"
+		' 07/09/2016 Raul Agregado para que funcione el cambio de pass
+		l_sql = l_sql & " , hpassfecfin = NULL"
+		l_sql = l_sql & " , hpasshorafin = ''"
 		l_sql = l_sql & " WHERE iduser = '" & Trim(ucase(user)) & "'"
 		cmExecute l_cm, l_sql, 0
 	end if
