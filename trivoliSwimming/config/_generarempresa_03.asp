@@ -22,7 +22,7 @@ Dim l_empresa
 dim l_id_new_emp
 dim l_id_new_prov
 
-l_empresa = "Prueba"
+l_empresa = "Prueba" & now()
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 Set l_rs2 = Server.CreateObject("ADODB.RecordSet")
 
@@ -327,9 +327,14 @@ ejecutar_sql(l_sql)
 
 'RESPONSABLES CAJA
 ' ------------------------------------------------------------------------------------------------------------------
-l_sql = "INSERT [responsablesCaja] ([iniciales], [nombre], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('F', 'Franquiciado','sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+l_sql = "INSERT [responsablesCaja] ([iniciales], [nombre], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('CHICA', 'Caja Chica','sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
+
+l_sql = "INSERT [responsablesCaja] ([iniciales], [nombre], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('GRANDE', 'Caja Grande','sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+response.write l_sql & "<br>"
+ejecutar_sql(l_sql)
+
 
 'TIPOS DE MOVIMIENTO CAJA
 ' ------------------------------------------------------------------------------------------------------------------

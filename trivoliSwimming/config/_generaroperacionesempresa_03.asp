@@ -41,7 +41,7 @@ dim l_id_cheque
 dim l_id_cheque_reentrega
 dim l_idestadoInstalacion_prog
 
-l_id_new_emp = 66
+l_id_new_emp = 67
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 Set l_rs2 = Server.CreateObject("ADODB.RecordSet")
@@ -745,7 +745,7 @@ do until l_rs.eof
 loop
 l_rs.close
 
-l_sql = "select * from responsablesCaja where empnro = "&l_id_new_emp
+l_sql = "select * from responsablesCaja where empnro = "&l_id_new_emp&" order by id" 'Ordeno por Id descendente para que tome la caja grande que es la ultima en crearse
 rsOpenCursor l_rs, cn, l_sql, 1, 1
 
 do until l_rs.eof
