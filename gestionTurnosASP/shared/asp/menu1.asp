@@ -95,8 +95,7 @@
 
 <li><a href="#">Visitas</a>
 	<ul>		
-		<li><a target="ifrm"  href="../../config/visitas_con_00.asp">Visitas</a></li>
-		<li><a target="ifrm"  href="../../config/visitasV2_con_00.asp">Visitas 2.0</a></li>
+		<li><a target="ifrm"  href="../../config/visitasV2_con_00.asp">Visitas</a></li>
 	</ul>
 </li>
 <li><a href="#">Reportes</a>
