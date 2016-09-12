@@ -58,9 +58,11 @@ function Validaciones_locales_AVST(){
 
 		if (document.datosAVST.idmediodepago.value != "0")  {
 			if (Trim(document.datosAVST.importe.value) == "0"){
-				alert("Debe ingresar el Importe.");
-				document.datosAVST.importe.focus();
-				return;
+				if (Trim(document.datosAVST.precio2.value) != "0"){				
+					alert("Debe ingresar el Importe del Pago.");
+					document.datosAVST.importe.focus();
+					return;
+				}
 			}
 		}
 	}
