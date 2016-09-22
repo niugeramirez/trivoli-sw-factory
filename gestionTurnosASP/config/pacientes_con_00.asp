@@ -21,7 +21,7 @@ on error goto 0
 ' Orden
   Dim l_Orden      ' Son las etiquetas que aparecen en el orden
   Dim l_CamposOr   ' Son los campos para el orden
-  
+
 ' Filtro
   l_etiquetas = "Descripción:;Area"
   l_Campos    = "coudes;aredes"
@@ -61,6 +61,7 @@ function llamadaexcel(){
 	else
 		abrirVentana("contracts_con_excel.asp?orden=" + document.ifrm.datos.orden.value + "&filtro=" + escape(document.ifrm.datos.filtro.value),'execl',250,150);
 }
+
 
 
 function Buscar(){
@@ -181,10 +182,33 @@ function Buscar(){
 	//alert(document.datos.filtro.value);
 	
 	if (estado == "si"){
-		window.ifrm.location = 'pacientes_con_01.asp?asistente=0&filtro=' + document.datos.filtro.value;
+		window.ifrm.location = 'pacientes_con_01.asp?asistente=0&filtro=' + document.datos.filtro.value + '&nPage=' + document.datos.nPage.value;
 	}
 }
 
+function PrimerPagina(){
+	document.datos.nPage.value = 1;
+	Buscar();
+}
+
+function PaginaSiguiente(){
+	if (parseInt(document.datos.nPage.value) < parseInt(document.datos.nPageCount.value)) {
+		document.datos.nPage.value = parseInt(document.datos.nPage.value) + 1;
+	}
+	Buscar();
+}
+
+function PaginaAnterior(){
+	if (parseInt(document.datos.nPage.value) > 1) {
+		document.datos.nPage.value = parseInt(document.datos.nPage.value) - 1;
+	}
+	Buscar();
+}
+
+function UltimaPagina(){
+	document.datos.nPage.value = document.datos.nPageCount.value;
+	Buscar();
+}
 
 function Nuevo_Dialogo(w_in, pagina, ancho, alto)
 {
@@ -277,6 +301,8 @@ function TotalVolumen(valor){
 				<table border="0">
 					<form name="datos">
 					<input type="hidden" name="filtro" value="">
+					<input type="hidden" name="nPage" value="1">
+					<input type="hidden" name="nPageCount" value="">
 					<!--
 					<tr>
 						<td align="right"><b>Fec. Desde: </b></td>
@@ -412,10 +438,10 @@ function TotalVolumen(valor){
 		
         <tr valign="top" height="100%">
           <td colspan="2" style="" width="100%">
-      	  <iframe scrolling="yes" name="ifrm" src="" width="100%" height="100%"></iframe> 
+      	  <iframe scrolling="yes" name="ifrm" src="" width="100%" height="55%"></iframe> 
 	      </td>
-        </tr>		
-			</form>		
+        </tr>
+        </form>		
       </table>
 </body>
 

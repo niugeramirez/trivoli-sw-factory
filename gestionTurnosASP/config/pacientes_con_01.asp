@@ -16,8 +16,13 @@ Dim l_cant
 
 Dim l_primero
 
+Dim l_nPageCount    ' Numero de Paginas
+Dim l_nPage	    ' Pagina Actual  
+
+		
 l_filtro = request("filtro")
 l_orden  = request("orden")
+l_nPage = CLng(request("nPage"))
 
 if l_orden = "" then
   l_orden = " ORDER BY apellido, nombre "
@@ -72,6 +77,7 @@ function Seleccionar(fila,cabnro){
 l_filtro = replace (l_filtro, "*", "%")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
+
 l_sql = "SELECT  clientespacientes.id id,   clientespacientes.* , obrassociales.descripcion"
 l_sql = l_sql & " FROM clientespacientes "
 l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
@@ -84,8 +90,14 @@ else
 end if
 l_sql = l_sql & " " & l_orden
 
-'response.write l_sql
-rsOpen l_rs, cn, l_sql, 0 
+l_rs.CursorLocation = 3
+	        
+l_rs.Open l_sql, cn 
+	        
+l_rs.PageSize = 10
+
+l_nPageCount = l_rs.PageCount
+
 if l_rs.eof then
 	l_primero = 0
 %>
@@ -93,9 +105,12 @@ if l_rs.eof then
 	 <td colspan="7" >No existen Pacientes cargados para el filtro ingresado.</td>
 </tr>
 <%else
-    l_primero = l_rs("id")
+        l_primero = l_rs("id")
 	l_cant = 0
-	do until l_rs.eof
+        
+        l_rs.AbsolutePage = l_nPage
+	
+	do until ( l_rs.eof or l_rs.AbsolutePage <> l_nPage ) 
 		l_cant = l_cant + 1
 	%>
 	    <tr ondblclick="Javascript:parent.abrirVentana('pacientes_con_02.asp?Tipo=M&cabnro=' + datos.cabnro.value,'',750,520)" onclick="Javascript:Seleccionar(this,<%= l_rs("id")%>)">
@@ -117,8 +132,20 @@ set l_rs = Nothing
 cn.Close
 set cn = Nothing
 %>
-
+<script>parent.document.datos.nPageCount.value= "<%= l_nPageCount %>"</script>
 </table>
+<br>
+<table>
+<tr>
+			<td align="center">
+				<a class="sidebtnABM" href="Javascript:parent.PrimerPagina();"><img  src="/turnos/shared/images/Primera_24.png" border="0" title="Primera"></a>
+				<a class="sidebtnABM" href="Javascript:parent.PaginaAnterior();"><img  src="/turnos/shared/images/Anterior_24.png" border="0" title="Anterior"></a>
+				<a class="sidebtnABM" href="Javascript:parent.PaginaSiguiente();"><img  src="/turnos/shared/images/Siguiente_24.png" border="0" title="Siguiente"></a>
+				<a class="sidebtnABM" href="Javascript:parent.UltimaPagina();"><img  src="/turnos/shared/images/Ultima_24.png" border="0" title="Ultima"></a>
+				
+			</td>
+		</tr>		
+</table>		
 <form name="datos" method="post">
 <input type="hidden" name="cabnro" value="0">
 <input type="hidden" name="orden" value="<%= l_orden %>">
