@@ -102,7 +102,7 @@ end if
 			<td width="10%" align="center" nowrap><%= l_rs("fecha")%></td>
 			<td width="10%" align="center" nowrap><%= l_rs("monto_venta")%></td>
 			<td width="10%" align="center" nowrap><%= l_rs("costo_venta")%></td>
-			<td width="10%" align="center" nowrap><%= cdbl(l_rs("monto_venta")) - cdbl(l_rs("costo_venta"))%></td>
+			<td width="10%" align="center" nowrap><%= round(cdbl(l_rs("monto_venta")) - cdbl(l_rs("costo_venta")),2)%></td>
 			<td width="10%" align="center" nowrap><%= l_rs("cobrado")%></td>
 			<% 
 				if isnull(l_rs("monto_venta")) then					 
@@ -122,7 +122,7 @@ end if
 					l_saldo = ""
 				end if
 			%>
-			<td width="10%" align="center" nowrap><%= l_saldo %></td>			
+			<td width="10%" align="center" nowrap><%= Round(l_saldo,2) %></td>			
 	        <td align="center" width="10%" nowrap>                    
                 <a href="Javascript:parent.abrirDialogo('dialog','ventas_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);"><img src="../shared/images/Modificar_16.png" border="0" title="Editar"></a>				                																												
 				<a href="Javascript:parent.eliminarRegistroAJAX(document.detalle_01.cabnro,'dialogAlert','dialogConfirmDelete');"><img src="../shared/images/Eliminar_16.png" border="0" title="Baja"></a>
