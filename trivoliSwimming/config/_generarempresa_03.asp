@@ -21,6 +21,7 @@ Dim l_rs2
 Dim l_empresa
 dim l_id_new_emp
 dim l_id_new_prov
+Dim l_aux_nombr_prov
 
 l_empresa = "Prueba" & now()
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
@@ -386,10 +387,12 @@ ejecutar_sql(l_sql)
 l_sql = "INSERT [proveedores] ([nombre], [telefono], [celular], [mail], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('LONERIA', NULL, NULL, NULL, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
-l_sql = "INSERT [proveedores] ([nombre], [telefono], [celular], [mail], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('ALBAÑILES', NULL, NULL, NULL, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+l_aux_nombr_prov = ConvertFromUTF8("ALBAÑILES")
+l_sql = "INSERT [proveedores] ([nombre], [telefono], [celular], [mail], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('"&l_aux_nombr_prov&"', NULL, NULL, NULL, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
-l_sql = "INSERT [proveedores] ([nombre], [telefono], [celular], [mail], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('AYUDANTES DE ALBAÑIL', NULL, NULL, NULL, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
+l_aux_nombr_prov = ConvertFromUTF8("AYUDANTES DE ALBAÑIL")
+l_sql = "INSERT [proveedores] ([nombre], [telefono], [celular], [mail], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('"&l_aux_nombr_prov&"', NULL, NULL, NULL, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"
 response.write l_sql & "<br>"
 ejecutar_sql(l_sql)
 l_sql = "INSERT [proveedores] ([nombre], [telefono], [celular], [mail], [created_by], [creation_date], [last_updated_by], [last_update_date], [empnro]) VALUES ('CERCO REMOVIBLE', NULL, NULL, NULL, 'sa', GETDATE(), 'sa', GETDATE(),"&l_id_new_emp&")"

@@ -32,6 +32,10 @@ l_mail  		           = request.Form("mail")
 l_direccion		           = ConvertFromUTF8(request.Form("direccion"))
 l_idciudad				   = request.Form("idciudad")
 
+if len(l_idciudad) = 0 then
+	l_idciudad = "null"
+end if 
+
 'response.write "l_tipo"&l_tipo & "<br>"
 'response.write "l_id"&l_id & "<br>"
 ' ------------------------------------------------------------------------------------------------------------------
