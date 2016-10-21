@@ -6,7 +6,7 @@ function Validar_Formulario(){
 		return;
 		}
 	else{ 
-		$.post($("#url_valid_06").val(), $( "#datos" ).serialize(), 
+		$.post($("#url_valid_06").val(), $( "#datos_med_der" ).serialize(), 
 				function(data) {     
 									
 									if(data=="OK") {
@@ -129,12 +129,14 @@ function eliminarRegistroAJAX(obj)
 
 function valido(){
 	
-	$.post($("#url_AM").val(), $( "#datos" ).serialize(),
+	$.post($("#url_AM").val(), $( "#datos_med_der" ).serialize(),
 			function(data) {     
 								if(data=="OK") {
 									$("#"+$("#id_dialog").val()).dialog("close"); 
-									$("#"+$("#id_dialog").val()).empty();									
-									window.parent.ifrm.location.reload();
+									$("#"+$("#id_dialog").val()).empty();																		
+									if (window.parent.ifrm) {
+										window.parent.ifrm.location.reload();
+									}									
 								}
 								else {
 									abrirAlert("ERROR: " + data);
