@@ -84,7 +84,7 @@ function Actualizar(destino){
 	param = "qfechadesde=" + document.all.fechadesde.value + "&qfechahasta=" + document.all.fechahasta.value + "&idrecursoreservable=" + document.all.idrecursoreservable.value; // + document.all.repnro.value;
 	
 	if (destino== "exel")
-    	abrirVentana("rep_estadisticas_rep_01.asp?" + param + "&excel=true",'execl',250,150);
+    	abrirVentana("rep_estadisticas_rep_02.asp?" + param + "&excel=true",'execl',250,150);
 	else
 		document.ifrm.location = "rep_estadisticas_rep_02.asp?" + param;			
 	

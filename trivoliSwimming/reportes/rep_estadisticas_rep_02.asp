@@ -1,6 +1,6 @@
 <% Option Explicit
 if request.querystring("excel") then
-	Response.AddHeader "Content-Disposition", "attachment;filename=Pagos entre Fechas.xls" 
+	Response.AddHeader "Content-Disposition", "attachment;filename=Estadisticas.xls" 
 	Response.ContentType = "application/vnd.ms-excel"
 end if
  %>
