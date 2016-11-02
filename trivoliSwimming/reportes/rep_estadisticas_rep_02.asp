@@ -782,7 +782,19 @@ case 4 'Reporte de caja
 	
 case 5 'Reporte de caja	por responsable
 	
-	l_sql =  "		  select mediosdepago.titulo	as medio_pago , responsablesCaja.nombre as nombre_responsable,responsablesCaja.iniciales + ' - '+mediosdepago.titulo as ini_med_pago "
+	l_sql =  "		  select "
+	'l_sql = l_sql & " 		mediosdepago.titulo	as medio_pago "
+	l_sql = l_sql & " 		case "
+	l_sql = l_sql & " 			when UPPER(responsablesCaja.nombre) like 'BANCO%' then responsablesCaja.nombre "
+	l_sql = l_sql & " 			else mediosdepago.titulo "
+	l_sql = l_sql & " 		end AS medio_pago "
+	l_sql = l_sql & " 		, responsablesCaja.nombre as nombre_responsable "
+	'l_sql = l_sql & " 		,responsablesCaja.iniciales + ' - '+mediosdepago.titulo as ini_med_pago "
+	l_sql = l_sql & " 		,responsablesCaja.iniciales  "
+	l_sql = l_sql & " 			+ ' - ' +		case  "
+	l_sql = l_sql & " 								when UPPER(responsablesCaja.nombre) like 'BANCO%' then responsablesCaja.nombre "
+	l_sql = l_sql & " 								else mediosdepago.titulo "
+	l_sql = l_sql & " 						  	end AS ini_med_pago	 "
 	l_sql = l_sql & " 		,sum(cajaMovimientos.monto) "
 	l_sql = l_sql & " 		,SUM(	case  "
 	l_sql = l_sql & " 					when cajaMovimientos.tipo = 'E' then cajaMovimientos.monto  "
@@ -804,8 +816,21 @@ case 5 'Reporte de caja	por responsable
 	l_sql = l_sql & " inner join responsablesCaja on responsablesCaja.id = cajaMovimientos.idresponsable "
 	l_sql = l_sql & " WHERE cajaMovimientos.fecha >= "& cambiafecha(l_fechadesde,"YMD",true)
 	l_sql = l_sql & " AND  cajaMovimientos.fecha <=  "& cambiafecha(l_fechahasta ,"YMD",true)
-	l_sql = l_sql & " AND cajaMovimientos.empnro =  " & Session("empnro") 
-	l_sql = l_sql & " group by mediosdepago.titulo , responsablesCaja.nombre ,responsablesCaja.iniciales "
+	l_sql = l_sql & " AND cajaMovimientos.empnro =  " & Session("empnro") 	
+	l_sql = l_sql & " group by "
+	'l_sql = l_sql & " 			mediosdepago.titulo  "
+	l_sql = l_sql & "	  		case  "
+	l_sql = l_sql & "				when UPPER(responsablesCaja.nombre) like 'BANCO%' then responsablesCaja.nombre "
+	l_sql = l_sql & "				else mediosdepago.titulo "
+	l_sql = l_sql & "	  		end	 "
+	l_sql = l_sql & " 			, responsablesCaja.nombre " 
+	l_sql = l_sql & " 			,responsablesCaja.iniciales "
+	l_sql = l_sql & "having SUM(	case  "
+	l_sql = l_sql & " 					when cajaMovimientos.tipo = 'S' then -cajaMovimientos.monto "
+	l_sql = l_sql & " 					else cajaMovimientos.monto "
+	l_sql = l_sql & " 				end "
+	l_sql = l_sql & " 			)		<> 0				 "		
+	l_sql = l_sql & " order by medio_pago "
 
 	'response.write l_sql
 	rsOpen l_rs, cn, l_sql, 0 

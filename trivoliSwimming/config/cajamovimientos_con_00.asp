@@ -147,6 +147,17 @@ function Buscar_mc(){
 								+" cajamovimientos.idmediopago = " + $("#filt_idmediopago_cm").val() 
 							);		
 	}	
+
+	//Responsables 
+	if ($("#filt_idresp_cm").val() != 0){
+		if ($("#filtro_00_mc").val() != 0){
+			$("#filtro_00_mc").val( $("#filtro_00_mc").val() + " and ");
+		}
+		$("#filtro_00_mc").val(
+								$("#filtro_00_mc").val() 
+								+" cajamovimientos.idresponsable = " + $("#filt_idresp_cm").val() 
+							);		
+	}	
 	window.ifrm_mc.location = 'cajamovimientos_con_01.asp?filtro=' + $("#filtro_00_mc").val()+'&p_id_venta='+"<%= l_p_id_venta%>"+'&p_id_compra='+"<%= l_p_id_compra%>";
 }
 
@@ -287,7 +298,24 @@ $(document).ready(function() {
 						<td>
 							<b>Banco&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: </b><input id="filt_banco_cm" type="text" name="filt_banco_cm" size="10" maxlength="10" value="" >	
 						</td>
-						<td></td>
+						<td>
+							<b>Responsable:</b>
+							<select name="filt_idresp_cm" id="filt_idresp_cm" size="1" style="width:100;" >
+								<option value="0" selected>&nbsp;Todos</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT  * "
+								l_sql  = l_sql  & " FROM responsablesCaja "
+								l_sql = l_sql & " where responsablesCaja.empnro = " & Session("empnro")   								
+								l_sql  = l_sql  & " ORDER BY nombre "
+								rsOpen l_rs, cn, l_sql, 0
+								do until l_rs.eof		%>	
+								<option value=<%= l_rs("id") %> > 
+								<%= l_rs("nombre") %>  </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>								
+							</select>							
+						</td>						
 						<td></td>
 					</tr>
 					</tbody>
