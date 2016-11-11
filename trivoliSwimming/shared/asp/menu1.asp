@@ -85,6 +85,7 @@
 	<ul>		
 		<li><a target="ifrm"  href="../../config/proveedores_con_00.asp">Proveedores</a></li>
 		<li><a target="ifrm"  href="../../config/compras_con_00.asp">Compras</a></li>
+		<li><a target="ifrm"  href="../../config/compras/compras_rep_con_00.asp">Reporte Franquicias</a></li>
 	</ul>
 </li>
 
