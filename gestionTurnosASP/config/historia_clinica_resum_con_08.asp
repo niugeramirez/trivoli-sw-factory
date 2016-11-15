@@ -23,6 +23,7 @@ dim l_fechanacimiento
 dim l_domicilio
 dim l_telefono 
 dim l_fecha
+dim l_Medico_imagen
 
 dim l_fondo
 
@@ -116,36 +117,32 @@ end function
 
 function Formatear_Texto (Cadena)
 
-	Dim l_rs
+Dim l_rs
 
-	Set l_rs = Server.CreateObject("ADODB.RecordSet")
+Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
-	l_sql = "SELECT empresa.id, empresa.nombre, empresa.domicilio, empresa.idCiudad, empresa.ultimo_histnum, empresa.flag_genera_histnum "
-	l_sql = l_sql & " ,ISNULL(empresa.hist_clin_bold,'N')	as hist_clin_bold "
-	l_sql = l_sql & " ,ISNULL(empresa.hist_clin_size,'2') as hist_clin_size "
-	l_sql = l_sql & " ,ISNULL(empresa.hist_clin_face,'Verdana') as hist_clin_face "
-	l_sql = l_sql & " FROM empresa "
-	l_sql = l_sql & " where empresa.id = " & Session("empnro")   
-	rsOpen l_rs, cn, l_sql, 0 
-	'response.write l_sql
-	if l_rs.eof then
-		response.write Cadena
-	Else  
-		if l_rs("hist_clin_bold") = "Y" then
-			response.write "<FONT SIZE='" & l_rs("hist_clin_size") & "' FACE='" & l_rs("hist_clin_face") & "'><b>" & Cadena & "</b></FONT>"
-		else
-			response.write "<FONT SIZE='" & l_rs("hist_clin_size") & "' FACE='" & l_rs("hist_clin_face") & "'>" & Cadena & "</FONT>"
-		end if
-	End If 
+l_sql = "SELECT * "
+l_sql = l_sql & " FROM empresa "
+l_sql = l_sql & " where empresa.id = " & Session("empnro")   
+rsOpen l_rs, cn, l_sql, 0 
+if l_rs.eof then
+	response.write Cadena
+Else  
+	if l_rs("hist_clin_bold") = "Y" then
+		response.write "<FONT SIZE='" & l_rs("hist_clin_size") & "' FACE='" & l_rs("hist_clin_face") & "'><b>" & Cadena & "</b></FONT>"
+	else
+		response.write "<FONT SIZE='" & l_rs("hist_clin_size") & "' FACE='" & l_rs("hist_clin_face") & "'>" & Cadena & "</FONT>"
+	end if
+End If 
 
-	l_rs.close
+l_rs.close
 
 end function
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
 ' Obtengo la cantidad de turnos simultaneos del Recurso Reservable
-l_sql = "SELECT  historia_clinica_resumida.* , clientespacientes.apellido, clientespacientes.nombre, recursosreservables.descripcion , clientespacientes.dni, clientespacientes.fechanacimiento , clientespacientes.domicilio, clientespacientes.telefono "
+l_sql = "SELECT  historia_clinica_resumida.* , clientespacientes.apellido, clientespacientes.nombre, recursosreservables.descripcion , clientespacientes.dni, clientespacientes.fechanacimiento , clientespacientes.domicilio, clientespacientes.telefono , recursosreservables.firma  Medico_imagen "
 l_sql = l_sql & " FROM historia_clinica_resumida "
 l_sql = l_sql & " LEFT JOIN clientespacientes ON clientespacientes.id = historia_clinica_resumida.idclientepaciente "
 l_sql = l_sql & " LEFT JOIN recursosreservables ON recursosreservables.id = historia_clinica_resumida.idrecursoreservable "
@@ -160,6 +157,7 @@ if not l_rs.eof then
 	l_domicilio = l_rs("domicilio")
 	l_telefono = l_rs("telefono")
 	l_fecha = l_rs("fecha")
+	l_Medico_imagen = l_rs("Medico_imagen")
 end if
 l_rs.close
 
@@ -221,7 +219,13 @@ l_rs.close
 	 </tr>	
 	<tr>
         <td  colspan="6" align="left" >&nbsp;</td>
-	 </tr>		 	 	
+	 </tr>	
+	
+	<% if not isnull(l_Medico_imagen) then %> 
+    <tr>
+        <td align="center" colspan="6"><img  src="/turnos/images/<%= l_Medico_imagen %>" border="0"> </a> </td>
+    </tr>	
+	<% End If %> 	 	 	
 	
 	<tr>
         <td  colspan="6" align="center" > <%= Formatear_Texto ( "Medico:&nbsp;" & l_medico )%></td>
