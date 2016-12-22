@@ -31,6 +31,7 @@ Dim l_medico
 
 Dim l_idrecursoreservable
 Dim l_idmedicoderivador
+Dim l_idpractica
 
 Dim l_preciopractica 
 Dim l_monto_pagado 
@@ -39,6 +40,7 @@ l_filtro = request("filtro")
 l_orden  = request("orden")
 
 
+'response.end
 
 sub encabezado
  %>
@@ -128,11 +130,13 @@ l_fechadesde = request("qfechadesde")
 l_fechahasta = request("qfechahasta")
 l_idrecursoreservable = request("idrecursoreservable")
 
+l_idpractica = request("idpractica")
+
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
 ' Obtengo el Nombre del Medico
 if l_idrecursoreservable = "0" then
-	l_medico = "Todos"
+	l_medico = "Todos" 
 else	
 	l_sql = "SELECT  * "
 	l_sql = l_sql & " FROM recursosreservables "
@@ -145,7 +149,7 @@ else
 	l_rs.close
 end if
 
-
+'response.write  l_idpractica
 
 l_sql = " SELECT visitas.fecha " 
 l_sql = l_sql & ",recursosreservables.descripcion medico "
@@ -178,6 +182,9 @@ if l_idmedicoderivador <> "0" then
 end if	
 if l_idrecursoreservable <> "0" then
 	l_sql = l_sql & " AND recursosreservables.id = " & l_idrecursoreservable
+end if	
+if l_idpractica <> "0" then
+	l_sql = l_sql & " AND  practicas.id = " & l_idpractica
 end if	
 
 l_sql = l_sql & " and  visitas.empnro = " & Session("empnro")   

@@ -48,9 +48,11 @@ Dim l_rs
 Dim l_sql
 Dim l_id
 Dim l_idrecursoreservable
+Dim l_idpractica
 
 l_id = 0
 l_idrecursoreservable = 0
+l_idpractica = 0
 %>
 
 function Imprimir(){
@@ -82,7 +84,7 @@ function Actualizar(destino){
 	}		
 
 	
-	param = "qfechadesde=" + document.all.fechadesde.value + "&qfechahasta=" + document.all.fechahasta.value + "&idmedicoderivador=" + document.all.id.value + "&idrecursoreservable=" + document.all.idrecursoreservable.value; // + document.all.repnro.value;
+	param = "qfechadesde=" + document.all.fechadesde.value + "&qfechahasta=" + document.all.fechahasta.value + "&idmedicoderivador=" + document.all.id.value + "&idrecursoreservable=" + document.all.idrecursoreservable.value + "&idpractica=" + document.all.idpractica.value; // + document.all.repnro.value;
 	
 	if (destino== "exel")
     	abrirVentana("rep_visitas_por_medico_rep_01.asp?" + param + "&excel=true",'execl',250,150);
@@ -170,6 +172,27 @@ function Ayuda_Fecha(txt){
 						</td>			
 																		
 					</tr>	
+					<tr>										
+						<td  align="right" nowrap><b>Practica: </b></td>
+						<td><select name="idpractica" size="1" style="width:200;">
+								<option value=0 selected>Todos las Practicas</option>
+								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+								l_sql = "SELECT  * "
+								l_sql  = l_sql  & " FROM practicas  "
+								l_sql =  l_sql & " where practicas.empnro = " & Session("empnro") 
+								l_sql  = l_sql  & " ORDER BY descripcion "
+								rsOpen l_rs, cn, l_sql, 0
+								do until l_rs.eof		%>	
+								<option value= <%= l_rs("id") %> > 
+								<%= l_rs("descripcion") %> </option>
+								<%	l_rs.Movenext
+								loop
+								l_rs.Close %>
+							</select>
+							<script>document.datos.idpractica.value= "<%= l_idpractica %>"</script>
+						</td>	
+																								
+					</tr>						
 
 				</table>
 			</td>
