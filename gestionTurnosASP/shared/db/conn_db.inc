@@ -321,10 +321,10 @@ Function ConvertFromUTF8_tocharset(sIn,pcharset)
     Dim oIn: Set oIn = CreateObject("ADODB.Stream")
 
     oIn.Open
-    oIn.CharSet = pcharset
+    oIn.CharSet = "UTF-8"
     oIn.WriteText sIn
     oIn.Position = 0
-    oIn.CharSet = "UTF-8"
+    oIn.CharSet = pcharset
     ConvertFromUTF8_tocharset = oIn.ReadText
     oIn.Close
 

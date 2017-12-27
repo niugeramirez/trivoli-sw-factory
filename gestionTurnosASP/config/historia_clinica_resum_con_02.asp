@@ -70,7 +70,7 @@ select Case l_tipo
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
  	    	l_fecha     = l_rs("fecha")
-			l_detalle   = l_rs("detalle")
+			l_detalle   = ConvertFromUTF8_tocharset(l_rs("detalle"),"iso-8859-1")
 	    	l_idrecursoreservable = l_rs("idrecursoreservable")
 	    	l_idclientepaciente  = l_rs("idclientepaciente")
 			l_apellidoclientepaciente = l_rs("apellido")
