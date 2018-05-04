@@ -57,6 +57,31 @@ Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
 if l_opc = 1 then
 	texto = ""
+	'Verifico que no tenga calendarios asignados
+								
+	l_sql = "SELECT * , calendarios.id "
+	l_sql = l_sql & " FROM calendarios "
+	l_sql = l_sql & " WHERE id = " & l_id
+	
+	'if l_tipo = "B" then ' Bloquear
+		l_sql = l_sql & " AND estado='ACTIVO'"
+		l_sql = l_sql & " AND calendarios.id in (SELECT idcalendario FROM turnos )" 
+	'else
+	'	l_sql = l_sql & " AND estado='ACTIVO'"
+	'end if
+	l_sql = l_sql & " AND idrecursoreservable=" & l_idrecursoreservable
+	l_sql = l_sql & " and calendarios.empnro = " & Session("empnro")  
+								
+	'if l_tipo = "M" then
+	'	l_sql = l_sql & " AND id <> " & l_id
+	'end if
+	'l_sql = l_sql & " and clientespacientes.empnro = " & Session("empnro")   
+	rsOpen l_rs, cn, l_sql, 0
+	if not l_rs.eof then
+	    texto =  "Tiene Calendarios asignados para el Rango de Fechas ingresado." '& l_rs("id") 
+	end if 
+	l_rs.close	
+	
 else
 
 	'Verifico que no tenga calendarios asignados
