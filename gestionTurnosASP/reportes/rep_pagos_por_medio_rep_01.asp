@@ -35,14 +35,15 @@ l_filtro = request("filtro")
 l_orden  = request("orden")
 
 if l_orden = "" then
-  l_orden = " ORDER BY pagos.idmediodepago , obrassociales.descripcion , pagos.fecha "
+  'l_orden = " ORDER BY pagos.idmediodepago , obrassociales.descripcion , pagos.fecha "
+  l_orden = " ORDER BY idmediodepago, titulo, fecha "
 end if
 
 
 sub encabezado
  %>
 	<tr>
-        <td  colspan="3" align="center" ><h3>Medio de Pago:&nbsp;<%= l_rs("titulo") %></h3></td>	
+        <td  colspan="3" align="center" ><h3><%= l_rs("titulo") %></h3></td>	
 		<td  colspan="3" align="center" ><h3>Medico:&nbsp;<%= l_medico %></h3></td>	
     </tr>	
 
@@ -150,11 +151,7 @@ else
 end if
 
 
-l_sql = "SELECT  pagos.fecha, clientespacientes.apellido, clientespacientes.nombre, practicas.descripcion,  pagos.importe,  recursosreservables.descripcion medico, pagos.idmediodepago, mediosdepago.titulo + ' ' +  (case when mediosdepago.flag_obrasocial=-1 then obrassociales.descripcion else ' ' end) titulo " 'calendarios.id, estado, motivo,   CONVERT(VARCHAR(5), fechahorainicio, 108) AS fechahorainicio, CONVERT(VARCHAR(10), fechahorainicio, 101) AS DateOnly "
-'l_sql = l_sql & " ,  clientespacientes.apellido, clientespacientes.nombre , clientespacientes.telefono"
-'l_sql = l_sql & " ,  obrassociales.descripcion osnombre, practicas.descripcion practicanombre"
-'l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente, turnos.apellido turnoapellido , turnos.nombre turnonombre, turnos.dni turnodni , turnos.domicilio turnodomicilio , turnos.telefono turnotelefono, turnos.comentario turnocomentario"
-'l_sql = l_sql & " ,  isnull(turnos.id,0) turnoid, turnos.idclientepaciente, turnos.comentario turnocomentario"
+l_sql = "SELECT  pagos.fecha, clientespacientes.apellido, clientespacientes.nombre, practicas.descripcion,  pagos.importe,  recursosreservables.descripcion medico, pagos.idmediodepago, 'Medio de Pago:&nbsp;'+ mediosdepago.titulo + ' ' +  (case when mediosdepago.flag_obrasocial=-1 then obrassociales.descripcion else ' ' end) titulo "
 l_sql = l_sql & " FROM pagos "
 l_sql = l_sql & " LEFT JOIN practicasrealizadas ON practicasrealizadas.id = pagos.idpracticarealizada "
 l_sql = l_sql & " LEFT JOIN visitas ON visitas.id = practicasrealizadas.idvisita "
@@ -175,12 +172,46 @@ end if
 
 l_sql = l_sql & " and pagos.empnro = " & Session("empnro")   
 
-'if l_filtro <> "" then
-'  l_sql = l_sql & " WHERE " & l_filtro & " "
-'end if
+l_sql = l_sql & " union "
+l_sql = l_sql & " select   visitas.fecha, "
+l_sql = l_sql & " clientespacientes.apellido, "
+l_sql = l_sql & "   clientespacientes.nombre,  "
+l_sql = l_sql & "   practicas.descripcion, "
+l_sql = l_sql & "   practicasrealizadas.precio - "
+l_sql = l_sql & "   isnull( ( select sum(pagos.importe) "
+l_sql = l_sql & " 	from pagos "
+l_sql = l_sql & " 	where pagos.idpracticarealizada = practicasrealizadas.id "
+l_sql = l_sql & " 	and pagos.fecha >= "  & cambiafecha(l_fechadesde,"YMD",true) 
+l_sql = l_sql & " 	AND pagos.fecha <=  " & cambiafecha(l_fechahasta,"YMD",true) 
+l_sql = l_sql & "   ),0) importe,  "
+l_sql = l_sql & "   recursosreservables.descripcion medico,   "
+l_sql = l_sql & "   99999999999999999 as idmediodepago, "
+l_sql = l_sql & "   'SALDO DEUDOR::&nbsp;'+obrassociales.descripcion   titulo "
+l_sql = l_sql & " from visitas "
+l_sql = l_sql & " 	inner join  practicasrealizadas ON visitas.id = practicasrealizadas.idvisita "
+l_sql = l_sql & " 	inner join  practicas			ON practicasrealizadas.idpractica = practicas.id "
+l_sql = l_sql & " 	inner JOIN clientespacientes	ON clientespacientes.id = visitas.idpaciente "
+l_sql = l_sql & " 	inner JOIN recursosreservables	ON recursosreservables.id = visitas.idrecursoreservable	 "
+l_sql = l_sql & " 	LEFT JOIN obrassociales			ON obrassociales.id = clientespacientes.idobrasocial "
+l_sql = l_sql & " where visitas.fecha >= "  & cambiafecha(l_fechadesde,"YMD",true) 
+l_sql = l_sql & " AND visitas.fecha <=  " & cambiafecha(l_fechahasta,"YMD",true) 
+if l_idrecursoreservable <> "0" then
+	l_sql = l_sql & " AND recursosreservables.id = " & l_idrecursoreservable
+end if	
+l_sql = l_sql & " AND visitas.empnro =  " & Session("empnro")   
+l_sql = l_sql & " and ISNULL(visitas.flag_ausencia,0) =0 "
+l_sql = l_sql & " and ( "
+l_sql = l_sql & "   practicasrealizadas.precio - "
+l_sql = l_sql & "   isnull( ( select sum(pagos.importe) "
+l_sql = l_sql & " 	from pagos "
+l_sql = l_sql & " 	where pagos.idpracticarealizada = practicasrealizadas.id "
+l_sql = l_sql & " 	and pagos.fecha >="  & cambiafecha(l_fechadesde,"YMD",true) 
+l_sql = l_sql & " 	AND pagos.fecha <=  " & cambiafecha(l_fechahasta,"YMD",true) 
+l_sql = l_sql & "   ),0) <> 0 "
+l_sql = l_sql & " 	) "
 l_sql = l_sql & " " & l_orden
 
- 'response.write l_sql
+'response.write l_sql
 rsOpen l_rs, cn, l_sql, 0 
  %>
 
@@ -218,9 +249,9 @@ if l_rs.eof then
 	    <tr>
 			
 	        <td align="center"><%= l_rs("fecha") %></td>	
-			<td <%'= l_fondo  %> ><%= l_rs("apellido")%>,&nbsp;<%= l_rs("nombre")%></td>
-			<td <%'= l_fondo  %> ><%= l_rs("medico")%></td>				
-			<td <%'= l_fondo  %> ><%= l_rs("descripcion")%></td>					
+			<td  ><%= l_rs("apellido")%>,&nbsp;<%= l_rs("nombre")%></td>
+			<td  ><%= l_rs("medico")%></td>				
+			<td  ><%= l_rs("descripcion")%></td>					
 			<td align="right"><%= l_rs("importe")%></td>					
 										   
 	    </tr>
