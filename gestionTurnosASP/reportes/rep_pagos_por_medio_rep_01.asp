@@ -207,7 +207,7 @@ l_sql = l_sql & " 	from pagos "
 l_sql = l_sql & " 	where pagos.idpracticarealizada = practicasrealizadas.id "
 l_sql = l_sql & " 	and pagos.fecha >="  & cambiafecha(l_fechadesde,"YMD",true) 
 l_sql = l_sql & " 	AND pagos.fecha <=  " & cambiafecha(l_fechahasta,"YMD",true) 
-l_sql = l_sql & "   ),0) <> 0 "
+l_sql = l_sql & "   ),0) > 0 "
 l_sql = l_sql & " 	) "
 l_sql = l_sql & " " & l_orden
 
