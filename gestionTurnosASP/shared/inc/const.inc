@@ -1,5 +1,5 @@
 <% 
-const cTimeout = 45 ' Minutos
+const cTimeout = 4500 ' Minutos
 
 ' Configuración de Envió de Mails
 const cEmailHost = "132.147.160.99" ' "<ip/nombre servidor de mail>"
