@@ -149,8 +149,17 @@ end if
 l_sql = "SELECT  visitas.fecha, practicas.descripcion nombrepractica , recursosreservables.descripcion nombremedico, isnull(practicasrealizadas.id,0) practicasrealizadasid , practicasrealizadas.precio , visitas.flag_ausencia  " 
 l_sql = l_sql & " ,  clientespacientes.apellido, clientespacientes.nombre"
 l_sql = l_sql & " ,  obrassociales.descripcion osnombre"
+
+'l_sql = l_sql & " ,  ospago.descripcion ospago "
+
+l_sql = l_sql & " ,  ( select min(ospago.descripcion) from pagos LEFT JOIN obrassociales ospago ON ospago.id = pagos.idobrasocial where pagos.idpracticarealizada = practicasrealizadas.id ) ospago "
+
 l_sql = l_sql & " FROM visitas "
 l_sql = l_sql & " INNER JOIN practicasrealizadas ON practicasrealizadas.idvisita = visitas.id "
+
+'l_sql = l_sql & " LEFT JOIN pagos ON pagos.idpracticarealizada = practicasrealizadas.id "
+'l_sql = l_sql & " LEFT JOIN obrassociales ospago ON ospago.id = pagos.idobrasocial "
+
 l_sql = l_sql & " LEFT JOIN recursosreservables ON recursosreservables.id = visitas.idrecursoreservable "
 l_sql = l_sql & " LEFT JOIN clientespacientes ON clientespacientes.id = visitas.idpaciente "
 l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
@@ -161,7 +170,9 @@ l_sql = l_sql & " AND  isnull(visitas.flag_ausencia,0) <> -1"
 l_sql = l_sql & " and visitas.empnro = " & Session("empnro")   
 
 if l_idos <> "0" then
-	l_sql = l_sql &" AND clientespacientes.idobrasocial = "&l_idos
+	'l_sql = l_sql &" AND clientespacientes.idobrasocial = "&l_idos
+	l_sql = l_sql &" AND ( select min(ospago.id) from pagos LEFT JOIN obrassociales ospago ON ospago.id = pagos.idobrasocial where pagos.idpracticarealizada = practicasrealizadas.id ) = "&l_idos
+
 end if
 l_sql = l_sql & " " & l_orden
 
@@ -189,6 +200,9 @@ rsOpen l_rs, cn, l_sql, 0
 		<th width="200">Nombre</th>	
 		<th width="200">Medico</th>		
         <th width="200">Practica</th>	
+
+		<th width="200">OS Practica</th>		
+
  		<th width="200">Precio</th>
  		<th width="200">Monto Pagado</th>
  		<th width="200">Saldo</th>  	       
@@ -226,7 +240,10 @@ if l_rs.eof then
 				<% 
 				l_PrecioPractica = l_rs("precio")
 				l_Pagos = Pagos(l_rs("practicasrealizadasid") )
-				%>			
+				%>	
+
+				<td  align="right"  ><%= l_rs("ospago") %></td>
+		
 				<td  align="right"  ><%= l_PrecioPractica %></td>		
 				<td  align="right" ><%= l_Pagos	 %></td>	
 				<td align="center" ><%= cdbl(l_PrecioPractica) - cdbl(l_Pagos) %></td>			
