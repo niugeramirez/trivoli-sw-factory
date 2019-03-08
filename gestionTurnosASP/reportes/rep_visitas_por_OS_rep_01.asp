@@ -171,8 +171,8 @@ l_sql = l_sql & " and visitas.empnro = " & Session("empnro")
 
 if l_idos <> "0" then
 	'l_sql = l_sql &" AND clientespacientes.idobrasocial = "&l_idos
-	l_sql = l_sql &" AND ( select min(ospago.id) from pagos LEFT JOIN obrassociales ospago ON ospago.id = pagos.idobrasocial where pagos.idpracticarealizada = practicasrealizadas.id ) = "&l_idos
-
+	'l_sql = l_sql &" AND ( select min(ospago.id) from pagos LEFT JOIN obrassociales ospago ON ospago.id = pagos.idobrasocial where pagos.idpracticarealizada = practicasrealizadas.id ) = "&l_idos
+	l_sql = l_sql &" AND exists ( select (ospago.id) from pagos LEFT JOIN obrassociales ospago ON ospago.id = pagos.idobrasocial where pagos.idpracticarealizada = practicasrealizadas.id and ospago.id = "& l_idos & ")" 
 end if
 l_sql = l_sql & " " & l_orden
 
