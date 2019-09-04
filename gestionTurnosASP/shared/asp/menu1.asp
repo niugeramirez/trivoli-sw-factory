@@ -119,6 +119,7 @@
 	<ul>				
 		<li><a target="ifrm"  href="../../config/obrassocialesV2_00.asp">Obras Sociales</a></li>
 		<li><a target="ifrm"  href="../../config/practicas_00.asp">Practicas Medicas</a></li>
+		<li><a target="ifrm"  href="../../config/codpracticas_00.asp">Codigos Practicas</a></li>
 		<li><a target="ifrm"  href="../../config/templatereservas_con_00.asp">Modelo de Turnos</a></li>
 		<li><a target="ifrm"  href="../../config/mediosdepago_00.asp">Medios de Pago</a></li>
 		<li><a target="ifrm"  href="../../seguridad/usuarios_seg_00.asp">Usuarios</a></li>

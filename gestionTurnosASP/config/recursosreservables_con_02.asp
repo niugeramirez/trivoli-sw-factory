@@ -12,6 +12,7 @@ dim l_descripcion
 dim l_idtemplatereserva
 dim l_cantturnossimult  
 dim l_cantsobreturnos     
+dim l_nromatricula
 
 'ADO
 Dim l_tipo
@@ -31,11 +32,11 @@ l_tipo = request.querystring("tipo")
 <% 
 select Case l_tipo
 	Case "A":
- 	    	l_descripcion      = ""
+ 	    	l_descripcion       = ""
 			l_idtemplatereserva = "0"
-	    	l_cantturnossimult = ""
-	    	l_cantsobreturnos  = ""
-
+	    	l_cantturnossimult  = ""
+	    	l_cantsobreturnos   = ""
+			l_nromatricula      = "" 
 	Case "M":
 		Set l_rs = Server.CreateObject("ADODB.RecordSet")
 		l_id = request.querystring("cabnro")
@@ -44,11 +45,11 @@ select Case l_tipo
 		l_sql  = l_sql  & " WHERE id = " & l_id
 		rsOpen l_rs, cn, l_sql, 0 
 		if not l_rs.eof then
- 	    	l_descripcion      = l_rs("descripcion")
+ 	    	l_descripcion       = l_rs("descripcion")
 			l_idtemplatereserva = l_rs("idtemplatereserva")
-	    	l_cantturnossimult = l_rs("cantturnossimult")
-	    	l_cantsobreturnos  = l_rs("cantsobreturnos")
-			
+	    	l_cantturnossimult  = l_rs("cantturnossimult")
+	    	l_cantsobreturnos   = l_rs("cantsobreturnos")
+			l_nromatricula      = l_rs("nro_matricula") 
 		end if
 		l_rs.Close
 end select
@@ -73,7 +74,6 @@ end select
 								<td colspan="3">
 									<input type="text" name="descripcion" size="37" maxlength="37" value="<%= l_descripcion %>">							
 								</td>
-				
 							</tr>	
 							<tr>
 								<td align="right"><b>Modelo:</b></td>
@@ -103,8 +103,13 @@ end select
 								<td>
 									<input type="text" name="cantturnossimult" size="20" maxlength="20" value="<%= l_cantturnossimult %>">
 								</td>
-						
-							</tr>						
+							</tr>
+							<tr>
+								<td align="right"><b>Matricula:</b></td>
+								<td>
+									<input type="text" name="nromatricula" size="20" maxlength="20" value="<%= l_nromatricula %>">
+								</td>
+							</tr>		
 							</table>
 						</td>
 					</tr>

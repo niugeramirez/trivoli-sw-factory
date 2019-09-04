@@ -41,6 +41,7 @@ end if
 <table>
     <tr>
         <th>Apellido</th>
+		<th>Matricula</th>
         <th>Modelo</th>	
         <th>Cant. Turnos Simultaneos</th>		
         <th>Acciones</th> 			
@@ -81,6 +82,7 @@ end if
 	    %>
 	    <tr ondblclick="Javascript:parent.abrirDialogo('dialog','recursosreservables_con_02.asp?Tipo=M&cabnro=' + document.detalle_01.cabnro.value,650,250);" onclick="Javascript:parent.Seleccionar(this,<%= l_rs("id")%>,document.detalle_01.cabnro)">    
 			<td width="10%" nowrap><%= l_rs("descripcion")%></td>
+			<td width="10%" nowrap><%= l_rs("nro_matricula")%></td>
 			<td width="10%" nowrap><%= l_rs("titulo")%></td>
 	        <td width="10%" nowrap align="center"><%= l_rs("cantturnossimult")%></td>						
 	        <td align="center" width="10%" nowrap>                    
