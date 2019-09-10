@@ -25,6 +25,8 @@ Dim l_ciudad
 
 dim l_observaciones
 
+dim l_oblig
+
 'ADO
 Dim l_tipo
 Dim l_sql
@@ -182,6 +184,7 @@ select Case l_tipo
 			l_telefono      = ""
 			l_idobrasocial  = "0"
 			l_fecha_ingreso = ""
+			l_oblig         = "S"
 			l_fechanacimiento = ""
 			l_nro_obra_social = ""
 			l_sexo = ""
@@ -204,6 +207,7 @@ select Case l_tipo
 			l_telefono      = l_rs("telefono")
 			l_idobrasocial  = l_rs("idobrasocial")
 			l_fecha_ingreso = l_rs("fecha_ingreso") 
+			l_oblig         = l_rs("afiliado_obligatorio")
 			l_fechanacimiento = l_rs("fechanacimiento")
 			l_nro_obra_social = l_rs("nro_obra_social") 
 			l_sexo = l_rs("sexo")
@@ -331,7 +335,16 @@ end select
 							<input type="text" name="nro_obra_social" size="20" maxlength="30" value="<%= l_nro_obra_social %>">
 						</td>										
 					</tr>									
-									
+					
+					<tr>
+					    <td align="right"></td>
+						<td>							
+						</td>
+					    <td align="right"><b>Afiliado Obligatorio:</b></td>
+						<td>
+							<input  type=checkbox name="afiliado_oblig" size="20" maxlength="20" <% if l_oblig = "S" then %> checked  > <% End If %>
+						</td>
+					</tr>	
 					
 					<tr>
 					    <td align="right" ><b>Fec. Ingreso:</b></td>

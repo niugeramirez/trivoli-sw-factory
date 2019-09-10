@@ -29,7 +29,7 @@ Dim l_sexo
 Dim l_ciudad
 
 dim l_observaciones
-
+dim l_oblig
 
 l_tipo 		     = request.querystring("tipo")
 l_id             = request.Form("id")
@@ -64,6 +64,15 @@ end if
 
 
 l_nro_obra_social = request.Form("nro_obra_social")
+
+l_oblig            = request.Form("afiliado_oblig")
+
+if l_oblig = "on" then
+l_oblig = "S"
+else
+l_oblig = "N"
+end if
+
 l_sexo = request.Form("sexo")
 l_ciudad = request.Form("ciudad")
 
@@ -84,8 +93,8 @@ end if
 
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO clientespacientes "
-	l_sql = l_sql & " (apellido, nombre, nrohistoriaclinica , dni,domicilio, telefono,idobrasocial, fecha_ingreso, fechanacimiento, nro_obra_social, sexo, idciudad , observaciones ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
-	l_sql = l_sql & " VALUES ('" & UCase(l_apellido) & "','" & UCase(l_nombre) & "','" & l_nrohistoriaclinica & "'," & l_dni & ",'" & l_domicilio & "','" & l_telefono & "'," & l_idobrasocial & "," & l_fecha_ingreso & "," & l_fechanacimiento & ",'" & l_nro_obra_social & "','" & l_sexo & "'," & l_ciudad & ",'" & l_observaciones & "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	l_sql = l_sql & " (apellido, nombre, nrohistoriaclinica , dni,domicilio, telefono,idobrasocial, fecha_ingreso, fechanacimiento, nro_obra_social, sexo, idciudad , observaciones , afiliado_obligatorio ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
+	l_sql = l_sql & " VALUES ('" & UCase(l_apellido) & "','" & UCase(l_nombre) & "','" & l_nrohistoriaclinica & "'," & l_dni & ",'" & l_domicilio & "','" & l_telefono & "'," & l_idobrasocial & "," & l_fecha_ingreso & "," & l_fechanacimiento & ",'" & l_nro_obra_social & "','" & l_sexo & "'," & l_ciudad & ",'" & l_observaciones & "','" & l_oblig & "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 else
 	l_sql = "UPDATE clientespacientes "
 	l_sql = l_sql & " SET apellido    = '" & UCase(l_apellido) & "'"
@@ -96,7 +105,8 @@ else
 	l_sql = l_sql & "    ,telefono      = '" & l_telefono & "'"	
 	l_sql = l_sql & "    ,idobrasocial  = " & l_idobrasocial 	
 	l_sql = l_sql & "    ,sexo          = '" & l_sexo & "'"		
-	l_sql = l_sql & "    ,observaciones  = '" & l_observaciones & "'"	
+	l_sql = l_sql & "    ,observaciones  = '" & l_observaciones & "'"
+    l_sql = l_sql & "    ,afiliado_obligatorio  = '" & l_oblig & "'"	
 	
 	
 	l_sql = l_sql & "    ,fecha_ingreso  = " & l_fecha_ingreso
