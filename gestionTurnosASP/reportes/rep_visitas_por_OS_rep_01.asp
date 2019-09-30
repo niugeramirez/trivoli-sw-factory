@@ -19,6 +19,7 @@ Dim l_cant
 dim l_fechahorainicio
 dim l_cantturnossimult
 dim l_idos
+dim l_tipo
 dim l_cantturnos
 dim l_fondo
 Dim l_PrecioPractica
@@ -125,25 +126,31 @@ l_filtro = replace (l_filtro, "*", "%")
 l_idos = request("idos")
 l_fechadesde = request("qfechadesde")
 l_fechahasta = request("qfechahasta")
-
-
+l_tipo = request("tipo")
 
 Set l_rs = Server.CreateObject("ADODB.RecordSet")
 
 ' Obtengo el Nombre de la OS
-if l_idos = "0" then
-	l_nombreOS = "Todas"
-else	
-	l_sql = "SELECT  * "
-	l_sql = l_sql & " FROM obrassociales "
-	l_sql = l_sql & " WHERE id = " & l_idos
-	rsOpen l_rs, cn, l_sql, 0 
-	l_nombreOS = ""
-	if not l_rs.eof then
-		l_nombreOS = l_rs("descripcion")
-	end if
-	l_rs.close
+l_nombreOS = ""
+l_sql = "SELECT  * "
+l_sql = l_sql & " FROM obrassociales "
+l_sql = l_sql & " WHERE id IN " & l_idos 
+
+rsOpen l_rs, cn, l_sql, 0 
+
+
+if not l_rs.eof then
+	do until l_rs.eof
+		if l_nombreOS = "" then
+			l_nombreOS = l_rs("descripcion")
+		else 
+			l_nombreOS = l_nombreOS & ", " & l_rs("descripcion")
+		end if
+		l_rs.MoveNext
+	loop
 end if
+
+l_rs.close
 
 
 l_sql = "SELECT  visitas.fecha, practicas.descripcion nombrepractica , recursosreservables.descripcion nombremedico, isnull(practicasrealizadas.id,0) practicasrealizadasid , practicasrealizadas.precio , visitas.flag_ausencia  " 
@@ -169,10 +176,16 @@ l_sql = l_sql & " AND  visitas.fecha <= " & cambiafecha(l_fechahasta,"YMD",true)
 l_sql = l_sql & " AND  isnull(visitas.flag_ausencia,0) <> -1" 
 l_sql = l_sql & " and visitas.empnro = " & Session("empnro")   
 
+if l_tipo <> "T" then
+	if l_tipo = "O" then
+		l_sql = l_sql & " AND clientespacientes.afiliado_obligatorio = 'S'"
+	else
+		l_sql = l_sql & " AND (clientespacientes.afiliado_obligatorio IS NULL OR clientespacientes.afiliado_obligatorio <> 'S')"
+	end if
+end if
+
 if l_idos <> "0" then
-	'l_sql = l_sql &" AND clientespacientes.idobrasocial = "&l_idos
-	'l_sql = l_sql &" AND ( select min(ospago.id) from pagos LEFT JOIN obrassociales ospago ON ospago.id = pagos.idobrasocial where pagos.idpracticarealizada = practicasrealizadas.id ) = "&l_idos
-	l_sql = l_sql &" AND exists ( select (ospago.id) from pagos LEFT JOIN obrassociales ospago ON ospago.id = pagos.idobrasocial where pagos.idpracticarealizada = practicasrealizadas.id and ospago.id = "& l_idos & ")" 
+	l_sql = l_sql &" AND exists ( select (ospago.id) from pagos LEFT JOIN obrassociales ospago ON ospago.id = pagos.idobrasocial where pagos.idpracticarealizada = practicasrealizadas.id and ospago.id IN "& l_idos & ")" 
 end if
 l_sql = l_sql & " " & l_orden
 

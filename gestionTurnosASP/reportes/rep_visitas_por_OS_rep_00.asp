@@ -40,7 +40,23 @@ $( "#fechahasta" ).datepicker({
 });
 </script>
 <!-- Final Datepicker -->
+<!-- Inicio MULTIPLE SELECCION -->	
+<script src="../js/jquery.sumoselect.js"></script>
+<link href="../js/sumoselect.css" rel="stylesheet" />
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.asd = $('.SlectBox').SumoSelect({ csvDispCount: 3 });
+        window.test = $('.testsel').SumoSelect({okCancelInMulti:true });
+        window.testSelAll = $('.testSelAll').SumoSelect({okCancelInMulti:true, selectAll:true });
+        window.testSelAll2 = $('.testSelAll2').SumoSelect({selectAll:true });
+    });
+</script>
+<style type="text/css">
+    body{font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;color:#444;font-size:13px;}
+    p,div,ul,li{padding:0px; margin:0px;}
+</style>
+<!-- Final MULTIPLE SELECCION -->
 <script>
 
 <% on error goto 0
@@ -60,9 +76,8 @@ function Imprimir(){
 function Actualizar(destino){
 
 	var param;
+	
 	//Fechas	
-	
-	
 	if (document.datos.fechadesde.value == "")  {
   		alert("Debe ingresar la Fecha Desde ");
   		document.datos.fechadesde.focus();
@@ -81,14 +96,62 @@ function Actualizar(destino){
 		return;
 	}		
 	
+	// Obras Sociales
+    lista = document.all.idos;
+	opciones = lista.options
+    osociales = '';
+    
+	for (i=0;i<opciones.length;i++) {
+         if (opciones[i].selected == true ) {
+		     if  (osociales == '' ) {
+			 	osociales = opciones[i].value;
+			 }	
+			 else {
+			 	osociales = osociales + ',' + opciones[i].value ;
+			 }           
+		
+         }
+    }	
 	
-	param = "qfechadesde=" + document.all.fechadesde.value + "&qfechahasta=" + document.all.fechahasta.value + "&idos=" + document.all.idos.value; 
+	if (osociales == '' ){
+		alert('Debe Seleccionar al menos una Obra Social.');
+		return;
+		
+	}	
 	
-	if (destino== "exel")
-    	abrirVentana("rep_visitas_por_OS_rep_01.asp?" + param + "&excel=true",'execl',250,150);
+	if ( document.datos.afiliado_oblig.checked == false && document.datos.afiliado_volunt.checked == false ){
+	alert("Debe seleccionar si el Reporte se genera para Afiliados Obligatorios y/o Voluntarios.");
+	document.datos.afliliado_oblig.focus();
+	return;
+	}
+
+	osociales = "(" + osociales + ")";
+	
+	tipo = 'T'
+	
+	if ( document.datos.afiliado_oblig.checked == false ){
+		tipo = 'V'
+	}
+	
+	if ( document.datos.afiliado_volunt.checked == false ){
+		tipo = 'O'
+	}
+	
+	param = "qfechadesde=" + document.all.fechadesde.value + "&qfechahasta=" + document.all.fechahasta.value + "&idos=" + osociales + "&tipo=" + tipo; 
+	
+	if (destino== "exel"){
+    	abrirVentana("rep_visitas_por_OS_rep_01.asp?" + param + "&excel=true",'excel',250,150);
+	}
 	else
-		document.ifrm.location = "rep_visitas_por_OS_rep_01.asp?" + param;			
-	
+	{
+		if (destino== "txt"){
+			abrirVentana("rep_visitas_por_OS_rep_02.asp?" + param,'txt',600,120);
+		} 
+		else
+		{
+			document.ifrm.location = "rep_visitas_por_OS_rep_01.asp?" + param;			
+		}
+	}
 }
 
 function Ayuda_Fecha(txt){
@@ -116,8 +179,8 @@ function Ayuda_Fecha(txt){
 			<a class=sidebtnSHW href="Javascript:Actualizar('ifrm')"><img  src="/turnos/shared/images/Buscar_24.png" border="0" title="Buscar"></a>		  
 			<!--<a class=sidebtnSHW href="Javascript:Imprimir()">Imprimir</a>	-->	  
 			<a class=sidebtnSHW href="Javascript:Actualizar('exel')"><img  src="/turnos/shared/images/Excel-icon_24.png" border="0" title="Excel"></a> 
+			<a class=sidebtnSHW href="Javascript:Actualizar('txt')"><img  src="/turnos/shared/images/txt.png" border="0" title="Generar TXT"></a> 
 			&nbsp;
-			
 		</td>
 	</tr>
 		<tr>
@@ -127,16 +190,16 @@ function Ayuda_Fecha(txt){
 		
 
 					<tr>
-						<td align="right"><b>Fecha Desde: </b><input id="fechadesde" type="text" name="fechadesde" value=""></td>
+						<td  align="right" nowrap><b>Fecha Desde:</b></td>
+						<td><input id="fechadesde" type="text" name="fechadesde" value=""></td>
 						
-						<td align="right"><b>Fecha Hasta: </b><input id="fechahasta" type="text" name="fechahasta"></td>
+						<td  align="right" nowrap><b>Fecha Hasta:</b></td>
+						<td align="right"><input id="fechahasta" type="text" name="fechahasta"></td>
 												
 						
-						<td align="right"><b>OS:</b></td>
-
-						<td><select name="idos" size="1" style="width:200;">
-								<option value=0 selected>Todas las OS</option>
-								<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
+						<td  align="right" nowrap><b>Obra Social: </b></td>
+						<td colspan="3"><select name="idos" multiple="multiple" placeholder="Obras Sociales" onchange="console.log($(this).children(':selected').length)" class="testSelAll">
+							<%Set l_rs = Server.CreateObject("ADODB.RecordSet")
 								l_sql = "SELECT  * "
 								l_sql  = l_sql  & " FROM obrassociales  "
 							    l_sql =  l_sql & " where obrassociales.empnro = " & Session("empnro") 
@@ -149,9 +212,17 @@ function Ayuda_Fecha(txt){
 								loop
 								l_rs.Close %>
 							</select>
-							<script>document.datos.idos.value= "<%= 0 %>"</script>
 						</td>							
-																
+						
+						<td align="right"><b>Obligatorios:</b></td>
+						<td>
+							<input  type=checkbox name="afiliado_oblig">
+						</td>
+						
+						<td align="right"><b>Voluntarios:</b></td>
+						<td>
+							<input  type=checkbox name="afiliado_volunt">
+						</td>
 					</tr>	
 
 				</table>
