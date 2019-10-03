@@ -23,6 +23,7 @@ dim l_tipo
 dim l_cantturnos
 dim l_fondo
 Dim l_PrecioPractica
+Dim l_PrecioPractica_act
 Dim l_pagos
 
 Dim l_primero
@@ -153,7 +154,7 @@ end if
 l_rs.close
 
 
-l_sql = "SELECT  visitas.fecha, practicas.descripcion nombrepractica , recursosreservables.descripcion nombremedico, isnull(practicasrealizadas.id,0) practicasrealizadasid , practicasrealizadas.precio , visitas.flag_ausencia  " 
+l_sql = "SELECT  visitas.fecha, practicas.descripcion nombrepractica , recursosreservables.descripcion nombremedico, isnull(practicasrealizadas.id,0) practicasrealizadasid , practicasrealizadas.precio , visitas.flag_ausencia, practicasrealizadas.idpractica, clientespacientes.idobrasocial  " 
 l_sql = l_sql & " ,  clientespacientes.apellido, clientespacientes.nombre"
 l_sql = l_sql & " ,  obrassociales.descripcion osnombre"
 
@@ -196,16 +197,16 @@ rsOpen l_rs, cn, l_sql, 0
 <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" onload="//javascript:parent.Buscar();">
 <table>
     <tr>
-        <td colspan="6">&nbsp;</td>
+        <td colspan="9">&nbsp;</td>
     </tr>
 	<tr>
-        <td  colspan="6" align="center" ><h3>Visitas desde:&nbsp;<%= l_fechadesde %>&nbsp; al <%= l_fechahasta %>&nbsp;&nbsp;</h3></td>	
+        <td  colspan="9" align="center" ><h3>Visitas desde:&nbsp;<%= l_fechadesde %>&nbsp; al <%= l_fechahasta %>&nbsp;&nbsp;</h3></td>	
     </tr>
 	<tr>
-        <td  colspan="6" align="center" ><h3>Obra Social:&nbsp;<%= l_nombreOS%>&nbsp; </h3></td>	
+        <td  colspan="9" align="center" ><h3>Obra Social:&nbsp;<%= l_nombreOS%>&nbsp; </h3></td>	
     </tr>	
     <tr>
-        <td colspan="6">&nbsp;</td>
+        <td colspan="9">&nbsp;</td>
     </tr>	
     <tr>
         <th width="100">Fecha</th>
@@ -215,7 +216,7 @@ rsOpen l_rs, cn, l_sql, 0
         <th width="200">Practica</th>	
 
 		<th width="200">OS Practica</th>		
-
+		<th width="200">Precio Actual</th>
  		<th width="200">Precio</th>
  		<th width="200">Monto Pagado</th>
  		<th width="200">Saldo</th>  	       
@@ -227,7 +228,7 @@ if l_rs.eof then
 	l_primero = 0
 %>
 <tr>
-	 <td colspan="7" >No existen Visitas cargadas para el filtro ingresado.</td>
+	 <td colspan="9" >No existen Visitas cargadas para el filtro ingresado.</td>
 </tr>
 <%else
     l_primero = l_rs("id")
@@ -247,22 +248,21 @@ if l_rs.eof then
 				<td align="center" >&nbsp;</td>
 				<td align="center" >&nbsp;</td>
 				<td align="center" >&nbsp;</td>
-			
+				<td align="center" >&nbsp;</td>
 			<% Else  %>
 				<td><%= l_rs("nombrepractica")%>&nbsp;</td>			
 				<% 
 				l_PrecioPractica = l_rs("precio")
+				l_PrecioPractica_act = PrecioPractica(l_rs("idpractica") , l_rs("idobrasocial") )
 				l_Pagos = Pagos(l_rs("practicasrealizadasid") )
 				%>	
 
 				<td  align="right"  ><%= l_rs("ospago") %></td>
-		
+				<td  align="right"  ><%= l_PrecioPractica_act %></td>
 				<td  align="right"  ><%= l_PrecioPractica %></td>		
 				<td  align="right" ><%= l_Pagos	 %></td>	
 				<td align="center" ><%= cdbl(l_PrecioPractica) - cdbl(l_Pagos) %></td>			
 			<% End If %>			
-
-													   
 	    </tr>
 	<%
 		l_rs.MoveNext
