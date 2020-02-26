@@ -150,8 +150,16 @@ l_sql = l_sql & " INNER JOIN calendarios ON calendarios.id = turnos.idcalendario
 l_sql = l_sql & " LEFT JOIN recursosreservables ON recursosreservables.id = calendarios.idrecursoreservable "
 'l_sql = l_sql & " LEFT JOIN obrassociales ON obrassociales.id = clientespacientes.idobrasocial "
 l_sql = l_sql & " WHERE turnos.idclientepaciente = " & l_idpaciente
-l_sql = l_sql & " AND  calendarios.fechahorainicio  >= " & cambiafecha(l_fechadesde,"YMD",true) 
-l_sql = l_sql & " AND  calendarios.fechahorainicio <= " & cambiafecha(l_fechahasta,"YMD",true) 
+'l_sql = l_sql & " AND  calendarios.fechahorainicio  >= " & cambiafecha(l_fechadesde,"YMD",true) 
+'l_sql = l_sql & " AND  calendarios.fechahorainicio <= " & cambiafecha(l_fechahasta,"YMD",true) 
+
+'l_sql = l_sql & " AND  CONVERT(varchar,calendarios.fechahorainicio,101)  >= " & cambiafecha(l_fechadesde,"YMD",true) 
+'l_sql = l_sql & " AND  CONVERT(varchar,calendarios.fechahorainicio,101)  <= " & cambiafecha(l_fechahasta,"YMD",true) 
+
+
+l_sql = l_sql & " AND  CONVERT(varchar(10),calendarios.fechahorainicio,111)  >= '" & mid(l_fechadesde,7,4) & "/" & mid(l_fechadesde,4,2) & "/" & mid(l_fechadesde,1,2) & "'"
+l_sql = l_sql & " AND  CONVERT(varchar(10),calendarios.fechahorainicio,111)  <= '" & mid(l_fechahasta,7,4) & "/" & mid(l_fechahasta,4,2) & "/" & mid(l_fechahasta,1,2) & "'"
+
 
 l_sql = l_sql & " and turnos.empnro = " & Session("empnro")   
 
@@ -160,7 +168,7 @@ l_sql = l_sql & " and turnos.empnro = " & Session("empnro")
 'end if
 l_sql = l_sql & " " & l_orden
 
- 'response.write l_sql
+ 'response.write l_sql & "  " & mid(l_fechadesde,7,4) & "/" & mid(l_fechadesde,4,2) & "/" & mid(l_fechadesde,1,2)
 rsOpen l_rs, cn, l_sql, 0 
  %>
 
