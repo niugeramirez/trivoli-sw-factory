@@ -34,6 +34,7 @@ Dim l_idmedicoderivador
 Dim l_idpractica
 
 Dim l_preciopractica 
+Dim l_PrecioPractica_act
 Dim l_monto_pagado 
 
 l_filtro = request("filtro")
@@ -55,6 +56,7 @@ sub encabezado
 		<th width="10%">Nro. Historia Clinica</th>			
         <th width="10%">Practica</th>	
 		<th width="10%">Medico Derivador</th>
+		<th width="10%">Precio Actual</th>
 		<th width="10%">Precio Practica</th>
         <th width="10%">Medio Pago</th>
 		<th width="10%">OS</th>
@@ -76,7 +78,8 @@ Sub totales
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
-			<td align="right">Total</td>					
+			<td align="right">Total</td>	
+			<td>&nbsp;</td>			
 			<td align="right"><%= l_preciopractica %></td>					
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
@@ -124,6 +127,29 @@ function Seleccionar(fila,cabnro, turnoid){
 </script>
 <% 
 
+Function PrecioPractica(id_practica , id_obrasocial )
+	dim l_rs
+	dim l_sql
+
+
+	Set l_rs = Server.CreateObject("ADODB.RecordSet")
+
+	l_sql = "SELECT  * "
+	l_sql = l_sql & " FROM listaprecioscabecera "
+	l_sql = l_sql & " INNER JOIN listapreciosdetalle ON listapreciosdetalle.idlistaprecioscabecera = listaprecioscabecera.id "
+	l_sql = l_sql & " WHERE flag_activo = -1 "
+	l_sql = l_sql & " AND idobrasocial = " & id_obrasocial
+	l_sql = l_sql & " AND idpractica = " & id_practica
+	rsOpen l_rs, cn, l_sql, 0 
+	if not l_rs.eof then
+		PrecioPractica = l_rs("precio")
+	else
+		PrecioPractica = 0
+	end if
+	l_rs.close
+
+end Function
+
 l_filtro = replace (l_filtro, "*", "%")
 l_idmedicoderivador = request("idmedicoderivador")
 l_fechadesde = request("qfechadesde")
@@ -163,7 +189,7 @@ l_sql = l_sql & ",obrassociales.descripcion obra_social "
 l_sql = l_sql & ",os.descripcion obrasocialpaciente "
 l_sql = l_sql & ",sum(pagos.importe) monto_pagado "
 l_sql = l_sql & ",visitas.id id_visita "
-l_sql = l_sql & ",practicasrealizadas.id id_practicarealizada "
+l_sql = l_sql & ",practicasrealizadas.id id_practicarealizada ,clientespacientes.idobrasocial ,practicasrealizadas.idpractica"
 l_sql = l_sql & " FROM visitas "
 l_sql = l_sql & "inner join recursosreservables on recursosreservables.id = visitas.idrecursoreservable "
 l_sql = l_sql & "inner join clientespacientes on clientespacientes.id = visitas.idpaciente "
@@ -199,7 +225,7 @@ l_sql = l_sql & ",mediosdepago.titulo "
 l_sql = l_sql & ",obrassociales.descripcion	"
 l_sql = l_sql & ",os.descripcion "
 l_sql = l_sql & ",visitas.id "
-l_sql = l_sql & ",practicasrealizadas.id "
+l_sql = l_sql & ",practicasrealizadas.id ,clientespacientes.idobrasocial ,practicasrealizadas.idpractica "
 l_sql = l_sql & "order by id_visita "
 l_sql = l_sql & ",id_practicarealizada  "
 
@@ -242,6 +268,10 @@ if l_rs.eof then
 			<td align="center" ><%= l_rs("nrohistoriaclinica")%></td>					
 			<td align="left"><%= l_rs("practica")%></td>	
 			<td align="left"><%= l_rs("medico_derivador")%></td>	
+				<% 				
+				l_PrecioPractica_act = PrecioPractica(l_rs("idpractica") , l_rs("idobrasocial") )
+				%>				
+			<td align="right"><%=  l_PrecioPractica_act%></td>	
 			<td align="right"><%= l_rs("preciopractica")%></td>	
 			<td align="left"><%= l_rs("medio_pago")%></td>	
 			<td align="left"><%= l_rs("obra_social")%></td>
