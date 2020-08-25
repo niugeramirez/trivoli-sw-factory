@@ -29,6 +29,7 @@ Dim l_sexo
 Dim l_ciudad
 
 dim l_observaciones
+dim l_email
 dim l_oblig
 
 l_tipo 		     = request.querystring("tipo")
@@ -81,6 +82,7 @@ if len(l_ciudad) = 0 then
 end if 
 
 l_observaciones = request.Form("observaciones")
+l_email = request.Form("email")
 
 'Al operar sobre varias tablas debo iniciar una transacción
  cn.BeginTrans
@@ -93,8 +95,8 @@ end if
 
 if l_tipo = "A" then 
 	l_sql = "INSERT INTO clientespacientes "
-	l_sql = l_sql & " (apellido, nombre, nrohistoriaclinica , dni,domicilio, telefono,idobrasocial, fecha_ingreso, fechanacimiento, nro_obra_social, sexo, idciudad , observaciones , afiliado_obligatorio ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
-	l_sql = l_sql & " VALUES ('" & UCase(l_apellido) & "','" & UCase(l_nombre) & "','" & l_nrohistoriaclinica & "'," & l_dni & ",'" & l_domicilio & "','" & l_telefono & "'," & l_idobrasocial & "," & l_fecha_ingreso & "," & l_fechanacimiento & ",'" & l_nro_obra_social & "','" & l_sexo & "'," & l_ciudad & ",'" & l_observaciones & "','" & l_oblig & "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
+	l_sql = l_sql & " (apellido, nombre, nrohistoriaclinica , dni,domicilio, telefono,idobrasocial, fecha_ingreso, fechanacimiento, nro_obra_social, sexo, idciudad , observaciones , email, afiliado_obligatorio ,empnro,created_by,creation_date,last_updated_by,last_update_date)"
+	l_sql = l_sql & " VALUES ('" & UCase(l_apellido) & "','" & UCase(l_nombre) & "','" & l_nrohistoriaclinica & "'," & l_dni & ",'" & l_domicilio & "','" & l_telefono & "'," & l_idobrasocial & "," & l_fecha_ingreso & "," & l_fechanacimiento & ",'" & l_nro_obra_social & "','" & l_sexo & "'," & l_ciudad & ",'" & l_observaciones & "','" & l_email & "','" & l_oblig & "','" & session("empnro") & "','" & session("loguinUser")&"',GETDATE(),'"&session("loguinUser")&"',GETDATE())"
 else
 	l_sql = "UPDATE clientespacientes "
 	l_sql = l_sql & " SET apellido    = '" & UCase(l_apellido) & "'"
@@ -106,6 +108,7 @@ else
 	l_sql = l_sql & "    ,idobrasocial  = " & l_idobrasocial 	
 	l_sql = l_sql & "    ,sexo          = '" & l_sexo & "'"		
 	l_sql = l_sql & "    ,observaciones  = '" & l_observaciones & "'"
+	l_sql = l_sql & "    ,email  = '" & l_email & "'"
     l_sql = l_sql & "    ,afiliado_obligatorio  = '" & l_oblig & "'"	
 	
 	

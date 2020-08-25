@@ -24,6 +24,7 @@ Dim l_sexo
 Dim l_ciudad 
 
 dim l_observaciones
+dim l_email
 
 dim l_oblig
 
@@ -191,6 +192,7 @@ select Case l_tipo
 			'l_ciudad  = "0"
 			
 			l_observaciones = ""
+			l_email         = ""
 	Case "M":
 
 		l_id = request.querystring("cabnro")
@@ -217,6 +219,7 @@ select Case l_tipo
 			end if
 			
 			l_observaciones = l_rs("observaciones")
+			l_email = l_rs("email")
 			
 		end if
 		l_rs.Close
@@ -360,7 +363,13 @@ end select
 						</td>						
 					</tr>
 					
-																															
+					<tr>
+					    <td align="right"><b>EMail:</b></td>
+						<td colspan="3">
+							<input type="text" name="email" size="25" maxlength="100" value="<%= l_email %>">
+						</td>
+					</tr>
+					
 					<tr>
 					    <td align="right"><b>Observaciones:</b></td>
 						<td colspan="3">
