@@ -172,7 +172,7 @@ end if
 
 l_sql = l_sql & " and pagos.empnro = " & Session("empnro")   
 
-l_sql = l_sql & " union "
+l_sql = l_sql & " union all "
 l_sql = l_sql & " select   visitas.fecha, "
 l_sql = l_sql & " clientespacientes.apellido, "
 l_sql = l_sql & "   clientespacientes.nombre,  "
