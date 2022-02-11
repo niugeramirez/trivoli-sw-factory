@@ -181,10 +181,10 @@ function logout(arg){
 		
 	</tr>
 	<tr>
-		<td nowrap align="center" width="160">
+		<td nowrap align="center" width="65">
 			<iframe name="pasos" src="menu1.asp" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" align="left"></iframe> 
 		</td>
-    	<td nowrap align="right" width="100%" height="100%">
+    	<td nowrap align="right" width="400" height="100%">
 			<iframe name="ifrm" src="../../config/Agenda_con_00_v2.asp" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no"></iframe>
 		</td>
 	</tr>
